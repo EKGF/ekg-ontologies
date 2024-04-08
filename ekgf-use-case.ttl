@@ -1,0 +1,199 @@
+@prefix : <https://ekgf.org/ontology/use-case#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix obda: <https://w3id.org/obda/vocabulary#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix orcid: <http://orcid.org/> .
+@prefix story: <https://ekgf.org/ontology/story#> .
+@prefix dcelem: <http://purl.org/dc/elements/1.1/> .
+@prefix concept: <https://ekgf.org/ontology/concept#> .
+@prefix persona: <https://ekgf.org/ontology/persona#> .
+@prefix use-case: <https://ekgf.org/ontology/use-case#> .
+@prefix dbpedia-owl: <https://dbpedia.org/ontology/> .
+@base <https://ekgf.org/ontology/use-case#> .
+
+<https://ekgf.org/ontology/use-case#> rdf:type owl:Ontology ;
+                                       owl:imports persona: ,
+                                                   story: ;
+                                       rdfs:comment "The EKGF Use Case Ontology, based on the EKG/Method as documented on https://method.ekgf.org"@en ;
+                                       rdfs:label "EKGF Use Case Ontology"@en .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  https://ekgf.org/ontology/use-case#hasColor
+use-case:hasColor rdf:type owl:ObjectProperty ;
+                  rdfs:label "has color"@en-us ,
+                             "has colour"@en .
+
+
+###  https://ekgf.org/ontology/use-case#hasStereoType
+use-case:hasStereoType rdf:type owl:ObjectProperty ;
+                       rdfs:domain use-case:UseCase ;
+                       rdfs:range use-case:UseCaseStereoType .
+
+
+###  https://ekgf.org/ontology/use-case#involvesPersona
+use-case:involvesPersona rdf:type owl:ObjectProperty ;
+                         owl:inverseOf use-case:isInvolvedInUseCase ;
+                         rdfs:domain use-case:UseCase ;
+                         rdfs:range persona:Persona ;
+                         dcelem:creator <http://orcid.org/0000-0003-2309-5068> ;
+                         dcelem:date "2020-06-20T14:13:55Z"^^xsd:dateTime ;
+                         rdfs:comment "The given persona is involved in the current use case"@en ;
+                         rdfs:label "Involves persona"@en .
+
+
+###  https://ekgf.org/ontology/use-case#isComponentOf
+use-case:isComponentOf rdf:type owl:ObjectProperty ,
+                                owl:IrreflexiveProperty ;
+                       rdfs:domain use-case:UseCase ;
+                       rdfs:range use-case:UseCase ;
+                       dcelem:creator <http://orcid.org/0000-0003-2309-5068> ;
+                       dcelem:date "2020-06-20T12:36:22Z"^^xsd:dateTime ;
+                       rdfs:comment "The given use case is a component of the current use case"@en ;
+                       rdfs:label "Is a component of use case"@en .
+
+
+###  https://ekgf.org/ontology/use-case#isInvolvedInUseCase
+use-case:isInvolvedInUseCase rdf:type owl:ObjectProperty ;
+                             rdfs:domain persona:Persona ;
+                             rdfs:range use-case:UseCase ;
+                             dcelem:creator <http://orcid.org/0000-0003-2309-5068> ;
+                             dcelem:date "2020-04-08T00:01:05Z"^^xsd:dateTime ;
+                             rdfs:comment "This persona is involved in the given use case"@en ;
+                             rdfs:label "Is involved in"@en .
+
+
+###  https://ekgf.org/ontology/use-case#isUsedInUseCase
+use-case:isUsedInUseCase rdf:type owl:ObjectProperty ;
+                         owl:inverseOf use-case:usesConcept ;
+                         rdfs:domain concept:Concept ;
+                         rdfs:range use-case:UseCase ;
+                         dcelem:creator <http://orcid.org/0000-0003-2309-5068> ;
+                         dcelem:date "2020-06-20T12:40:56Z"^^xsd:dateTime ;
+                         rdfs:comment "The current Concept is used in the given UseCase"@en ;
+                         rdfs:label "Is used in use case"@en .
+
+
+###  https://ekgf.org/ontology/use-case#ownsConceptSet
+use-case:ownsConceptSet rdf:type owl:ObjectProperty ;
+                        rdfs:domain use-case:UseCase ;
+                        rdfs:range concept:ConceptSet ;
+                        rdfs:label "owns concept-set"@en .
+
+
+###  https://ekgf.org/ontology/use-case#usedIn
+use-case:usedIn rdf:type owl:ObjectProperty ;
+                rdfs:domain story:Story ;
+                rdfs:range use-case:UseCase ;
+                dcelem:creator <http://orcid.org/0000-0003-2309-5068> ;
+                dcelem:date "2020-04-08T00:02:11Z"^^xsd:dateTime ;
+                rdfs:comment "This Story is used in or part of the given UseCase"@en ;
+                rdfs:label "Used in"@en .
+
+
+###  https://ekgf.org/ontology/use-case#usesConcept
+use-case:usesConcept rdf:type owl:ObjectProperty ;
+                     rdfs:domain use-case:UseCase ;
+                     rdfs:range concept:Concept ;
+                     dcelem:creator <http://orcid.org/0000-0003-2309-5068> ;
+                     dcelem:date "2020-06-20T12:40:26Z"^^xsd:dateTime ;
+                     rdfs:label "Uses concept"@en .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  https://ekgf.org/ontology/use-case#hexColor
+use-case:hexColor rdf:type owl:DatatypeProperty ;
+                  rdfs:range xsd:string .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  https://ekgf.org/ontology/concept#Concept
+concept:Concept rdf:type owl:Class ;
+                rdfs:isDefinedBy <https://ekgf.org/ontology/use-case#> .
+
+
+###  https://ekgf.org/ontology/story#Story
+story:Story rdf:type owl:Class .
+
+
+###  https://ekgf.org/ontology/use-case#UseCase
+use-case:UseCase rdf:type owl:Class ;
+                 dcelem:creator <http://orcid.org/0000-0003-2309-5068> ;
+                 dcelem:date "2020-04-08T00:00:01Z"^^xsd:dateTime ;
+                 rdfs:isDefinedBy <https://ekgf.org/ontology/use-case#> .
+
+
+###  https://ekgf.org/ontology/use-case#UseCaseStereoType
+use-case:UseCaseStereoType rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  https://ekgf.org/ontology/use-case#UseCaseStereoTypeBusinessCapability
+use-case:UseCaseStereoTypeBusinessCapability rdf:type owl:NamedIndividual ,
+                                                      use-case:UseCaseStereoType ;
+                                             use-case:hexColor "#e0f2fe" ;
+                                             rdfs:label "Business Capability"@en .
+
+
+###  https://ekgf.org/ontology/use-case#UseCaseStereoTypeBusinessCapabilityArea
+use-case:UseCaseStereoTypeBusinessCapabilityArea rdf:type owl:NamedIndividual ,
+                                                          use-case:UseCaseStereoType ;
+                                                 use-case:hexColor "#bbdefb" ;
+                                                 rdfs:label "Business Capability Area"@en .
+
+
+###  https://ekgf.org/ontology/use-case#UseCaseStereoTypeDataDomain
+use-case:UseCaseStereoTypeDataDomain rdf:type owl:NamedIndividual ,
+                                              use-case:UseCaseStereoType ;
+                                     use-case:hexColor "#ccfbf1" ;
+                                     rdfs:label "Data Domain"@en .
+
+
+###  https://ekgf.org/ontology/use-case#UseCaseStereoTypeRoot
+use-case:UseCaseStereoTypeRoot rdf:type owl:NamedIndividual ,
+                                        use-case:UseCaseStereoType ;
+                               use-case:hexColor "#f3e8ff" ;
+                               rdfs:comment "The Enterprise Knowledge Graph can contain any number of Use Cases where some use cases do not have a \"parent use case\". These are \"root use cases\" and will be shown at the top of the Use Case Tree. Ideally there's one of such Root Use Cases but nothing stops you to have multiple."@en .
+
+
+###  https://ekgf.org/ontology/use-case#UseCaseStereoTypeUseCase
+use-case:UseCaseStereoTypeUseCase rdf:type owl:NamedIndividual ,
+                                           use-case:UseCaseStereoType ;
+                                  use-case:hexColor "#fef9c3" ;
+                                  rdfs:comment "The default stereotype for any new use case."@en ;
+                                  rdfs:label "Use Case"@en .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( concept:Concept
+                story:Story
+                use-case:UseCase
+              )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers rdf:nil
+] .
+
+
+###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi

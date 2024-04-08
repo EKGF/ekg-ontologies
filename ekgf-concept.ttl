@@ -1,0 +1,283 @@
+@prefix : <https://ekgf.org/ontology/concept#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix obda: <https://w3id.org/obda/vocabulary#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#> rdf:type owl:Ontology ;
+                                      owl:imports rdf: ;
+                                      rdfs:comment "The EKGF Concept Ontology"@en ;
+                                      rdfs:label "EKGF Concept Ontology"@en .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/elements/1.1/creator
+dc:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/date
+dc:date rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  https://ekgf.org/ontology/concept#hasConcept
+:hasConcept rdf:type owl:ObjectProperty ;
+            rdfs:range :Concept ;
+            dc:creator <http://orcid.org/0000-0003-2309-5068> ;
+            dc:date "2020-04-23T10:53:20Z"^^xsd:dateTime .
+
+
+###  https://ekgf.org/ontology/concept#hasTerm
+:hasTerm rdf:type owl:ObjectProperty ;
+         rdfs:domain :Concept ;
+         rdfs:range :Term .
+
+
+###  https://ekgf.org/ontology/concept#inConceptSet
+:inConceptSet rdf:type owl:ObjectProperty ;
+              rdfs:domain [ rdf:type owl:Class ;
+                            owl:unionOf ( :ClassConcept
+                                          :Concept
+                                          :PropertyConcept
+                                          :ShapeConcept
+                                          :TaxonomyConcept
+                                        )
+                          ] ;
+              rdfs:range :ConceptSet ;
+              rdfs:comment "Any given Concept can be in zero or more ConcepSets."@en .
+
+
+###  https://ekgf.org/ontology/concept#predicate
+:predicate rdf:type owl:ObjectProperty ;
+           rdfs:domain :PropertyConcept ;
+           rdfs:range rdfs:Resource ;
+           owl:propertyDisjointWith :rdfsClass ;
+           dc:creator <http://orcid.org/0000-0003-2309-5068> ;
+           dc:date "2020-04-28T14:40:47Z"^^xsd:dateTime ;
+           rdfs:comment "a (business) property concept should ultimately be tied to an owl:DatatypeProperty"@en ;
+           rdfs:label "has predicate"@en .
+
+
+###  https://ekgf.org/ontology/concept#raw
+:raw rdf:type owl:ObjectProperty ;
+     rdfs:domain :Concept ;
+     rdfs:range rdf:Property ;
+     dc:creator <http://orcid.org/0000-0003-2309-5068> ;
+     dc:date "2020-06-14T12:13:31Z"^^xsd:dateTime ;
+     rdfs:comment "The raw predicate that this concept usually gets represented with in the \"raw\" data that we capture from the originating source. Could be multiple predicates in case this concept occurs in multiple sources."@en .
+
+
+###  https://ekgf.org/ontology/concept#rdfsClass
+:rdfsClass rdf:type owl:ObjectProperty ;
+           rdfs:domain :ClassConcept ;
+           rdfs:range rdfs:Class ;
+           dc:creator <http://orcid.org/0000-0003-2309-5068> ;
+           dc:date "2020-06-21T12:22:44Z"^^xsd:dateTime .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  https://ekgf.org/ontology/concept#key
+:key rdf:type owl:DatatypeProperty ,
+              owl:FunctionalProperty ;
+     rdfs:domain :Concept ;
+     dc:creator <http://orcid.org/0000-0003-2309-5068> ;
+     dc:date "2020-04-23T10:39:51Z"^^xsd:dateTime ;
+     rdfs:comment """The \"key\" of a concept in lower camel case.
+      This key is being used in APIs as parameters or in JSON schemas as a key etc.
+      Example: legalEntityId and not \"Legal Entity Id\" or \"legal-entity-id\"."""@en .
+
+
+###  https://ekgf.org/ontology/concept#rawStripPrefix
+:rawStripPrefix rdf:type owl:DatatypeProperty ;
+                dc:creator <http://orcid.org/0000-0003-2309-5068> ;
+                dc:date "2020-06-14T12:53:16Z"^^xsd:dateTime .
+
+
+###  https://ekgf.org/ontology/concept#type
+:type rdf:type owl:DatatypeProperty ,
+               owl:FunctionalProperty ;
+      rdfs:domain :Concept ;
+      dc:creator <http://orcid.org/0000-0003-2309-5068> ;
+      dc:date "2020-04-23T10:41:16Z"^^xsd:dateTime .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.w3.org/1999/02/22-rdf-syntax-ns#Property
+rdf:Property rdf:type owl:Class ;
+             rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+
+###  http://www.w3.org/2000/01/rdf-schema#Class
+rdfs:Class rdf:type owl:Class ;
+           rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+
+###  http://www.w3.org/2000/01/rdf-schema#Resource
+rdfs:Resource rdf:type owl:Class ;
+              rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+
+###  https://ekgf.org/ontology/concept#Abbrevation
+:Abbrevation rdf:type owl:Class ;
+             rdfs:subClassOf :Term .
+
+
+###  https://ekgf.org/ontology/concept#BusinessTerm
+:BusinessTerm rdf:type owl:Class ;
+              rdfs:subClassOf :Term .
+
+
+###  https://ekgf.org/ontology/concept#CamelCaseTerm
+:CamelCaseTerm rdf:type owl:Class ;
+               rdfs:subClassOf :TechnicalTerm .
+
+
+###  https://ekgf.org/ontology/concept#ClassConcept
+:ClassConcept rdf:type owl:Class ;
+              rdfs:subClassOf :Concept ;
+              dc:creator <http://orcid.org/0000-0003-2309-5068> ;
+              dc:date "2020-04-22T17:57:15Z"^^xsd:dateTime ;
+              rdfs:comment """A ClassConcept can be tied to an rdfs:Class (usually an OWL Class).
+      The concept:type value must be xsd:anyURI in that case and the
+      concept:rdfsClass property holds the reference to the RDFS/OWL Class."""@en ;
+              rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+
+###  https://ekgf.org/ontology/concept#Concept
+:Concept rdf:type owl:Class ;
+         dc:creator <http://orcid.org/0000-0003-2309-5068> ;
+         dc:date "2020-04-22T17:56:44Z"^^xsd:dateTime ;
+         rdfs:comment "A business concept as close as possible to the original term as provided by the end user."@en ;
+         rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> ;
+         rdfs:label "Concept"@en .
+
+
+###  https://ekgf.org/ontology/concept#ConceptSet
+:ConceptSet rdf:type owl:Class ;
+            rdfs:comment "Similar to skos:ConceptScheme, a set of concepts."@en ;
+            rdfs:label "Concept-set"@en .
+
+
+###  https://ekgf.org/ontology/concept#JavascriptTerm
+:JavascriptTerm rdf:type owl:Class ;
+                rdfs:subClassOf :TechnicalTerm ;
+                rdfs:comment """Examples:
+
+- RegulatoryAuthoritySEC, this is not 100% camel case but we want SEC to remain in capital letters
+- RegulatoryAuthoritySec could possibly be generated (and we will) but people can override""" .
+
+
+###  https://ekgf.org/ontology/concept#KebabCaseTerm
+:KebabCaseTerm rdf:type owl:Class ;
+               rdfs:subClassOf :TechnicalTerm ;
+               rdfs:comment """Example:
+
+- \"regulatory-authority-sec\"""" .
+
+
+###  https://ekgf.org/ontology/concept#PascalCaseTerm
+:PascalCaseTerm rdf:type owl:Class ;
+                rdfs:subClassOf :TechnicalTerm .
+
+
+###  https://ekgf.org/ontology/concept#PluralTerm
+:PluralTerm rdf:type owl:Class ;
+            rdfs:subClassOf :Term .
+
+
+###  https://ekgf.org/ontology/concept#PropertyConcept
+:PropertyConcept rdf:type owl:Class ;
+                 rdfs:subClassOf :Concept ;
+                 dc:creator <http://orcid.org/0000-0003-2309-5068> ;
+                 dc:date "2020-04-22T17:57:45Z"^^xsd:dateTime ;
+                 rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+
+###  https://ekgf.org/ontology/concept#RawRDFTerm
+:RawRDFTerm rdf:type owl:Class ;
+            rdfs:subClassOf :TechnicalTerm ;
+            rdfs:comment "Link straight to a raw RDF predicate"@en .
+
+
+###  https://ekgf.org/ontology/concept#ShapeConcept
+:ShapeConcept rdf:type owl:Class ;
+              rdfs:subClassOf :Concept ;
+              dc:creator <http://orcid.org/0000-0003-2309-5068> ;
+              dc:date "2020-04-22T17:57:23Z"^^xsd:dateTime ;
+              rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+
+###  https://ekgf.org/ontology/concept#SingularTerm
+:SingularTerm rdf:type owl:Class ;
+              rdfs:subClassOf :Term .
+
+
+###  https://ekgf.org/ontology/concept#SparqlTerm
+:SparqlTerm rdf:type owl:Class ;
+            rdfs:subClassOf :TechnicalTerm .
+
+
+###  https://ekgf.org/ontology/concept#TaxonomyConcept
+:TaxonomyConcept rdf:type owl:Class ;
+                 rdfs:subClassOf :Concept ;
+                 dc:creator <http://orcid.org/0000-0003-2309-5068> ;
+                 dc:date "2020-04-22T17:57:37Z"^^xsd:dateTime ;
+                 rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+
+###  https://ekgf.org/ontology/concept#TechnicalTerm
+:TechnicalTerm rdf:type owl:Class ;
+               rdfs:subClassOf :Term .
+
+
+###  https://ekgf.org/ontology/concept#Term
+:Term rdf:type owl:Class .
+
+
+###  https://ekgf.org/ontology/concept#UriParameterTerm
+:UriParameterTerm rdf:type owl:Class ;
+                  rdfs:subClassOf :TechnicalTerm .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  https://ekgf.org/ontology/concept#literalValue
+:literalValue rdf:type owl:NamedIndividual ,
+                       xsd:string ;
+              rdfs:comment "A string literal representation of a string serialized rdf value and its type. e.g. \"\"P1Y\"^^xsd:duration\" " .
+
+
+###  https://ekgf.org/ontology/concept#test-concept-regulatory-authority-sec
+:test-concept-regulatory-authority-sec rdf:type owl:NamedIndividual ,
+                                                :Concept ;
+                                       :hasTerm :test-term-regulatory-authority-sec-pascal-case ;
+                                       :key "regulatory-authority-sec" .
+
+
+###  https://ekgf.org/ontology/concept#test-term-regulatory-authority-sec-pascal-case
+:test-term-regulatory-authority-sec-pascal-case rdf:type owl:NamedIndividual ,
+                                                         :PascalCaseTerm ,
+                                                         :SingularTerm ,
+                                                         :TechnicalTerm ,
+                                                         :Term ;
+                                                rdfs:label "RegulatoryAuthoritySEC" .
+
+
+###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi

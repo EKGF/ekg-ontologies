@@ -1,0 +1,208 @@
+@prefix : <https://ekgf.org/ontology/ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ontology: <https://ekgf.org/ontology/ontology#> .
+@base <https://ekgf.org/ontology/ontology#> .
+
+<https://ekgf.org/ontology/ontology#> rdf:type owl:Ontology ;
+                                       rdfs:comment "The Ontology Ontology adds some additional information about existing OWL ontologies such as their Authority, Family, Domain, Module and so forth"@en ;
+                                       rdfs:label "The EKG Ontology Ontology"@en .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  https://ekgf.org/ontology/ontology#governedBy
+ontology:governedBy rdf:type owl:ObjectProperty ;
+                    rdfs:domain [ rdf:type owl:Class ;
+                                  owl:unionOf ( owl:Ontology
+                                                ontology:Domain
+                                                ontology:Family
+                                                ontology:Module
+                                                ontology:Reference
+                                              )
+                                ] ;
+                    rdfs:range ontology:Authority ;
+                    rdfs:label "Governed by Ontology Authority"@en .
+
+
+###  https://ekgf.org/ontology/ontology#inFamily
+ontology:inFamily rdf:type owl:ObjectProperty ;
+                  rdfs:domain [ rdf:type owl:Class ;
+                                owl:unionOf ( ontology:Domain
+                                              ontology:Module
+                                              ontology:Reference
+                                            )
+                              ] ;
+                  rdfs:range ontology:Family ;
+                  rdfs:label "in Ontology Family"@en .
+
+
+###  https://ekgf.org/ontology/ontology#refersTo
+ontology:refersTo rdf:type owl:ObjectProperty ;
+                  rdfs:domain ontology:Reference ;
+                  rdfs:range owl:Ontology ;
+                  rdfs:label "Refers to Ontology"@en .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  https://ekgf.org/ontology/ontology#authorityAcronym
+ontology:authorityAcronym rdf:type owl:DatatypeProperty ;
+                          rdfs:comment "The uppercase acronym that's commonly used to identify the Ontology Authority such as W3C, OMG, EDMC, EKGF, PURL etc."@en ;
+                          rdfs:label "Authority Acronym"@en .
+
+
+###  https://ekgf.org/ontology/ontology#authorityHost
+ontology:authorityHost rdf:type owl:DatatypeProperty ;
+                       rdfs:domain ontology:Family ;
+                       rdfs:range xsd:string ;
+                       rdfs:comment "The (optional) host and domain name representing the authority (without protocol i.e. http:// or https://)"@en ;
+                       rdfs:label "Authority Host" .
+
+
+###  https://ekgf.org/ontology/ontology#baseIri
+ontology:baseIri rdf:type owl:DatatypeProperty ;
+                 rdfs:comment "The base IRI of any of the ontologies published by the given Authority. Could be multiple such as http://www.omg.org and https://www.omg.org."^^xsd:anyURI ;
+                 rdfs:label "Authority Base IRI"@en .
+
+
+###  https://ekgf.org/ontology/ontology#familyAcronym
+ontology:familyAcronym rdf:type owl:DatatypeProperty ;
+                       rdfs:comment "The uppercase acronym that's commonly used to identify the Ontology Family such as FIBO, EKGF's EKG Ontologies (i.e. EKG) etc. Most ontologies come as one standalone RDF file though and are not part of a family of ontologies."@en ;
+                       rdfs:label "Family Acronym"@en .
+
+
+###  https://ekgf.org/ontology/ontology#familyIriPrefix
+ontology:familyIriPrefix rdf:type owl:DatatypeProperty ;
+                         rdfs:domain ontology:Family ;
+                         rdfs:range xsd:string ;
+                         rdfs:comment "The path name prefix used for ontologies that are part of the Ontology Family, for instance \"/fibo/ontology/\". Note that it has to be the exact string between the base IRI of the Ontology Authority and the rest of the path name that identifies a given ontology IRI: https://spec.edmcouncil.org/fibo/ontology/FND/Utilities/AnnotationVocabulary."@en ;
+                         rdfs:label "Family IRI Prefix"@en .
+
+
+###  https://ekgf.org/ontology/ontology#preferredNamespacePrefix
+ontology:preferredNamespacePrefix rdf:type owl:DatatypeProperty ;
+                                  rdfs:domain [ rdf:type owl:Class ;
+                                                owl:unionOf ( owl:Ontology
+                                                              ontology:Reference
+                                                            )
+                                              ] ;
+                                  rdfs:range xsd:string ;
+                                  rdfs:label "Preferred Namespace Prefix"@en .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.w3.org/2002/07/owl#Ontology
+owl:Ontology rdf:type owl:Class .
+
+
+###  https://ekgf.org/ontology/ontology#Authority
+ontology:Authority rdf:type owl:Class ;
+                   rdfs:comment "The Authority that owns and maintains the Ontology such as W3C, OMG, EDM Council, EKGF, PURL etc"@en .
+
+
+###  https://ekgf.org/ontology/ontology#Domain
+ontology:Domain rdf:type owl:Class .
+
+
+###  https://ekgf.org/ontology/ontology#Family
+ontology:Family rdf:type owl:Class ;
+                rdfs:comment "The family of ontologies, such as FIBO or CDMC"@en .
+
+
+###  https://ekgf.org/ontology/ontology#Module
+ontology:Module rdf:type owl:Class .
+
+
+###  https://ekgf.org/ontology/ontology#Reference
+ontology:Reference rdf:type owl:Class ;
+                   rdfs:comment "Maps one to one with OWL Ontology but also functions as a placeholder or wrapper in case the original OWL Ontology is not loaded into the same graph database or has a different Ontology IRI (which can easily happen since ontology IRIs can end with hash, slash or not which gives all kinds of subtle matching errors)."@en .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  urn:uuid:a572f4fc-6d62-4aff-bd81-3e29c23432df
+<urn:uuid:a572f4fc-6d62-4aff-bd81-3e29c23432df> rdf:type owl:NamedIndividual ,
+                                                         ontology:Authority ;
+                                                ontology:authorityAcronym "PURL"@en ;
+                                                ontology:authorityHost "purl.org" ;
+                                                ontology:baseIri "http://purl.org"^^xsd:anyURI ;
+                                                rdfs:label "PURL"@en .
+
+
+###  urn:uuid:af1f6ba5-4db2-4cf1-ad7c-9e64756fd049
+<urn:uuid:af1f6ba5-4db2-4cf1-ad7c-9e64756fd049> rdf:type owl:NamedIndividual ,
+                                                         ontology:Authority ;
+                                                ontology:authorityAcronym "W3C"@en ;
+                                                ontology:authorityHost "www.w3.org" ;
+                                                ontology:baseIri "http://www.w3.org"^^xsd:anyURI ;
+                                                rdfs:label "W3C"@en .
+
+
+###  urn:uuid:b0f7956e-8a47-49d1-b949-c5a562f56f96
+<urn:uuid:b0f7956e-8a47-49d1-b949-c5a562f56f96> rdf:type owl:NamedIndividual ,
+                                                         ontology:Authority ;
+                                                ontology:authorityAcronym "EKGF"@en ;
+                                                ontology:authorityHost "ekgf.org" ;
+                                                ontology:baseIri "https://ekgf.org"^^xsd:anyURI ;
+                                                rdfs:label "OMG - Enterprise Knowledge Graph Forum"@en .
+
+
+###  urn:uuid:b7a061d5-50c1-44d4-9ed9-e4d2458f049a
+<urn:uuid:b7a061d5-50c1-44d4-9ed9-e4d2458f049a> rdf:type owl:NamedIndividual ,
+                                                         ontology:Authority ;
+                                                ontology:authorityAcronym "OMG"@en ;
+                                                ontology:authorityHost "www.omg.org" ;
+                                                ontology:baseIri "http://www.omg.org"^^xsd:anyURI ,
+                                                                 "https://www.omg.org"^^xsd:anyURI ;
+                                                rdfs:label "Object Management Group"@en .
+
+
+###  urn:uuid:cd1d00a5-cc17-4dc9-a1c0-9c82e8119717
+<urn:uuid:cd1d00a5-cc17-4dc9-a1c0-9c82e8119717> rdf:type owl:NamedIndividual ,
+                                                         ontology:Authority ;
+                                                ontology:authorityAcronym "SPDX"@en ;
+                                                ontology:authorityHost "spdx.org" ;
+                                                ontology:baseIri "http://spdx.org"^^xsd:anyURI ;
+                                                rdfs:label "SPDX"@en .
+
+
+###  urn:uuid:d5450b16-b1d9-4b8b-aa91-273f583c541a
+<urn:uuid:d5450b16-b1d9-4b8b-aa91-273f583c541a> rdf:type owl:NamedIndividual ,
+                                                         ontology:Authority ;
+                                                ontology:authorityAcronym "EDMC"@en ;
+                                                ontology:authorityHost "spec.edmcouncil.org" ;
+                                                ontology:baseIri "https://spec.edmcouncil.org"^^xsd:anyURI ;
+                                                rdfs:label "EDM Council"@en .
+
+
+###  urn:uuid:df93fec7-a002-4622-b6c2-0b041a8ed520
+<urn:uuid:df93fec7-a002-4622-b6c2-0b041a8ed520> rdf:type owl:NamedIndividual ,
+                                                         ontology:Authority ;
+                                                ontology:authorityAcronym "XMLNS"@en ;
+                                                ontology:authorityHost "xmlns.com" ;
+                                                ontology:baseIri "http://xmlns.com"^^xsd:anyURI ;
+                                                rdfs:label "XMLNS"@en .
+
+
+###  urn:uuid:e63b3390-90aa-4fd0-9d13-3dcc9b754c59
+<urn:uuid:e63b3390-90aa-4fd0-9d13-3dcc9b754c59> rdf:type owl:NamedIndividual ,
+                                                         ontology:Authority ;
+                                                ontology:authorityAcronym "DERI"@en ;
+                                                ontology:authorityHost "vocab.deri.ie" ;
+                                                ontology:baseIri "http://vocab.deri.ie"^^xsd:anyURI ;
+                                                rdfs:label "Digital Enterprise Research Institute (DERI)"@en .
+
+
+###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi
