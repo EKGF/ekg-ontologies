@@ -22,19 +22,23 @@
                                        rdfs:label "EKGF Use Case Ontology"@en .
 
 #################################################################
+#    Annotation properties
+#################################################################
+
+###  https://ekgf.org/ontology/use-case#hexColor
+use-case:hexColor rdf:type owl:AnnotationProperty .
+
+
+#################################################################
 #    Object Properties
 #################################################################
 
-###  https://ekgf.org/ontology/use-case#hasColor
-use-case:hasColor rdf:type owl:ObjectProperty ;
-                  rdfs:label "has color"@en-us ,
-                             "has colour"@en .
-
-
 ###  https://ekgf.org/ontology/use-case#hasStereoType
-use-case:hasStereoType rdf:type owl:ObjectProperty ;
+use-case:hasStereoType rdf:type owl:ObjectProperty ,
+                                owl:FunctionalProperty ;
                        rdfs:domain use-case:UseCase ;
-                       rdfs:range use-case:UseCaseStereoType .
+                       rdfs:range use-case:UseCaseStereoType ;
+                       rdfs:label "has stereotype"@en .
 
 
 ###  https://ekgf.org/ontology/use-case#involvesPersona
@@ -107,26 +111,8 @@ use-case:usesConcept rdf:type owl:ObjectProperty ;
 
 
 #################################################################
-#    Data properties
-#################################################################
-
-###  https://ekgf.org/ontology/use-case#hexColor
-use-case:hexColor rdf:type owl:DatatypeProperty ;
-                  rdfs:range xsd:string .
-
-
-#################################################################
 #    Classes
 #################################################################
-
-###  https://ekgf.org/ontology/concept#Concept
-concept:Concept rdf:type owl:Class ;
-                rdfs:isDefinedBy <https://ekgf.org/ontology/use-case#> .
-
-
-###  https://ekgf.org/ontology/story#Story
-story:Story rdf:type owl:Class .
-
 
 ###  https://ekgf.org/ontology/use-case#UseCase
 use-case:UseCase rdf:type owl:Class ;
@@ -146,37 +132,61 @@ use-case:UseCaseStereoType rdf:type owl:Class .
 ###  https://ekgf.org/ontology/use-case#UseCaseStereoTypeBusinessCapability
 use-case:UseCaseStereoTypeBusinessCapability rdf:type owl:NamedIndividual ,
                                                       use-case:UseCaseStereoType ;
-                                             use-case:hexColor "#e0f2fe" ;
-                                             rdfs:label "Business Capability"@en .
+                                             rdfs:label "Business Capability"@en ;
+                                             use-case:hexColor "#e0f2fe" .
 
 
 ###  https://ekgf.org/ontology/use-case#UseCaseStereoTypeBusinessCapabilityArea
 use-case:UseCaseStereoTypeBusinessCapabilityArea rdf:type owl:NamedIndividual ,
                                                           use-case:UseCaseStereoType ;
-                                                 use-case:hexColor "#bbdefb" ;
-                                                 rdfs:label "Business Capability Area"@en .
+                                                 rdfs:label "Business Capability Area"@en ;
+                                                 use-case:hexColor "#bbdefb" .
 
 
 ###  https://ekgf.org/ontology/use-case#UseCaseStereoTypeDataDomain
 use-case:UseCaseStereoTypeDataDomain rdf:type owl:NamedIndividual ,
                                               use-case:UseCaseStereoType ;
-                                     use-case:hexColor "#ccfbf1" ;
-                                     rdfs:label "Data Domain"@en .
+                                     rdfs:comment """A Data Domain is a Use Case that specialises in owning and managing Concept-sets and their Concepts.
+
+Data Domains usually do not have any Stories."""@en ;
+                                     rdfs:label "Data Domain"@en ;
+                                     use-case:hexColor "#ccfbf1" .
+
+
+###  https://ekgf.org/ontology/use-case#UseCaseStereoTypeDataLandscape
+use-case:UseCaseStereoTypeDataLandscape rdf:type owl:NamedIndividual ,
+                                                 use-case:UseCaseStereoType ;
+                                        rdfs:label "Data Landscape"@en .
+
+
+###  https://ekgf.org/ontology/use-case#UseCaseStereoTypeDataSubdomain
+use-case:UseCaseStereoTypeDataSubdomain rdf:type owl:NamedIndividual ,
+                                                 use-case:UseCaseStereoType ;
+                                        rdfs:label "Data Subdomain"@en .
 
 
 ###  https://ekgf.org/ontology/use-case#UseCaseStereoTypeRoot
 use-case:UseCaseStereoTypeRoot rdf:type owl:NamedIndividual ,
                                         use-case:UseCaseStereoType ;
-                               use-case:hexColor "#f3e8ff" ;
-                               rdfs:comment "The Enterprise Knowledge Graph can contain any number of Use Cases where some use cases do not have a \"parent use case\". These are \"root use cases\" and will be shown at the top of the Use Case Tree. Ideally there's one of such Root Use Cases but nothing stops you to have multiple."@en .
+                               rdfs:comment "The Enterprise Knowledge Graph can contain any number of Use Cases where some use cases do not have a \"parent use case\". These are \"root use cases\" and will be shown at the top of the Use Case Tree. Ideally there's one of such Root Use Cases but nothing stops you to have multiple."@en ;
+                               rdfs:label "Root Use Case"@en ;
+                               use-case:hexColor "#f3e8ff" .
+
+
+###  https://ekgf.org/ontology/use-case#UseCaseStereoTypeTransformUseCase
+use-case:UseCaseStereoTypeTransformUseCase rdf:type owl:NamedIndividual ,
+                                                    use-case:UseCaseStereoType ;
+                                           rdfs:comment """A Transform Use Case is a use case that specialises in transforming data from one or more input datasets to new data in one or more output datasets.
+Most of its Stories will be update stories."""@en ;
+                                           rdfs:label "Transform Use Case"@en .
 
 
 ###  https://ekgf.org/ontology/use-case#UseCaseStereoTypeUseCase
 use-case:UseCaseStereoTypeUseCase rdf:type owl:NamedIndividual ,
                                            use-case:UseCaseStereoType ;
-                                  use-case:hexColor "#fef9c3" ;
                                   rdfs:comment "The default stereotype for any new use case."@en ;
-                                  rdfs:label "Use Case"@en .
+                                  rdfs:label "Use Case"@en ;
+                                  use-case:hexColor "#fef9c3" .
 
 
 #################################################################
