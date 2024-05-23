@@ -1,4 +1,6 @@
+@base <https://ekgf.org/ontology/concept#> .
 @prefix : <https://ekgf.org/ontology/concept#> .
+@prefix concept: <https://ekgf.org/ontology/concept#> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -6,32 +8,43 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix obda: <https://w3id.org/obda/vocabulary#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@base <https://ekgf.org/ontology/concept#> .
-
-<https://ekgf.org/ontology/concept#> rdf:type owl:Ontology ;
-                                      owl:imports rdf: ;
-                                      rdfs:comment "The EKGF Concept Ontology"@en ;
-                                      rdfs:label "EKGF Concept Ontology"@en .
-
-#################################################################
-#    Annotation properties
-#################################################################
-
-###  http://purl.org/dc/elements/1.1/creator
-dc:creator rdf:type owl:AnnotationProperty .
 
 
-###  http://purl.org/dc/elements/1.1/date
-dc:date rdf:type owl:AnnotationProperty .
+concept:
+    a owl:Ontology ;
+    owl:imports rdf: ;
+    rdfs:comment "The EKGF Concept Ontology"@en ;
+    rdfs:label "EKGF Concept Ontology"@en .
+#
+#
+# #################################################################
+# #
+# #    Annotation properties
+# #
+# #################################################################
+#
+#
+# http://purl.org/dc/elements/1.1/creator
 
+<http://purl.org/dc/elements/1.1/creator>
+    a owl:AnnotationProperty .
+#
+# http://purl.org/dc/elements/1.1/date
 
-#################################################################
-#    Object Properties
-#################################################################
+<http://purl.org/dc/elements/1.1/date>
+    a owl:AnnotationProperty .
+#
+#
+#
+# #################################################################
+# #
+# #    Object Properties
+# #
+# #################################################################
 
 ###  https://ekgf.org/ontology/concept#hasConcept
-:hasConcept rdf:type owl:ObjectProperty ;
-            rdfs:range :Concept ;
+concept:hasConcept rdf:type owl:ObjectProperty ;
+            rdfs:range concept:Concept ;
             dc:creator <http://orcid.org/0000-0003-2309-5068> ;
             dc:date "2020-04-23T10:53:20Z"^^xsd:dateTime .
 
@@ -116,21 +129,6 @@ dc:date rdf:type owl:AnnotationProperty .
 #################################################################
 #    Classes
 #################################################################
-
-###  http://www.w3.org/1999/02/22-rdf-syntax-ns#Property
-rdf:Property rdf:type owl:Class ;
-             rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
-
-
-###  http://www.w3.org/2000/01/rdf-schema#Class
-rdfs:Class rdf:type owl:Class ;
-           rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
-
-
-###  http://www.w3.org/2000/01/rdf-schema#Resource
-rdfs:Resource rdf:type owl:Class ;
-              rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
-
 
 ###  https://ekgf.org/ontology/concept#Abbrevation
 :Abbrevation rdf:type owl:Class ;

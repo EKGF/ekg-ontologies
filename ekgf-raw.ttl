@@ -1,4 +1,5 @@
 @prefix : <https://ekgf.org/ontology/raw#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
@@ -27,7 +28,7 @@
 #    Object Properties
 #################################################################
 
-###  https://ekgf.org/ontology/raw##forPredicate
+###  https://ekgf.org/ontology/raw#forPredicate
 :forPredicate
     rdf:type owl:ObjectProperty ;
     rdfs:domain :Value ;
@@ -37,7 +38,7 @@
     rdfs:label "For Predicate"@en .
 
 
-###  https://ekgf.org/ontology/raw##hasView
+###  https://ekgf.org/ontology/raw#hasView
 :hasView
     rdf:type owl:ObjectProperty ;
     owl:inverseOf :isViewIn ;
@@ -49,7 +50,7 @@
     rdfs:comment "One Source can have multiple Views"@en .
 
 
-###  https://ekgf.org/ontology/raw##isRowInView
+###  https://ekgf.org/ontology/raw#isRowInView
 :isRowInView
     rdf:type owl:ObjectProperty, owl:FunctionalProperty ;
     rdfs:domain :Row ;
@@ -59,7 +60,7 @@
     rdfs:comment "The current row occurs in the given view."@en .
 
 
-###  https://ekgf.org/ontology/raw##isViewIn
+###  https://ekgf.org/ontology/raw#isViewIn
 :isViewIn
     rdf:type owl:ObjectProperty, owl:FunctionalProperty ;
     rdfs:domain :View ;
@@ -69,7 +70,7 @@
     rdfs:comment "This View occurs in the given Source"@en .
 
 
-###  https://ekgf.org/ontology/raw##predicate
+###  https://ekgf.org/ontology/raw#predicate
 :predicate
     rdf:type owl:ObjectProperty, owl:FunctionalProperty ;
     rdfs:domain :Column ;
@@ -79,7 +80,7 @@
     rdfs:comment "The property that this Column is mapped to"@en .
 
 
-###  https://ekgf.org/ontology/raw##valueOf
+###  https://ekgf.org/ontology/raw#valueOf
 :valueOf
     rdf:type owl:ObjectProperty ;
     rdfs:range :Row ;
@@ -93,7 +94,7 @@
 #    Data properties
 #################################################################
 
-###  https://ekgf.org/ontology/raw##columnNumber
+###  https://ekgf.org/ontology/raw#columnNumber
 :columnNumber
     rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
     rdfs:domain :Column ;
@@ -104,7 +105,7 @@
     rdfs:label "Column number"@en .
 
 
-###  https://ekgf.org/ontology/raw##count
+###  https://ekgf.org/ontology/raw#count
 :count
     rdf:type owl:DatatypeProperty ;
     rdfs:domain :Column ;
@@ -115,7 +116,7 @@
         "https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.count.html#pandas.DataFrame.count"@en .
 
 
-###  https://ekgf.org/ontology/raw##fileName
+###  https://ekgf.org/ontology/raw#fileName
 :fileName
     rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
     rdfs:domain :File ;
@@ -126,7 +127,7 @@
     rdfs:label "File name"@en .
 
 
-###  https://ekgf.org/ontology/raw##freq
+###  https://ekgf.org/ontology/raw#freq
 :freq
     rdf:type owl:DatatypeProperty ;
     rdfs:domain :Column ;
@@ -135,7 +136,7 @@
     rdfs:seeAlso "https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.describe.html"@en .
 
 
-###  https://ekgf.org/ontology/raw##legacyId
+###  https://ekgf.org/ontology/raw#legacyId
 :legacyId
     rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
     rdfs:domain :Row ;
@@ -146,7 +147,7 @@
     rdfs:label "Legacy ID"@en .
 
 
-###  https://ekgf.org/ontology/raw##legacyIdInIri
+###  https://ekgf.org/ontology/raw#legacyIdInIri
 :legacyIdInIri
     rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
     <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
@@ -154,7 +155,7 @@
     rdfs:comment "The value of legacyId translated to an IRI-compliant lower kebab-case value"@en .
 
 
-###  https://ekgf.org/ontology/raw##localName
+###  https://ekgf.org/ontology/raw#localName
 :localName
     rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
     rdfs:domain :Column ;
@@ -165,7 +166,7 @@
     rdfs:label "Local name"@en .
 
 
-###  https://ekgf.org/ontology/raw##max
+###  https://ekgf.org/ontology/raw#max
 :max
     rdf:type owl:DatatypeProperty ;
     rdfs:domain :Column ;
@@ -176,7 +177,7 @@
         "https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.max.html#pandas.DataFrame.max"@en .
 
 
-###  https://ekgf.org/ontology/raw##mean
+###  https://ekgf.org/ontology/raw#mean
 :mean
     rdf:type owl:DatatypeProperty ;
     rdfs:domain :Column ;
@@ -187,7 +188,7 @@
         "https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.mean.html#pandas.DataFrame.mean"@en .
 
 
-###  https://ekgf.org/ontology/raw##min
+###  https://ekgf.org/ontology/raw#min
 :min
     rdf:type owl:DatatypeProperty ;
     rdfs:domain :Column ;
@@ -198,7 +199,7 @@
         "https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.min.html#pandas.DataFrame.min"@en .
 
 
-###  https://ekgf.org/ontology/raw##std
+###  https://ekgf.org/ontology/raw#std
 :std
     rdf:type owl:DatatypeProperty ;
     rdfs:domain :Column ;
@@ -209,7 +210,7 @@
         "https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.std.html#pandas.DataFrame.std"@en .
 
 
-###  https://ekgf.org/ontology/raw##top
+###  https://ekgf.org/ontology/raw#top
 :top
     rdf:type owl:DatatypeProperty ;
     rdfs:domain :Column ;
@@ -218,7 +219,7 @@
     rdfs:seeAlso "https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.describe.html"@en .
 
 
-###  https://ekgf.org/ontology/raw##unique
+###  https://ekgf.org/ontology/raw#unique
 :unique
     rdf:type owl:DatatypeProperty ;
     rdfs:domain :Column ;
@@ -227,7 +228,7 @@
     rdfs:seeAlso "https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.describe.html"@en .
 
 
-###  https://ekgf.org/ontology/raw##viewRowNumber
+###  https://ekgf.org/ontology/raw#viewRowNumber
 :viewRowNumber
     rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
     rdfs:domain :Row ;
@@ -237,21 +238,21 @@
     rdfs:comment "The 0-based sequence number of the Row in the given View as it was encountered in the Source"@en .
 
 
-###  https://ekgf.org/ontology/raw##25pct
+###  https://ekgf.org/ontology/raw#25pct
 :25pct
     rdf:type owl:DatatypeProperty ;
     rdfs:domain :Column ;
     <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> .
 
 
-###  https://ekgf.org/ontology/raw##50pct
+###  https://ekgf.org/ontology/raw#50pct
 :50pct
     rdf:type owl:DatatypeProperty ;
     rdfs:domain :Column ;
     <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> .
 
 
-###  https://ekgf.org/ontology/raw##75pct
+###  https://ekgf.org/ontology/raw#75pct
 :75pct
     rdf:type owl:DatatypeProperty ;
     rdfs:domain :Column ;
@@ -262,7 +263,7 @@
 #    Classes
 #################################################################
 
-###  https://ekgf.org/ontology/raw##Column
+###  https://ekgf.org/ontology/raw#Column
 :Column
     rdf:type owl:Class ;
     <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
@@ -270,7 +271,7 @@
     rdfs:isDefinedBy <https://ekgf.org/ontology/raw#> .
 
 
-###  https://ekgf.org/ontology/raw##File
+###  https://ekgf.org/ontology/raw#File
 :File
     rdf:type owl:Class ;
     rdfs:subClassOf :Source ;
@@ -279,7 +280,7 @@
     rdfs:isDefinedBy <https://ekgf.org/ontology/raw#> .
 
 
-###  https://ekgf.org/ontology/raw##Row
+###  https://ekgf.org/ontology/raw#Row
 :Row
     rdf:type owl:Class ;
     <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
@@ -287,7 +288,7 @@
     rdfs:isDefinedBy <https://ekgf.org/ontology/raw#> .
 
 
-###  https://ekgf.org/ontology/raw##Source
+###  https://ekgf.org/ontology/raw#Source
 :Source
     rdf:type owl:Class ;
     <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
@@ -295,7 +296,7 @@
     rdfs:isDefinedBy <https://ekgf.org/ontology/raw#> .
 
 
-###  https://ekgf.org/ontology/raw##Value
+###  https://ekgf.org/ontology/raw#Value
 :Value
     rdf:type owl:Class ;
     <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
@@ -303,7 +304,7 @@
     rdfs:isDefinedBy <https://ekgf.org/ontology/raw#> .
 
 
-###  https://ekgf.org/ontology/raw##View
+###  https://ekgf.org/ontology/raw#View
 :View
     rdf:type owl:Class ;
     <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
@@ -311,7 +312,7 @@
     rdfs:isDefinedBy <https://ekgf.org/ontology/raw#> .
 
 
-###  https://ekgf.org/ontology/raw##XlsxFile
+###  https://ekgf.org/ontology/raw#XlsxFile
 :XlsxFile
     rdf:type owl:Class ;
     rdfs:subClassOf :File ;

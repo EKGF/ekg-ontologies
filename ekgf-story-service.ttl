@@ -32,7 +32,7 @@ dc:date rdf:type owl:AnnotationProperty .
 #    Object Properties
 #################################################################
 
-###  https://ekgf.org/ontology/story-service##hasParameter
+###  https://ekgf.org/ontology/story-service#hasParameter
 :hasParameter rdf:type owl:ObjectProperty ;
     owl:inverseOf :parameterFor ;
     rdf:type owl:InverseFunctionalProperty ;
@@ -42,7 +42,7 @@ dc:date rdf:type owl:AnnotationProperty .
     dc:date "2020-04-01T18:16:18Z"^^xsd:dateTime .
 
 
-###  https://ekgf.org/ontology/story-service##on
+###  https://ekgf.org/ontology/story-service#on
 :on rdf:type owl:ObjectProperty ;
     rdfs:range story:Story ;
     rdfs:domain
@@ -56,7 +56,7 @@ dc:date rdf:type owl:AnnotationProperty .
         ] .
 
 
-###  https://ekgf.org/ontology/story-service##parameterFor
+###  https://ekgf.org/ontology/story-service#parameterFor
 :parameterFor rdf:type
         owl:ObjectProperty,
         owl:FunctionalProperty ;
@@ -66,7 +66,7 @@ dc:date rdf:type owl:AnnotationProperty .
     dc:date "2020-04-01T17:32:57Z"^^xsd:dateTime .
 
 
-###  https://ekgf.org/ontology/story-service##providedBy
+###  https://ekgf.org/ontology/story-service#providedBy
 :providedBy rdf:type owl:ObjectProperty ;
     rdfs:domain story:Story ;
     rdfs:range :StoryService ;
@@ -77,13 +77,13 @@ dc:date rdf:type owl:AnnotationProperty .
     rdfs:label "should be supplied by"@en .
 
 
-###  https://ekgf.org/ontology/story-service##resultFor
+###  https://ekgf.org/ontology/story-service#resultFor
 :resultFor rdf:type owl:ObjectProperty ;
     rdfs:range story:Story ;
     rdfs:domain :SPARQLResults .
 
 
-###  https://ekgf.org/ontology/story-service##shouldBeGeneratedBy
+###  https://ekgf.org/ontology/story-service#shouldBeGeneratedBy
 :shouldBeGeneratedBy rdf:type
         owl:ObjectProperty,
         owl:FunctionalProperty ;
@@ -98,7 +98,7 @@ dc:date rdf:type owl:AnnotationProperty .
 #    Data properties
 #################################################################
 
-###  https://ekgf.org/ontology/story-service##isServiceParameter
+###  https://ekgf.org/ontology/story-service#isServiceParameter
 :isServiceParameter rdf:type owl:DatatypeProperty ;
     rdfs:domain :Parameter ;
     rdfs:range xsd:boolean ;
@@ -106,7 +106,7 @@ dc:date rdf:type owl:AnnotationProperty .
     dc:date "2020-04-08T00:06:23Z"^^xsd:dateTime .
 
 
-###  https://ekgf.org/ontology/story-service##parameterDirection
+###  https://ekgf.org/ontology/story-service#parameterDirection
 :parameterDirection rdf:type owl:DatatypeProperty ;
     rdfs:domain :Parameter ;
     rdfs:range xsd:string ;
@@ -114,7 +114,7 @@ dc:date rdf:type owl:AnnotationProperty .
     dc:date "2020-04-08T00:03:25Z"^^xsd:dateTime .
 
 
-###  https://ekgf.org/ontology/story-service##parameterKey
+###  https://ekgf.org/ontology/story-service#parameterKey
 :parameterKey rdf:type
         owl:DatatypeProperty,
         owl:FunctionalProperty ;
@@ -124,7 +124,7 @@ dc:date rdf:type owl:AnnotationProperty .
     dc:date "2020-04-01T18:19:13Z"^^xsd:dateTime .
 
 
-###  https://ekgf.org/ontology/story-service##parameterOp
+###  https://ekgf.org/ontology/story-service#parameterOp
 :parameterOp rdf:type
         owl:DatatypeProperty,
         owl:FunctionalProperty ;
@@ -133,7 +133,7 @@ dc:date rdf:type owl:AnnotationProperty .
     dc:date "2020-04-01T18:21:12Z"^^xsd:dateTime .
 
 
-###  https://ekgf.org/ontology/story-service##parameterType
+###  https://ekgf.org/ontology/story-service#parameterType
 :parameterType rdf:type
         owl:DatatypeProperty,
         owl:FunctionalProperty ;
@@ -143,7 +143,7 @@ dc:date rdf:type owl:AnnotationProperty .
     dc:date "2020-04-01T18:20:08Z"^^xsd:dateTime .
 
 
-###  https://ekgf.org/ontology/story-service##resultKey
+###  https://ekgf.org/ontology/story-service#resultKey
 :resultKey rdf:type owl:DatatypeProperty ;
     rdfs:domain :Parameter ;
     rdfs:range xsd:string ;
@@ -151,7 +151,7 @@ dc:date rdf:type owl:AnnotationProperty .
     dc:date "2020-04-07T20:46:55Z"^^xsd:dateTime .
 
 
-###  https://ekgf.org/ontology/story-service##resultType
+###  https://ekgf.org/ontology/story-service#resultType
 :resultType rdf:type owl:DatatypeProperty ;
     rdfs:domain :Result ;
     rdfs:range xsd:string ;
@@ -159,7 +159,7 @@ dc:date rdf:type owl:AnnotationProperty .
     dc:date "2020-04-07T20:51:59Z"^^xsd:dateTime .
 
 
-###  https://ekgf.org/ontology/story-service##sparqlQueryName
+###  https://ekgf.org/ontology/story-service#sparqlQueryName
 :sparqlQueryName rdf:type
         owl:DatatypeProperty,
         owl:FunctionalProperty ;
@@ -169,7 +169,7 @@ dc:date rdf:type owl:AnnotationProperty .
     dc:date "2020-04-07T20:50:13Z"^^xsd:dateTime .
 
 
-###  https://ekgf.org/ontology/story-service##sparqlStatementFileName
+###  https://ekgf.org/ontology/story-service#sparqlStatementFileName
 :sparqlStatementFileName rdf:type owl:DatatypeProperty ;
     rdfs:domain story:Story ;
     rdfs:range xsd:string ;
@@ -181,7 +181,7 @@ dc:date rdf:type owl:AnnotationProperty .
 #    Classes
 #################################################################
 
-###  https://ekgf.org/ontology/story-service##Parameter
+###  https://ekgf.org/ontology/story-service#Parameter
 :Parameter rdf:type owl:Class ;
     owl:disjointWith
         :Statement,
@@ -189,12 +189,12 @@ dc:date rdf:type owl:AnnotationProperty .
     rdfs:isDefinedBy <https://ekgf.org/ontology/story-service#> .
 
 
-###  https://ekgf.org/ontology/story-service##Result
+###  https://ekgf.org/ontology/story-service#Result
 :Result rdf:type owl:Class ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/story-service#> .
 
 
-###  https://ekgf.org/ontology/story-service##SHACLStatement
+###  https://ekgf.org/ontology/story-service#SHACLStatement
 :SHACLStatement rdf:type owl:Class ;
     rdfs:subClassOf :Statement ;
     dc:creator <http://orcid.org/0000-0003-2309-5068> ;
@@ -203,7 +203,7 @@ dc:date rdf:type owl:AnnotationProperty .
     rdfs:isDefinedBy <https://ekgf.org/ontology/story-service#> .
 
 
-###  https://ekgf.org/ontology/story-service##SPARQLParameter
+###  https://ekgf.org/ontology/story-service#SPARQLParameter
 :SPARQLParameter rdf:type owl:Class ;
     rdfs:subClassOf :Parameter ;
     dc:creator <http://orcid.org/0000-0003-2309-5068> ;
@@ -212,7 +212,7 @@ dc:date rdf:type owl:AnnotationProperty .
     rdfs:isDefinedBy <https://ekgf.org/ontology/story-service#> .
 
 
-###  https://ekgf.org/ontology/story-service##SPARQLResults
+###  https://ekgf.org/ontology/story-service#SPARQLResults
 :SPARQLResults rdf:type owl:Class ;
     rdfs:subClassOf :Result ;
     dc:creator <http://orcid.org/0000-0003-2309-5068> ;
@@ -221,7 +221,7 @@ dc:date rdf:type owl:AnnotationProperty .
     rdfs:isDefinedBy <https://ekgf.org/ontology/story-service#> .
 
 
-###  https://ekgf.org/ontology/story-service##SPARQLStatement
+###  https://ekgf.org/ontology/story-service#SPARQLStatement
 :SPARQLStatement rdf:type owl:Class ;
     rdfs:subClassOf :Statement ;
     dc:creator <http://orcid.org/0000-0003-2309-5068> ;
@@ -230,7 +230,7 @@ dc:date rdf:type owl:AnnotationProperty .
     rdfs:isDefinedBy <https://ekgf.org/ontology/story-service#> .
 
 
-###  https://ekgf.org/ontology/story-service##Statement
+###  https://ekgf.org/ontology/story-service#Statement
 :Statement rdf:type owl:Class ;
     owl:disjointWith :StoryService ;
     dc:creator <http://orcid.org/0000-0003-2309-5068> ;
@@ -238,7 +238,7 @@ dc:date rdf:type owl:AnnotationProperty .
     rdfs:isDefinedBy <https://ekgf.org/ontology/story-service#> .
 
 
-###  https://ekgf.org/ontology/story-service##StoryService
+###  https://ekgf.org/ontology/story-service#StoryService
 :StoryService rdf:type owl:Class ;
     dc:creator <http://orcid.org/0000-0003-2309-5068> ;
     dc:date "2020-04-01T17:28:32Z"^^xsd:dateTime ;

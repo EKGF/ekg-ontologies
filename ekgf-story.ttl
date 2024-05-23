@@ -1,3 +1,4 @@
+@base <https://ekgf.org/ontology/story#> .
 @prefix : <https://ekgf.org/ontology/story#> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 @prefix api: <https://ekgf.org/ontology/api#> .
@@ -7,311 +8,319 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix obda: <https://w3id.org/obda/vocabulary#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix story: <https://ekgf.org/ontology/story#> .
 @prefix concept: <https://ekgf.org/ontology/concept#> .
 @prefix outcome: <https://ekgf.org/ontology/outcome#> .
 @prefix persona: <https://ekgf.org/ontology/persona#> .
-@base <https://ekgf.org/ontology/story#> .
-
-<https://ekgf.org/ontology/story#> rdf:type owl:Ontology ;
-                                    owl:imports concept: ,
-                                                outcome: ,
-                                                persona: ;
-                                    rdfs:comment "The EKGF story Ontology"@en ;
-                                    rdfs:label "EKGF Story Ontology"@en .
-
-#################################################################
-#    Annotation properties
-#################################################################
-
-###  http://purl.org/dc/elements/1.1/creator
-dc:creator rdf:type owl:AnnotationProperty .
-
-
-###  http://purl.org/dc/elements/1.1/date
-dc:date rdf:type owl:AnnotationProperty .
-
-
-#################################################################
-#    Object Properties
-#################################################################
-
-###  https://ekgf.org/ontology/concept#hasConcept
-concept:hasConcept rdfs:domain [ rdf:type owl:Class ;
-                                 owl:unionOf ( story:StoryInput
-                                               story:StoryOutput
-                                             )
-                               ] .
-
-
-###  https://ekgf.org/ontology/story#canUseStory
-story:canUseStory rdf:type owl:ObjectProperty ;
-                  owl:inverseOf story:hasPersona ;
-                  rdfs:domain persona:Persona ;
-                  rdfs:range story:Story .
-
-
-###  https://ekgf.org/ontology/story#creates
-story:creates rdf:type owl:ObjectProperty ;
-              rdfs:domain story:Rule ;
-              rdfs:range story:CreationInfo ;
-              dc:creator <http://orcid.org/0000-0003-2309-5068> ;
-              dc:date "2020-04-08T07:01:36Z"^^xsd:dateTime ;
-              rdfs:comment "A story or rule can create new triples in the target graph, \"creates\" points to a blank node (usually) that has parts of a reified triple (rdf:Statement) showing what will be created by this rule."@en .
-
-
-###  https://ekgf.org/ontology/story#deletes
-story:deletes rdf:type owl:ObjectProperty ;
-              dc:creator <http://orcid.org/0000-0003-2309-5068> ;
-              dc:date "2020-04-08T07:17:55Z"^^xsd:dateTime ;
-              rdfs:comment "A story or rule can delete old triples in the source graph (the \"raw\" data graph usually). \"deletes\" points to a blank node (usually) that has parts of a reified triple (rdf:Statement) showing what will be deleted by this rule."@en .
-
-
-###  https://ekgf.org/ontology/story#hasInput
-story:hasInput rdf:type owl:ObjectProperty ;
-               rdfs:domain story:Story ;
-               rdfs:range story:StoryInput ;
-               dc:creator <http://orcid.org/0000-0003-2309-5068> ;
-               dc:date "2020-04-28T13:27:52Z"^^xsd:dateTime ;
-               rdfs:comment "An Input Parameter links a Concept to a Story as one of its inputs"@en ;
-               rdfs:label "has input parameter"@en .
-
-
-###  https://ekgf.org/ontology/story#hasOutput
-story:hasOutput rdf:type owl:ObjectProperty ;
-                rdfs:domain story:Story ;
-                rdfs:range story:StoryOutput ;
-                dc:creator <http://orcid.org/0000-0003-2309-5068> ;
-                dc:date "2020-04-28T18:48:14Z"^^xsd:dateTime .
-
-
-###  https://ekgf.org/ontology/story#hasPersona
-story:hasPersona rdf:type owl:ObjectProperty ;
-                 rdfs:domain story:Story ;
-                 rdfs:range persona:Persona ;
-                 dc:creator <http://orcid.org/0000-0003-2309-5068> ;
-                 dc:date "2020-04-01T18:12:45Z"^^xsd:dateTime ;
-                 rdfs:comment "The Persona (or Personas) of the given Story"@en .
-
-
-###  https://ekgf.org/ontology/story#implementedBy
-story:implementedBy rdf:type owl:ObjectProperty ;
-                    owl:inverseOf story:implements ;
-                    rdfs:domain story:Story ;
-                    rdfs:label "Implemented By"@en .
-
-
-###  https://ekgf.org/ontology/story#implements
-story:implements rdf:type owl:ObjectProperty ,
-                          owl:FunctionalProperty ;
-                 rdfs:range story:Story .
-
-
-###  https://ekgf.org/ontology/story#supportedByStory
-story:supportedByStory rdf:type owl:ObjectProperty ;
-                       owl:inverseOf story:supportsConcept ;
-                       rdfs:domain concept:Concept ;
-                       rdfs:range story:Story ;
-                       dc:creator <http://orcid.org/0000-0003-2309-5068> ;
-                       dc:date "2020-07-02T13:11:03Z"^^xsd:dateTime ;
-                       rdfs:label "Supported by transform rule"@en .
-
-
-###  https://ekgf.org/ontology/story#supportsConcept
-story:supportsConcept rdf:type owl:ObjectProperty ;
-                      rdfs:domain story:Story ;
-                      rdfs:range concept:Concept ;
-                      dc:creator <http://orcid.org/0000-0003-2309-5068> ;
-                      dc:date "2020-07-02T13:10:04Z"^^xsd:dateTime ;
-                      rdfs:comment "This story or rule supports the given Concept in the sense that it either uses or creates the data represented by the Concept"@en ;
-                      rdfs:label "Supports Concept"@en .
-
-
-#################################################################
-#    Data properties
-#################################################################
-
-###  https://ekgf.org/ontology/concept#key
-concept:key owl:propertyDisjointWith story:key .
-
-
-###  https://ekgf.org/ontology/story#createsProvenance
-story:createsProvenance rdf:type owl:DatatypeProperty ;
-                        rdfs:domain story:Story ;
-                        rdfs:range xsd:boolean ;
-                        dc:creator <http://orcid.org/0000-0003-2309-5068> ;
-                        dc:date "2020-04-07T22:36:52Z"^^xsd:dateTime .
-
-
-###  https://ekgf.org/ontology/story#currentTime
-story:currentTime rdf:type owl:DatatypeProperty ,
-                           owl:FunctionalProperty ;
-                  rdfs:domain story:StoryInput ;
-                  rdfs:range xsd:dateTime ;
-                  dc:creator <http://orcid.org/0000-0003-2309-5068> ;
-                  dc:date "2020-04-07T20:48:22Z"^^xsd:dateTime ;
-                  rdfs:comment "indicates that, if provided and if true, the Story Service needs to provide the current time as the value for this input parameter."@en .
-
-
-###  https://ekgf.org/ontology/story#isPlural
-story:isPlural rdf:type owl:DatatypeProperty ,
-                        owl:FunctionalProperty ;
-               rdfs:domain story:Story ;
-               rdfs:range xsd:boolean ;
-               owl:propertyDisjointWith story:isSingular ;
-               dc:creator <http://orcid.org/0000-0003-2309-5068> ;
-               dc:date "2020-05-06T09:38:46Z"^^xsd:dateTime ;
-               rdfs:comment "Do not use, use isSingular"@en .
-
-
-###  https://ekgf.org/ontology/story#isServerProvided
-story:isServerProvided rdf:type owl:DatatypeProperty ,
-                                owl:FunctionalProperty ;
-                       rdfs:domain story:StoryInput ;
-                       rdfs:range xsd:boolean ;
-                       dc:creator <http://orcid.org/0000-0003-2309-5068> ;
-                       dc:date "2020-04-07T20:48:22Z"^^xsd:dateTime ;
-                       rdfs:comment "indicates that, if provided and if true, the Story Service needs to provide a KGIRI as the value for this input parameter."@en .
-
-
-###  https://ekgf.org/ontology/story#isSingular
-story:isSingular rdf:type owl:DatatypeProperty ,
-                          owl:FunctionalProperty ;
-                 rdfs:domain story:Story ;
-                 rdfs:range xsd:boolean ;
-                 dc:creator <http://orcid.org/0000-0003-2309-5068> ;
-                 dc:date "2020-05-06T09:37:47Z"^^xsd:dateTime ;
-                 rdfs:comment "Means that the story results in a singular Thing as its output"@en .
-
-
-###  https://ekgf.org/ontology/story#key
-story:key rdf:type owl:DatatypeProperty ,
-                   owl:FunctionalProperty ;
-          rdfs:domain story:Story ;
-          rdfs:range xsd:string ;
-          dc:creator <http://orcid.org/0000-0003-2309-5068> ;
-          dc:date "2020-05-01T15:41:28Z"^^xsd:dateTime .
-
-
-###  https://ekgf.org/ontology/story#serverGeneratedGuid
-story:serverGeneratedGuid rdf:type owl:DatatypeProperty ,
-                                   owl:FunctionalProperty ;
-                          rdfs:domain story:StoryInput ;
-                          rdfs:range xsd:boolean ;
-                          dc:creator <http://orcid.org/0000-0003-2309-5068> ;
-                          dc:date "2020-04-07T20:48:22Z"^^xsd:dateTime ;
-                          rdfs:comment "indicates that, if provided and if true, the Story Service needs to generate a GUID KGIRI as the value for this input parameter."@en .
-
-
-#################################################################
-#    Classes
-#################################################################
-
-###  https://ekgf.org/ontology/story#CreationInfo
-story:CreationInfo rdf:type owl:Class .
-
-
-###  https://ekgf.org/ontology/story#MandatoryParameter
-story:MandatoryParameter rdf:type owl:Class ;
-                         rdfs:subClassOf story:StoryInput ;
-                         owl:disjointWith story:OptionalParameter ;
-                         dc:creator <http://orcid.org/0000-0003-2309-5068> ;
-                         dc:date "2020-05-03T10:47:58Z"^^xsd:dateTime ;
-                         rdfs:isDefinedBy <https://ekgf.org/ontology/story#> .
-
-
-###  https://ekgf.org/ontology/story#ObfuscationRule
-story:ObfuscationRule rdf:type owl:Class ;
-                      rdfs:subClassOf story:Rule ;
-                      rdfs:isDefinedBy <https://ekgf.org/ontology/story#> ;
-                      rdfs:label "Obfuscation Rule"@en .
-
-
-###  https://ekgf.org/ontology/story#OptionalParameter
-story:OptionalParameter rdf:type owl:Class ;
-                        rdfs:subClassOf story:StoryInput ;
-                        dc:creator <http://orcid.org/0000-0003-2309-5068> ;
-                        dc:date "2020-05-03T10:48:18Z"^^xsd:dateTime ;
-                        rdfs:isDefinedBy <https://ekgf.org/ontology/story#> .
-
-
-###  https://ekgf.org/ontology/story#OptionalStoryOutput
-story:OptionalStoryOutput rdf:type owl:Class ;
-                          rdfs:subClassOf story:StoryOutput ;
-                          dc:creator <http://orcid.org/0000-0003-2309-5068> ;
-                          dc:date "2020-05-06T09:03:23Z"^^xsd:dateTime ;
-                          rdfs:isDefinedBy <https://ekgf.org/ontology/story#> .
-
-
-###  https://ekgf.org/ontology/story#Rule
-story:Rule rdf:type owl:Class ;
-           rdfs:subClassOf story:Story ;
-           dc:creator <http://orcid.org/0000-0003-2309-5068> ;
-           dc:date "2020-04-07T22:35:33Z"^^xsd:dateTime ;
-           rdfs:isDefinedBy <https://ekgf.org/ontology/story#> .
-
-
-###  https://ekgf.org/ontology/story#SPARQLRule
-story:SPARQLRule rdf:type owl:Class ;
-                 rdfs:subClassOf story:Rule ;
-                 dc:creator <http://orcid.org/0000-0003-2309-5068> ;
-                 dc:date "2020-04-07T22:35:38Z"^^xsd:dateTime ;
-                 rdfs:isDefinedBy <https://ekgf.org/ontology/story#> ;
-                 rdfs:label "SPARQL Rule"@en .
-
-
-###  https://ekgf.org/ontology/story#Story
-story:Story rdf:type owl:Class ;
-            owl:disjointWith story:StoryInput ,
-                             story:StoryOutput ,
-                             story:StoryRequest ,
-                             story:StoryResult ;
-            rdfs:isDefinedBy <https://ekgf.org/ontology/story#> ;
-            rdfs:label "Story"@en .
-
-
-###  https://ekgf.org/ontology/story#StoryInput
-story:StoryInput rdf:type owl:Class ;
-                 dc:creator <http://orcid.org/0000-0003-2309-5068> ;
-                 dc:date "2020-04-01T17:24:36Z"^^xsd:dateTime ;
-                 rdfs:comment "A StoryInput in the context of the Concept and Story Ontologies is the type of a blank node that serves as the specification of a parameter to a story."@en ;
-                 rdfs:isDefinedBy <https://ekgf.org/ontology/story#> .
-
-
-###  https://ekgf.org/ontology/story#StoryOutput
-story:StoryOutput rdf:type owl:Class ;
-                  dc:creator <http://orcid.org/0000-0003-2309-5068> ;
-                  dc:date "2020-04-07T20:40:12Z"^^xsd:dateTime ;
-                  rdfs:comment "A StoryOutput in the context of the Concept and Story Ontologies is the type of a blank node that serves as the specification of a result-column or result-key of a story."@en ;
-                  rdfs:isDefinedBy <https://ekgf.org/ontology/story#> .
-
-
-###  https://ekgf.org/ontology/story#StoryRequest
-story:StoryRequest rdf:type owl:Class ;
-                   rdfs:comment "Request to Execute a Story"@en ;
-                   rdfs:isDefinedBy <https://ekgf.org/ontology/story#> ;
-                   rdfs:label "Story Request"@en .
-
-
-###  https://ekgf.org/ontology/story#StoryResult
-story:StoryResult rdf:type owl:Class ;
-                  rdfs:comment "Every Story produces a Result, whether in the form of just an error code, success code or a stream of data points."@en ;
-                  rdfs:isDefinedBy <https://ekgf.org/ontology/story#> ;
-                  rdfs:label "Story Result"@en .
-
-
-###  https://ekgf.org/ontology/story#TransformationRule
-story:TransformationRule rdf:type owl:Class ;
-                         rdfs:subClassOf story:Rule ;
-                         rdfs:isDefinedBy <https://ekgf.org/ontology/story#> ;
-                         rdfs:label "Transformation Rule"@en .
-
-
-###  https://ekgf.org/ontology/story#ValidationRule
-story:ValidationRule rdf:type owl:Class ;
-                     rdfs:subClassOf story:Rule ;
-                     rdfs:isDefinedBy <https://ekgf.org/ontology/story#> ;
-                     rdfs:label "Validation Rule"@en .
-
-
-###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi
+# 
+# 
+# #################################################################
+# #
+# #    Annotation properties
+# #
+# #################################################################
+# 
+# 
+# http://purl.org/dc/elements/1.1/creator
+# 
+# http://purl.org/dc/elements/1.1/date
+# 
+# 
+# 
+# #################################################################
+# #
+# #    Object Properties
+# #
+# #################################################################
+# 
+# 
+# https://ekgf.org/ontology/concept#hasConcept
+# 
+# https://ekgf.org/ontology/story#canUseStory
+# 
+# https://ekgf.org/ontology/story#creates
+# 
+# https://ekgf.org/ontology/story#deletes
+# 
+# https://ekgf.org/ontology/story#hasInput
+# 
+# https://ekgf.org/ontology/story#hasOutcome
+# 
+# https://ekgf.org/ontology/story#hasOutput
+# 
+# https://ekgf.org/ontology/story#hasPersona
+# 
+# https://ekgf.org/ontology/story#implementedBy
+# 
+# https://ekgf.org/ontology/story#implements
+# 
+# https://ekgf.org/ontology/story#supportedByStory
+# 
+# https://ekgf.org/ontology/story#supportsConcept
+# 
+# 
+# 
+# #################################################################
+# #
+# #    Data properties
+# #
+# #################################################################
+# 
+# 
+# https://ekgf.org/ontology/story#createsProvenance
+# 
+# https://ekgf.org/ontology/story#currentTime
+# 
+# https://ekgf.org/ontology/story#isPlural
+# 
+# https://ekgf.org/ontology/story#isServerProvided
+# 
+# https://ekgf.org/ontology/story#isSingular
+# 
+# https://ekgf.org/ontology/story#serverGeneratedGuid
+# 
+# 
+# 
+# #################################################################
+# #
+# #    Classes
+# #
+# #################################################################
+# 
+# 
+# https://ekgf.org/ontology/story#CreationInfo
+# 
+# https://ekgf.org/ontology/story#MandatoryParameter
+# 
+# https://ekgf.org/ontology/story#ObfuscationRule
+# 
+# https://ekgf.org/ontology/story#OptionalParameter
+# 
+# https://ekgf.org/ontology/story#OptionalStoryOutput
+# 
+# https://ekgf.org/ontology/story#Rule
+# 
+# https://ekgf.org/ontology/story#SPARQLRule
+# 
+# https://ekgf.org/ontology/story#Story
+# 
+# https://ekgf.org/ontology/story#StoryInput
+# 
+# https://ekgf.org/ontology/story#StoryOutput
+# 
+# https://ekgf.org/ontology/story#StoryRequest
+# 
+# https://ekgf.org/ontology/story#StoryResult
+# 
+# https://ekgf.org/ontology/story#TransformationRule
+# 
+# https://ekgf.org/ontology/story#ValidationRule
+# 
+# Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi
+
+<#> a owl:Ontology;
+  owl:imports <concept#>, <outcome#>, <persona#>;
+  rdfs:comment "The EKGF story Ontology"@en;
+  rdfs:label "EKGF Story Ontology"@en .
+
+dc:creator a owl:AnnotationProperty .
+
+dc:date a owl:AnnotationProperty .
+
+concept:hasConcept rdfs:domain _:genid1 .
+
+_:genid1 a owl:Class;
+  owl:unionOf _:genid3 .
+
+_:genid3 a rdf:List;
+  rdf:first :StoryInput;
+  rdf:rest _:genid2 .
+
+_:genid2 a rdf:List;
+  rdf:first :StoryOutput;
+  rdf:rest rdf:nil .
+
+:canUseStory a owl:ObjectProperty;
+  owl:inverseOf :hasPersona;
+  rdfs:domain persona:Persona;
+  rdfs:range :Story .
+
+:creates a owl:ObjectProperty;
+  rdfs:domain :Rule;
+  rdfs:range :CreationInfo;
+  dc:creator <http://orcid.org/0000-0003-2309-5068>;
+  dc:date "2020-04-08T07:01:36Z"^^xsd:dateTime;
+  rdfs:comment "A story or rule can create new triples in the target graph, \"creates\" points to a blank node (usually) that has parts of a reified triple (rdf:Statement) showing what will be created by this rule."@en .
+
+:deletes a owl:ObjectProperty;
+  dc:creator <http://orcid.org/0000-0003-2309-5068>;
+  dc:date "2020-04-08T07:17:55Z"^^xsd:dateTime;
+  rdfs:comment "A story or rule can delete old triples in the source graph (the \"raw\" data graph usually). \"deletes\" points to a blank node (usually) that has parts of a reified triple (rdf:Statement) showing what will be deleted by this rule."@en .
+
+:hasInput a owl:ObjectProperty;
+  rdfs:domain :Story;
+  rdfs:range :StoryInput;
+  dc:creator <http://orcid.org/0000-0003-2309-5068>;
+  dc:date "2020-04-28T13:27:52Z"^^xsd:dateTime;
+  rdfs:comment "An Input Parameter links a Concept to a Story as one of its inputs"@en;
+  rdfs:label "has input parameter"@en .
+
+:hasOutcome a owl:ObjectProperty;
+  rdfs:domain :Story;
+  rdfs:range outcome:Outcome;
+  dc:creator <http://orcid.org/0000-0003-2309-5068>;
+  dc:date "2020-04-01T18:12:32Z"^^xsd:dateTime .
+
+:hasOutput a owl:ObjectProperty;
+  rdfs:domain :Story;
+  rdfs:range :StoryOutput;
+  dc:creator <http://orcid.org/0000-0003-2309-5068>;
+  dc:date "2020-04-28T18:48:14Z"^^xsd:dateTime .
+
+:hasPersona a owl:ObjectProperty;
+  rdfs:domain :Story;
+  rdfs:range persona:Persona;
+  dc:creator <http://orcid.org/0000-0003-2309-5068>;
+  dc:date "2020-04-01T18:12:45Z"^^xsd:dateTime;
+  rdfs:comment "The Persona (or Personas) of the given Story"@en .
+
+:implementedBy a owl:ObjectProperty;
+  owl:inverseOf :implements;
+  rdfs:domain :Story;
+  rdfs:label "Implemented By"@en .
+
+:implements a owl:ObjectProperty, owl:FunctionalProperty;
+  rdfs:range :Story .
+
+:supportedByStory a owl:ObjectProperty;
+  owl:inverseOf :supportsConcept;
+  rdfs:domain concept:Concept;
+  rdfs:range :Story;
+  dc:creator <http://orcid.org/0000-0003-2309-5068>;
+  dc:date "2020-07-02T13:11:03Z"^^xsd:dateTime;
+  rdfs:label "Supported by transform rule"@en .
+
+:supportsConcept a owl:ObjectProperty;
+  rdfs:domain :Story;
+  rdfs:range concept:Concept;
+  dc:creator <http://orcid.org/0000-0003-2309-5068>;
+  dc:date "2020-07-02T13:10:04Z"^^xsd:dateTime;
+  rdfs:comment "This story or rule supports the given Concept in the sense that it either uses or creates the data represented by the Concept"@en;
+  rdfs:label "Supports Concept"@en .
+
+:createsProvenance a owl:DatatypeProperty;
+  rdfs:domain :Story;
+  rdfs:range xsd:boolean;
+  dc:creator <http://orcid.org/0000-0003-2309-5068>;
+  dc:date "2020-04-07T22:36:52Z"^^xsd:dateTime .
+
+:currentTime a owl:DatatypeProperty, owl:FunctionalProperty;
+  rdfs:domain :StoryInput;
+  rdfs:range xsd:dateTime;
+  dc:creator <http://orcid.org/0000-0003-2309-5068>;
+  dc:date "2020-04-07T20:48:22Z"^^xsd:dateTime;
+  rdfs:comment "indicates that, if provided and if true, the Story Service needs to provide the current time as the value for this input parameter."@en .
+
+:isPlural a owl:DatatypeProperty, owl:FunctionalProperty;
+  rdfs:domain :Story;
+  rdfs:range xsd:boolean;
+  owl:propertyDisjointWith :isSingular;
+  dc:creator <http://orcid.org/0000-0003-2309-5068>;
+  dc:date "2020-05-06T09:38:46Z"^^xsd:dateTime;
+  rdfs:comment "Do not use, use isSingular"@en .
+
+:isServerProvided a owl:DatatypeProperty, owl:FunctionalProperty;
+  rdfs:domain :StoryInput;
+  rdfs:range xsd:boolean;
+  dc:creator <http://orcid.org/0000-0003-2309-5068>;
+  dc:date "2020-04-07T20:48:22Z"^^xsd:dateTime;
+  rdfs:comment "indicates that, if provided and if true, the Story Service needs to provide a KGIRI as the value for this input parameter."@en .
+
+:isSingular a owl:DatatypeProperty, owl:FunctionalProperty;
+  rdfs:domain :Story;
+  rdfs:range xsd:boolean;
+  dc:creator <http://orcid.org/0000-0003-2309-5068>;
+  dc:date "2020-05-06T09:37:47Z"^^xsd:dateTime;
+  rdfs:comment "Means that the story results in a singular Thing as its output"@en .
+
+:serverGeneratedGuid a owl:DatatypeProperty, owl:FunctionalProperty;
+  rdfs:domain :StoryInput;
+  rdfs:range xsd:boolean;
+  dc:creator <http://orcid.org/0000-0003-2309-5068>;
+  dc:date "2020-04-07T20:48:22Z"^^xsd:dateTime;
+  rdfs:comment "indicates that, if provided and if true, the Story Service needs to generate a GUID KGIRI as the value for this input parameter."@en .
+
+:CreationInfo a owl:Class .
+
+:MandatoryParameter a owl:Class;
+  rdfs:subClassOf :StoryInput;
+  owl:disjointWith :OptionalParameter;
+  dc:creator <http://orcid.org/0000-0003-2309-5068>;
+  dc:date "2020-05-03T10:47:58Z"^^xsd:dateTime;
+  rdfs:isDefinedBy <#> .
+
+:ObfuscationRule a owl:Class;
+  rdfs:subClassOf :Rule;
+  rdfs:isDefinedBy <#>;
+  rdfs:label "Obfuscation Rule"@en .
+
+:OptionalParameter a owl:Class;
+  rdfs:subClassOf :StoryInput;
+  dc:creator <http://orcid.org/0000-0003-2309-5068>;
+  dc:date "2020-05-03T10:48:18Z"^^xsd:dateTime;
+  rdfs:isDefinedBy <#> .
+
+:OptionalStoryOutput a owl:Class;
+  rdfs:subClassOf :StoryOutput;
+  dc:creator <http://orcid.org/0000-0003-2309-5068>;
+  dc:date "2020-05-06T09:03:23Z"^^xsd:dateTime;
+  rdfs:isDefinedBy <#> .
+
+:Rule a owl:Class;
+  rdfs:subClassOf :Story;
+  dc:creator <http://orcid.org/0000-0003-2309-5068>;
+  dc:date "2020-04-07T22:35:33Z"^^xsd:dateTime;
+  rdfs:isDefinedBy <#> .
+
+:SPARQLRule a owl:Class;
+  rdfs:subClassOf :Rule;
+  dc:creator <http://orcid.org/0000-0003-2309-5068>;
+  dc:date "2020-04-07T22:35:38Z"^^xsd:dateTime;
+  rdfs:isDefinedBy <#>;
+  rdfs:label "SPARQL Rule"@en .
+
+:Story a owl:Class;
+  owl:disjointWith :StoryInput, :StoryOutput, :StoryRequest, :StoryResult;
+  rdfs:isDefinedBy <#>;
+  rdfs:label "Story"@en .
+
+:StoryInput a owl:Class;
+  dc:creator <http://orcid.org/0000-0003-2309-5068>;
+  dc:date "2020-04-01T17:24:36Z"^^xsd:dateTime;
+  rdfs:comment "A StoryInput in the context of the Concept and Story Ontologies is the type of a blank node that serves as the specification of a parameter to a story."@en;
+  rdfs:isDefinedBy <#> .
+
+:StoryOutput a owl:Class;
+  dc:creator <http://orcid.org/0000-0003-2309-5068>;
+  dc:date "2020-04-07T20:40:12Z"^^xsd:dateTime;
+  rdfs:comment "A StoryOutput in the context of the Concept and Story Ontologies is the type of a blank node that serves as the specification of a result-column or result-key of a story."@en;
+  rdfs:isDefinedBy <#> .
+
+:StoryRequest a owl:Class;
+  rdfs:comment "Request to Execute a Story"@en;
+  rdfs:isDefinedBy <#>;
+  rdfs:label "Story Request"@en .
+
+:StoryResult a owl:Class;
+  rdfs:comment "Every Story produces a Result, whether in the form of just an error code, success code or a stream of data points."@en;
+  rdfs:isDefinedBy <#>;
+  rdfs:label "Story Result"@en .
+
+:TransformationRule a owl:Class;
+  rdfs:subClassOf :Rule;
+  rdfs:isDefinedBy <#>;
+  rdfs:label "Transformation Rule"@en .
+
+:ValidationRule a owl:Class;
+  rdfs:subClassOf :Rule;
+  rdfs:isDefinedBy <#>;
+  rdfs:label "Validation Rule"@en .

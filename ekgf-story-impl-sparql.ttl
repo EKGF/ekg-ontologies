@@ -1,4 +1,5 @@
 @prefix : <https://ekgf.org/ontology/story-impl-sparql#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
@@ -10,159 +11,159 @@
 @base <https://ekgf.org/ontology/story-impl-sparql#> .
 
 <https://ekgf.org/ontology/story-impl-sparql#> rdf:type owl:Ontology ;
-  owl:imports
-    concept:,
-    story: ;
-  rdfs:comment
-    """The SPARQL Story Implementation Ontology defines the concepts needed to implement a Story with a SPARQL 1.1 statement (query or update).
+    owl:imports
+        concept:,
+        story: ;
+    rdfs:comment
+        """The SPARQL Story Implementation Ontology defines the concepts needed to implement a Story with a SPARQL 1.1 statement (query or update).
 
-   The Story ontology itself is: https://ekgf.org/ontology/story#"""@en ;
-  rdfs:label "The SPARQL Story Implementation Ontology"@en .
+       The Story ontology itself is: https://ekgf.org/ontology/story#"""@en ;
+    rdfs:label "The SPARQL Story Implementation Ontology"@en .
 
 #################################################################
 #    Object Properties
 #################################################################
 
-###  https://ekgf.org/ontology/story-impl-sparql##flavor
+###  https://ekgf.org/ontology/story-impl-sparql#flavor
 sparql-story:flavor rdf:type owl:ObjectProperty ;
-  rdfs:domain sparql-story:StorySPARQLImplementation ;
-  rdfs:range sparql-story:SPARQLFlavor ;
-  rdfs:label
-    "Suports SPARQL Flavor"@en-us,
-    "Supports SPARQL Flavour"@en .
+    rdfs:domain sparql-story:StorySPARQLImplementation ;
+    rdfs:range sparql-story:SPARQLFlavor ;
+    rdfs:label
+        "Suports SPARQL Flavor"@en-us,
+        "Supports SPARQL Flavour"@en .
 
 
 #################################################################
 #    Data properties
 #################################################################
 
-###  https://ekgf.org/ontology/story-impl-sparql##sparqlFile
+###  https://ekgf.org/ontology/story-impl-sparql#sparqlFile
 sparql-story:sparqlFile rdf:type
-    owl:DatatypeProperty,
-    owl:FunctionalProperty ;
-  rdfs:domain sparql-story:StorySPARQLImplementation ;
-  rdfs:comment
-    """The name of the file name that contains the SPARQL implementation of the given Story.
+        owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:domain sparql-story:StorySPARQLImplementation ;
+    rdfs:comment
+        """The name of the file name that contains the SPARQL implementation of the given Story.
 
-   This name is assumed to be relative to the directory where the Turtle file containing the StoryImplementation lives."""@en ;
-  rdfs:label "SPARQL File"@en .
+       This name is assumed to be relative to the directory where the Turtle file containing the StoryImplementation lives."""@en ;
+    rdfs:label "SPARQL File"@en .
 
 
-###  https://ekgf.org/ontology/story-impl-sparql##sparqlStatement
+###  https://ekgf.org/ontology/story-impl-sparql#sparqlStatement
 sparql-story:sparqlStatement rdf:type
-    owl:DatatypeProperty,
-    owl:FunctionalProperty ;
-  rdfs:domain sparql-story:StorySPARQLImplementation ;
-  rdfs:comment "The SPARQL Statement as it is read from the file pointed to by `sparqlFile`"@en ;
-  rdfs:label "SPARQL Statement"@en .
+        owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:domain sparql-story:StorySPARQLImplementation ;
+    rdfs:comment "The SPARQL Statement as it is read from the file pointed to by `sparqlFile`"@en ;
+    rdfs:label "SPARQL Statement"@en .
 
 
 #################################################################
 #    Classes
 #################################################################
 
-###  https://ekgf.org/ontology/story-impl-sparql##ASK
+###  https://ekgf.org/ontology/story-impl-sparql#ASK
 sparql-story:ASK rdf:type owl:Class ;
   rdfs:subClassOf sparql-story:StorySPARQLQueryImplementation ;
   rdfs:isDefinedBy <https://ekgf.org/ontology/story-impl-sparql#> .
 
 
-###  https://ekgf.org/ontology/story-impl-sparql##CONSTRUCT
+###  https://ekgf.org/ontology/story-impl-sparql#CONSTRUCT
 sparql-story:CONSTRUCT rdf:type owl:Class ;
   rdfs:subClassOf sparql-story:StorySPARQLQueryImplementation ;
   rdfs:isDefinedBy <https://ekgf.org/ontology/story-impl-sparql#> .
 
 
-###  https://ekgf.org/ontology/story-impl-sparql##DELETE
+###  https://ekgf.org/ontology/story-impl-sparql#DELETE
 sparql-story:DELETE rdf:type owl:Class ;
   rdfs:subClassOf sparql-story:StorySPARQLUpdateImplementation ;
   rdfs:isDefinedBy <https://ekgf.org/ontology/story-impl-sparql#> .
 
 
-###  https://ekgf.org/ontology/story-impl-sparql##DESCRIBE
+###  https://ekgf.org/ontology/story-impl-sparql#DESCRIBE
 sparql-story:DESCRIBE rdf:type owl:Class ;
   rdfs:subClassOf sparql-story:StorySPARQLQueryImplementation ;
   rdfs:isDefinedBy <https://ekgf.org/ontology/story-impl-sparql#> .
 
 
-###  https://ekgf.org/ontology/story-impl-sparql##DROP
+###  https://ekgf.org/ontology/story-impl-sparql#DROP
 sparql-story:DROP rdf:type owl:Class ;
   rdfs:subClassOf sparql-story:StorySPARQLUpdateImplementation ;
   rdfs:isDefinedBy <https://ekgf.org/ontology/story-impl-sparql#> .
 
 
-###  https://ekgf.org/ontology/story-impl-sparql##INSERT
+###  https://ekgf.org/ontology/story-impl-sparql#INSERT
 sparql-story:UPDATE rdf:type owl:Class ;
   rdfs:subClassOf sparql-story:StorySPARQLUpdateImplementation ;
   rdfs:isDefinedBy <https://ekgf.org/ontology/story-impl-sparql#> .
 
 
-###  https://ekgf.org/ontology/story-impl-sparql##RDFoxSPARQL
+###  https://ekgf.org/ontology/story-impl-sparql#RDFoxSPARQL
 sparql-story:RDFoxSPARQL rdf:type owl:Class ;
   rdfs:subClassOf sparql-story:SPARQL11 ;
   rdfs:isDefinedBy <https://ekgf.org/ontology/story-impl-sparql#> .
 
 
-###  https://ekgf.org/ontology/story-impl-sparql##SELECT
+###  https://ekgf.org/ontology/story-impl-sparql#SELECT
 sparql-story:SELECT rdf:type owl:Class ;
   rdfs:subClassOf sparql-story:StorySPARQLQueryImplementation ;
   rdfs:isDefinedBy <https://ekgf.org/ontology/story-impl-sparql#> .
 
 
-###  https://ekgf.org/ontology/story-impl-sparql##SPARQL10
+###  https://ekgf.org/ontology/story-impl-sparql#SPARQL10
 sparql-story:SPARQL10 rdf:type owl:Class ;
   rdfs:subClassOf sparql-story:SPARQLFlavor ;
   rdfs:label "SPARQL 1.0"@en ;
   rdfs:isDefinedBy <https://ekgf.org/ontology/story-impl-sparql#> .
 
 
-###  https://ekgf.org/ontology/story-impl-sparql##SPARQL11
+###  https://ekgf.org/ontology/story-impl-sparql#SPARQL11
 sparql-story:SPARQL11 rdf:type owl:Class ;
   rdfs:subClassOf sparql-story:SPARQLFlavor ;
   rdfs:label "SPARQL 1.1"@en ;
   rdfs:isDefinedBy <https://ekgf.org/ontology/story-impl-sparql#> .
 
 
-###  https://ekgf.org/ontology/story-impl-sparql##SPARQLDatabaseProduct
+###  https://ekgf.org/ontology/story-impl-sparql#SPARQLDatabaseProduct
 sparql-story:SPARQLDatabaseProduct rdf:type owl:Class ;
   rdfs:isDefinedBy <https://ekgf.org/ontology/story-impl-sparql#> .
 
 
-###  https://ekgf.org/ontology/story-impl-sparql##SPARQLDatabaseVendor
+###  https://ekgf.org/ontology/story-impl-sparql#SPARQLDatabaseVendor
 sparql-story:SPARQLDatabaseVendor rdf:type owl:Class ;
   rdfs:isDefinedBy <https://ekgf.org/ontology/story-impl-sparql#> .
 
 
-###  https://ekgf.org/ontology/story-impl-sparql##SPARQLFlavor
+###  https://ekgf.org/ontology/story-impl-sparql#SPARQLFlavor
 sparql-story:SPARQLFlavor rdf:type owl:Class ;
   rdfs:isDefinedBy <https://ekgf.org/ontology/story-impl-sparql#> .
 
 
-###  https://ekgf.org/ontology/story-impl-sparql##StardogSPARQL
+###  https://ekgf.org/ontology/story-impl-sparql#StardogSPARQL
 sparql-story:StardogSPARQL rdf:type owl:Class ;
   rdfs:subClassOf sparql-story:SPARQL11 ;
   rdfs:isDefinedBy <https://ekgf.org/ontology/story-impl-sparql#> .
 
 
-###  https://ekgf.org/ontology/story-impl-sparql##StoryImplementation
+###  https://ekgf.org/ontology/story-impl-sparql#StoryImplementation
 sparql-story:StoryImplementation rdf:type owl:Class ;
   rdfs:isDefinedBy <https://ekgf.org/ontology/story-impl-sparql#> .
 
 
-###  https://ekgf.org/ontology/story-impl-sparql##StorySPARQLImplementation
+###  https://ekgf.org/ontology/story-impl-sparql#StorySPARQLImplementation
 sparql-story:StorySPARQLImplementation rdf:type owl:Class ;
   rdfs:subClassOf sparql-story:StoryImplementation ;
   rdfs:isDefinedBy <https://ekgf.org/ontology/story-impl-sparql#> .
 
 
-###  https://ekgf.org/ontology/story-impl-sparql##StorySPARQLQueryImplementation
+###  https://ekgf.org/ontology/story-impl-sparql#StorySPARQLQueryImplementation
 sparql-story:StorySPARQLQueryImplementation rdf:type owl:Class ;
   rdfs:subClassOf sparql-story:StorySPARQLImplementation ;
   rdfs:comment "Story SPARQL Implementation for query statements like `SELECT`, `CONSTRUCT`, `ASK` and `DESCRIBE`"@en ;
   rdfs:isDefinedBy <https://ekgf.org/ontology/story-impl-sparql#> .
 
 
-###  https://ekgf.org/ontology/story-impl-sparql##StorySPARQLUpdateImplementation
+###  https://ekgf.org/ontology/story-impl-sparql#StorySPARQLUpdateImplementation
 sparql-story:StorySPARQLUpdateImplementation rdf:type owl:Class ;
   rdfs:subClassOf sparql-story:StorySPARQLImplementation ;
   rdfs:comment "Story SPARQL Implementation for update statements like `INSERT/DELETE/WHERE` etc"@en ;
@@ -173,79 +174,79 @@ sparql-story:StorySPARQLUpdateImplementation rdf:type owl:Class ;
 #    Individuals
 #################################################################
 
-###  https://ekgf.org/ontology/story-impl-sparql##AllegroGraph
+###  https://ekgf.org/ontology/story-impl-sparql#AllegroGraph
 sparql-story:AllegroGraph rdf:type
     owl:NamedIndividual,
     sparql-story:SPARQLDatabaseProduct .
 
 
-###  https://ekgf.org/ontology/story-impl-sparql##AmazonWebServicesInc
+###  https://ekgf.org/ontology/story-impl-sparql#AmazonWebServicesInc
 sparql-story:AmazonWebServicesInc rdf:type
     owl:NamedIndividual,
     sparql-story:SPARQLDatabaseVendor .
 
 
-###  https://ekgf.org/ontology/story-impl-sparql##AnzoGraph
+###  https://ekgf.org/ontology/story-impl-sparql#AnzoGraph
 sparql-story:AnzoGraph rdf:type
     owl:NamedIndividual,
     sparql-story:SPARQLDatabaseProduct .
 
 
-###  https://ekgf.org/ontology/story-impl-sparql##BlazeGraph
+###  https://ekgf.org/ontology/story-impl-sparql#BlazeGraph
 sparql-story:BlazeGraph rdf:type
     owl:NamedIndividual,
     sparql-story:SPARQLDatabaseProduct .
 
 
-###  https://ekgf.org/ontology/story-impl-sparql##CambridgeSemantics
+###  https://ekgf.org/ontology/story-impl-sparql#CambridgeSemantics
 sparql-story:CambridgeSemantics rdf:type
     owl:NamedIndividual,
     sparql-story:SPARQLDatabaseVendor .
 
 
-###  https://ekgf.org/ontology/story-impl-sparql##GraphDb
+###  https://ekgf.org/ontology/story-impl-sparql#GraphDb
 sparql-story:GraphDb rdf:type
     owl:NamedIndividual,
     sparql-story:SPARQLDatabaseProduct .
 
 
-###  https://ekgf.org/ontology/story-impl-sparql##Neptune
+###  https://ekgf.org/ontology/story-impl-sparql#Neptune
 sparql-story:Neptune rdf:type
     owl:NamedIndividual,
     sparql-story:SPARQLDatabaseProduct .
 
 
-###  https://ekgf.org/ontology/story-impl-sparql##Ontotext
+###  https://ekgf.org/ontology/story-impl-sparql#Ontotext
 sparql-story:Ontotext rdf:type
     owl:NamedIndividual,
     sparql-story:SPARQLDatabaseVendor .
 
 
-###  https://ekgf.org/ontology/story-impl-sparql##OxfordSemanticTechnologies
+###  https://ekgf.org/ontology/story-impl-sparql#OxfordSemanticTechnologies
 sparql-story:OxfordSemanticTechnologies rdf:type
     owl:NamedIndividual,
     sparql-story:SPARQLDatabaseVendor .
 
 
-###  https://ekgf.org/ontology/story-impl-sparql##RDFox
+###  https://ekgf.org/ontology/story-impl-sparql#RDFox
 sparql-story:RDFox rdf:type
     owl:NamedIndividual,
     sparql-story:SPARQLDatabaseProduct .
 
 
-###  https://ekgf.org/ontology/story-impl-sparql##Stardog
+###  https://ekgf.org/ontology/story-impl-sparql#Stardog
 sparql-story:Stardog rdf:type
     owl:NamedIndividual,
     sparql-story:SPARQLDatabaseProduct .
 
 
-###  https://ekgf.org/ontology/story-impl-sparql##StardogUnion
+###  https://ekgf.org/ontology/story-impl-sparql#StardogUnion
 sparql-story:StardogUnion rdf:type
     owl:NamedIndividual,
     sparql-story:SPARQLDatabaseVendor .
 
 
-###  https://ekgf.org/ontology/story-impl-sparql##Virtuoso
+###  https://ekgf.org/ontology/story-impl-sparql#Virtuoso
 sparql-story:Virtuoso rdf:type
     owl:NamedIndividual,
     sparql-story:SPARQLDatabaseProduct .
@@ -256,8 +257,8 @@ sparql-story:Virtuoso rdf:type
 #################################################################
 
 [
-  rdf:type owl:AllDifferent ;
-  owl:distinctMembers rdf:nil
+    rdf:type owl:AllDifferent ;
+    owl:distinctMembers rdf:nil
 ] .
 
 

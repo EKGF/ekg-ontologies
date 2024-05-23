@@ -1,5 +1,6 @@
 @prefix : <http://www.semanticweb.org/jgeluk/ontologies/2024/3/untitled-ontology-16/> .
 @prefix ux: <https://ekgf.org/ontology/user-experience#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
@@ -7,7 +8,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @base <http://www.semanticweb.org/jgeluk/ontologies/2024/3/untitled-ontology-16/> .
 
-<https://ekgf.org/ontology/user-experience#> rdf:type owl:Ontology ;
+ux: rdf:type owl:Ontology ;
                                               rdfs:comment "This ontology covers various minor details, \"hints\", that can be used by User Interface programmers to optimize the user experience. Details like the default sorting of lists of objects, the default color of things etc."@en ;
                                               rdfs:label "EKG User Experience Ontology"@en .
 

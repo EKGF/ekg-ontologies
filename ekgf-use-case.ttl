@@ -33,6 +33,12 @@ use-case:hexColor rdf:type owl:AnnotationProperty .
 #    Object Properties
 #################################################################
 
+###  https://ekgf.org/ontology/use-case#hasColor
+use-case:hasColor rdf:type owl:ObjectProperty ;
+                  rdfs:label "has color"@en-us ,
+                             "has colour"@en .
+
+
 ###  https://ekgf.org/ontology/use-case#hasStereoType
 use-case:hasStereoType rdf:type owl:ObjectProperty ,
                                 owl:FunctionalProperty ;
@@ -122,7 +128,8 @@ use-case:UseCase rdf:type owl:Class ;
 
 
 ###  https://ekgf.org/ontology/use-case#UseCaseStereoType
-use-case:UseCaseStereoType rdf:type owl:Class .
+use-case:UseCaseStereoType rdf:type owl:Class ;
+                           dcelem:creator <http://orcid.org/0000-0003-2309-5068> .
 
 
 #################################################################
