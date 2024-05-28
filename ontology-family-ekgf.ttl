@@ -1,0 +1,134 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix api: <https://ekgf.org/ontology/api#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ontology: <https://ekgf.org/ontology/ontology#> .
+
+<urn:uuid:c0eda36a-f42a-4fa3-aea9-c7a5543207eb> a ontology:Family ;
+  rdfs:label "EKG Ontologies" ;
+  ontology:familyAcronym "EKG" ;
+  ontology:governedBy <urn:uuid:b0f7956e-8a47-49d1-b949-c5a562f56f96> ;
+  ontology:familyIriPrefix "/ontology/ekgf-" ;
+.
+
+<urn:uuid:e75e688c-19a8-46d8-84fc-149ab691b392> a ontology:Reference ;
+  rdf:type owl:NamedIndividual ;
+  ontology:governedBy <urn:uuid:b0f7956e-8a47-49d1-b949-c5a562f56f96> ;
+  ontology:inFamily <urn:uuid:c0eda36a-f42a-4fa3-aea9-c7a5543207eb> ;
+  ontology:refersTo <https://ekgf.org/ontology/ekgf-maturity-model> ;
+  ontology:refersTo <https://ekgf.org/ontology/ekgf-maturity-model#> ;
+.
+
+<urn:uuid:f749fae7-72eb-4e1a-a35f-81eafbb4462a> a ontology:Reference ;
+  rdf:type owl:NamedIndividual ;
+  ontology:governedBy <urn:uuid:b0f7956e-8a47-49d1-b949-c5a562f56f96> ;
+  ontology:inFamily <urn:uuid:c0eda36a-f42a-4fa3-aea9-c7a5543207eb> ;
+  ontology:refersTo <https://ekgf.org/ontology/api#> ;
+  api:key "ekgf-api" ;
+.
+
+<urn:uuid:fbdd2d08-16bf-4a64-8574-4e47a3df4c09> a ontology:Reference ;
+  rdf:type owl:NamedIndividual ;
+  ontology:governedBy <urn:uuid:b0f7956e-8a47-49d1-b949-c5a562f56f96> ;
+  ontology:inFamily <urn:uuid:c0eda36a-f42a-4fa3-aea9-c7a5543207eb> ;
+  ontology:refersTo <https://ekgf.org/ontology/capability#> ;
+  api:key "ekgf-capability" ;
+.
+
+<urn:uuid:ef90182b-52ab-4097-9855-a182e69cfe07> a ontology:Reference ;
+  rdf:type owl:NamedIndividual ;
+  ontology:governedBy <urn:uuid:b0f7956e-8a47-49d1-b949-c5a562f56f96> ;
+  ontology:inFamily <urn:uuid:c0eda36a-f42a-4fa3-aea9-c7a5543207eb> ;
+  ontology:refersTo <https://ekgf.org/ontology/concept#> ;
+  api:key "ekgf-concept" ;
+.
+
+<urn:uuid:f427f8e7-defd-49a1-9d36-416b753776bb> a ontology:Reference ;
+  rdf:type owl:NamedIndividual ;
+  ontology:governedBy <urn:uuid:b0f7956e-8a47-49d1-b949-c5a562f56f96> ;
+  ontology:inFamily <urn:uuid:c0eda36a-f42a-4fa3-aea9-c7a5543207eb> ;
+  ontology:refersTo <https://ekgf.org/ontology/data-product#> ;
+  api:key "ekgf-data-product" ;
+.
+
+<urn:uuid:b7c1aa16-3b54-4ff9-b5c8-0120224d878f> a ontology:Reference ;
+  rdf:type owl:NamedIndividual ;
+  ontology:governedBy <urn:uuid:b0f7956e-8a47-49d1-b949-c5a562f56f96> ;
+  ontology:inFamily <urn:uuid:c0eda36a-f42a-4fa3-aea9-c7a5543207eb> ;
+  ontology:refersTo <https://ekgf.org/ontology/dataops#> ;
+  api:key "ekgf-dataops" ;
+.
+
+<urn:uuid:b78dbc68-81c9-4c78-bdc0-cfe5bc254295> a ontology:Reference ;
+  rdf:type owl:NamedIndividual ;
+  ontology:governedBy <urn:uuid:b0f7956e-8a47-49d1-b949-c5a562f56f96> ;
+  ontology:inFamily <urn:uuid:c0eda36a-f42a-4fa3-aea9-c7a5543207eb> ;
+  ontology:refersTo <https://ekgf.org/ontology/ontology#> ;
+  api:key "ekgf-ontology" ;
+.
+
+<urn:uuid:d5632c52-f669-4240-9152-98394d2bf11a> a ontology:Reference ;
+  rdf:type owl:NamedIndividual ;
+  ontology:governedBy <urn:uuid:b0f7956e-8a47-49d1-b949-c5a562f56f96> ;
+  ontology:inFamily <urn:uuid:c0eda36a-f42a-4fa3-aea9-c7a5543207eb> ;
+  ontology:refersTo <https://ekgf.org/ontology/outcome#> ;
+  api:key "ekgf-outcome" ;
+.
+
+<urn:uuid:cbf2308c-ace1-4f32-857d-e105d064a2cb> a ontology:Reference ;
+  rdf:type owl:NamedIndividual ;
+  ontology:governedBy <urn:uuid:b0f7956e-8a47-49d1-b949-c5a562f56f96> ;
+  ontology:inFamily <urn:uuid:c0eda36a-f42a-4fa3-aea9-c7a5543207eb> ;
+  ontology:refersTo <https://ekgf.org/ontology/persona#> ;
+  api:key "ekgf-persona" ;
+.
+
+<urn:uuid:ce8f8d25-d52c-4ee8-9d45-c7d1c436f22b> a ontology:Reference ;
+  rdf:type owl:NamedIndividual ;
+  ontology:governedBy <urn:uuid:b0f7956e-8a47-49d1-b949-c5a562f56f96> ;
+  ontology:inFamily <urn:uuid:c0eda36a-f42a-4fa3-aea9-c7a5543207eb> ;
+  ontology:refersTo <https://ekgf.org/ontology/raw#> ;
+  api:key "ekgf-raw" ;
+.
+
+<urn:uuid:e6dd92d2-69e9-4a88-855c-8b90a0124264> a ontology:Reference ;
+  rdf:type owl:NamedIndividual ;
+  ontology:governedBy <urn:uuid:b0f7956e-8a47-49d1-b949-c5a562f56f96> ;
+  ontology:inFamily <urn:uuid:c0eda36a-f42a-4fa3-aea9-c7a5543207eb> ;
+  ontology:refersTo <https://ekgf.org/ontology/specification-by-example#> ;
+  api:key "ekgf-sbe" ;
+.
+
+<urn:uuid:a4abd42f-771e-434d-890c-701e101dca6b> a ontology:Reference ;
+  rdf:type owl:NamedIndividual ;
+  ontology:governedBy <urn:uuid:b0f7956e-8a47-49d1-b949-c5a562f56f96> ;
+  ontology:inFamily <urn:uuid:c0eda36a-f42a-4fa3-aea9-c7a5543207eb> ;
+  ontology:refersTo <https://ekgf.org/ontology/story#> ;
+  api:key "ekgf-story" ;
+.
+
+<urn:uuid:d09ed706-3c21-4f36-82ac-7d5c4d83cab8> a ontology:Reference ;
+  rdf:type owl:NamedIndividual ;
+  ontology:governedBy <urn:uuid:b0f7956e-8a47-49d1-b949-c5a562f56f96> ;
+  ontology:inFamily <urn:uuid:c0eda36a-f42a-4fa3-aea9-c7a5543207eb> ;
+  ontology:refersTo <https://ekgf.org/ontology/story-impl-sparql#> ;
+  api:key "ekgf-story-impl-sparql" ;
+.
+
+<urn:uuid:f6cfc134-ca84-453e-b4b9-315510a9dd18> a ontology:Reference ;
+  rdf:type owl:NamedIndividual ;
+  ontology:governedBy <urn:uuid:b0f7956e-8a47-49d1-b949-c5a562f56f96> ;
+  ontology:inFamily <urn:uuid:c0eda36a-f42a-4fa3-aea9-c7a5543207eb> ;
+  ontology:refersTo <https://ekgf.org/ontology/story-service#> ;
+  api:key "ekgf-story-service" ;
+.
+
+<urn:uuid:f1e09779-4907-4fa7-814c-013e7ef0dfc7> a ontology:Reference ;
+  rdf:type owl:NamedIndividual ;
+  ontology:governedBy <urn:uuid:b0f7956e-8a47-49d1-b949-c5a562f56f96> ;
+  ontology:inFamily <urn:uuid:c0eda36a-f42a-4fa3-aea9-c7a5543207eb> ;
+  ontology:refersTo <https://ekgf.org/ontology/use-case#> ;
+  api:key "ekgf-use-case" ;
+.
+
