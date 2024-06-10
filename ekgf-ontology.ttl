@@ -209,6 +209,13 @@ ontology:Reference rdf:type owl:Class ;
                                                 rdfs:label "XMLNS"@en .
 
 
+###  urn:uuid:e092c0f7-e778-467a-ac6d-0ce51776468a
+<urn:uuid:e092c0f7-e778-467a-ac6d-0ce51776468a> rdf:type owl:NamedIndividual ,
+                                                         ontology:Family ;
+                                                rdfs:comment "Some ontologies are standalone and are not part of a particular ontology family"@en ;
+                                                rdfs:label "No Ontology Family"@en .
+
+
 ###  urn:uuid:e63b3390-90aa-4fd0-9d13-3dcc9b754c59
 <urn:uuid:e63b3390-90aa-4fd0-9d13-3dcc9b754c59> rdf:type owl:NamedIndividual ,
                                                          ontology:Authority ;
@@ -232,6 +239,7 @@ ontology:Reference rdf:type owl:Class ;
                         <urn:uuid:d94f022f-5db3-4933-9c31-25cfd220f6e0>
                         <urn:uuid:da4673e0-a388-428a-a810-73022fe808a2>
                         <urn:uuid:df93fec7-a002-4622-b6c2-0b041a8ed520>
+                        <urn:uuid:e092c0f7-e778-467a-ac6d-0ce51776468a>
                         <urn:uuid:e63b3390-90aa-4fd0-9d13-3dcc9b754c59>
                       )
 ] .
