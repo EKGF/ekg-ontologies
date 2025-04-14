@@ -41,6 +41,8 @@
 # 
 # https://ekgf.org/ontology/story#deletes
 # 
+# https://ekgf.org/ontology/story#dependsOn
+# 
 # https://ekgf.org/ontology/story#hasInput
 # 
 # https://ekgf.org/ontology/story#hasOutcome
@@ -155,6 +157,11 @@ _:genid2 a rdf:List;
   dc:creator <http://orcid.org/0000-0003-2309-5068>;
   dc:date "2020-04-08T07:17:55Z"^^xsd:dateTime;
   rdfs:comment "A story or rule can delete old triples in the source graph (the \"raw\" data graph usually). \"deletes\" points to a blank node (usually) that has parts of a reified triple (rdf:Statement) showing what will be deleted by this rule."@en .
+
+:dependsOn a owl:ObjectProperty;
+  rdfs:domain :Story;
+  rdfs:range concept:Concept;
+  rdfs:comment "A Story can not only have input and output concepts but may also touch upon other Concepts, for instance Concepts that appear in the WHERE clause but not in the output."@en .
 
 :hasInput a owl:ObjectProperty;
   rdfs:domain :Story;
