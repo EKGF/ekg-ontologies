@@ -123,11 +123,6 @@ sbe:when rdf:type owl:ObjectProperty ;
 #    Data properties
 #################################################################
 
-###  https://ekgf.org/ontology/specification-by-example#key
-sbe:key rdf:type owl:DatatypeProperty ;
-    rdfs:domain sbe:ConceptValue ;
-    rdfs:comment "TODO: Get rid of this (in all scenarios) and rely on concept IRI instead"@en .
-
 
 ###  https://ekgf.org/ontology/specification-by-example#namedGraph
 sbe:namedGraph rdf:type owl:DatatypeProperty ;
