@@ -160,11 +160,11 @@
   rdfs:comment "Subject of the source triple or observation that supports the dependency."@en .
 
 :evidencePredicate
-  rdf:type owl:ObjectProperty ;
+  rdf:type owl:AnnotationProperty ;
   rdfs:domain :DependencyEvidence ;
   rdfs:range rdf:Property ;
   rdfs:label "evidence predicate"@en ;
-  rdfs:comment "Predicate of the source triple or observation that supports the dependency."@en .
+  rdfs:comment "Predicate of the source triple or observation that supports the dependency. It is an annotation property because its values are properties, which are not individuals."@en .
 
 :evidenceObject
   rdf:type owl:ObjectProperty ;

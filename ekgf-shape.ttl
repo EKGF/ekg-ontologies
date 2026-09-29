@@ -16,14 +16,14 @@ shape:ShapeSet rdf:type owl:Class ;
     rdfs:label "ShapeSet"@en ;
     rdfs:comment "A managed collection of related SHACL node shapes."@en .
 
-shape:hasNodeShape rdf:type owl:ObjectProperty ;
+shape:hasNodeShape rdf:type owl:AnnotationProperty ;
     rdfs:domain shape:ShapeSet ;
     rdfs:range sh:NodeShape ;
     rdfs:label "Has node shape"@en ;
-    rdfs:comment "Relates a shapeset to a SHACL node shape that belongs to it."@en .
+    rdfs:comment "Relates a shapeset to a SHACL node shape that belongs to it. It is an annotation property because a node shape can also be a class, and a class is not an individual."@en .
 
-shape:inShapeSet rdf:type owl:ObjectProperty ;
+shape:inShapeSet rdf:type owl:AnnotationProperty ;
     rdfs:domain sh:NodeShape ;
     rdfs:range shape:ShapeSet ;
     rdfs:label "In shapeset"@en ;
-    rdfs:comment "Relates a SHACL node shape to the shapeset it belongs to."@en .
+    rdfs:comment "Relates a SHACL node shape to the shapeset it belongs to. It is an annotation property because a node shape can also be a class, and a class is not an individual."@en .

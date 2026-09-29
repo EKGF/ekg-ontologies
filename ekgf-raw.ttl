@@ -72,12 +72,12 @@
 
 ###  https://ekgf.org/ontology/raw#predicate
 :predicate
-    rdf:type owl:ObjectProperty, owl:FunctionalProperty ;
+    rdf:type owl:AnnotationProperty ;
     rdfs:domain :Column ;
     rdfs:range rdf:Property ;
     <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
     <http://purl.org/dc/elements/1.1/date> "2020-06-13T09:33:37Z"^^xsd:dateTime ;
-    rdfs:comment "The property that this Column is mapped to"@en .
+    rdfs:comment "The property that this Column is mapped to. A column is mapped to one property. It is an annotation property because its values are properties, which are not individuals."@en .
 
 
 ###  https://ekgf.org/ontology/raw#valueOf

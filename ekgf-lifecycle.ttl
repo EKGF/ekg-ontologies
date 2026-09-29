@@ -51,11 +51,11 @@ lifecycle:followsLifecycle rdf:type owl:ObjectProperty ,
     rdfs:label "follows lifecycle"@en ;
     rdfs:comment "The lifecycle that this one thing follows. It takes precedence over the lifecycle that applies to the class of the thing. It has no domain because anything can have a lifecycle."@en .
 
-lifecycle:appliesTo rdf:type owl:ObjectProperty ;
+lifecycle:appliesTo rdf:type owl:AnnotationProperty ;
     rdfs:domain lifecycle:Lifecycle ;
     rdfs:range rdfs:Class ;
     rdfs:label "applies to"@en ;
-    rdfs:comment "A class whose members follow this lifecycle unless they name another one. This is policy rather than vocabulary: an organization states it in its own data, and can state it differently."@en .
+    rdfs:comment "A class whose members follow this lifecycle unless they name another one. This is policy rather than vocabulary: an organization states it in its own data, and can state it differently. It is an annotation property because its values are classes, which are not individuals."@en .
 
 lifecycle:inLifecycle rdf:type owl:ObjectProperty ;
     rdfs:domain [ rdf:type owl:Class ;
