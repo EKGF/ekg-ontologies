@@ -65,7 +65,7 @@ Every ontology lives in the file `ekgf-<name>.ttl` and has the IRI
 - `well-known-lifecycles.ttl`: lifecycles anyone can use
 - `lifecycle-bindings.ttl`: which lifecycle the members of a class
   follow
-- `ekg-family-references.ttl`: one reference for each ontology in
+- `ekgf-family-references.ttl`: one reference for each ontology in
   this repository
 
 ### Authorities

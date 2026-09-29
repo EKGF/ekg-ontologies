@@ -3,8 +3,8 @@
 @prefix artgov: <https://ekgf.org/ontology/artifact-governance#> .
 
 #
-# The members of the EKG family: one reference per ontology in this
-# repository. A reference gives its ontology a stable identity and slug.
+# The members of the family of EKGF ontologies: one reference per
+# ontology in this repository. A reference gives its ontology a stable identity and slug.
 #
 
 <urn:uuid:f749fae7-72eb-4e1a-a35f-81eafbb4462a>
