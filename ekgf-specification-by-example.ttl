@@ -1,5 +1,4 @@
 @prefix : <https://ekgf.org/ontology/specification-by-example#> .
-@prefix dc: <http://purl.org/dc/elements/1.1/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix sbe: <https://ekgf.org/ontology/specification-by-example#> .
@@ -8,7 +7,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @base <https://ekgf.org/ontology/specification-by-example#> .
 
-sbe: rdf:type owl:Ontology ;
+<https://ekgf.org/ontology/specification-by-example#> rdf:type owl:Ontology ;
     rdfs:label "Specification by example" .
 
 #################################################################
@@ -29,6 +28,44 @@ sbe:dataset rdf:type owl:ObjectProperty ;
 
 
 ###  https://ekgf.org/ontology/specification-by-example#given
+sbe:any rdf:type owl:NamedIndividual ;
+    rdfs:label "any" ;
+    rdfs:comment
+        """As an expected cell's value: any bound value satisfies it. For
+        results a story derives at run time — an IRI minted with UUID(),
+        a NOW() stamp — where the scenario asserts presence, not identity."""@en .
+
+sbe:capture rdf:type rdfs:Datatype ;
+    rdfs:label "capture" ;
+    rdfs:comment
+        """A literal of this datatype in an expected cell names a capture:
+        "id"^^sbe:capture binds the actual value on first sight and requires
+        equality everywhere the same name appears in the scenario. For
+        asserting that two cells, or two rows, carry the same run-time
+        value without pinning what it is."""@en .
+
+sbe:ignore rdf:type owl:DatatypeProperty ;
+    rdfs:domain sbe:Scenario ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "ignore" ;
+    rdfs:comment
+        """Skip this scenario. Kept in the model rather than as a
+        runner flag so a scenario can be parked with its reason
+        alongside it, and so the decision travels with the data."""@en .
+
+sbe:follows rdf:type owl:ObjectProperty ;
+    rdfs:domain sbe:Scenario ;
+    rdfs:range sbe:Scenario ;
+    rdfs:label "follows" ;
+    rdfs:comment
+        """This scenario runs after the named scenario, on the same
+        branch, with the predecessor's captures available: a value
+        "id"^^sbe:capture in this scenario's `when` is substituted with
+        what the predecessor's `then` bound to "id". Scenarios linked
+        by `follows` form a chain — one branch prepared once, steps in
+        dependency order — and a red step leaves the remaining steps
+        unrun. A scenario without `follows` is a chain of one."""@en .
+
 sbe:given rdf:type owl:ObjectProperty ;
     owl:inverseOf sbe:isGivenStateOf ;
     rdfs:domain sbe:Scenario ;
