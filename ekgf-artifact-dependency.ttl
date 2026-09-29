@@ -8,6 +8,7 @@
 
 <https://ekgf.org/ontology/artifact-dependency#>
   rdf:type owl:Ontology ;
+  owl:imports <https://ekgf.org/ontology/lifecycle#> ;
   rdfs:label "EKGF Artifact Dependency Ontology"@en ;
   rdfs:comment "Generic dependency vocabulary for Semantic Modelling artifacts such as OWL ontologies, SHACL shapesets, SKOS taxonomies, and concept sets."@en ;
   annotation:markdownDescription "Separates dependency facts, evidence, and workspace or branch resolution status for Semantic Modelling dependency management."@en .
@@ -61,12 +62,7 @@
 :OntologyLoadRequest
   rdf:type owl:Class ;
   rdfs:label "Ontology load request"@en ;
-  rdfs:comment "A pending request for a worker node to load an ontology family that would satisfy one or more unloaded dependency targets."@en .
-
-:LoadRequestStatus
-  rdf:type owl:Class ;
-  rdfs:label "Load request status"@en ;
-  rdfs:comment "Controlled values describing the lifecycle state of an ontology load request."@en .
+  rdfs:comment "A request for a worker node to load an ontology family that would satisfy one or more unloaded dependency targets. How far the request has come is its lifecycle state; by default a request follows the execution lifecycle."@en .
 
 #################################################################
 #    Object Properties
@@ -219,13 +215,6 @@
   rdfs:label "load request authority"@en ;
   rdfs:comment "Authority governing the artifact family named by the load request."@en .
 
-:loadRequestStatus
-  rdf:type owl:ObjectProperty ;
-  rdfs:domain :OntologyLoadRequest ;
-  rdfs:range :LoadRequestStatus ;
-  rdfs:label "load request status"@en ;
-  rdfs:comment "Lifecycle status for a load request."@en .
-
 #################################################################
 #    Data Properties
 #################################################################
@@ -282,20 +271,6 @@
   rdf:type owl:NamedIndividual, :ResolutionStatus ;
   rdfs:label "Failed"@en ;
   rdfs:comment "Dependency resolution was attempted and failed in the current workspace context."@en .
-
-#################################################################
-#    Load request status individuals
-#################################################################
-
-:Pending
-  rdf:type owl:NamedIndividual, :LoadRequestStatus ;
-  rdfs:label "Pending"@en ;
-  rdfs:comment "The request has been materialized by ETL and has not yet been claimed by a worker."@en .
-
-:Completed
-  rdf:type owl:NamedIndividual, :LoadRequestStatus ;
-  rdfs:label "Completed"@en ;
-  rdfs:comment "The load request has been carried out."@en .
 
 #################################################################
 #    Dependency kind individuals

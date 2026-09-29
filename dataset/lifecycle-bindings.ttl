@@ -4,6 +4,7 @@
 @prefix persona: <https://ekgf.org/ontology/persona#> .
 @prefix use-case: <https://ekgf.org/ontology/use-case#> .
 @prefix lifecycle: <https://ekgf.org/ontology/lifecycle#> .
+@prefix artdep: <https://ekgf.org/ontology/artifact-dependency#> .
 @prefix artpub: <https://ekgf.org/ontology/artifact-publication#> .
 
 #
@@ -31,4 +32,5 @@
     lifecycle:appliesTo artpub:StandardsRelease .
 
 <https://ekgf.org/lifecycle/execution>
-    lifecycle:appliesTo artpub:PublicationRun .
+    lifecycle:appliesTo artpub:PublicationRun ,
+                        artdep:OntologyLoadRequest .
