@@ -7,6 +7,8 @@
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix api: <https://ekgf.org/ontology/api#> .
+@prefix lifecycle: <https://ekgf.org/ontology/lifecycle#> .
 #
 #
 # #################################################################
@@ -97,7 +99,8 @@
 
 <https://ekgf.org/ontology/outcome#> a owl:Ontology ;
   rdfs:label "EKGF Outcome Ontology"@en ;
-  rdfs:comment "The outcomes that use cases and stories contribute to. An outcome has a stereotype, a lifecycle status and a priority."@en .
+  owl:imports <https://ekgf.org/ontology/api#> , <https://ekgf.org/ontology/lifecycle#> ;
+  rdfs:comment "The outcomes that use cases and stories contribute to. An outcome has a stereotype and a priority, and follows the outcome lifecycle."@en .
 
 dc:creator a owl:AnnotationProperty .
 
@@ -111,12 +114,6 @@ dc:date a owl:AnnotationProperty .
   rdfs:range :OutcomeStereoType ;
   rdfs:label "stereotype"@en ;
   rdfs:comment "The kind of outcome: theme, goal, objective or benefit."@en .
-
-:hasLifecycleStatus a owl:ObjectProperty ;
-  rdfs:domain :Outcome ;
-  rdfs:range :LifecycleStatus ;
-  rdfs:label "has lifecycle status"@en ;
-  rdfs:comment "The current lifecycle status of the outcome."@en .
 
 :priority a owl:DatatypeProperty ;
   rdfs:domain :Outcome ;
@@ -140,10 +137,34 @@ dc:date a owl:AnnotationProperty .
   rdfs:comment "The kinds of outcome."@en ;
   rdfs:isDefinedBy <https://ekgf.org/ontology/outcome#> .
 
-:LifecycleStatus a owl:Class ;
-  rdfs:label "Lifecycle Status"@en ;
-  rdfs:comment "The statuses an outcome passes through."@en ;
-  rdfs:isDefinedBy <https://ekgf.org/ontology/outcome#> .
+:OutcomeLifecycle a owl:NamedIndividual, lifecycle:Lifecycle ;
+  api:slug "outcome" ;
+  rdfs:label "Outcome lifecycle"@en ;
+  rdfs:comment "The lifecycle of an outcome: draft, active, achieved, deprecated."@en .
+
+:Draft a owl:NamedIndividual, lifecycle:State ;
+  api:slug "draft" ;
+  rdfs:label "Draft"@en ;
+  lifecycle:inLifecycle :OutcomeLifecycle ;
+  lifecycle:order 1 .
+
+:Active a owl:NamedIndividual, lifecycle:State ;
+  api:slug "active" ;
+  rdfs:label "Active"@en ;
+  lifecycle:inLifecycle :OutcomeLifecycle ;
+  lifecycle:order 2 .
+
+:Achieved a owl:NamedIndividual, lifecycle:State ;
+  api:slug "achieved" ;
+  rdfs:label "Achieved"@en ;
+  lifecycle:inLifecycle :OutcomeLifecycle ;
+  lifecycle:order 3 .
+
+:Deprecated a owl:NamedIndividual, lifecycle:State ;
+  api:slug "deprecated" ;
+  rdfs:label "Deprecated"@en ;
+  lifecycle:inLifecycle :OutcomeLifecycle ;
+  lifecycle:order 4 .
 
 :OutcomeStereoTypeBenefit a owl:NamedIndividual, :OutcomeStereoType ;
   rdfs:label "Benefit"@en .

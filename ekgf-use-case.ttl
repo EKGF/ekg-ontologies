@@ -18,7 +18,7 @@
                 persona: ,
                 story: ;
     rdfs:label "EKGF Use Case Ontology"@en ;
-    rdfs:comment "The EKGF Use Case Ontology, based on the EKG/Method as documented on https://method.ekgf.org. It describes the use case tree, the stereotype of each use case and the lifecycle state of anything that has one."@en .
+    rdfs:comment "The EKGF Use Case Ontology, based on the EKG/Method as documented on https://method.ekgf.org. It describes the use case tree and the stereotype of each use case. The lifecycle of a use case is described with the Lifecycle Ontology."@en .
 
 #################################################################
 #    Classes
@@ -34,14 +34,6 @@ use-case:UseCaseStereoType rdf:type owl:Class ;
     rdfs:label "Use Case Stereotype"@en ;
     rdfs:comment "The kind of node a use case is in the use case tree."@en ;
     dc:creator <http://orcid.org/0000-0003-2309-5068> .
-
-use-case:LifecyclePhase rdf:type owl:Class ;
-    rdfs:label "Lifecycle Phase"@en ;
-    rdfs:comment "A high-level phase in the continuous improvement lifecycle: Plan, Build, Run or Evolve."@en .
-
-use-case:LifecycleState rdf:type owl:Class ;
-    rdfs:label "Lifecycle State"@en ;
-    rdfs:comment "A specific state within a lifecycle phase."@en .
 
 #################################################################
 #    Object Properties
@@ -120,17 +112,6 @@ use-case:usedIn rdf:type owl:ObjectProperty ;
     dc:creator <http://orcid.org/0000-0003-2309-5068> ;
     dc:date "2020-04-08T00:02:11Z"^^xsd:dateTime .
 
-use-case:hasLifecycleState rdf:type owl:ObjectProperty ;
-    rdfs:range use-case:LifecycleState ;
-    rdfs:label "has lifecycle state"@en ;
-    rdfs:comment "Links any resource to its current lifecycle state. It has no domain because use cases, stories, data products and datasets all carry it."@en .
-
-use-case:lifecyclePhase rdf:type owl:ObjectProperty ;
-    rdfs:domain use-case:LifecycleState ;
-    rdfs:range use-case:LifecyclePhase ;
-    rdfs:label "lifecycle phase"@en ;
-    rdfs:comment "Links a lifecycle state to its phase."@en .
-
 use-case:hasColor rdf:type owl:ObjectProperty ;
     rdfs:label "has color"@en-us ,
                "has colour"@en .
@@ -138,12 +119,6 @@ use-case:hasColor rdf:type owl:ObjectProperty ;
 #################################################################
 #    Data Properties
 #################################################################
-
-use-case:lifecycleOrder rdf:type owl:DatatypeProperty ;
-    rdfs:domain use-case:LifecycleState ;
-    rdfs:range xsd:integer ;
-    rdfs:label "lifecycle order"@en ;
-    rdfs:comment "Position of a lifecycle state in the overall sequence."@en .
 
 use-case:screenLayoutIndex rdf:type owl:DatatypeProperty ;
     rdfs:domain use-case:UseCase ;
@@ -220,88 +195,6 @@ use-case:UseCaseStereoTypeApplication rdf:type owl:NamedIndividual ,
     rdfs:label "Application"@en ;
     rdfs:comment "An application-level use case."@en ;
     use-case:hexColor "#2563eb" .
-
-#################################################################
-#    Lifecycle phases
-#################################################################
-
-use-case:PhasePlan rdf:type owl:NamedIndividual ,
-        use-case:LifecyclePhase ;
-    rdfs:label "Plan"@en ;
-    use-case:hexColor "#3b82f6" .
-
-use-case:PhaseBuild rdf:type owl:NamedIndividual ,
-        use-case:LifecyclePhase ;
-    rdfs:label "Build"@en ;
-    use-case:hexColor "#d97706" .
-
-use-case:PhaseRun rdf:type owl:NamedIndividual ,
-        use-case:LifecyclePhase ;
-    rdfs:label "Run"@en ;
-    use-case:hexColor "#16a34a" .
-
-use-case:PhaseEvolve rdf:type owl:NamedIndividual ,
-        use-case:LifecyclePhase ;
-    rdfs:label "Evolve"@en ;
-    use-case:hexColor "#9333ea" .
-
-#################################################################
-#    Lifecycle states
-#################################################################
-
-use-case:LifecycleStateIdentified rdf:type owl:NamedIndividual ,
-        use-case:LifecycleState ;
-    rdfs:label "Identified"@en ;
-    use-case:lifecyclePhase use-case:PhasePlan ;
-    use-case:lifecycleOrder 1 .
-
-use-case:LifecycleStateDefined rdf:type owl:NamedIndividual ,
-        use-case:LifecycleState ;
-    rdfs:label "Defined"@en ;
-    use-case:lifecyclePhase use-case:PhasePlan ;
-    use-case:lifecycleOrder 2 .
-
-use-case:LifecycleStateProposed rdf:type owl:NamedIndividual ,
-        use-case:LifecycleState ;
-    rdfs:label "Proposed"@en ;
-    use-case:lifecyclePhase use-case:PhasePlan ;
-    use-case:lifecycleOrder 3 .
-
-use-case:LifecycleStatePlanned rdf:type owl:NamedIndividual ,
-        use-case:LifecycleState ;
-    rdfs:label "Planned"@en ;
-    use-case:lifecyclePhase use-case:PhasePlan ;
-    use-case:lifecycleOrder 4 .
-
-use-case:LifecycleStateInProgress rdf:type owl:NamedIndividual ,
-        use-case:LifecycleState ;
-    rdfs:label "In Progress"@en ;
-    use-case:lifecyclePhase use-case:PhaseBuild ;
-    use-case:lifecycleOrder 5 .
-
-use-case:LifecycleStateDelivered rdf:type owl:NamedIndividual ,
-        use-case:LifecycleState ;
-    rdfs:label "Delivered"@en ;
-    use-case:lifecyclePhase use-case:PhaseBuild ;
-    use-case:lifecycleOrder 6 .
-
-use-case:LifecycleStateDeployed rdf:type owl:NamedIndividual ,
-        use-case:LifecycleState ;
-    rdfs:label "Deployed"@en ;
-    use-case:lifecyclePhase use-case:PhaseRun ;
-    use-case:lifecycleOrder 7 .
-
-use-case:LifecycleStateDeprecated rdf:type owl:NamedIndividual ,
-        use-case:LifecycleState ;
-    rdfs:label "Deprecated"@en ;
-    use-case:lifecyclePhase use-case:PhaseEvolve ;
-    use-case:lifecycleOrder 8 .
-
-use-case:LifecycleStateDecommissioned rdf:type owl:NamedIndividual ,
-        use-case:LifecycleState ;
-    rdfs:label "Decommissioned"@en ;
-    use-case:lifecyclePhase use-case:PhaseEvolve ;
-    use-case:lifecycleOrder 9 .
 
 #################################################################
 #    General axioms
