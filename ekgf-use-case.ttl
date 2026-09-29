@@ -182,10 +182,10 @@ use-case:UseCaseStereoTypeUseCase rdf:type owl:NamedIndividual ,
     rdfs:comment "A concrete use case delivered within a business or data context. The default stereotype of a new use case."@en ;
     use-case:hexColor "#5b5bd6" .
 
-use-case:UseCaseStereoTypeTransform rdf:type owl:NamedIndividual ,
+use-case:UseCaseStereoTypeDataTransformation rdf:type owl:NamedIndividual ,
         use-case:UseCaseStereoType ;
-    api:slug "transform" ;
-    rdfs:label "Transform"@en ;
+    api:slug "data-transformation" ;
+    rdfs:label "Data Transformation"@en ;
     rdfs:comment "A use case that transforms data from one or more input datasets into one or more output datasets. Most of its stories are update stories."@en ;
     use-case:hexColor "#b7791f" .
 
