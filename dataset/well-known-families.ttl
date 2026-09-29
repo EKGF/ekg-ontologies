@@ -17,7 +17,7 @@
 #   artgov:graphIriPrefix      what the named graphs of its source files start with
 #
 # When the prefixes of several families match, the longest one wins: an
-# ontology under https://ekgf.org/ontology/cdmc- is CDMC, not EKG.
+# ontology under https://ekgf.org/ontology/cdmc- is CDMC, not EKGF.
 #
 
 # ── FIBO ─────────────────────────────────────────────────────
@@ -37,12 +37,12 @@
     artgov:maxSourceQuads "100000"^^xsd:unsignedLong ;
     artgov:maxFamilyLoadQuads "2000000"^^xsd:unsignedLong .
 
-# ── EKG ──────────────────────────────────────────────────────
+# ── EKGF ─────────────────────────────────────────────────────
 
 <urn:uuid:c0eda36a-f42a-4fa3-aea9-c7a5543207eb>
     rdf:type artgov:Family ;
-    rdfs:label "EKG Ontologies"@en ;
-    artgov:familyAcronym "EKG" ;
+    rdfs:label "EKGF Ontologies"@en ;
+    artgov:familyAcronym "EKGF" ;
     artgov:governedBy <urn:uuid:86065ee7-9883-500b-a320-1878f135a3a9> ;
     artgov:namespaceIriPrefix "https://ekgf.org/ontology/"^^xsd:anyURI ;
     artgov:graphIriPrefix "ekgf-" .
