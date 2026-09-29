@@ -50,7 +50,7 @@ artgov:governedBy rdf:type owl:ObjectProperty ;
 artgov:inFamily rdf:type owl:ObjectProperty ;
     rdfs:range artgov:Family ;
     rdfs:label "In family"@en ;
-    rdfs:comment "Relates an artifact or a reference to its family. It has no domain because it applies to every artifact type."@en .
+    rdfs:comment "Relates an artifact or a reference to its family. It has no domain because it applies to every artifact type. A family that is stated this way takes precedence over the prefixes of a family: the prefixes recognize only the artifacts that state no family."@en .
 
 artgov:refersTo rdf:type owl:ObjectProperty ;
     rdfs:domain artgov:Reference ;
@@ -133,13 +133,13 @@ artgov:namespaceIriPrefix rdf:type owl:DatatypeProperty ;
     rdfs:domain artgov:Family ;
     rdfs:range xsd:anyURI ;
     rdfs:label "Namespace IRI prefix"@en ;
-    rdfs:comment "What the namespace IRIs of the artifacts in the family start with, such as https://spec.edmcouncil.org/fibo/ontology/. It is an absolute IRI. When the prefixes of several families match a namespace, the longest one wins."@en .
+    rdfs:comment "What the namespace IRIs of the artifacts in the family start with, such as https://spec.edmcouncil.org/fibo/ontology/. It is an absolute IRI. When the prefixes of several families match a namespace, the longest one wins. An artifact that states its family with inFamily belongs to that family, whatever its namespace."@en .
 
 artgov:graphIriPrefix rdf:type owl:DatatypeProperty ;
     rdfs:domain artgov:Family ;
     rdfs:range xsd:string ;
     rdfs:label "Graph IRI prefix"@en ;
-    rdfs:comment "What the IRIs of the named graphs that hold the source files of the family start with. A named graph is usually named after the place its file was loaded from, a file:/// or s3:// IRI, so the value takes two forms. A value that begins with a scheme, such as s3://standards/fibo/, is matched against the start of the graph IRI. A value without a scheme, such as fibo/ or ekgf-, is a path prefix: it is matched at the start of any path segment, so that it holds wherever the files are stored. When the prefixes of several families match a graph, the longest one wins."@en .
+    rdfs:comment "What the IRIs of the named graphs that hold the source files of the family start with. A named graph is usually named after the place its file was loaded from, a file:/// or s3:// IRI, so the value takes two forms. A value that begins with a scheme, such as s3://standards/fibo/, is matched against the start of the graph IRI. A value without a scheme, such as fibo/ or ekgf-, is a path prefix: it is matched at the start of any path segment, so that it holds wherever the files are stored. When the prefixes of several families match a graph, the longest one wins. An artifact that states its family with inFamily belongs to that family, whatever its graph."@en .
 
 artgov:gitRepositoryUrl rdf:type owl:DatatypeProperty ;
     rdfs:domain artgov:Family ;

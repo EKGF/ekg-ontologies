@@ -95,6 +95,10 @@ recognises its artifacts by two prefixes.
 
 When the prefixes of several families match, the longest one wins.
 
+An artifact can also state its family itself, with
+`artgov:inFamily`. A stated family takes precedence: the prefixes
+recognise only the artifacts that state no family.
+
 ### Lifecycles
 
 A lifecycle is a named sequence of states, optionally grouped into

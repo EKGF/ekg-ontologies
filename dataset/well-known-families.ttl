@@ -19,6 +19,10 @@
 # When the prefixes of several families match, the longest one wins: an
 # ontology under https://ekgf.org/ontology/cdmc- is CDMC, not EKGF.
 #
+# A family that an artifact states with artgov:inFamily takes precedence
+# over both prefixes: they recognize only the artifacts that state no
+# family.
+#
 
 # ── FIBO ─────────────────────────────────────────────────────
 
