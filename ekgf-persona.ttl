@@ -78,7 +78,6 @@ ekgf-concept:Concept rdfs:subClassOf skos:Concept .
 
 ###  https://ekgf.org/ontology/persona#Persona
 :Persona rdf:type owl:Class ;
-         rdfs:subClassOf ekgf-concept:TaxonomyConcept ;
          <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
          <http://purl.org/dc/elements/1.1/date> "2020-04-01T18:10:23Z"^^xsd:dateTime ;
          rdfs:isDefinedBy <https://ekgf.org/ontology/persona#> .

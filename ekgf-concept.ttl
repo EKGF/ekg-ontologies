@@ -1,281 +1,309 @@
-@base <https://ekgf.org/ontology/concept#> .
-@prefix : <https://ekgf.org/ontology/concept#> .
-@prefix concept: <https://ekgf.org/ontology/concept#> .
-@prefix dc: <http://purl.org/dc/elements/1.1/> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix xml: <http://www.w3.org/XML/1998/namespace> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix obda: <https://w3id.org/obda/vocabulary#> .
+@prefix :     <https://ekgf.org/ontology/concept#> .
+@prefix dct:  <http://purl.org/dc/terms/> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@base         <https://ekgf.org/ontology/concept#> .
 
+<https://ekgf.org/ontology/concept#>
+  rdf:type     owl:Ontology ;
+  owl:imports  rdf: ;
+  rdfs:label   "EKGF Concept Ontology"@en ;
+  rdfs:comment
+    "Concepts are deliberately thin linking pins. Their lexical forms, code identifiers, schema references, RDF resources, and source occurrences are represented as ConceptManifestations."@en .
 
-concept:
-    a owl:Ontology ;
-    owl:imports rdf: ;
-    rdfs:comment "The EKGF Concept Ontology"@en ;
-    rdfs:label "EKGF Concept Ontology"@en .
-#
-#
-# #################################################################
-# #
-# #    Annotation properties
-# #
-# #################################################################
-#
-#
-# http://purl.org/dc/elements/1.1/creator
+#################################################################
+#    Object properties
+#################################################################
 
-<http://purl.org/dc/elements/1.1/creator>
-    a owl:AnnotationProperty .
-#
-# http://purl.org/dc/elements/1.1/date
+:hasConcept
+  rdf:type      owl:ObjectProperty ;
+  rdfs:range    :Concept ;
+  rdfs:label    "has concept"@en .
 
-<http://purl.org/dc/elements/1.1/date>
-    a owl:AnnotationProperty .
-#
-#
-#
-# #################################################################
-# #
-# #    Object Properties
-# #
-# #################################################################
+:inConceptSet
+  rdf:type      owl:ObjectProperty ;
+  rdfs:domain   :Concept ;
+  rdfs:range    :ConceptSet ;
+  rdfs:label    "in concept set"@en .
 
-###  https://ekgf.org/ontology/concept#hasConcept
-concept:hasConcept rdf:type owl:ObjectProperty ;
-            rdfs:range concept:Concept ;
-            dc:creator <http://orcid.org/0000-0003-2309-5068> ;
-            dc:date "2020-04-23T10:53:20Z"^^xsd:dateTime .
+:hasManifestation
+  rdf:type      owl:ObjectProperty ;
+  rdfs:domain   :Concept ;
+  rdfs:range    :ConceptManifestation ;
+  rdfs:label    "has manifestation"@en ;
+  rdfs:comment
+    "Links a concept to a concrete manifestation such as a business term, API parameter, SPARQL variable, OWL class, SHACL shape, SKOS concept, source-code identifier, table, or column."@en .
 
+:concept
+  rdf:type      owl:ObjectProperty ;
+  owl:inverseOf :hasManifestation ;
+  rdfs:domain   :ConceptManifestation ;
+  rdfs:range    :Concept ;
+  rdfs:label    "concept"@en .
 
-###  https://ekgf.org/ontology/concept#hasTerm
-:hasTerm rdf:type owl:ObjectProperty ;
-         rdfs:domain :Concept ;
-         rdfs:range :Term .
+:preferredManifestation
+  rdf:type           owl:ObjectProperty ;
+  rdfs:subPropertyOf :hasManifestation ;
+  rdfs:domain        :Concept ;
+  rdfs:range         :ConceptManifestation ;
+  rdfs:label         "preferred manifestation"@en .
 
+:preferredBusinessTerm
+  rdf:type           owl:ObjectProperty ;
+  rdfs:subPropertyOf :preferredManifestation ;
+  rdfs:domain        :Concept ;
+  rdfs:range         :BusinessTerm ;
+  rdfs:label         "preferred business term"@en .
 
-###  https://ekgf.org/ontology/concept#inConceptSet
-:inConceptSet rdf:type owl:ObjectProperty ;
-              rdfs:domain [ rdf:type owl:Class ;
-                            owl:unionOf ( :ClassConcept
-                                          :Concept
-                                          :PropertyConcept
-                                          :ShapeConcept
-                                          :TaxonomyConcept
-                                        )
-                          ] ;
-              rdfs:range :ConceptSet ;
-              rdfs:comment "Any given Concept can be in zero or more ConcepSets."@en .
+:preferredQueryParameterManifestation
+  rdf:type           owl:ObjectProperty ;
+  rdfs:subPropertyOf :preferredManifestation ;
+  rdfs:domain        :Concept ;
+  rdfs:range         :URIParameterManifestation ;
+  rdfs:label         "preferred query parameter manifestation"@en .
 
+:preferredResultColumnManifestation
+  rdf:type           owl:ObjectProperty ;
+  rdfs:subPropertyOf :preferredManifestation ;
+  rdfs:domain        :Concept ;
+  rdfs:range         :SPARQLResultColumnManifestation ;
+  rdfs:label         "preferred result column manifestation"@en ;
+  rdfs:comment       "The manifestation whose label is the concept's public response-column name — what the edge projector renders in place of the SPARQL projection variable (story-signature design)."@en .
 
-###  https://ekgf.org/ontology/concept#predicate
-:predicate rdf:type owl:ObjectProperty ;
-           rdfs:domain :PropertyConcept ;
-           rdfs:range rdfs:Resource ;
-           owl:propertyDisjointWith :rdfsClass ;
-           dc:creator <http://orcid.org/0000-0003-2309-5068> ;
-           dc:date "2020-04-28T14:40:47Z"^^xsd:dateTime ;
-           rdfs:comment "a (business) property concept should ultimately be tied to an owl:DatatypeProperty"@en ;
-           rdfs:label "has predicate"@en .
+:manifestationResource
+  rdf:type      owl:ObjectProperty ;
+  rdfs:domain   :TechnicalManifestation ;
+  rdfs:range    rdfs:Resource ;
+  rdfs:label    "manifestation resource"@en ;
+  rdfs:comment
+    "The RDF resource manifested by a technical manifestation, for example an OWL class, OWL property, SHACL shape, SKOS concept, datatype, named graph, table IRI, or external schema identifier."@en .
 
-
-###  https://ekgf.org/ontology/concept#raw
-:raw rdf:type owl:ObjectProperty ;
-     rdfs:domain :Concept ;
-     rdfs:range rdf:Property ;
-     dc:creator <http://orcid.org/0000-0003-2309-5068> ;
-     dc:date "2020-06-14T12:13:31Z"^^xsd:dateTime ;
-     rdfs:comment "The raw predicate that this concept usually gets represented with in the \"raw\" data that we capture from the originating source. Could be multiple predicates in case this concept occurs in multiple sources."@en .
-
-
-###  https://ekgf.org/ontology/concept#rdfsClass
-:rdfsClass rdf:type owl:ObjectProperty ;
-           rdfs:domain :ClassConcept ;
-           rdfs:range rdfs:Class ;
-           dc:creator <http://orcid.org/0000-0003-2309-5068> ;
-           dc:date "2020-06-21T12:22:44Z"^^xsd:dateTime .
-
+:occurrenceOf
+  rdf:type      owl:ObjectProperty ;
+  rdfs:domain   :ManifestationOccurrence ;
+  rdfs:range    :ConceptManifestation ;
+  rdfs:label    "occurrence of"@en .
 
 #################################################################
 #    Data properties
 #################################################################
 
-###  https://ekgf.org/ontology/concept#key
-:key rdf:type owl:DatatypeProperty ,
-              owl:FunctionalProperty ;
-     rdfs:domain :Concept ;
-     dc:creator <http://orcid.org/0000-0003-2309-5068> ;
-     dc:date "2020-04-23T10:39:51Z"^^xsd:dateTime ;
-     rdfs:comment """The \"key\" of a concept in lower camel case.
-      This key is being used in APIs as parameters or in JSON schemas as a key etc.
-      Example: legalEntityId and not \"Legal Entity Id\" or \"legal-entity-id\"."""@en .
+:manifestationValue
+  rdf:type      owl:DatatypeProperty ;
+  rdfs:domain   :ConceptManifestation ;
+  rdfs:range    xsd:string ;
+  rdfs:label    "manifestation value"@en ;
+  rdfs:comment
+    "The exact lexical value for a manifestation when it is not naturally represented as an RDF resource. Examples: customerId, ?customer, _abc22, a SQL column token, or a Cypher identifier."@en .
 
+:sourceRepository
+  rdf:type      owl:DatatypeProperty ;
+  rdfs:domain   :ManifestationOccurrence ;
+  rdfs:range    xsd:anyURI ;
+  rdfs:label    "source repository"@en .
 
-###  https://ekgf.org/ontology/concept#rawStripPrefix
-:rawStripPrefix rdf:type owl:DatatypeProperty ;
-                dc:creator <http://orcid.org/0000-0003-2309-5068> ;
-                dc:date "2020-06-14T12:53:16Z"^^xsd:dateTime .
+:sourcePath
+  rdf:type      owl:DatatypeProperty ;
+  rdfs:domain   :ManifestationOccurrence ;
+  rdfs:range    xsd:string ;
+  rdfs:label    "source path"@en .
 
+:sourceLine
+  rdf:type      owl:DatatypeProperty ;
+  rdfs:domain   :ManifestationOccurrence ;
+  rdfs:range    xsd:integer ;
+  rdfs:label    "source line"@en .
 
-###  https://ekgf.org/ontology/concept#type
-:type rdf:type owl:DatatypeProperty ,
-               owl:FunctionalProperty ;
-      rdfs:domain :Concept ;
-      dc:creator <http://orcid.org/0000-0003-2309-5068> ;
-      dc:date "2020-04-23T10:41:16Z"^^xsd:dateTime .
+:sourceColumn
+  rdf:type      owl:DatatypeProperty ;
+  rdfs:domain   :ManifestationOccurrence ;
+  rdfs:range    xsd:integer ;
+  rdfs:label    "source column"@en .
 
+:sourceCommit
+  rdf:type      owl:DatatypeProperty ;
+  rdfs:domain   :ManifestationOccurrence ;
+  rdfs:range    xsd:string ;
+  rdfs:label    "source commit"@en .
 
 #################################################################
 #    Classes
 #################################################################
 
-###  https://ekgf.org/ontology/concept#Abbrevation
-:Abbrevation rdf:type owl:Class ;
-             rdfs:subClassOf :Term .
+:Concept
+  rdf:type      owl:Class ;
+  rdfs:label    "concept"@en ;
+  rdfs:comment
+    "A broad, context-dependent linking pin. A concept may be duplicated and later merged when owners decide two concepts mean the same thing. The concept itself carries little meaning; its graph context and manifestations carry the useful detail."@en ;
+  dct:created   "2020-04-22T17:56:44Z"^^xsd:dateTime .
 
+:ConceptSet
+  rdf:type      owl:Class ;
+  rdfs:label    "concept set"@en ;
+  rdfs:comment  "A governed set of related concepts."@en .
 
-###  https://ekgf.org/ontology/concept#BusinessTerm
-:BusinessTerm rdf:type owl:Class ;
-              rdfs:subClassOf :Term .
+:ConceptManifestation
+  rdf:type      owl:Class ;
+  rdfs:label    "concept manifestation"@en ;
+  rdfs:comment
+    "A concrete real-world manifestation of a concept: a human term, abbreviation, synonym, API parameter, variable name, RDF resource, OWL axiom, SHACL shape, SKOS term, table, column, source-code identifier, or another discovered occurrence."@en .
 
+:BusinessTerm
+  rdf:type         owl:Class ;
+  rdfs:subClassOf  :ConceptManifestation ;
+  rdfs:label       "business term"@en ;
+  rdfs:comment     "A human-facing manifestation such as a preferred label, synonym, or abbreviation."@en .
 
-###  https://ekgf.org/ontology/concept#CamelCaseTerm
-:CamelCaseTerm rdf:type owl:Class ;
-               rdfs:subClassOf :TechnicalTerm .
+:Abbreviation
+  rdf:type         owl:Class ;
+  rdfs:subClassOf  :BusinessTerm ;
+  rdfs:label       "abbreviation"@en .
 
+:FullSingularBusinessTerm
+  rdf:type         owl:Class ;
+  rdfs:subClassOf  :BusinessTerm ;
+  rdfs:label       "full singular business term"@en .
 
-###  https://ekgf.org/ontology/concept#ClassConcept
-:ClassConcept rdf:type owl:Class ;
-              rdfs:subClassOf :Concept ;
-              dc:creator <http://orcid.org/0000-0003-2309-5068> ;
-              dc:date "2020-04-22T17:57:15Z"^^xsd:dateTime ;
-              rdfs:comment """A ClassConcept can be tied to an rdfs:Class (usually an OWL Class).
-      The concept:type value must be xsd:anyURI in that case and the
-      concept:rdfsClass property holds the reference to the RDFS/OWL Class."""@en ;
-              rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+:FullPluralBusinessTerm
+  rdf:type         owl:Class ;
+  rdfs:subClassOf  :BusinessTerm ;
+  rdfs:label       "full plural business term"@en ;
+  rdfs:comment     "The plural noun form of a concept's business term — what a column header or collection heading shows."@en .
 
+:Tagline
+  rdf:type         owl:Class ;
+  rdfs:subClassOf  :BusinessTerm ;
+  rdfs:label       "tagline"@en ;
+  rdfs:comment     "A short subtitle or tagline shown beneath a concept's title."@en .
 
-###  https://ekgf.org/ontology/concept#Concept
-:Concept rdf:type owl:Class ;
-         dc:creator <http://orcid.org/0000-0003-2309-5068> ;
-         dc:date "2020-04-22T17:56:44Z"^^xsd:dateTime ;
-         rdfs:comment "A business concept as close as possible to the original term as provided by the end user."@en ;
-         rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> ;
-         rdfs:label "Concept"@en .
+:Description
+  rdf:type         owl:Class ;
+  rdfs:subClassOf  :BusinessTerm ;
+  rdfs:label       "description"@en ;
+  rdfs:comment     "A longer human-facing description of a concept — hover text, tooltips, and detail panes."@en .
 
+:TechnicalManifestation
+  rdf:type         owl:Class ;
+  rdfs:subClassOf  :ConceptManifestation ;
+  rdfs:label       "technical manifestation"@en ;
+  rdfs:comment     "A machine-facing manifestation such as an API token, query variable, code identifier, RDF resource, schema object, table, or column."@en .
 
-###  https://ekgf.org/ontology/concept#ConceptSet
-:ConceptSet rdf:type owl:Class ;
-            rdfs:comment "Similar to skos:ConceptScheme, a set of concepts."@en ;
-            rdfs:label "Concept-set"@en .
+:URIParameterManifestation
+  rdf:type         owl:Class ;
+  rdfs:subClassOf  :TechnicalManifestation ;
+  rdfs:label       "URI parameter manifestation"@en .
 
+:SPARQLVariableManifestation
+  rdf:type         owl:Class ;
+  rdfs:subClassOf  :TechnicalManifestation ;
+  rdfs:label       "SPARQL variable manifestation"@en .
 
-###  https://ekgf.org/ontology/concept#JavascriptTerm
-:JavascriptTerm rdf:type owl:Class ;
-                rdfs:subClassOf :TechnicalTerm ;
-                rdfs:comment """Examples:
+:SPARQLResultColumnManifestation
+  rdf:type         owl:Class ;
+  rdfs:subClassOf  :TechnicalManifestation ;
+  rdfs:label       "SPARQL result column manifestation"@en .
 
-- RegulatoryAuthoritySEC, this is not 100% camel case but we want SEC to remain in capital letters
-- RegulatoryAuthoritySec could possibly be generated (and we will) but people can override""" .
+:TemplateParameterManifestation
+  rdf:type         owl:Class ;
+  rdfs:subClassOf  :TechnicalManifestation ;
+  rdfs:label       "template parameter manifestation"@en ;
+  rdfs:comment     "A concept's appearance as a parameter token in a statement-template language. Concrete subclasses fix the language and its token syntax, so implementations join template tokens to concepts structurally, per language."@en .
 
+:LegraDollarManifestation
+  rdf:type         owl:Class ;
+  rdfs:subClassOf  :TemplateParameterManifestation ;
+  rdfs:label       "LegraDollar manifestation"@en ;
+  rdfs:comment     "A LegraDollar template parameter token; the manifestation label is the literal token, for example \"$ekgid\"."@en .
 
-###  https://ekgf.org/ontology/concept#KebabCaseTerm
-:KebabCaseTerm rdf:type owl:Class ;
-               rdfs:subClassOf :TechnicalTerm ;
-               rdfs:comment """Example:
+:OWLClassManifestation
+  rdf:type         owl:Class ;
+  rdfs:subClassOf  :TechnicalManifestation ;
+  rdfs:label       "OWL class manifestation"@en .
 
-- \"regulatory-authority-sec\"""" .
+:OWLPropertyManifestation
+  rdf:type         owl:Class ;
+  rdfs:subClassOf  :TechnicalManifestation ;
+  rdfs:label       "OWL property manifestation"@en .
 
+:OWLAxiomManifestation
+  rdf:type         owl:Class ;
+  rdfs:subClassOf  :TechnicalManifestation ;
+  rdfs:label       "OWL axiom manifestation"@en .
 
-###  https://ekgf.org/ontology/concept#PascalCaseTerm
-:PascalCaseTerm rdf:type owl:Class ;
-                rdfs:subClassOf :TechnicalTerm .
+:OWLNamedIndividualManifestation
+  rdf:type         owl:Class ;
+  rdfs:subClassOf  :TechnicalManifestation ;
+  rdfs:label       "OWL named individual manifestation"@en .
 
+:SHACLShapeManifestation
+  rdf:type         owl:Class ;
+  rdfs:subClassOf  :TechnicalManifestation ;
+  rdfs:label       "SHACL shape manifestation"@en .
 
-###  https://ekgf.org/ontology/concept#PluralTerm
-:PluralTerm rdf:type owl:Class ;
-            rdfs:subClassOf :Term .
+:SHACLShapeSetManifestation
+  rdf:type         owl:Class ;
+  rdfs:subClassOf  :TechnicalManifestation ;
+  rdfs:label       "SHACL shapeset manifestation"@en .
 
+:SKOSConceptManifestation
+  rdf:type         owl:Class ;
+  rdfs:subClassOf  :TechnicalManifestation ;
+  rdfs:label       "SKOS concept manifestation"@en .
 
-###  https://ekgf.org/ontology/concept#PropertyConcept
-:PropertyConcept rdf:type owl:Class ;
-                 rdfs:subClassOf :Concept ;
-                 dc:creator <http://orcid.org/0000-0003-2309-5068> ;
-                 dc:date "2020-04-22T17:57:45Z"^^xsd:dateTime ;
-                 rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+:SKOSConceptSchemeManifestation
+  rdf:type         owl:Class ;
+  rdfs:subClassOf  :TechnicalManifestation ;
+  rdfs:label       "SKOS concept scheme manifestation"@en .
 
+:LiteralDatatypeManifestation
+  rdf:type         owl:Class ;
+  rdfs:subClassOf  :TechnicalManifestation ;
+  rdfs:label       "literal datatype manifestation"@en .
 
-###  https://ekgf.org/ontology/concept#RawRDFTerm
-:RawRDFTerm rdf:type owl:Class ;
-            rdfs:subClassOf :TechnicalTerm ;
-            rdfs:comment "Link straight to a raw RDF predicate"@en .
+:RDFPredicateManifestation
+  rdf:type         owl:Class ;
+  rdfs:subClassOf  :TechnicalManifestation ;
+  rdfs:label       "RDF predicate manifestation"@en .
 
+:RDFSClassManifestation
+  rdf:type         owl:Class ;
+  rdfs:subClassOf  :TechnicalManifestation ;
+  rdfs:label       "RDFS class manifestation"@en .
 
-###  https://ekgf.org/ontology/concept#ShapeConcept
-:ShapeConcept rdf:type owl:Class ;
-              rdfs:subClassOf :Concept ;
-              dc:creator <http://orcid.org/0000-0003-2309-5068> ;
-              dc:date "2020-04-22T17:57:23Z"^^xsd:dateTime ;
-              rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+:RawSourceFieldManifestation
+  rdf:type         owl:Class ;
+  rdfs:subClassOf  :TechnicalManifestation ;
+  rdfs:label       "raw source field manifestation"@en .
 
+:SQLTableManifestation
+  rdf:type         owl:Class ;
+  rdfs:subClassOf  :TechnicalManifestation ;
+  rdfs:label       "SQL table manifestation"@en .
 
-###  https://ekgf.org/ontology/concept#SingularTerm
-:SingularTerm rdf:type owl:Class ;
-              rdfs:subClassOf :Term .
+:SQLColumnManifestation
+  rdf:type         owl:Class ;
+  rdfs:subClassOf  :TechnicalManifestation ;
+  rdfs:label       "SQL column manifestation"@en .
 
+:CypherIdentifierManifestation
+  rdf:type         owl:Class ;
+  rdfs:subClassOf  :TechnicalManifestation ;
+  rdfs:label       "Cypher identifier manifestation"@en .
 
-###  https://ekgf.org/ontology/concept#SparqlTerm
-:SparqlTerm rdf:type owl:Class ;
-            rdfs:subClassOf :TechnicalTerm .
+:JavaScriptIdentifierManifestation
+  rdf:type         owl:Class ;
+  rdfs:subClassOf  :TechnicalManifestation ;
+  rdfs:label       "JavaScript identifier manifestation"@en .
 
+:JSONFieldManifestation
+  rdf:type         owl:Class ;
+  rdfs:subClassOf  :TechnicalManifestation ;
+  rdfs:label       "JSON field manifestation"@en .
 
-###  https://ekgf.org/ontology/concept#TaxonomyConcept
-:TaxonomyConcept rdf:type owl:Class ;
-                 rdfs:subClassOf :Concept ;
-                 dc:creator <http://orcid.org/0000-0003-2309-5068> ;
-                 dc:date "2020-04-22T17:57:37Z"^^xsd:dateTime ;
-                 rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
-
-
-###  https://ekgf.org/ontology/concept#TechnicalTerm
-:TechnicalTerm rdf:type owl:Class ;
-               rdfs:subClassOf :Term .
-
-
-###  https://ekgf.org/ontology/concept#Term
-:Term rdf:type owl:Class .
-
-
-###  https://ekgf.org/ontology/concept#UriParameterTerm
-:UriParameterTerm rdf:type owl:Class ;
-                  rdfs:subClassOf :TechnicalTerm .
-
-
-#################################################################
-#    Individuals
-#################################################################
-
-###  https://ekgf.org/ontology/concept#literalValue
-:literalValue rdf:type owl:NamedIndividual ,
-                       xsd:string ;
-              rdfs:comment "A string literal representation of a string serialized rdf value and its type. e.g. \"\"P1Y\"^^xsd:duration\" " .
-
-
-###  https://ekgf.org/ontology/concept#test-concept-regulatory-authority-sec
-:test-concept-regulatory-authority-sec rdf:type owl:NamedIndividual ,
-                                                :Concept ;
-                                       :hasTerm :test-term-regulatory-authority-sec-pascal-case ;
-                                       :key "regulatory-authority-sec" .
-
-
-###  https://ekgf.org/ontology/concept#test-term-regulatory-authority-sec-pascal-case
-:test-term-regulatory-authority-sec-pascal-case rdf:type owl:NamedIndividual ,
-                                                         :PascalCaseTerm ,
-                                                         :SingularTerm ,
-                                                         :TechnicalTerm ,
-                                                         :Term ;
-                                                rdfs:label "RegulatoryAuthoritySEC" .
-
-
-###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi
+:ManifestationOccurrence
+  rdf:type      owl:Class ;
+  rdfs:label    "manifestation occurrence"@en ;
+  rdfs:comment
+    "A concrete sighting of a concept manifestation in a source repository, statement, RDF file, OWL file, SHACL file, SPARQL query, SQL statement, Cypher statement, or code file."@en .
