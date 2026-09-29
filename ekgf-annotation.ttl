@@ -1,0 +1,26 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix annotation: <https://ekgf.org/ontology/annotation#> .
+@base <https://ekgf.org/ontology/annotation#> .
+
+<https://ekgf.org/ontology/annotation#>
+    rdf:type owl:Ontology ;
+    rdfs:label "EKGF Annotation Ontology"@en ;
+    rdfs:comment "Descriptive text that any resource can carry: a description in Markdown, a subtitle and a summary. These are annotation properties, so they apply to classes and properties as well as to individuals."@en .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+annotation:markdownDescription rdf:type owl:AnnotationProperty ;
+    rdfs:label "Markdown description"@en ;
+    rdfs:comment "A description of the resource, written in Markdown. Where it is absent, rdfs:comment is the description."@en .
+
+annotation:subtitle rdf:type owl:AnnotationProperty ;
+    rdfs:label "subtitle"@en ;
+    rdfs:comment "One line shown under the label of the resource."@en .
+
+annotation:summary rdf:type owl:AnnotationProperty ;
+    rdfs:label "summary"@en ;
+    rdfs:comment "A short summary of the resource, in plain text."@en .
