@@ -175,3 +175,10 @@
     artgov:refersTo <https://ekgf.org/ontology/lifecycle#> ;
     artgov:inFamily <urn:uuid:c0eda36a-f42a-4fa3-aea9-c7a5543207eb> ;
     artgov:governedBy <urn:uuid:86065ee7-9883-500b-a320-1878f135a3a9> .
+
+<urn:uuid:6e06f26c-bc48-4170-9603-a8bb2f05809e>
+    rdf:type artgov:Reference ;
+    api:slug "ekgf-authorization" ;
+    artgov:refersTo <https://ekgf.org/ontology/authorization#> ;
+    artgov:inFamily <urn:uuid:c0eda36a-f42a-4fa3-aea9-c7a5543207eb> ;
+    artgov:governedBy <urn:uuid:86065ee7-9883-500b-a320-1878f135a3a9> .
