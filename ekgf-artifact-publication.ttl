@@ -4,13 +4,15 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix artgov: <https://ekgf.org/ontology/artifact-governance#> .
 @prefix artpub: <https://ekgf.org/ontology/artifact-publication#> .
+@prefix lifecycle: <https://ekgf.org/ontology/lifecycle#> .
 @base <https://ekgf.org/ontology/artifact-publication#> .
 
 <https://ekgf.org/ontology/artifact-publication#>
     rdf:type owl:Ontology ;
     rdfs:label "The EKG Artifact Publication Ontology"@en ;
-    rdfs:comment "How a family is published: the profile that configures generation, the targets it publishes to, the runs that generate artifacts and the releases that record them."@en ;
-    owl:imports artgov: .
+    rdfs:comment "How a family is published: the profile that configures generation, the targets it publishes to, the runs that generate artifacts and the releases that record them. The state of a run and of a release is described with the Lifecycle Ontology."@en ;
+    owl:imports artgov: ,
+                lifecycle: .
 
 #################################################################
 #    Classes
@@ -26,7 +28,7 @@ artpub:PublicationTarget rdf:type owl:Class ;
 
 artpub:PublicationRun rdf:type owl:Class ;
     rdfs:label "Publication run"@en ;
-    rdfs:comment "An execution that generates publication artifacts for a family, profile, branch and input commit."@en .
+    rdfs:comment "An execution that generates publication artifacts for a family, profile, branch and input commit. How far it has come is its lifecycle state; by default a run follows the execution lifecycle."@en .
 
 artpub:PublicationArtifact rdf:type owl:Class ;
     rdfs:label "Publication artifact"@en ;
@@ -34,7 +36,7 @@ artpub:PublicationArtifact rdf:type owl:Class ;
 
 artpub:StandardsRelease rdf:type owl:Class ;
     rdfs:label "Standards release"@en ;
-    rdfs:comment "An immutable publication record binding a family, branch, version, input commit, publication run, generated artifacts and provenance."@en .
+    rdfs:comment "An immutable publication record binding a family, branch, version, input commit, publication run, generated artifacts and provenance. Where it stands is its lifecycle state; by default a release follows the publication lifecycle."@en .
 
 #################################################################
 #    Object Properties
@@ -119,11 +121,6 @@ artpub:targetKind rdf:type owl:DatatypeProperty ;
     rdfs:range xsd:string ;
     rdfs:label "Target kind"@en ;
     rdfs:comment "Kind of publication target, such as website, pdf, rdf-download, archive or package."@en .
-
-artpub:publicationStatus rdf:type owl:DatatypeProperty ;
-    rdfs:range xsd:string ;
-    rdfs:label "Publication status"@en ;
-    rdfs:comment "Execution or release status of a publication run or a standards release."@en .
 
 artpub:releaseVersion rdf:type owl:DatatypeProperty ;
     rdfs:domain artpub:StandardsRelease ;

@@ -4,6 +4,7 @@
 @prefix persona: <https://ekgf.org/ontology/persona#> .
 @prefix use-case: <https://ekgf.org/ontology/use-case#> .
 @prefix lifecycle: <https://ekgf.org/ontology/lifecycle#> .
+@prefix artpub: <https://ekgf.org/ontology/artifact-publication#> .
 
 #
 # Which lifecycle the members of a class follow.
@@ -25,3 +26,9 @@
 
 <https://ekgf.org/lifecycle/achievement>
     lifecycle:appliesTo outcome:Outcome .
+
+<https://ekgf.org/lifecycle/publication>
+    lifecycle:appliesTo artpub:StandardsRelease .
+
+<https://ekgf.org/lifecycle/execution>
+    lifecycle:appliesTo artpub:PublicationRun .

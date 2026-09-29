@@ -84,3 +84,10 @@ lifecycle:order rdf:type owl:DatatypeProperty ,
     rdfs:range xsd:integer ;
     rdfs:label "order"@en ;
     rdfs:comment "Position of a state in the sequence of its lifecycle."@en .
+
+lifecycle:isTerminal rdf:type owl:DatatypeProperty ,
+                              owl:FunctionalProperty ;
+    rdfs:domain lifecycle:State ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "is terminal"@en ;
+    rdfs:comment "True for a state that nothing follows. A lifecycle can end in several ways, such as done, failed or cancelled; each of those is a terminal state, and their order is only the order in which they are listed."@en .
