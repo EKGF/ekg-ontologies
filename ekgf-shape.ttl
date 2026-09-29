@@ -9,12 +9,16 @@
 <https://ekgf.org/ontology/shape#>
     rdf:type owl:Ontology ;
     rdfs:label "The EKG Shape Ontology"@en ;
-    rdfs:comment "Metadata vocabulary for grouping SHACL node shapes into shapesets."@en ;
-    annotation:markdownDescription "Defines `shape:ShapeSet` and membership properties for grouping SHACL node shapes into governed shapesets."@en .
+    rdfs:comment "Metadata vocabulary for grouping SHACL node shapes into shapesets and for saying what a shape is for."@en ;
+    annotation:markdownDescription "Defines `shape:ShapeSet` and membership properties for grouping SHACL node shapes into governed shapesets, and `shape:ShapePurpose` with `shape:shapePurpose` for saying what a shape is for."@en .
 
 shape:ShapeSet rdf:type owl:Class ;
     rdfs:label "ShapeSet"@en ;
     rdfs:comment "A managed collection of related SHACL node shapes."@en .
+
+shape:ShapePurpose rdf:type owl:Class ;
+    rdfs:label "Shape purpose"@en ;
+    rdfs:comment "What a shape is for. The purposes are controlled values, each an instance of this class."@en .
 
 shape:hasNodeShape rdf:type owl:AnnotationProperty ;
     rdfs:domain shape:ShapeSet ;
@@ -27,3 +31,8 @@ shape:inShapeSet rdf:type owl:AnnotationProperty ;
     rdfs:range shape:ShapeSet ;
     rdfs:label "In shapeset"@en ;
     rdfs:comment "Relates a SHACL node shape to the shapeset it belongs to. It is an annotation property because a node shape can also be a class, and a class is not an individual."@en .
+
+shape:shapePurpose rdf:type owl:AnnotationProperty ;
+    rdfs:range shape:ShapePurpose ;
+    rdfs:label "Shape purpose"@en ;
+    rdfs:comment "Relates a shape to what it is for. It is an annotation property because a node shape can also be a class, and a class is not an individual."@en .

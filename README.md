@@ -40,7 +40,8 @@ Every ontology lives in the file `ekgf-<name>.ttl` and has the IRI
   targets, runs and releases
 - `artifact-dependency`: what an artifact depends on, the evidence
   for it and whether the dependency resolves
-- `shape`: SHACL node shapes grouped into shapesets
+- `shape`: SHACL node shapes grouped into shapesets, and what a
+  shape is for
 - `lifecycle`: what a lifecycle is, which lifecycle a thing follows
   and which state it is in
 
