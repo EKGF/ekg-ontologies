@@ -13,13 +13,15 @@
 # own replaces the binding in its own data. One thing can also depart
 # from its class with lifecycle:followsLifecycle.
 #
+# The lifecycles are defined in well-known-lifecycles.ttl.
+#
 
-lifecycle:ContinuousImprovement
+<https://ekgf.org/lifecycle/continuous-improvement>
     lifecycle:appliesTo use-case:UseCase ,
                         story:Story ,
                         concept:Concept ,
                         concept:ConceptSet ,
                         persona:Persona .
 
-outcome:OutcomeLifecycle
+<https://ekgf.org/lifecycle/achievement>
     lifecycle:appliesTo outcome:Outcome .

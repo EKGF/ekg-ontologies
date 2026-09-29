@@ -2,19 +2,15 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix api: <https://ekgf.org/ontology/api#> .
-@prefix ux: <https://ekgf.org/ontology/user-experience#> .
 @prefix lifecycle: <https://ekgf.org/ontology/lifecycle#> .
 @base <https://ekgf.org/ontology/lifecycle#> .
 
 <https://ekgf.org/ontology/lifecycle#>
     rdf:type owl:Ontology ;
-    owl:imports api: ,
-                ux: ;
     rdfs:label "EKGF Lifecycle Ontology"@en ;
     rdfs:comment """Everything has a lifecycle: use cases, stories, concepts, personas, outcomes, data products and datasets. This ontology says what a lifecycle is, which lifecycle a thing follows and which state the thing is in. It depends on none of the ontologies that describe those things.
 
-A lifecycle is a named sequence of states, grouped into phases. There can be any number of lifecycles. This ontology ships one, the continuous improvement lifecycle; other ontologies and datasets define their own.
+A lifecycle is a named sequence of states, optionally grouped into phases. There can be any number of lifecycles. This ontology defines none: the well-known lifecycles are a dataset (dataset/well-known-lifecycles.ttl), and anyone can define more. Each lifecycle has a namespace of its own, because lifecycles share state names such as Draft and Deprecated.
 
 Which lifecycle a thing follows is decided in this order:
 
@@ -88,117 +84,3 @@ lifecycle:order rdf:type owl:DatatypeProperty ,
     rdfs:range xsd:integer ;
     rdfs:label "order"@en ;
     rdfs:comment "Position of a state in the sequence of its lifecycle."@en .
-
-#################################################################
-#    The continuous improvement lifecycle
-#################################################################
-
-lifecycle:ContinuousImprovement rdf:type owl:NamedIndividual ,
-        lifecycle:Lifecycle ;
-    api:slug "continuous-improvement" ;
-    rdfs:label "Continuous improvement"@en ;
-    rdfs:comment "Plan, build, run and evolve, in nine states from identified to decommissioned."@en .
-
-#    Phases
-
-lifecycle:Plan rdf:type owl:NamedIndividual ,
-        lifecycle:Phase ;
-    api:slug "plan" ;
-    rdfs:label "Plan"@en ;
-    lifecycle:inLifecycle lifecycle:ContinuousImprovement ;
-    ux:hexColor "#3b82f6" .
-
-lifecycle:Build rdf:type owl:NamedIndividual ,
-        lifecycle:Phase ;
-    api:slug "build" ;
-    rdfs:label "Build"@en ;
-    lifecycle:inLifecycle lifecycle:ContinuousImprovement ;
-    ux:hexColor "#d97706" .
-
-lifecycle:Run rdf:type owl:NamedIndividual ,
-        lifecycle:Phase ;
-    api:slug "run" ;
-    rdfs:label "Run"@en ;
-    lifecycle:inLifecycle lifecycle:ContinuousImprovement ;
-    ux:hexColor "#16a34a" .
-
-lifecycle:Evolve rdf:type owl:NamedIndividual ,
-        lifecycle:Phase ;
-    api:slug "evolve" ;
-    rdfs:label "Evolve"@en ;
-    lifecycle:inLifecycle lifecycle:ContinuousImprovement ;
-    ux:hexColor "#9333ea" .
-
-#    States
-
-lifecycle:Identified rdf:type owl:NamedIndividual ,
-        lifecycle:State ;
-    api:slug "identified" ;
-    rdfs:label "Identified"@en ;
-    lifecycle:inLifecycle lifecycle:ContinuousImprovement ;
-    lifecycle:phase lifecycle:Plan ;
-    lifecycle:order 1 .
-
-lifecycle:Defined rdf:type owl:NamedIndividual ,
-        lifecycle:State ;
-    api:slug "defined" ;
-    rdfs:label "Defined"@en ;
-    lifecycle:inLifecycle lifecycle:ContinuousImprovement ;
-    lifecycle:phase lifecycle:Plan ;
-    lifecycle:order 2 .
-
-lifecycle:Proposed rdf:type owl:NamedIndividual ,
-        lifecycle:State ;
-    api:slug "proposed" ;
-    rdfs:label "Proposed"@en ;
-    lifecycle:inLifecycle lifecycle:ContinuousImprovement ;
-    lifecycle:phase lifecycle:Plan ;
-    lifecycle:order 3 .
-
-lifecycle:Planned rdf:type owl:NamedIndividual ,
-        lifecycle:State ;
-    api:slug "planned" ;
-    rdfs:label "Planned"@en ;
-    lifecycle:inLifecycle lifecycle:ContinuousImprovement ;
-    lifecycle:phase lifecycle:Plan ;
-    lifecycle:order 4 .
-
-lifecycle:InProgress rdf:type owl:NamedIndividual ,
-        lifecycle:State ;
-    api:slug "in-progress" ;
-    rdfs:label "In Progress"@en ;
-    lifecycle:inLifecycle lifecycle:ContinuousImprovement ;
-    lifecycle:phase lifecycle:Build ;
-    lifecycle:order 5 .
-
-lifecycle:Delivered rdf:type owl:NamedIndividual ,
-        lifecycle:State ;
-    api:slug "delivered" ;
-    rdfs:label "Delivered"@en ;
-    lifecycle:inLifecycle lifecycle:ContinuousImprovement ;
-    lifecycle:phase lifecycle:Build ;
-    lifecycle:order 6 .
-
-lifecycle:Deployed rdf:type owl:NamedIndividual ,
-        lifecycle:State ;
-    api:slug "deployed" ;
-    rdfs:label "Deployed"@en ;
-    lifecycle:inLifecycle lifecycle:ContinuousImprovement ;
-    lifecycle:phase lifecycle:Run ;
-    lifecycle:order 7 .
-
-lifecycle:Deprecated rdf:type owl:NamedIndividual ,
-        lifecycle:State ;
-    api:slug "deprecated" ;
-    rdfs:label "Deprecated"@en ;
-    lifecycle:inLifecycle lifecycle:ContinuousImprovement ;
-    lifecycle:phase lifecycle:Evolve ;
-    lifecycle:order 8 .
-
-lifecycle:Decommissioned rdf:type owl:NamedIndividual ,
-        lifecycle:State ;
-    api:slug "decommissioned" ;
-    rdfs:label "Decommissioned"@en ;
-    lifecycle:inLifecycle lifecycle:ContinuousImprovement ;
-    lifecycle:phase lifecycle:Evolve ;
-    lifecycle:order 9 .
