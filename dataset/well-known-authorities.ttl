@@ -3,16 +3,16 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix api: <https://ekgf.org/ontology/api#> .
 @prefix artgov: <https://ekgf.org/ontology/artifact-governance#> .
-@prefix authority: <urn:legra:authority:> .
 
 #
 # The well-known authorities.
 #
-# The IRI of an authority is urn:legra:authority: followed by the
-# lowercase hexadecimal SHA-256 of the string authority://<host>, where
-# <host> is the value of artgov:authorityHost. To add an authority:
+# The IRI of an authority is a UUID derived from its host, the value of
+# artgov:authorityHost: the name-based UUID (version 5) of the host in
+# the DNS namespace. Two parties that describe the same host therefore
+# mint the same IRI. To add an authority:
 #
-#   printf 'authority://%s' www.example.org | shasum -a 256
+#   python3 -c "import uuid; print(uuid.uuid5(uuid.NAMESPACE_DNS, 'www.example.org'))"
 #
 # Every authority that governs an ontology, a shapeset or a taxonomy is
 # declared here and nowhere else.
@@ -20,7 +20,7 @@
 
 # ── W3C ──────────────────────────────────────────────────────
 
-authority:da00efad89faf7f3692e0ff1b94dc419fc43087ace62b9d238ad339fbfb12f95
+<urn:uuid:20f9ae73-f462-529f-ba7e-b5494fd68563>
     rdf:type artgov:Authority ;
     api:slug "w3c" ;
     rdfs:label "W3C"@en ;
@@ -31,7 +31,7 @@ authority:da00efad89faf7f3692e0ff1b94dc419fc43087ace62b9d238ad339fbfb12f95
 
 # ── EKGF ─────────────────────────────────────────────────────
 
-authority:e23623d1f1524262dd17f5fda7dbcff73c794a4ca38dbd1b64e2b73b71ddced7
+<urn:uuid:86065ee7-9883-500b-a320-1878f135a3a9>
     rdf:type artgov:Authority ;
     api:slug "ekgf" ;
     rdfs:label "OMG - Enterprise Knowledge Graph Forum"@en ;
@@ -49,7 +49,7 @@ authority:e23623d1f1524262dd17f5fda7dbcff73c794a4ca38dbd1b64e2b73b71ddced7
 
 # ── OMG ──────────────────────────────────────────────────────
 
-authority:4f8dabf0e76c0afef51542308deec1e9c91e6ac09711f200891d4751a1d1bf4f
+<urn:uuid:9c8c8dfc-2295-5743-ab33-f0e29d4c1522>
     rdf:type artgov:Authority ;
     api:slug "omg" ;
     rdfs:label "Object Management Group"@en ;
@@ -67,7 +67,7 @@ authority:4f8dabf0e76c0afef51542308deec1e9c91e6ac09711f200891d4751a1d1bf4f
 
 # ── EDM Association ──────────────────────────────────────────
 
-authority:7a70bb3bf5debf9afa01a1b946f575925e952443a4a8741b2b16821ae3931b56
+<urn:uuid:dfad55b7-5999-5fa6-8f0c-b692f7949fae>
     rdf:type artgov:Authority ;
     api:slug "edma" ;
     rdfs:label "EDM Association"@en ;
@@ -87,7 +87,7 @@ authority:7a70bb3bf5debf9afa01a1b946f575925e952443a4a8741b2b16821ae3931b56
 
 # ── UNESCO ───────────────────────────────────────────────────
 
-authority:67969ede950745aea00efb88a46c3267a3a7a198868401c1815a738de7276830
+<urn:uuid:9e3d2097-4c1c-5e35-8089-3e763953019e>
     rdf:type artgov:Authority ;
     api:slug "unesco" ;
     rdfs:label "UNESCO"@en ;
@@ -98,7 +98,7 @@ authority:67969ede950745aea00efb88a46c3267a3a7a198868401c1815a738de7276830
 
 # ── PURL ─────────────────────────────────────────────────────
 
-authority:e5a88deb56f112b070bf41175557ad37fc19b296f2b24de02326158fcf99abe5
+<urn:uuid:ee90ea94-f78b-5f6f-bf11-ee6c11310fd9>
     rdf:type artgov:Authority ;
     api:slug "purl" ;
     rdfs:label "PURL"@en ;
@@ -109,7 +109,7 @@ authority:e5a88deb56f112b070bf41175557ad37fc19b296f2b24de02326158fcf99abe5
 
 # ── SPDX ─────────────────────────────────────────────────────
 
-authority:0f77341e0f2808a005051ba3cfa3083c2fd7590a3af66d9691581a686d659c21
+<urn:uuid:3653c58f-fb7c-532e-b6d8-e620aa2e61ed>
     rdf:type artgov:Authority ;
     api:slug "spdx" ;
     rdfs:label "SPDX"@en ;
@@ -120,7 +120,7 @@ authority:0f77341e0f2808a005051ba3cfa3083c2fd7590a3af66d9691581a686d659c21
 
 # ── XMLNS ────────────────────────────────────────────────────
 
-authority:52971ca8ed3ed9331480d6d3242b9cdb66f5f71de726e6a0e0e183a3e5882182
+<urn:uuid:710ffd4f-c192-5926-b8cb-d45d761b2dfd>
     rdf:type artgov:Authority ;
     api:slug "xmlns" ;
     rdfs:label "XMLNS"@en ;
@@ -131,7 +131,7 @@ authority:52971ca8ed3ed9331480d6d3242b9cdb66f5f71de726e6a0e0e183a3e5882182
 
 # ── DERI ─────────────────────────────────────────────────────
 
-authority:355d55de5f53b964f4209c23beb1bdf512be116ff5c15628c3c25c6ee7d44e8f
+<urn:uuid:570fc1c0-98a2-55a6-95b4-c6b7edb23ffc>
     rdf:type artgov:Authority ;
     api:slug "deri" ;
     rdfs:label "Digital Enterprise Research Institute (DERI)"@en ;

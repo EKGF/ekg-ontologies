@@ -20,7 +20,7 @@
 
 artgov:Authority rdf:type owl:Class ;
     rdfs:label "Authority"@en ;
-    rdfs:comment "An organization or body that owns, maintains and governs artifacts, such as W3C, OMG or EKGF. The IRI of an authority is derived from its host: urn:legra:authority: followed by the lowercase hexadecimal SHA-256 of the string authority://<host>. Two parties that describe the same host therefore mint the same IRI."@en .
+    rdfs:comment "An organization or body that owns, maintains and governs artifacts, such as W3C, OMG or EKGF. The IRI of an authority is derived from its host: urn:uuid: followed by the name-based UUID (version 5) of the host in the DNS namespace. Two parties that describe the same host therefore mint the same IRI."@en .
 
 artgov:Family rdf:type owl:Class ;
     rdfs:label "Family"@en ;
@@ -129,11 +129,17 @@ artgov:familyAcronym rdf:type owl:DatatypeProperty ;
     rdfs:label "Family acronym"@en ;
     rdfs:comment "Uppercase acronym identifying the family, such as FIBO or CDMC."@en .
 
-artgov:familyIriPrefix rdf:type owl:DatatypeProperty ;
+artgov:namespaceIriPrefix rdf:type owl:DatatypeProperty ;
+    rdfs:domain artgov:Family ;
+    rdfs:range xsd:anyURI ;
+    rdfs:label "Namespace IRI prefix"@en ;
+    rdfs:comment "What the namespace IRIs of the artifacts in the family start with, such as https://spec.edmcouncil.org/fibo/ontology/. It is an absolute IRI. When the prefixes of several families match a namespace, the longest one wins."@en .
+
+artgov:graphIriPrefix rdf:type owl:DatatypeProperty ;
     rdfs:domain artgov:Family ;
     rdfs:range xsd:string ;
-    rdfs:label "Family IRI prefix"@en ;
-    rdfs:comment "The exact path between the base IRI and the rest of the IRI of each artifact in the family, such as /fibo/ontology in https://spec.edmcouncil.org/fibo/ontology/FND/Utilities/AnnotationVocabulary."@en .
+    rdfs:label "Graph IRI prefix"@en ;
+    rdfs:comment "What the IRIs of the named graphs that hold the source files of the family start with. A named graph is usually named after the place its file was loaded from, a file:/// or s3:// IRI, so the value takes two forms. A value that begins with a scheme, such as s3://standards/fibo/, is matched against the start of the graph IRI. A value without a scheme, such as fibo/ or ekgf-, is a path prefix: it is matched at the start of any path segment, so that it holds wherever the files are stored. When the prefixes of several families match a graph, the longest one wins."@en .
 
 artgov:gitRepositoryUrl rdf:type owl:DatatypeProperty ;
     rdfs:domain artgov:Family ;
@@ -178,18 +184,14 @@ artgov:maxFamilyLoadQuads rdf:type owl:DatatypeProperty ;
     rdfs:comment "Hard ceiling on the total number of quads accepted while loading the family."@en .
 
 #################################################################
-#    Data Properties: shared
+#    Data Properties: authority and reference
 #################################################################
 
 artgov:baseIri rdf:type owl:DatatypeProperty ;
-    rdfs:domain [ rdf:type owl:Class ;
-                  owl:unionOf ( artgov:Authority
-                                artgov:Family
-                              )
-                ] ;
+    rdfs:domain artgov:Authority ;
     rdfs:range xsd:anyURI ;
     rdfs:label "Base IRI"@en ;
-    rdfs:comment "Base IRI of the artifacts published by an authority or in a family. An authority that publishes under both http and https carries both values."@en .
+    rdfs:comment "Base IRI of the artifacts published by an authority. An authority that publishes under both http and https carries both values."@en .
 
 artgov:preferredNamespacePrefix rdf:type owl:DatatypeProperty ;
     rdfs:range xsd:string ;

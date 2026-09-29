@@ -265,7 +265,7 @@
 :Unsupported
   rdf:type owl:NamedIndividual, :ResolutionStatus ;
   rdfs:label "Unsupported"@en ;
-  rdfs:comment "The dependency target uses a form that LEGRA does not know how to resolve yet."@en .
+  rdfs:comment "The dependency target uses a form that cannot be resolved yet."@en .
 
 :Failed
   rdf:type owl:NamedIndividual, :ResolutionStatus ;
