@@ -162,3 +162,10 @@
     artgov:refersTo <https://ekgf.org/ontology/user-experience#> ;
     artgov:inFamily <urn:uuid:c0eda36a-f42a-4fa3-aea9-c7a5543207eb> ;
     artgov:governedBy authority:e23623d1f1524262dd17f5fda7dbcff73c794a4ca38dbd1b64e2b73b71ddced7 .
+
+<urn:uuid:7ee05072-5f30-49a8-9f32-7dc20ebfa0fc>
+    rdf:type artgov:Reference ;
+    api:slug "ekgf-communication" ;
+    artgov:refersTo <https://ekgf.org/ontology/communication#> ;
+    artgov:inFamily <urn:uuid:c0eda36a-f42a-4fa3-aea9-c7a5543207eb> ;
+    artgov:governedBy authority:e23623d1f1524262dd17f5fda7dbcff73c794a4ca38dbd1b64e2b73b71ddced7 .
