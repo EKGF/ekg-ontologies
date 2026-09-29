@@ -18,7 +18,16 @@ shape:ShapeSet rdf:type owl:Class ;
 
 shape:ShapePurpose rdf:type owl:Class ;
     rdfs:label "Shape purpose"@en ;
-    rdfs:comment "What a shape is for. The purposes are controlled values, each an instance of this class."@en .
+    rdfs:comment "What a node shape or a shapeset is for. The purposes are controlled values, each an instance of this class."@en .
+
+shape:ShapeOrShapeSet rdf:type owl:Class ;
+    owl:equivalentClass [ rdf:type owl:Class ;
+                          owl:unionOf ( sh:NodeShape
+                                        shape:ShapeSet
+                                      )
+                        ] ;
+    rdfs:label "Node shape or shapeset"@en ;
+    rdfs:comment "Anything that is a SHACL node shape or a shapeset. It exists to be the domain of shapePurpose: the domain of an annotation property has to be a named class."@en .
 
 shape:hasNodeShape rdf:type owl:AnnotationProperty ;
     rdfs:domain shape:ShapeSet ;
@@ -33,6 +42,7 @@ shape:inShapeSet rdf:type owl:AnnotationProperty ;
     rdfs:comment "Relates a SHACL node shape to the shapeset it belongs to. It is an annotation property because a node shape can also be a class, and a class is not an individual."@en .
 
 shape:shapePurpose rdf:type owl:AnnotationProperty ;
+    rdfs:domain shape:ShapeOrShapeSet ;
     rdfs:range shape:ShapePurpose ;
     rdfs:label "Shape purpose"@en ;
-    rdfs:comment "Relates a shape to what it is for. It is an annotation property because a node shape can also be a class, and a class is not an individual."@en .
+    rdfs:comment "Relates a node shape or a shapeset to what it is for. It is an annotation property because a node shape can also be a class, and a class is not an individual."@en .
