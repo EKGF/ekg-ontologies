@@ -1,0 +1,29 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix shape: <https://ekgf.org/ontology/shape#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix annotation: <https://ekgf.org/ontology/annotation#> .
+@base <https://ekgf.org/ontology/shape#> .
+
+<https://ekgf.org/ontology/shape#>
+    rdf:type owl:Ontology ;
+    rdfs:label "The EKG Shape Ontology"@en ;
+    rdfs:comment "Metadata vocabulary for grouping SHACL node shapes into shapesets."@en ;
+    annotation:markdownDescription "Defines `shape:ShapeSet` and membership properties for grouping SHACL node shapes into governed shapesets."@en .
+
+shape:ShapeSet rdf:type owl:Class ;
+    rdfs:label "ShapeSet"@en ;
+    rdfs:comment "A managed collection of related SHACL node shapes."@en .
+
+shape:hasNodeShape rdf:type owl:ObjectProperty ;
+    rdfs:domain shape:ShapeSet ;
+    rdfs:range sh:NodeShape ;
+    rdfs:label "Has node shape"@en ;
+    rdfs:comment "Relates a shapeset to a SHACL node shape that belongs to it."@en .
+
+shape:inShapeSet rdf:type owl:ObjectProperty ;
+    rdfs:domain sh:NodeShape ;
+    rdfs:range shape:ShapeSet ;
+    rdfs:label "In shapeset"@en ;
+    rdfs:comment "Relates a SHACL node shape to the shapeset it belongs to."@en .
