@@ -37,8 +37,8 @@ sparql-story:flavor rdf:type owl:ObjectProperty ;
 #    Data properties
 #################################################################
 
-###  https://ekgf.org/ontology/story-impl-sparql#sparqlFile
-sparql-story:sparqlFile rdf:type
+###  https://ekgf.org/ontology/story-impl-sparql#fileName
+sparql-story:fileName rdf:type
         owl:DatatypeProperty,
         owl:FunctionalProperty ;
     rdfs:domain sparql-story:StorySPARQLImplementation ;
@@ -46,16 +46,16 @@ sparql-story:sparqlFile rdf:type
         """The name of the file name that contains the SPARQL implementation of the given Story.
 
        This name is assumed to be relative to the directory where the Turtle file containing the StoryImplementation lives."""@en ;
-    rdfs:label "SPARQL File"@en .
+    rdfs:label "File name"@en .
 
 
-###  https://ekgf.org/ontology/story-impl-sparql#sparqlStatement
-sparql-story:sparqlStatement rdf:type
+###  https://ekgf.org/ontology/story-impl-sparql#sparql
+sparql-story:sparql rdf:type
         owl:DatatypeProperty,
         owl:FunctionalProperty ;
     rdfs:domain sparql-story:StorySPARQLImplementation ;
-    rdfs:comment "The SPARQL Statement as it is read from the file pointed to by `sparqlFile`"@en ;
-    rdfs:label "SPARQL Statement"@en .
+    rdfs:comment "The SPARQL statement as it is read from the file named by `fileName`"@en ;
+    rdfs:label "SPARQL statement"@en .
 
 
 #################################################################
@@ -145,14 +145,11 @@ sparql-story:StardogSPARQL rdf:type owl:Class ;
   rdfs:isDefinedBy <https://ekgf.org/ontology/story-impl-sparql#> .
 
 
-###  https://ekgf.org/ontology/story-impl-sparql#StoryImplementation
-sparql-story:StoryImplementation rdf:type owl:Class ;
-  rdfs:isDefinedBy <https://ekgf.org/ontology/story-impl-sparql#> .
 
 
 ###  https://ekgf.org/ontology/story-impl-sparql#StorySPARQLImplementation
 sparql-story:StorySPARQLImplementation rdf:type owl:Class ;
-  rdfs:subClassOf sparql-story:StoryImplementation ;
+  rdfs:subClassOf story:StoryImplementation ;
   rdfs:isDefinedBy <https://ekgf.org/ontology/story-impl-sparql#> .
 
 
