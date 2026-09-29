@@ -1,0 +1,50 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix artgov: <https://ekgf.org/ontology/artifact-governance#> .
+@prefix authority: <urn:legra:authority:> .
+
+#
+# The well-known families.
+#
+# A family spans artifact types: the ontologies, shapesets and
+# taxonomies of FIBO are members of the one FIBO family. An artifact
+# joins a family with artgov:inFamily on the artifact itself or on its
+# artgov:Reference.
+#
+
+# ── FIBO ─────────────────────────────────────────────────────
+
+<urn:uuid:a883a9e0-bc2d-4bff-a541-b31f87117e00>
+    rdf:type artgov:Family ;
+    rdfs:label "Financial Industry Business Ontology (FIBO)"@en ;
+    rdfs:comment "FIBO is a formal ontology providing a common vocabulary for financial contracts and related concepts, developed in OWL by the EDM Association and standardized by the OMG."@en ;
+    artgov:familyAcronym "FIBO" ;
+    artgov:governedBy authority:7a70bb3bf5debf9afa01a1b946f575925e952443a4a8741b2b16821ae3931b56 ,
+                      authority:4f8dabf0e76c0afef51542308deec1e9c91e6ac09711f200891d4751a1d1bf4f ;
+    artgov:baseIri "https://spec.edmcouncil.org"^^xsd:anyURI ;
+    artgov:familyIriPrefix "/fibo/ontology" ;
+    artgov:gitRepositoryUrl "https://github.com/edmcouncil/fibo.git"^^xsd:anyURI ;
+    artgov:sourceGraphRepositoryUrl "https://github.com/edmcouncil/fibo.git"^^xsd:anyURI ;
+    artgov:gitBranch "master" ;
+    artgov:rdfFileExtension ".rdf" ;
+    artgov:maxSourceQuads "100000"^^xsd:unsignedLong ;
+    artgov:maxFamilyLoadQuads "2000000"^^xsd:unsignedLong .
+
+# ── EKG ──────────────────────────────────────────────────────
+
+<urn:uuid:c0eda36a-f42a-4fa3-aea9-c7a5543207eb>
+    rdf:type artgov:Family ;
+    rdfs:label "EKG Ontologies"@en ;
+    artgov:familyAcronym "EKG" ;
+    artgov:governedBy authority:e23623d1f1524262dd17f5fda7dbcff73c794a4ca38dbd1b64e2b73b71ddced7 ;
+    artgov:familyIriPrefix "/ontology/ekgf-" .
+
+# ── CDMC ─────────────────────────────────────────────────────
+
+<urn:uuid:cc08d976-d892-43aa-ac8f-5fcb3ddff634>
+    rdf:type artgov:Family ;
+    rdfs:label "CDMC Ontologies"@en ;
+    artgov:familyAcronym "CDMC" ;
+    artgov:governedBy authority:e23623d1f1524262dd17f5fda7dbcff73c794a4ca38dbd1b64e2b73b71ddced7 ;
+    artgov:familyIriPrefix "/ontology/cdmc-" .

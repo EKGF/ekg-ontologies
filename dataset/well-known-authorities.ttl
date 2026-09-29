@@ -1,0 +1,141 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix api: <https://ekgf.org/ontology/api#> .
+@prefix artgov: <https://ekgf.org/ontology/artifact-governance#> .
+@prefix authority: <urn:legra:authority:> .
+
+#
+# The well-known authorities.
+#
+# The IRI of an authority is urn:legra:authority: followed by the
+# lowercase hexadecimal SHA-256 of the string authority://<host>, where
+# <host> is the value of artgov:authorityHost. To add an authority:
+#
+#   printf 'authority://%s' www.example.org | shasum -a 256
+#
+# Every authority that governs an ontology, a shapeset or a taxonomy is
+# declared here and nowhere else.
+#
+
+# ── W3C ──────────────────────────────────────────────────────
+
+authority:da00efad89faf7f3692e0ff1b94dc419fc43087ace62b9d238ad339fbfb12f95
+    rdf:type artgov:Authority ;
+    api:slug "w3c" ;
+    rdfs:label "W3C"@en ;
+    artgov:authorityAcronym "W3C" ;
+    artgov:authorityHost "www.w3.org" ;
+    artgov:baseIri "http://www.w3.org"^^xsd:anyURI ;
+    artgov:autoLoad false .
+
+# ── EKGF ─────────────────────────────────────────────────────
+
+authority:e23623d1f1524262dd17f5fda7dbcff73c794a4ca38dbd1b64e2b73b71ddced7
+    rdf:type artgov:Authority ;
+    api:slug "ekgf" ;
+    rdfs:label "OMG - Enterprise Knowledge Graph Forum"@en ;
+    artgov:authorityAcronym "EKGF" ;
+    artgov:authorityHost "ekgf.org" ;
+    artgov:baseIri "https://ekgf.org"^^xsd:anyURI ;
+    artgov:historicalName "Enterprise Knowledge Graph Foundation"@en ;
+    artgov:publishingRole artgov:AuthorityMaintainerRole ,
+                          artgov:AuthorityPublisherRole ;
+    artgov:communityRole artgov:StandardsEditorRole ,
+                         artgov:StandardsReviewerRole ,
+                         artgov:WorkingGroupChairRole ,
+                         artgov:StandardsPublisherRole ,
+                         artgov:StandardsStaffRole .
+
+# ── OMG ──────────────────────────────────────────────────────
+
+authority:4f8dabf0e76c0afef51542308deec1e9c91e6ac09711f200891d4751a1d1bf4f
+    rdf:type artgov:Authority ;
+    api:slug "omg" ;
+    rdfs:label "Object Management Group"@en ;
+    artgov:authorityAcronym "OMG" ;
+    artgov:authorityHost "www.omg.org" ;
+    artgov:baseIri "http://www.omg.org"^^xsd:anyURI ,
+                   "https://www.omg.org"^^xsd:anyURI ;
+    artgov:publishingRole artgov:AuthorityCoOwnerRole ,
+                          artgov:AuthorityPublisherRole ;
+    artgov:communityRole artgov:StandardsEditorRole ,
+                         artgov:StandardsReviewerRole ,
+                         artgov:WorkingGroupChairRole ,
+                         artgov:StandardsPublisherRole ,
+                         artgov:StandardsStaffRole .
+
+# ── EDM Association ──────────────────────────────────────────
+
+authority:7a70bb3bf5debf9afa01a1b946f575925e952443a4a8741b2b16821ae3931b56
+    rdf:type artgov:Authority ;
+    api:slug "edma" ;
+    rdfs:label "EDM Association"@en ;
+    rdfs:comment "EDM Association, formerly EDM Council, hosts and sponsors FIBO and other data management standards."@en ;
+    artgov:authorityAcronym "EDMA" ;
+    artgov:authorityHost "spec.edmcouncil.org" ;
+    artgov:baseIri "https://spec.edmcouncil.org"^^xsd:anyURI ;
+    artgov:historicalName "Enterprise Data Management Council"@en ,
+                          "EDM Council"@en ;
+    artgov:publishingRole artgov:AuthorityOwnerRole ,
+                          artgov:AuthorityPublisherRole ;
+    artgov:communityRole artgov:StandardsEditorRole ,
+                         artgov:StandardsReviewerRole ,
+                         artgov:WorkingGroupChairRole ,
+                         artgov:StandardsPublisherRole ,
+                         artgov:StandardsStaffRole .
+
+# ── UNESCO ───────────────────────────────────────────────────
+
+authority:67969ede950745aea00efb88a46c3267a3a7a198868401c1815a738de7276830
+    rdf:type artgov:Authority ;
+    api:slug "unesco" ;
+    rdfs:label "UNESCO"@en ;
+    artgov:authorityAcronym "UNESCO" ;
+    artgov:authorityHost "vocabularies.unesco.org" ;
+    artgov:baseIri "http://vocabularies.unesco.org"^^xsd:anyURI ;
+    artgov:autoLoad false .
+
+# ── PURL ─────────────────────────────────────────────────────
+
+authority:e5a88deb56f112b070bf41175557ad37fc19b296f2b24de02326158fcf99abe5
+    rdf:type artgov:Authority ;
+    api:slug "purl" ;
+    rdfs:label "PURL"@en ;
+    artgov:authorityAcronym "PURL" ;
+    artgov:authorityHost "purl.org" ;
+    artgov:baseIri "http://purl.org"^^xsd:anyURI ;
+    artgov:autoLoad false .
+
+# ── SPDX ─────────────────────────────────────────────────────
+
+authority:0f77341e0f2808a005051ba3cfa3083c2fd7590a3af66d9691581a686d659c21
+    rdf:type artgov:Authority ;
+    api:slug "spdx" ;
+    rdfs:label "SPDX"@en ;
+    artgov:authorityAcronym "SPDX" ;
+    artgov:authorityHost "spdx.org" ;
+    artgov:baseIri "http://spdx.org"^^xsd:anyURI ;
+    artgov:autoLoad false .
+
+# ── XMLNS ────────────────────────────────────────────────────
+
+authority:52971ca8ed3ed9331480d6d3242b9cdb66f5f71de726e6a0e0e183a3e5882182
+    rdf:type artgov:Authority ;
+    api:slug "xmlns" ;
+    rdfs:label "XMLNS"@en ;
+    artgov:authorityAcronym "XMLNS" ;
+    artgov:authorityHost "xmlns.com" ;
+    artgov:baseIri "http://xmlns.com"^^xsd:anyURI ;
+    artgov:autoLoad false .
+
+# ── DERI ─────────────────────────────────────────────────────
+
+authority:355d55de5f53b964f4209c23beb1bdf512be116ff5c15628c3c25c6ee7d44e8f
+    rdf:type artgov:Authority ;
+    api:slug "deri" ;
+    rdfs:label "Digital Enterprise Research Institute (DERI)"@en ;
+    artgov:authorityAcronym "DERI" ;
+    artgov:authorityHost "vocab.deri.ie" ;
+    artgov:baseIri "http://vocab.deri.ie"^^xsd:anyURI ;
+    artgov:autoLoad false .

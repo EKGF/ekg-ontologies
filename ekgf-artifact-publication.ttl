@@ -1,0 +1,150 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix artgov: <https://ekgf.org/ontology/artifact-governance#> .
+@prefix artpub: <https://ekgf.org/ontology/artifact-publication#> .
+@base <https://ekgf.org/ontology/artifact-publication#> .
+
+<https://ekgf.org/ontology/artifact-publication#>
+    rdf:type owl:Ontology ;
+    rdfs:label "The EKG Artifact Publication Ontology"@en ;
+    rdfs:comment "How a family is published: the profile that configures generation, the targets it publishes to, the runs that generate artifacts and the releases that record them."@en ;
+    owl:imports artgov: .
+
+#################################################################
+#    Classes
+#################################################################
+
+artpub:PublicationProfile rdf:type owl:Class ;
+    rdfs:label "Publication profile"@en ;
+    rdfs:comment "Branch-scoped generator configuration for publishing a family, including section ordering, render policy, validation gates and output targets."@en .
+
+artpub:PublicationTarget rdf:type owl:Class ;
+    rdfs:label "Publication target"@en ;
+    rdfs:comment "A configured destination for a generated publication output, such as a website, PDF, RDF download, archive or package."@en .
+
+artpub:PublicationRun rdf:type owl:Class ;
+    rdfs:label "Publication run"@en ;
+    rdfs:comment "An execution that generates publication artifacts for a family, profile, branch and input commit."@en .
+
+artpub:PublicationArtifact rdf:type owl:Class ;
+    rdfs:label "Publication artifact"@en ;
+    rdfs:comment "A generated output of a publication run, such as a website bundle, PDF, RDF export, changelog, diff report or archive."@en .
+
+artpub:StandardsRelease rdf:type owl:Class ;
+    rdfs:label "Standards release"@en ;
+    rdfs:comment "An immutable publication record binding a family, branch, version, input commit, publication run, generated artifacts and provenance."@en .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+artpub:publishesFamily rdf:type owl:ObjectProperty ;
+    rdfs:domain artpub:PublicationProfile ;
+    rdfs:range artgov:Family ;
+    rdfs:label "Publishes family"@en ;
+    rdfs:comment "Links a publication profile to the family that it publishes."@en .
+
+artpub:publicationProfile rdf:type owl:ObjectProperty ;
+    rdfs:range artpub:PublicationProfile ;
+    rdfs:label "Publication profile"@en ;
+    rdfs:comment "Links a publication run, target, artifact or release to the profile that governed generation."@en .
+
+artpub:publicationTarget rdf:type owl:ObjectProperty ;
+    rdfs:range artpub:PublicationTarget ;
+    rdfs:label "Publication target"@en ;
+    rdfs:comment "Links a publication profile, run or artifact to a configured output target."@en .
+
+artpub:publicationArtifact rdf:type owl:ObjectProperty ;
+    rdfs:range artpub:PublicationArtifact ;
+    rdfs:label "Publication artifact"@en ;
+    rdfs:comment "Links a publication run or a standards release to a generated publication artifact."@en .
+
+artpub:publicationRelease rdf:type owl:ObjectProperty ;
+    rdfs:range artpub:StandardsRelease ;
+    rdfs:label "Publication release"@en ;
+    rdfs:comment "Links a publication run or a generated artifact to the standards release that incorporated it."@en .
+
+artpub:publicationRun rdf:type owl:ObjectProperty ;
+    rdfs:range artpub:PublicationRun ;
+    rdfs:label "Publication run"@en ;
+    rdfs:comment "Links a standards release or a generated artifact to the publication run that produced it."@en .
+
+artpub:publicationBranch rdf:type owl:ObjectProperty ;
+    rdfs:range rdfs:Resource ;
+    rdfs:label "Publication branch"@en ;
+    rdfs:comment "Links a publication run or a standards release to the branch whose commit was published."@en .
+
+#################################################################
+#    Data Properties
+#################################################################
+
+artpub:inputCommitCid rdf:type owl:DatatypeProperty ;
+    rdfs:range xsd:string ;
+    rdfs:label "Input commit CID"@en ;
+    rdfs:comment "Content identifier of the branch commit used as input for a publication run or release."@en .
+
+artpub:generatorVersion rdf:type owl:DatatypeProperty ;
+    rdfs:range xsd:string ;
+    rdfs:label "Generator version"@en ;
+    rdfs:comment "Version of the publication generator used by a publication profile, run, artifact or release."@en .
+
+artpub:artifactUrl rdf:type owl:DatatypeProperty ;
+    rdfs:domain artpub:PublicationArtifact ;
+    rdfs:range xsd:anyURI ;
+    rdfs:label "Artifact URL"@en ;
+    rdfs:comment "Stable URL where a generated publication artifact can be read."@en .
+
+artpub:artifactMediaType rdf:type owl:DatatypeProperty ;
+    rdfs:domain artpub:PublicationArtifact ;
+    rdfs:range xsd:string ;
+    rdfs:label "Artifact media type"@en ;
+    rdfs:comment "Media type of a generated publication artifact, such as text/html, application/pdf or text/turtle."@en .
+
+artpub:artifactChecksum rdf:type owl:DatatypeProperty ;
+    rdfs:domain artpub:PublicationArtifact ;
+    rdfs:range xsd:string ;
+    rdfs:label "Artifact checksum"@en ;
+    rdfs:comment "Checksum or digest of a generated publication artifact."@en .
+
+artpub:targetUrl rdf:type owl:DatatypeProperty ;
+    rdfs:domain artpub:PublicationTarget ;
+    rdfs:range xsd:anyURI ;
+    rdfs:label "Target URL"@en ;
+    rdfs:comment "Base URL or destination URL of a publication target."@en .
+
+artpub:targetKind rdf:type owl:DatatypeProperty ;
+    rdfs:domain artpub:PublicationTarget ;
+    rdfs:range xsd:string ;
+    rdfs:label "Target kind"@en ;
+    rdfs:comment "Kind of publication target, such as website, pdf, rdf-download, archive or package."@en .
+
+artpub:publicationStatus rdf:type owl:DatatypeProperty ;
+    rdfs:range xsd:string ;
+    rdfs:label "Publication status"@en ;
+    rdfs:comment "Execution or release status of a publication run or a standards release."@en .
+
+artpub:releaseVersion rdf:type owl:DatatypeProperty ;
+    rdfs:domain artpub:StandardsRelease ;
+    rdfs:range xsd:string ;
+    rdfs:label "Release version"@en ;
+    rdfs:comment "Public version label of a standards release."@en .
+
+artpub:publicationStartedAt rdf:type owl:DatatypeProperty ;
+    rdfs:domain artpub:PublicationRun ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "Publication started at"@en ;
+    rdfs:comment "Timestamp at which a publication run started."@en .
+
+artpub:publicationCompletedAt rdf:type owl:DatatypeProperty ;
+    rdfs:domain artpub:PublicationRun ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "Publication completed at"@en ;
+    rdfs:comment "Timestamp at which a publication run completed."@en .
+
+artpub:releasedAt rdf:type owl:DatatypeProperty ;
+    rdfs:domain artpub:StandardsRelease ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "Released at"@en ;
+    rdfs:comment "Timestamp at which a standards release was published."@en .
