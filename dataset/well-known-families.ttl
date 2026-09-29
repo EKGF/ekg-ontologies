@@ -60,3 +60,13 @@
     artgov:governedBy <urn:uuid:86065ee7-9883-500b-a320-1878f135a3a9> ;
     artgov:namespaceIriPrefix "https://ekgf.org/ontology/cdmc-"^^xsd:anyURI ;
     artgov:graphIriPrefix "cdmc-" .
+
+# ── DASH ─────────────────────────────────────────────────────
+
+<urn:uuid:89384eba-df36-4e6a-9d50-3fa8e96b32a1>
+    rdf:type artgov:Family ;
+    rdfs:label "DASH Data Shapes Vocabulary"@en ;
+    rdfs:comment "DASH is a SHACL library for frequently needed features and design patterns."@en ;
+    artgov:familyAcronym "DASH" ;
+    artgov:governedBy <urn:uuid:96acd9f4-12d2-5eaa-b575-5729ed143ede> ;
+    artgov:namespaceIriPrefix "http://datashapes.org/dash"^^xsd:anyURI .

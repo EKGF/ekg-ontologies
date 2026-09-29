@@ -96,6 +96,18 @@
     artgov:baseIri "http://vocabularies.unesco.org"^^xsd:anyURI ;
     artgov:autoLoad false .
 
+# ── TopQuadrant ──────────────────────────────────────────────
+
+<urn:uuid:96acd9f4-12d2-5eaa-b575-5729ed143ede>
+    rdf:type artgov:Authority ;
+    api:slug "topquadrant" ;
+    rdfs:label "TopQuadrant"@en ;
+    artgov:authorityAcronym "TQ" ;
+    artgov:authorityHost "datashapes.org" ;
+    artgov:baseIri "http://datashapes.org"^^xsd:anyURI ,
+                   "http://topbraid.org"^^xsd:anyURI ;
+    artgov:autoLoad false .
+
 # ── PURL ─────────────────────────────────────────────────────
 
 <urn:uuid:ee90ea94-f78b-5f6f-bf11-ee6c11310fd9>
