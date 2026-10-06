@@ -66,7 +66,7 @@ artgov:governedBy rdf:type owl:ObjectProperty ;
 artgov:inFamily rdf:type owl:ObjectProperty ;
     rdfs:range artgov:Family ;
     rdfs:label "In family"@en ;
-    rdfs:comment "Relates an artifact or a reference to its family. It has no domain because it applies to every artifact type. A family that is stated this way takes precedence over the prefixes of a family: the prefixes recognize only the artifacts that state no family."@en .
+    rdfs:comment "Explicitly assigns an artifact or a reference to a family. It has no domain because it applies to every artifact type. Collect the asserted memberships on the artifact, its references and their known IRI aliases before attempting recognition. These assignments take precedence over all prefix rules, and several explicit memberships are permitted. Recognition applies only when no membership is asserted; its result is derived metadata and must not silently be stored as an explicit inFamily assertion. Without an assertion or a matching rule, the artifact remains without a family."@en .
 
 artgov:refersTo rdf:type owl:ObjectProperty ;
     rdfs:domain artgov:Reference ;
@@ -156,13 +156,19 @@ artgov:namespaceIriPrefix rdf:type owl:DatatypeProperty ;
     rdfs:domain artgov:Family ;
     rdfs:range xsd:anyURI ;
     rdfs:label "Namespace IRI prefix"@en ;
-    rdfs:comment "What the namespace IRIs of the artifacts in the family start with, such as https://spec.edmcouncil.org/fibo/ontology/. It is an absolute IRI. When the prefixes of several families match a namespace, the longest one wins. An artifact that states its family with inFamily belongs to that family, whatever its namespace."@en .
+    rdfs:comment "A case-sensitive literal prefix of an artifact's IRI, such as https://spec.edmcouncil.org/fibo/ontology/. It is an absolute IRI prefix, typed xsd:anyURI, and a family may have several. The longest matching namespace prefix wins within this recognition method. Equally long best matches for different families are an error. Lengths are not compared with filePathPrefix or graphIriPrefix; if their winning families disagree, recognition fails. Explicit inFamily assignments take precedence over all recognition methods."@en .
+
+artgov:filePathPrefix rdf:type owl:DatatypeProperty ;
+    rdfs:domain artgov:Family ;
+    rdfs:range xsd:string ;
+    rdfs:label "File path prefix"@en ;
+    rdfs:comment "A portable, case-sensitive literal prefix matched at the beginning of any segment of the actual source file path. For example, fibo/ matches a directory and ekgf- matches a filename prefix. Values use forward slashes, are relative and nonempty, and contain no scheme, drive, empty segment or dot segment. A family may have several. Matching normalizes source path separators to forward slashes and removes current-directory and empty segments; callers must resolve parent-directory segments first. The actual path is supplied independently of the named-graph IRI. The longest matching file path prefix wins within this method; ties across families or disagreement with other methods are errors unless explicit inFamily assignments take precedence."@en .
 
 artgov:graphIriPrefix rdf:type owl:DatatypeProperty ;
     rdfs:domain artgov:Family ;
-    rdfs:range xsd:string ;
+    rdfs:range xsd:anyURI ;
     rdfs:label "Graph IRI prefix"@en ;
-    rdfs:comment "What the IRIs of the named graphs that hold the source files of the family start with. A named graph is usually named after the place its file was loaded from, a file:/// or s3:// IRI, so the value takes two forms. A value that begins with a scheme, such as s3://standards/fibo/, is matched against the start of the graph IRI. A value without a scheme, such as fibo/ or ekgf-, is a path prefix: it is matched at the start of any path segment, so that it holds wherever the files are stored. When the prefixes of several families match a graph, the longest one wins. An artifact that states its family with inFamily belongs to that family, whatever its graph."@en .
+    rdfs:comment "A case-sensitive literal prefix of the complete named-graph IRI, such as s3://standards/fibo/. It is an absolute IRI prefix typed xsd:anyURI. A family may have several. Relative file path prefixes belong in filePathPrefix; a graph name need not reveal its source file path. The longest matching graph IRI prefix wins within this method; ties across families or disagreement with other methods are errors unless explicit inFamily assignments take precedence."@en .
 
 artgov:gitRepositoryUrl rdf:type owl:DatatypeProperty ;
     rdfs:domain artgov:Family ;

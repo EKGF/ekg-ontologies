@@ -4,8 +4,10 @@ Ontologies and datasets for organising use cases in an Enterprise
 Knowledge Graph (EKG), based on the
 [EKG/Method](https://method.ekgf.org).
 
-Everything here is RDF in Turtle. The ontologies are in the root of
-the repository, the datasets are in `dataset/`.
+The ontology and dataset sources are RDF in Turtle. The ontologies
+are in the root of the repository, the datasets are in `dataset/`.
+`scripts/` contains an executable reference matcher for family
+recognition; `tests/` checks the vocabulary, registry and behavior.
 
 ## Ontologies
 
@@ -147,21 +149,68 @@ organization classes.
 Families are optional. An authority can govern artifacts directly
 through `artgov:governedBy`, without any family. When used, a family
 spans artifact types: the ontologies, shapesets and taxonomies of
-FIBO are members of the one FIBO family. A family recognises its
-artifacts by two prefixes.
+FIBO are members of the one FIBO family.
 
-- `artgov:namespaceIriPrefix` is what the namespace IRIs of its
-  artifacts start with. It is an absolute IRI.
-- `artgov:graphIriPrefix` is what the named graphs of its source
-  files start with. It is an absolute IRI such as
-  `s3://standards/fibo/`, or a path prefix such as `fibo/` that
-  holds wherever the files are stored.
+`artgov:inFamily` explicitly assigns membership on an artifact or
+its `artgov:Reference`. Collect these assertions, including those on
+known IRI aliases linked through references, before applying any
+recognition rules. Multiple explicit memberships are permitted.
 
-When the prefixes of several families match, the longest one wins.
+For artifacts without explicit membership, these optional recognition
+methods are available. A family can have several prefixes per method.
 
-An artifact can also state its family itself, with
-`artgov:inFamily`. A stated family takes precedence: the prefixes
-recognise only the artifacts that state no family.
+| Property | Matches | Example |
+| --- | --- | --- |
+| `artgov:namespaceIriPrefix` | Beginning of the supplied artifact IRI | `https://spec.edmcouncil.org/fibo/ontology/` |
+| `artgov:filePathPrefix` | Beginning of any segment of the actual source path | `fibo/` or `ekgf-` |
+| `artgov:graphIriPrefix` | Beginning of the complete named-graph IRI | `s3://standards/fibo/` |
+
+All matching is literal and case-sensitive. IRI prefixes are absolute
+and typed `xsd:anyURI`. File path prefixes are nonempty relative
+strings, using forward slashes without a scheme, drive, empty segment
+or `.`/`..` segment. A trailing slash restricts a prefix to a directory:
+`fibo/` matches `/work/fibo/model.ttl`, but not
+`/work/fibo-extra/model.ttl`. `ekgf-` matches the filename
+`/work/ekgf-story.ttl`, but not `/work/not-ekgf-story.ttl`.
+
+Supply the actual source path independently of the graph name; an
+opaque graph IRI need not encode a path. Source paths may be relative
+or absolute, including Windows drive paths. Matching normalizes their
+separators, `.` segments and repeated separators; callers must resolve
+`..` segments first. Source URIs must be converted to paths by the
+caller rather than treated as file paths.
+
+Within each method, choose the longest matching prefix. Equal best
+matches for different families are errors. Then require all methods
+that matched to agree on the family. Their prefix lengths are not
+comparable, so a long IRI does not override a conflicting short file
+prefix. Explicit membership takes precedence over recognition; invalid
+registry data or malformed inputs are still errors.
+
+No assertion and no match means no family. Recognition is derived
+metadata and can change when paths, IRIs or rules change. Keep its
+provenance separate from asserted membership: do not silently persist
+a recognized result as `artgov:inFamily`.
+
+With the validation dependencies installed, run the reference matcher:
+
+```sh
+python3 -B scripts/recognize_family.py dataset/well-known-families.ttl \
+  --artifact 'https://ekgf.org/ontology/story#' \
+  --source-path './ekgf-story.ttl'
+```
+
+It returns JSON with `families` and `basis` (`explicit`, `recognized`
+or `unmatched`). Conflicts and invalid inputs exit nonzero. Supply
+additional Turtle files, such as `dataset/ekgf-family-references.ttl`,
+to include asserted memberships. The matcher does not modify the
+registry or fetch artifacts. Consumers can use it as a reference for
+implementing the same contract in their loaders.
+
+The former relative `graphIriPrefix` values `ekgf-` and `cdmc-` have
+moved to `filePathPrefix`. Consumers must read that property and
+supply the actual file path. `graphIriPrefix` now accepts only absolute
+IRI prefixes typed `xsd:anyURI`; relative values are rejected.
 
 ### Publication, versions and approvals
 
@@ -265,9 +314,9 @@ python3 -B -m unittest discover -s tests -v
 ```
 
 The tests check registered identities, references, Commons role
-semantics and publication constraints, including publication without
-families. They run offline using the relevant Commons 1.3 axioms in
-a test fixture. Its `.ttl.txt` suffix keeps it out of RDF file
+semantics, family recognition and publication constraints, including
+publication without families. They run offline using the relevant
+Commons 1.3 axioms in a test fixture. Its `.ttl.txt` suffix keeps it out of RDF file
 discovery when consumers load this repository.
 
 `ekgf-artifact-publication.ttl` includes SHACL shapes for profiles,
