@@ -15,12 +15,14 @@
 <urn:uuid:96c6206b-38fb-4625-a784-de7903329897>
     rdf:type cmns-org:Organization , cmns-org:LegalEntity ;
     rdfs:label "World Wide Web Consortium (W3C)"@en ;
+    artgov:organizationCategory artgov:StandardsBodyCategory , artgov:ConsortiumCategory ;
     cmns-org:hasWebsite "https://www.w3.org/"^^xsd:anyURI ;
     rdfs:seeAlso <https://www.w3.org/about/> .
 
 <urn:uuid:ee14e632-d8c2-43c1-95d8-72491ce7a846>
     rdf:type cmns-org:Organization , cmns-org:OrganizationalSubUnit ;
     rdfs:label "Enterprise Knowledge Graph Forum"@en ;
+    artgov:organizationCategory artgov:CommunityCategory ;
     cmns-org:isSubUnitOf <urn:uuid:ec3f703d-55a9-4bea-a818-e71705f8dd2e> ;
     cmns-org:hasWebsite "https://ekgf.org/"^^xsd:anyURI ;
     rdfs:seeAlso <https://www.omg.org/communities/enterprise-knowledge-graph-forum.htm> .
@@ -28,6 +30,7 @@
 <urn:uuid:ec3f703d-55a9-4bea-a818-e71705f8dd2e>
     rdf:type cmns-org:Organization , cmns-org:LegalEntity ;
     rdfs:label "Object Management Group"@en ;
+    artgov:organizationCategory artgov:StandardsBodyCategory , artgov:ConsortiumCategory ;
     cmns-org:hasWebsite "https://www.omg.org/"^^xsd:anyURI ;
     rdfs:seeAlso <https://www.omg.org/about/> .
 
@@ -58,10 +61,12 @@
 <urn:uuid:437298e4-0f3d-4846-a248-0a8efebbab46>
     rdf:type cmns-org:Organization , cmns-org:OrganizationalSubUnit ;
     rdfs:label "SPDX working group"@en ;
+    artgov:organizationCategory artgov:ProjectCategory ;
     cmns-org:isSubUnitOf <urn:uuid:413369c0-dda9-4be7-91a1-b6b0c786dfab> ;
     cmns-org:hasWebsite "https://spdx.org/"^^xsd:anyURI ,
                         "https://spdx.dev/"^^xsd:anyURI ;
-    rdfs:seeAlso <https://spdx.dev/engage/join/> .
+    rdfs:seeAlso <https://spdx.dev/engage/join/> ,
+                 <https://spdx.dev/about/overview/> .
 
 <urn:uuid:413369c0-dda9-4be7-91a1-b6b0c786dfab>
     rdf:type cmns-org:Organization ;
@@ -72,6 +77,7 @@
 <urn:uuid:11e75a50-898f-4531-a659-7c84072095d8>
     rdf:type cmns-org:Organization ;
     rdfs:label "FOAF project"@en ;
+    artgov:organizationCategory artgov:ProjectCategory ;
     cmns-org:hasWebsite "http://www.foaf-project.org/"^^xsd:anyURI ;
     rdfs:seeAlso <https://xmlns.com/> .
 

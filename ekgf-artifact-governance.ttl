@@ -2,6 +2,8 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix cmns-cls: <https://www.omg.org/spec/Commons/Classifiers/> .
+@prefix cmns-dsg: <https://www.omg.org/spec/Commons/Designators/> .
 @prefix cmns-org: <https://www.omg.org/spec/Commons/Organizations/> .
 @prefix cmns-pts: <https://www.omg.org/spec/Commons/PartiesAndSituations/> .
 @prefix cmns-rlcmp: <https://www.omg.org/spec/Commons/RolesAndCompositions/> .
@@ -13,7 +15,9 @@
     rdf:type owl:Ontology ;
     rdfs:label "The EKG Artifact Governance Ontology"@en ;
     rdfs:comment "Who governs a semantic artifact and which family it belongs to. One vocabulary for OWL ontologies, SHACL shapesets, SKOS taxonomies and concept sets. Replaces the Ontology Ontology (https://ekgf.org/ontology/ontology#)."@en ;
-    owl:imports cmns-org: ,
+    owl:imports cmns-cls: ,
+                cmns-dsg: ,
+                cmns-org: ,
                 cmns-pts: ,
                 cmns-rlcmp: ,
                 api: .
@@ -42,6 +46,13 @@ artgov:AuthorityPublishingRole rdf:type owl:Class ;
 artgov:StandardsCommunityRole rdf:type owl:Class ;
     rdfs:label "Standards community role"@en ;
     rdfs:comment "Controlled role values for people participating in the standards community behind an authority."@en .
+
+artgov:OrganizationCategory rdf:type owl:Class ;
+    rdfs:subClassOf cmns-cls:Classifier ;
+    owl:disjointWith artgov:AuthorityPublishingRole ,
+                     artgov:StandardsCommunityRole ;
+    rdfs:label "Organization category"@en ;
+    rdfs:comment "A classifier describing the kind of organization involved in artifact governance, such as a standards body, consortium, project or community. An organization may have several categories. Categories are distinct from publishing responsibilities, community participation roles and legal or organizational structure."@en .
 
 #################################################################
 #    Object Properties
@@ -96,6 +107,13 @@ artgov:communityRole rdf:type owl:ObjectProperty ;
     rdfs:range artgov:StandardsCommunityRole ;
     rdfs:label "Community role"@en ;
     rdfs:comment "Declares a role used by the standards community behind an authority."@en .
+
+artgov:organizationCategory rdf:type owl:ObjectProperty ;
+    rdfs:subPropertyOf cmns-cls:isClassifiedBy ;
+    rdfs:domain cmns-org:Organization ;
+    rdfs:range artgov:OrganizationCategory ;
+    rdfs:label "Organization category"@en ;
+    rdfs:comment "Classifies an organization by one or more organization categories. Set on the organization playing an authority role or hosting its community. An authority's player can be reached with cmns-rlcmp:isPlayedBy. Categories are asserted independently of legal type, organizational hierarchy and the roles that an organization plays; they are not inherited from a parent organization."@en .
 
 #################################################################
 #    Data Properties: authority
@@ -206,6 +224,40 @@ artgov:preferredNamespacePrefix rdf:type owl:DatatypeProperty ;
 #################################################################
 #    Individuals
 #################################################################
+
+artgov:OrganizationCategoryScheme rdf:type owl:NamedIndividual ,
+        cmns-cls:ClassificationScheme ;
+    rdfs:label "Organization categories for artifact governance"@en ;
+    cmns-cls:isExclusive false ;
+    rdfs:comment "An extensible classification scheme for organizations involved in artifact governance. Categories may overlap: an organization may be both a standards body and a consortium. A missing category means that no classification has been asserted."@en .
+
+artgov:StandardsBodyCategory rdf:type owl:NamedIndividual ,
+        artgov:OrganizationCategory ;
+    cmns-dsg:isDefinedIn artgov:OrganizationCategoryScheme ;
+    api:slug "standards-body" ;
+    rdfs:label "Standards body"@en ;
+    rdfs:comment "An organization whose purpose includes developing, maintaining and publishing standards through an established governance process."@en .
+
+artgov:ConsortiumCategory rdf:type owl:NamedIndividual ,
+        artgov:OrganizationCategory ;
+    cmns-dsg:isDefinedIn artgov:OrganizationCategoryScheme ;
+    api:slug "consortium" ;
+    rdfs:label "Consortium"@en ;
+    rdfs:comment "An organization through which independent organizations cooperate toward shared objectives."@en .
+
+artgov:ProjectCategory rdf:type owl:NamedIndividual ,
+        artgov:OrganizationCategory ;
+    cmns-dsg:isDefinedIn artgov:OrganizationCategoryScheme ;
+    api:slug "project" ;
+    rdfs:label "Project"@en ;
+    rdfs:comment "An organized group carrying out a defined initiative and producing its work products."@en .
+
+artgov:CommunityCategory rdf:type owl:NamedIndividual ,
+        artgov:OrganizationCategory ;
+    cmns-dsg:isDefinedIn artgov:OrganizationCategoryScheme ;
+    api:slug "community" ;
+    rdfs:label "Community"@en ;
+    rdfs:comment "An organized community whose participants collaborate around a shared topic or practice."@en .
 
 artgov:AuthorityOwnerRole rdf:type owl:NamedIndividual ,
         artgov:AuthorityPublishingRole ;

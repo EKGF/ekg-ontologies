@@ -112,6 +112,36 @@ The authority UUIDs replace the former host-derived UUIDs. Consumers
 must load the registered identifiers and updated references instead
 of computing identities from hosts.
 
+### Organization categories
+
+`artgov:organizationCategory` classifies the organization playing an
+authority role or hosting its community. It specializes Commons
+`cmns-cls:isClassifiedBy`. Its values are individuals of
+`artgov:OrganizationCategory`, a subclass of `cmns-cls:Classifier`,
+in the extensible `artgov:OrganizationCategoryScheme`.
+
+The initial categories are standards body, consortium, project and
+community. Several can apply to one organization: W3C and OMG are
+classified as both standards bodies and consortia. SPDX and FOAF
+are classified as projects, and EKGF as a community. The organization
+records link to the supporting sources. An absent classification
+means none has been asserted; categories are not inferred from a
+name, host, legal type or parent organization.
+
+An authority's organization categories can be read with this SPARQL
+property path:
+
+```sparql
+?authority cmns-rlcmp:isPlayedBy/artgov:organizationCategory ?category .
+```
+
+Publishing responsibilities such as owner and publisher remain on
+the authority through `artgov:publishingRole`. Roles such as editor
+and reviewer remain `artgov:communityRole` values. Neither set of
+role values can be used as organization categories. Legal entities
+and organizational sub-units are still described with Commons
+organization classes.
+
 ### Families
 
 A family spans artifact types: the ontologies, shapesets and

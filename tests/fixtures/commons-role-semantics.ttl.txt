@@ -2,10 +2,12 @@
 # https://www.omg.org/spec/Commons/20250801/Organizations.ttl
 # https://www.omg.org/spec/Commons/20250801/PartiesAndSituations.ttl
 # https://www.omg.org/spec/Commons/20250801/RolesAndCompositions.ttl
+# https://www.omg.org/spec/Commons/20250801/Classifiers.ttl
 # The .txt suffix keeps test fixtures out of consumers' RDF file discovery.
 @prefix org: <https://www.omg.org/spec/Commons/Organizations/> .
 @prefix pts: <https://www.omg.org/spec/Commons/PartiesAndSituations/> .
 @prefix role: <https://www.omg.org/spec/Commons/RolesAndCompositions/> .
+@prefix cls: <https://www.omg.org/spec/Commons/Classifiers/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
@@ -22,3 +24,7 @@ pts:AgentRole rdfs:subClassOf role:Role .
 role:isPlayedBy a owl:ObjectProperty ;
     rdfs:domain role:Role ;
     owl:inverseOf role:playsRole .
+cls:Classifier rdfs:subClassOf cls:Aspect .
+cls:isClassifiedBy a owl:ObjectProperty ;
+    rdfs:subPropertyOf cls:isCharacterizedBy ;
+    owl:inverseOf cls:classifies .
