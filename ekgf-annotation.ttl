@@ -2,10 +2,17 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix annotation: <https://ekgf.org/ontology/annotation#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ekg-annotation: <https://ekgf.org/ontology/annotation#> .
 @base <https://ekgf.org/ontology/annotation#> .
 
 <https://ekgf.org/ontology/annotation#>
     rdf:type owl:Ontology ;
+    sh:declare [
+        sh:prefix "ekg-annotation" ;
+        sh:namespace "https://ekgf.org/ontology/annotation#"^^xsd:anyURI
+    ] ;
     rdfs:label "EKGF Annotation Ontology"@en ;
     rdfs:comment "Descriptive text that any resource can carry: a description in Markdown, a subtitle and a summary. These are annotation properties, so they apply to classes and properties as well as to individuals."@en .
 

@@ -5,10 +5,16 @@
 @prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ekg-file-system: <https://ekgf.org/ontology/file-system#> .
 @base <https://ekgf.org/ontology/file-system#> .
 
 <https://ekgf.org/ontology/file-system#>
   a            owl:Ontology ;
+  sh:declare [
+      sh:prefix "ekg-file-system" ;
+      sh:namespace "https://ekgf.org/ontology/file-system#"^^xsd:anyURI
+  ] ;
   rdfs:label   "File System ontology"@en ;
   rdfs:comment """A provider-neutral filesystem vocabulary: rooted views,
 directories, named directory entries, stable file series, immutable file

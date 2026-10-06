@@ -5,9 +5,15 @@
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ekg-sbe: <https://ekgf.org/ontology/specification-by-example#> .
 @base <https://ekgf.org/ontology/specification-by-example#> .
 
 <https://ekgf.org/ontology/specification-by-example#> rdf:type owl:Ontology ;
+  sh:declare [
+      sh:prefix "ekg-sbe" ;
+      sh:namespace "https://ekgf.org/ontology/specification-by-example#"^^xsd:anyURI
+  ] ;
     rdfs:label "Specification by example" .
 
 #################################################################

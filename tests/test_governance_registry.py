@@ -76,6 +76,21 @@ class GovernanceRegistryTests(unittest.TestCase):
         self.assertTrue(references)
         self.assertTrue(references <= authorities, references - authorities)
 
+    def test_ekgf_references_cover_exactly_the_local_ontologies(self):
+        ontology_iris = set()
+        for path in ROOT.glob("ekgf-*.ttl"):
+            ontology_iris.update(turtle(path).subjects(RDF.type, OWL.Ontology))
+        references = turtle("dataset/ekgf-family-references.ttl")
+        covered = set()
+        for reference in references.subjects(RDF.type, ARTGOV.Reference):
+            with self.subTest(reference=reference):
+                targets = set(references.objects(reference, ARTGOV.refersTo))
+                local_targets = targets & ontology_iris
+                self.assertEqual(len(local_targets), 1,
+                                 f"Reference must identify one local ontology: {targets}")
+                covered.update(local_targets)
+        self.assertEqual(covered, ontology_iris)
+
     def test_organization_relationships_resolve_to_registered_organizations(self):
         organizations = set(self.dataset.subjects(RDF.type, ORG.Organization))
         for predicate in (ARTGOV.legalOwner, ARTGOV.communityOrganization, ORG.isSubUnitOf):

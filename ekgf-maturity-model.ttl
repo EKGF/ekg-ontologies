@@ -6,10 +6,16 @@
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ekg-mm: <https://ekgf.org/ontology/ekgf-maturity-model#> .
 @base <https://ekgf.org/ontology/ekgf-maturity-model> .
 
 <https://ekgf.org/ontology/ekgf-maturity-model>
-  rdf:type owl:Ontology .
+  rdf:type owl:Ontology ;
+  sh:declare [
+      sh:prefix "ekg-mm" ;
+      sh:namespace "https://ekgf.org/ontology/ekgf-maturity-model#"^^xsd:anyURI
+  ] .
 
 #################################################################
 #    Annotation properties

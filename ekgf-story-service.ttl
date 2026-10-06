@@ -8,9 +8,15 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix orcid: <http://orcid.org/> .
 @prefix story: <https://ekgf.org/ontology/story#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ekg-story-service: <https://ekgf.org/ontology/story-service#> .
 @base <https://ekgf.org/ontology/story-service#> .
 
 <https://ekgf.org/ontology/story-service#> rdf:type owl:Ontology ;
+  sh:declare [
+      sh:prefix "ekg-story-service" ;
+      sh:namespace "https://ekgf.org/ontology/story-service#"^^xsd:anyURI
+  ] ;
     owl:imports story: ;
     rdfs:comment
         "The Story Service Ontology supports the Story Service which is a program that can translate Use Case Stories to executable APIs."@en ;

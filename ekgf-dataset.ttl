@@ -5,9 +5,15 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ekg-dataset: <https://ekgf.org/ontology/dataset#> .
 @base <https://ekgf.org/ontology/dataset#> .
 
 : rdf:type owl:Ontology ;
+  sh:declare [
+      sh:prefix "ekg-dataset" ;
+      sh:namespace "https://ekgf.org/ontology/dataset#"^^xsd:anyURI
+  ] ;
     owl:imports <http://www.w3.org/ns/dcat> ;
     rdfs:comment "The EKGF Dataset Ontology"@en ;
     rdfs:label "EKGF Dataset Ontology"@en .

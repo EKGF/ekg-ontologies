@@ -16,6 +16,27 @@ Every ontology lives in the file `ekgf-<name>.ttl` and has the IRI
 `maturity-model`, whose IRI is
 `https://ekgf.org/ontology/ekgf-maturity-model`.
 
+Preferred prefixes start with `ekg-`, reflecting their use in Enterprise
+Knowledge Graphs. Most use `ekg-<name>`, with these abbreviations:
+
+| Ontology | Preferred prefix |
+| --- | --- |
+| Artifact governance | `ekg-artgov` |
+| Artifact dependency | `ekg-artdep` |
+| Artifact publication | `ekg-artpub` |
+| Maturity model | `ekg-mm` |
+| Specification by example | `ekg-sbe` |
+| User experience | `ekg-ux` |
+
+Each ontology records its mapping using `sh:declare`, with a `sh:prefix`
+string and a `sh:namespace` literal typed `xsd:anyURI`. These SHACL
+declarations are the source of preferred prefix mappings for consumers.
+The mapping is attached to the ontology resource and agrees with a named
+Turtle `@prefix` binding.
+The maturity-model namespace includes the trailing `#`, even though
+its ontology IRI does not. SHACL-SPARQL constraints can reuse these
+declarations through `sh:prefixes` pointing to the ontology IRI.
+
 ### The method
 
 - `use-case`: the use case tree and the stereotype of each use case
@@ -30,9 +51,12 @@ Every ontology lives in the file `ekgf-<name>.ttl` and has the IRI
   term, a query variable or an OWL class
 - `persona`: the personas that play stories
 - `outcome`: the outcomes that use cases and stories contribute to
-- `capability`, `data-product`, `dataops`, `maturity-model`: business
-  capabilities, data products, pipelines and load requests, and EKG
-  maturity
+- `capability`, `dataops`, `maturity-model`: business capabilities,
+  pipelines and load requests, and EKG maturity
+
+The Data Product Ontology (DPROD) is maintained separately in
+[EKGF/dprod](https://github.com/EKGF/dprod), with the namespace
+`https://www.omg.org/spec/DPROD/dprod/`.
 
 ### Artifacts and their governance
 
@@ -314,10 +338,11 @@ python3 -B -m unittest discover -s tests -v
 ```
 
 The tests check registered identities, references, Commons role
-semantics, family recognition and publication constraints, including
-publication without families. They run offline using the relevant
-Commons 1.3 axioms in a test fixture. Its `.ttl.txt` suffix keeps it out of RDF file
-discovery when consumers load this repository.
+semantics, namespace declarations, family recognition and publication
+constraints, including publication without families. They run offline
+using the relevant Commons 1.3 axioms in a test fixture. Its `.ttl.txt`
+suffix keeps it out of RDF file discovery when consumers load this
+repository.
 
 `ekgf-artifact-publication.ttl` includes SHACL shapes for profiles,
 releases and approvals. Validate publication records before accepting

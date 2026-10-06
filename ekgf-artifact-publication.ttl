@@ -6,10 +6,15 @@
 @prefix artgov: <https://ekgf.org/ontology/artifact-governance#> .
 @prefix artpub: <https://ekgf.org/ontology/artifact-publication#> .
 @prefix lifecycle: <https://ekgf.org/ontology/lifecycle#> .
+@prefix ekg-artpub: <https://ekgf.org/ontology/artifact-publication#> .
 @base <https://ekgf.org/ontology/artifact-publication#> .
 
 <https://ekgf.org/ontology/artifact-publication#>
     rdf:type owl:Ontology ;
+    sh:declare [
+        sh:prefix "ekg-artpub" ;
+        sh:namespace "https://ekgf.org/ontology/artifact-publication#"^^xsd:anyURI
+    ] ;
     rdfs:label "The EKG Artifact Publication Ontology"@en ;
     rdfs:comment "How semantic artifacts are published, either as a family or as explicitly selected artifact references: profiles configure generation, targets identify destinations, runs generate outputs, releases identify versions and approvals record authority decisions about exact releases. Family grouping is optional. The state of a run and of a release is described with the Lifecycle Ontology. SHACL shapes validate the scope and approval records."@en ;
     owl:imports artgov: ,

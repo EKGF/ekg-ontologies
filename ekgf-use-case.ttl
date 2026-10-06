@@ -9,10 +9,16 @@
 @prefix outcome: <https://ekgf.org/ontology/outcome#> .
 @prefix persona: <https://ekgf.org/ontology/persona#> .
 @prefix use-case: <https://ekgf.org/ontology/use-case#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ekg-use-case: <https://ekgf.org/ontology/use-case#> .
 @base <https://ekgf.org/ontology/use-case#> .
 
 <https://ekgf.org/ontology/use-case#>
     rdf:type owl:Ontology ;
+    sh:declare [
+        sh:prefix "ekg-use-case" ;
+        sh:namespace "https://ekgf.org/ontology/use-case#"^^xsd:anyURI
+    ] ;
     owl:imports api: ,
                 outcome: ,
                 persona: ,

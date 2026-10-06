@@ -8,9 +8,15 @@
 @prefix story: <https://ekgf.org/ontology/story#> .
 @prefix concept: <https://ekgf.org/ontology/concept#> .
 @prefix sparql-story: <https://ekgf.org/ontology/story-impl-sparql#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ekg-story-impl-sparql: <https://ekgf.org/ontology/story-impl-sparql#> .
 @base <https://ekgf.org/ontology/story-impl-sparql#> .
 
 <https://ekgf.org/ontology/story-impl-sparql#> rdf:type owl:Ontology ;
+  sh:declare [
+      sh:prefix "ekg-story-impl-sparql" ;
+      sh:namespace "https://ekgf.org/ontology/story-impl-sparql#"^^xsd:anyURI
+  ] ;
     owl:imports
         concept:,
         story: ;

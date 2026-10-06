@@ -4,10 +4,16 @@
 @prefix shape: <https://ekgf.org/ontology/shape#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix annotation: <https://ekgf.org/ontology/annotation#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ekg-shape: <https://ekgf.org/ontology/shape#> .
 @base <https://ekgf.org/ontology/shape#> .
 
 <https://ekgf.org/ontology/shape#>
     rdf:type owl:Ontology ;
+    sh:declare [
+        sh:prefix "ekg-shape" ;
+        sh:namespace "https://ekgf.org/ontology/shape#"^^xsd:anyURI
+    ] ;
     rdfs:label "The EKG Shape Ontology"@en ;
     rdfs:comment "Metadata vocabulary for grouping SHACL node shapes into shapesets and for saying what a shape is for."@en ;
     annotation:markdownDescription "Defines `shape:ShapeSet` and membership properties for grouping SHACL node shapes into governed shapesets, and `shape:ShapePurpose` with `shape:shapePurpose` for saying what a shape is for."@en .

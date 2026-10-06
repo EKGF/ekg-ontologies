@@ -5,10 +5,15 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ekg-communication: <https://ekgf.org/ontology/communication#> .
 @base <https://ekgf.org/ontology/communication#> .
 
 <https://ekgf.org/ontology/communication#>
   rdf:type owl:Ontology ;
+  sh:declare [
+      sh:prefix "ekg-communication" ;
+      sh:namespace "https://ekgf.org/ontology/communication#"^^xsd:anyURI
+  ] ;
   rdfs:label "EKGF Communication Ontology"@en ;
   rdfs:comment "Channel-neutral ontology for recipients, endpoints, audiences, memberships, consent and legal-basis evidence, campaign snapshots, communication attempts, and delivery outcomes."@en ;
   annotation:markdownDescription "Models communication recipients separately from people and organizations. Audiences, lists, tags, and campaign snapshots are collections with reified memberships. Consent, withdrawal, suppression, legal classification, and derivation evidence attach to memberships rather than being flattened onto recipients."@en .

@@ -4,10 +4,16 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ekg-artdep: <https://ekgf.org/ontology/artifact-dependency#> .
 @base <https://ekgf.org/ontology/artifact-dependency#> .
 
 <https://ekgf.org/ontology/artifact-dependency#>
   rdf:type owl:Ontology ;
+  sh:declare [
+      sh:prefix "ekg-artdep" ;
+      sh:namespace "https://ekgf.org/ontology/artifact-dependency#"^^xsd:anyURI
+  ] ;
   owl:imports <https://ekgf.org/ontology/lifecycle#> ;
   rdfs:label "EKGF Artifact Dependency Ontology"@en ;
   rdfs:comment "Generic dependency vocabulary for Semantic Modelling artifacts such as OWL ontologies, SHACL shapesets, SKOS taxonomies, and concept sets."@en ;

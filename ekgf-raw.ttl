@@ -6,10 +6,16 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ekg-raw: <https://ekgf.org/ontology/raw#> .
 @base <https://ekgf.org/ontology/raw#> .
 
 :
     rdf:type owl:Ontology ;
+    sh:declare [
+        sh:prefix "ekg-raw" ;
+        sh:namespace "https://ekgf.org/ontology/raw#"^^xsd:anyURI
+    ] ;
     owl:imports rdf: ;
     rdfs:comment
         "The Raw Data Ontology is used by a \"capture step\" in an EKG DataOps pipeline to capture any data from any data source as RDF triples without mapping it to higher level ontologies. It is assumed that subsequent steps in a given EKG DataOps pipeline will transform the raw data to match with target ontologies."@en ;

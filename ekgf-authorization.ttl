@@ -5,9 +5,15 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix authorization: <https://ekgf.org/ontology/authorization#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ekg-authorization: <https://ekgf.org/ontology/authorization#> .
 @base <https://ekgf.org/ontology/authorization#> .
 
 authorization: rdf:type owl:Ontology ;
+  sh:declare [
+      sh:prefix "ekg-authorization" ;
+      sh:namespace "https://ekgf.org/ontology/authorization#"^^xsd:anyURI
+  ] ;
     owl:imports <https://ekgf.org/ontology/persona#> ;
     rdfs:comment
         """The EKGF Authorization Ontology.

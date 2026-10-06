@@ -7,9 +7,15 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix dataops: <https://ekgf.org/ontology/dataops#> .
 @prefix dataset: <https://ekgf.org/ontology/dataset#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ekg-dataops: <https://ekgf.org/ontology/dataops#> .
 @base <https://ekgf.org/ontology/dataops#> .
 
 <https://ekgf.org/ontology/dataops#> rdf:type owl:Ontology ;
+  sh:declare [
+      sh:prefix "ekg-dataops" ;
+      sh:namespace "https://ekgf.org/ontology/dataops#"^^xsd:anyURI
+  ] ;
                                       rdfs:label "EKG DataOps ontology" .
 
 #################################################################

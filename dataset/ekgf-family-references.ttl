@@ -42,13 +42,6 @@
     artgov:inFamily <urn:uuid:c0eda36a-f42a-4fa3-aea9-c7a5543207eb> ;
     artgov:governedBy <urn:uuid:6c1408aa-039c-42f9-8dee-9c3f0009d61a> .
 
-<urn:uuid:f427f8e7-defd-49a1-9d36-416b753776bb>
-    rdf:type artgov:Reference ;
-    api:slug "ekgf-data-product" ;
-    artgov:refersTo <https://ekgf.org/ontology/data-product#> ;
-    artgov:inFamily <urn:uuid:c0eda36a-f42a-4fa3-aea9-c7a5543207eb> ;
-    artgov:governedBy <urn:uuid:6c1408aa-039c-42f9-8dee-9c3f0009d61a> .
-
 <urn:uuid:b7c1aa16-3b54-4ff9-b5c8-0120224d878f>
     rdf:type artgov:Reference ;
     api:slug "ekgf-dataops" ;

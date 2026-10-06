@@ -9,10 +9,16 @@
 @prefix cmns-rlcmp: <https://www.omg.org/spec/Commons/RolesAndCompositions/> .
 @prefix api: <https://ekgf.org/ontology/api#> .
 @prefix artgov: <https://ekgf.org/ontology/artifact-governance#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ekg-artgov: <https://ekgf.org/ontology/artifact-governance#> .
 @base <https://ekgf.org/ontology/artifact-governance#> .
 
 <https://ekgf.org/ontology/artifact-governance#>
     rdf:type owl:Ontology ;
+    sh:declare [
+        sh:prefix "ekg-artgov" ;
+        sh:namespace "https://ekgf.org/ontology/artifact-governance#"^^xsd:anyURI
+    ] ;
     rdfs:label "The EKG Artifact Governance Ontology"@en ;
     rdfs:comment "Who governs a semantic artifact and which family it belongs to. One vocabulary for OWL ontologies, SHACL shapesets, SKOS taxonomies and concept sets. Replaces the Ontology Ontology (https://ekgf.org/ontology/ontology#)."@en ;
     owl:imports cmns-cls: ,
@@ -131,6 +137,12 @@ artgov:authorityHost rdf:type owl:DatatypeProperty ;
     rdfs:label "Authority host"@en ;
     rdfs:comment "A host name used in the IRIs of the authority's artifacts, without protocol, such as www.w3.org or spec.edmcouncil.org. An authority may have multiple hosts, including historical hosts whose artifact IRIs remain in use. Adding, removing or changing a host does not change the authority's identity. A shared host does not imply shared governance; hosts are metadata, not identity keys."@en .
 
+artgov:baseIri rdf:type owl:DatatypeProperty ;
+    rdfs:domain artgov:Authority ;
+    rdfs:range xsd:anyURI ;
+    rdfs:label "Base IRI"@en ;
+    rdfs:comment "A base IRI of artifacts published by an authority. An authority may carry multiple base IRIs, including different hosts, schemes and historical locations. These values do not determine the authority's identity."@en .
+
 artgov:autoLoad rdf:type owl:DatatypeProperty ;
     rdfs:domain artgov:Authority ;
     rdfs:range xsd:boolean ;
@@ -211,21 +223,6 @@ artgov:maxFamilyLoadQuads rdf:type owl:DatatypeProperty ;
     rdfs:range xsd:unsignedLong ;
     rdfs:label "Maximum family load quads"@en ;
     rdfs:comment "Hard ceiling on the total number of quads accepted while loading the family."@en .
-
-#################################################################
-#    Data Properties: authority and reference
-#################################################################
-
-artgov:baseIri rdf:type owl:DatatypeProperty ;
-    rdfs:domain artgov:Authority ;
-    rdfs:range xsd:anyURI ;
-    rdfs:label "Base IRI"@en ;
-    rdfs:comment "A base IRI of artifacts published by an authority. An authority may carry multiple base IRIs, including different hosts, schemes and historical locations. These values do not determine the authority's identity."@en .
-
-artgov:preferredNamespacePrefix rdf:type owl:DatatypeProperty ;
-    rdfs:range xsd:string ;
-    rdfs:label "Preferred namespace prefix"@en ;
-    rdfs:comment "The prefix by which the namespace of an artifact is commonly abbreviated, such as owl or skos. Set on the artifact or on its reference."@en .
 
 #################################################################
 #    Individuals

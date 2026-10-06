@@ -3,10 +3,16 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix lifecycle: <https://ekgf.org/ontology/lifecycle#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ekg-lifecycle: <https://ekgf.org/ontology/lifecycle#> .
 @base <https://ekgf.org/ontology/lifecycle#> .
 
 <https://ekgf.org/ontology/lifecycle#>
     rdf:type owl:Ontology ;
+    sh:declare [
+        sh:prefix "ekg-lifecycle" ;
+        sh:namespace "https://ekgf.org/ontology/lifecycle#"^^xsd:anyURI
+    ] ;
     rdfs:label "EKGF Lifecycle Ontology"@en ;
     rdfs:comment """Everything has a lifecycle: use cases, stories, concepts, personas, outcomes, data products and datasets. This ontology says what a lifecycle is, which lifecycle a thing follows and which state the thing is in. It depends on none of the ontologies that describe those things.
 

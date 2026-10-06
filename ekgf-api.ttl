@@ -6,9 +6,15 @@
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ekg-api: <https://ekgf.org/ontology/api#> .
 @base <https://ekgf.org/ontology/api#> .
 
 api: rdf:type owl:Ontology ;
+  sh:declare [
+      sh:prefix "ekg-api" ;
+      sh:namespace "https://ekgf.org/ontology/api#"^^xsd:anyURI
+  ] ;
                                   rdfs:comment "The EKG Platform API Ontology."@en ;
                                   rdfs:label "EKG Platform API Ontology."@en .
 

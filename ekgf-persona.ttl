@@ -8,9 +8,15 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix ekgf-concept: <https://ekgf.org/ontology/concept#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ekg-persona: <https://ekgf.org/ontology/persona#> .
 @base <https://ekgf.org/ontology/persona#> .
 
 persona: rdf:type owl:Ontology ;
+  sh:declare [
+      sh:prefix "ekg-persona" ;
+      sh:namespace "https://ekgf.org/ontology/persona#"^^xsd:anyURI
+  ] ;
                                       owl:imports <http://www.w3.org/2004/02/skos/core> ,
                                                   ekgf-concept: ;
                                       rdfs:comment "The EKGF Persona Ontology"@en ;

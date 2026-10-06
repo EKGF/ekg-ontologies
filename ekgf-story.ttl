@@ -9,8 +9,14 @@
 @prefix outcome: <https://ekgf.org/ontology/outcome#> .
 @prefix persona: <https://ekgf.org/ontology/persona#> .
 @prefix story-svc: <https://ekgf.org/ontology/ekg-platform-story-service#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ekg-story: <https://ekgf.org/ontology/story#> .
 
 <https://ekgf.org/ontology/story#> a owl:Ontology ;
+  sh:declare [
+      sh:prefix "ekg-story" ;
+      sh:namespace "https://ekgf.org/ontology/story#"^^xsd:anyURI
+  ] ;
 	owl:imports <https://ekgf.org/ontology/persona#> , <https://ekgf.org/ontology/concept#> , <https://ekgf.org/ontology/outcome#> ;
 	rdfs:comment "The EKGF Story Ontology"@en ;
 	rdfs:label "EKGF Story Ontology"@en .
