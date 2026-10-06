@@ -2,17 +2,21 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix api: <https://ekgf.org/ontology/api#> .
+@prefix cmns-rlcmp: <https://www.omg.org/spec/Commons/RolesAndCompositions/> .
 @prefix artgov: <https://ekgf.org/ontology/artifact-governance#> .
 
 #
 # The well-known authorities.
 #
-# The IRI of an authority is a UUID derived from its host, the value of
-# artgov:authorityHost: the name-based UUID (version 5) of the host in
-# the DNS namespace. Two parties that describe the same host therefore
-# mint the same IRI. To add an authority:
+# This file is the registry of authority identities. Each IRI is a random
+# UUIDv4 URN, minted once and reused regardless of names, hosts or URLs.
+# An authority may have multiple hosts. To mint a new identity:
 #
-#   python3 -c "import uuid; print(uuid.uuid5(uuid.NAMESPACE_DNS, 'www.example.org'))"
+#   python3 -c "import uuid; print(uuid.uuid4().urn)"
+#
+# Check existing entries before minting. A domain change does not create
+# a new authority. Organizations have separate UUIDv4 identities in
+# well-known-organizations.ttl; cmns-rlcmp:isPlayedBy links a role to its player.
 #
 # Every authority that governs an ontology, a shapeset or a taxonomy is
 # declared here and nowhere else.
@@ -20,8 +24,9 @@
 
 # ── W3C ──────────────────────────────────────────────────────
 
-<urn:uuid:20f9ae73-f462-529f-ba7e-b5494fd68563>
+<urn:uuid:3129ef76-7e6d-48d4-92c2-4fe98c9621ce>
     rdf:type artgov:Authority ;
+    cmns-rlcmp:isPlayedBy <urn:uuid:96c6206b-38fb-4625-a784-de7903329897> ;
     api:slug "w3c" ;
     rdfs:label "W3C"@en ;
     artgov:authorityAcronym "W3C" ;
@@ -31,9 +36,12 @@
 
 # ── EKGF ─────────────────────────────────────────────────────
 
-<urn:uuid:86065ee7-9883-500b-a320-1878f135a3a9>
+<urn:uuid:6c1408aa-039c-42f9-8dee-9c3f0009d61a>
     rdf:type artgov:Authority ;
+    cmns-rlcmp:isPlayedBy <urn:uuid:ee14e632-d8c2-43c1-95d8-72491ce7a846> ;
     api:slug "ekgf" ;
+    artgov:communityOrganization <urn:uuid:ee14e632-d8c2-43c1-95d8-72491ce7a846> ;
+    artgov:legalOwner <urn:uuid:ec3f703d-55a9-4bea-a818-e71705f8dd2e> ;
     rdfs:label "OMG - Enterprise Knowledge Graph Forum"@en ;
     artgov:authorityAcronym "EKGF" ;
     artgov:authorityHost "ekgf.org" ;
@@ -49,8 +57,9 @@
 
 # ── OMG ──────────────────────────────────────────────────────
 
-<urn:uuid:9c8c8dfc-2295-5743-ab33-f0e29d4c1522>
+<urn:uuid:c4c86ff8-f93e-4463-aef2-ab5f9511a7eb>
     rdf:type artgov:Authority ;
+    cmns-rlcmp:isPlayedBy <urn:uuid:ec3f703d-55a9-4bea-a818-e71705f8dd2e> ;
     api:slug "omg" ;
     rdfs:label "Object Management Group"@en ;
     artgov:authorityAcronym "OMG" ;
@@ -67,16 +76,15 @@
 
 # ── EDM Association ──────────────────────────────────────────
 
-<urn:uuid:dfad55b7-5999-5fa6-8f0c-b692f7949fae>
+<urn:uuid:5cf1cc40-7f75-4749-b690-0546ddb50ed5>
     rdf:type artgov:Authority ;
+    cmns-rlcmp:isPlayedBy <urn:uuid:c2c98445-9dac-4515-bd06-ce6c5bdace11> ;
     api:slug "edma" ;
     rdfs:label "EDM Association"@en ;
     rdfs:comment "EDM Association, formerly EDM Council, hosts and sponsors FIBO and other data management standards."@en ;
     artgov:authorityAcronym "EDMA" ;
     artgov:authorityHost "spec.edmcouncil.org" ;
     artgov:baseIri "https://spec.edmcouncil.org"^^xsd:anyURI ;
-    artgov:historicalName "Enterprise Data Management Council"@en ,
-                          "EDM Council"@en ;
     artgov:publishingRole artgov:AuthorityOwnerRole ,
                           artgov:AuthorityPublisherRole ;
     artgov:communityRole artgov:StandardsEditorRole ,
@@ -87,8 +95,9 @@
 
 # ── UNESCO ───────────────────────────────────────────────────
 
-<urn:uuid:9e3d2097-4c1c-5e35-8089-3e763953019e>
+<urn:uuid:ce827730-387f-4165-9eb8-2476f776957b>
     rdf:type artgov:Authority ;
+    cmns-rlcmp:isPlayedBy <urn:uuid:a3b0eb31-433a-4cda-8b20-7f47bfd424d1> ;
     api:slug "unesco" ;
     rdfs:label "UNESCO"@en ;
     artgov:authorityAcronym "UNESCO" ;
@@ -98,21 +107,25 @@
 
 # ── TopQuadrant ──────────────────────────────────────────────
 
-<urn:uuid:96acd9f4-12d2-5eaa-b575-5729ed143ede>
+<urn:uuid:66210c44-f1ed-47c3-b139-af6cce242eb5>
     rdf:type artgov:Authority ;
+    cmns-rlcmp:isPlayedBy <urn:uuid:3cffc601-37b3-449f-8bad-0cb6c0913db2> ;
     api:slug "topquadrant" ;
     rdfs:label "TopQuadrant"@en ;
     artgov:authorityAcronym "TQ" ;
-    artgov:authorityHost "datashapes.org" ;
+    artgov:authorityHost "datashapes.org" ,
+                         "topbraid.org" ;
     artgov:baseIri "http://datashapes.org"^^xsd:anyURI ,
                    "http://topbraid.org"^^xsd:anyURI ;
     artgov:autoLoad false .
 
 # ── PURL ─────────────────────────────────────────────────────
 
-<urn:uuid:ee90ea94-f78b-5f6f-bf11-ee6c11310fd9>
+<urn:uuid:697716af-d270-49c4-958e-3e44f7dfee9e>
     rdf:type artgov:Authority ;
+    cmns-rlcmp:isPlayedBy <urn:uuid:208fd4f7-0736-49de-a990-0424507de642> ;
     api:slug "purl" ;
+    rdfs:comment "Authority for the PURL namespace service. Individual vocabularies using PURL can have other governing authorities."@en ;
     rdfs:label "PURL"@en ;
     artgov:authorityAcronym "PURL" ;
     artgov:authorityHost "purl.org" ;
@@ -121,8 +134,9 @@
 
 # ── SPDX ─────────────────────────────────────────────────────
 
-<urn:uuid:3653c58f-fb7c-532e-b6d8-e620aa2e61ed>
+<urn:uuid:2d4e6d7c-e833-4a3a-8466-98d0aa8bd7fe>
     rdf:type artgov:Authority ;
+    cmns-rlcmp:isPlayedBy <urn:uuid:437298e4-0f3d-4846-a248-0a8efebbab46> ;
     api:slug "spdx" ;
     rdfs:label "SPDX"@en ;
     artgov:authorityAcronym "SPDX" ;
@@ -132,9 +146,11 @@
 
 # ── XMLNS ────────────────────────────────────────────────────
 
-<urn:uuid:710ffd4f-c192-5926-b8cb-d45d761b2dfd>
+<urn:uuid:a0b7dced-4f54-41a0-bc0e-ed71bead959e>
     rdf:type artgov:Authority ;
     api:slug "xmlns" ;
+    artgov:communityOrganization <urn:uuid:11e75a50-898f-4531-a659-7c84072095d8> ;
+    rdfs:comment "Namespace service associated with the FOAF project. Its individual operator is not represented in the organization registry. Hosting a vocabulary does not establish its governing authority."@en ;
     rdfs:label "XMLNS"@en ;
     artgov:authorityAcronym "XMLNS" ;
     artgov:authorityHost "xmlns.com" ;
@@ -143,8 +159,9 @@
 
 # ── DERI ─────────────────────────────────────────────────────
 
-<urn:uuid:570fc1c0-98a2-55a6-95b4-c6b7edb23ffc>
+<urn:uuid:a76fd8aa-e8a9-49f9-a904-ba2fc74fb045>
     rdf:type artgov:Authority ;
+    cmns-rlcmp:isPlayedBy <urn:uuid:013afb21-34e5-4f94-8c78-fb27b4fb2863> ;
     api:slug "deri" ;
     rdfs:label "Digital Enterprise Research Institute (DERI)"@en ;
     artgov:authorityAcronym "DERI" ;

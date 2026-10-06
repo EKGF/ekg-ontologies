@@ -1,0 +1,24 @@
+# Relevant class and role axioms from the normative Commons 1.3 ontologies:
+# https://www.omg.org/spec/Commons/20250801/Organizations.ttl
+# https://www.omg.org/spec/Commons/20250801/PartiesAndSituations.ttl
+# https://www.omg.org/spec/Commons/20250801/RolesAndCompositions.ttl
+# The .txt suffix keeps test fixtures out of consumers' RDF file discovery.
+@prefix org: <https://www.omg.org/spec/Commons/Organizations/> .
+@prefix pts: <https://www.omg.org/spec/Commons/PartiesAndSituations/> .
+@prefix role: <https://www.omg.org/spec/Commons/RolesAndCompositions/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+org:Organization rdfs:subClassOf pts:Party .
+org:FormalOrganization rdfs:subClassOf org:Organization .
+org:InformalOrganization rdfs:subClassOf org:Organization .
+org:LegalEntity rdfs:subClassOf org:FormalOrganization , org:LegalPerson .
+org:LegalPerson rdfs:subClassOf pts:Party .
+org:OrganizationalSubUnit rdfs:subClassOf org:Organization .
+pts:Party rdfs:subClassOf pts:Agent .
+pts:Agent owl:disjointWith role:Role .
+pts:PartyRole rdfs:subClassOf pts:AgentRole .
+pts:AgentRole rdfs:subClassOf role:Role .
+role:isPlayedBy a owl:ObjectProperty ;
+    rdfs:domain role:Role ;
+    owl:inverseOf role:playsRole .

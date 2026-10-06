@@ -60,8 +60,10 @@ Every ontology lives in the file `ekgf-<name>.ttl` and has the IRI
 
 ## Datasets
 
-- `well-known-authorities.ttl`: the bodies that govern artifacts,
-  such as W3C, OMG and EKGF
+- `well-known-authorities.ttl`: the authority roles that govern
+  artifacts, such as those exercised by W3C, OMG and EKGF
+- `well-known-organizations.ttl`: organizations that play authority
+  roles or host their communities, with their own identities
 - `well-known-families.ttl`: families of artifacts, such as FIBO
 - `well-known-lifecycles.ttl`: lifecycles anyone can use
 - `lifecycle-bindings.ttl`: which lifecycle the members of a class
@@ -69,17 +71,46 @@ Every ontology lives in the file `ekgf-<name>.ttl` and has the IRI
 - `ekgf-family-references.ttl`: one reference for each ontology in
   this repository
 
-### Authorities
+### Authorities and organizations
 
-The IRI of an authority is derived from its host. It is `urn:uuid:`
-followed by the name-based UUID (version 5) of the host in the DNS
-namespace. Two parties that describe the same host therefore mint
-the same IRI.
+These Turtle datasets are the registry of authority and organization
+identities. Each entry receives a random UUIDv4 URN once. Reuse the
+registered IRI when referring to that authority or organization.
+To mint an IRI for a new entry:
 
 ```sh
-python3 -c "import uuid; \
-print(uuid.uuid5(uuid.NAMESPACE_DNS, 'www.w3.org'))"
+python3 -c "import uuid; print(uuid.uuid4().urn)"
 ```
+
+Keep that IRI when a name, host or URL changes. Check the registry
+before minting an entry; another name or domain may describe an
+existing authority or organization. UUIDv4 supplies a random identity
+without coupling it to a domain or creation time. The registry
+establishes which entity the identifier denotes.
+
+An `artgov:Authority` is a Commons `cmns-pts:PartyRole`. Its player
+is linked with `cmns-rlcmp:isPlayedBy`. The organization playing the
+role is a separate resource, described with Commons organization
+types such as `cmns-org:LegalEntity` or
+`cmns-org:OrganizationalSubUnit` where known. Commons makes agents
+and roles disjoint. One organization can play several authority
+roles, and a role can be recorded before its player is identified.
+
+`artgov:communityOrganization` identifies the organization hosting
+the community; `artgov:legalOwner` identifies the legal owner or
+administrator. Neither relationship substitutes for `isPlayedBy`.
+
+An authority may have multiple `artgov:authorityHost` and
+`artgov:baseIri` values. Organizations may have multiple
+`cmns-org:hasWebsite` values. These are editable metadata, not keys.
+Retain historical hosts while their artifact IRIs remain in use.
+A shared host, especially a namespace service such as PURL, does
+not establish that all artifacts there have the same governing
+authority.
+
+The authority UUIDs replace the former host-derived UUIDs. Consumers
+must load the registered identifiers and updated references instead
+of computing identities from hosts.
 
 ### Families
 
@@ -131,6 +162,20 @@ lifecycle of its own replaces the binding in its own data.
 ```turtle
 <my-story> lifecycle:hasState continuous-improvement:Deployed .
 ```
+
+## Validation
+
+Install the test dependencies in a virtual environment and run:
+
+```sh
+python3 -m pip install -r requirements-test.txt
+python3 -B -m unittest discover -s tests -v
+```
+
+The tests check registered identities, references and Commons role
+semantics. They run offline using the relevant Commons 1.3 axioms
+in a test fixture. Its `.ttl.txt` suffix keeps it out of RDF file
+discovery when consumers load this repository.
 
 ## License
 

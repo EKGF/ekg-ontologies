@@ -2,7 +2,9 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix org: <http://www.w3.org/ns/org#> .
+@prefix cmns-org: <https://www.omg.org/spec/Commons/Organizations/> .
+@prefix cmns-pts: <https://www.omg.org/spec/Commons/PartiesAndSituations/> .
+@prefix cmns-rlcmp: <https://www.omg.org/spec/Commons/RolesAndCompositions/> .
 @prefix api: <https://ekgf.org/ontology/api#> .
 @prefix artgov: <https://ekgf.org/ontology/artifact-governance#> .
 @base <https://ekgf.org/ontology/artifact-governance#> .
@@ -11,7 +13,9 @@
     rdf:type owl:Ontology ;
     rdfs:label "The EKG Artifact Governance Ontology"@en ;
     rdfs:comment "Who governs a semantic artifact and which family it belongs to. One vocabulary for OWL ontologies, SHACL shapesets, SKOS taxonomies and concept sets. Replaces the Ontology Ontology (https://ekgf.org/ontology/ontology#)."@en ;
-    owl:imports org: ,
+    owl:imports cmns-org: ,
+                cmns-pts: ,
+                cmns-rlcmp: ,
                 api: .
 
 #################################################################
@@ -19,8 +23,9 @@
 #################################################################
 
 artgov:Authority rdf:type owl:Class ;
+    rdfs:subClassOf cmns-pts:PartyRole ;
     rdfs:label "Authority"@en ;
-    rdfs:comment "An organization or body that owns, maintains and governs artifacts, such as W3C, OMG or EKGF. The IRI of an authority is derived from its host: urn:uuid: followed by the name-based UUID (version 5) of the host in the DNS namespace. Two parties that describe the same host therefore mint the same IRI."@en .
+    rdfs:comment "A role responsible for governing semantic artifacts or their publication namespaces. The party playing the role is linked with cmns-rlcmp:isPlayedBy and has its own identity. An authority and an organization playing it are distinct individuals, following the Commons separation of agents and roles. An authority is assigned a random UUIDv4 URN once in the authority registry. Its identity persists when names, hosts, URLs or the party playing the role change. Hosts and URLs are metadata and may have multiple values; they do not determine identity."@en .
 
 artgov:Family rdf:type owl:Class ;
     rdfs:label "Family"@en ;
@@ -59,14 +64,14 @@ artgov:refersTo rdf:type owl:ObjectProperty ;
 
 artgov:communityOrganization rdf:type owl:ObjectProperty ;
     rdfs:domain artgov:Authority ;
-    rdfs:range org:Organization ;
+    rdfs:range cmns-org:Organization ;
     rdfs:label "Community organization"@en ;
-    rdfs:comment "Links an authority to the organization that hosts its standards community."@en .
+    rdfs:comment "Links an authority to the organization that hosts its standards community. The party exercising the authority is stated separately with cmns-rlcmp:isPlayedBy."@en .
 
 artgov:legalOwner rdf:type owl:ObjectProperty ;
-    rdfs:range org:Organization ;
+    rdfs:range cmns-org:Organization ;
     rdfs:label "Legal owner"@en ;
-    rdfs:comment "Links an authority or an organization to the organization that legally owns or administers it. This is governance metadata, not access inheritance."@en .
+    rdfs:comment "Links an authority or an organization to the organization that legally owns or administers it. This relationship is separate from the party exercising an authority role, stated with cmns-rlcmp:isPlayedBy. This is governance metadata, not access inheritance."@en .
 
 artgov:predecessorAuthority rdf:type owl:ObjectProperty ;
     rdfs:domain artgov:Authority ;
@@ -106,7 +111,7 @@ artgov:authorityHost rdf:type owl:DatatypeProperty ;
     rdfs:domain artgov:Authority ;
     rdfs:range xsd:string ;
     rdfs:label "Authority host"@en ;
-    rdfs:comment "The host name exactly as it appears in the IRIs of the authority's artifacts, without protocol, such as www.w3.org or spec.edmcouncil.org. The IRI of the authority is derived from this value."@en .
+    rdfs:comment "A host name used in the IRIs of the authority's artifacts, without protocol, such as www.w3.org or spec.edmcouncil.org. An authority may have multiple hosts, including historical hosts whose artifact IRIs remain in use. Adding, removing or changing a host does not change the authority's identity. A shared host does not imply shared governance; hosts are metadata, not identity keys."@en .
 
 artgov:autoLoad rdf:type owl:DatatypeProperty ;
     rdfs:domain artgov:Authority ;
@@ -191,7 +196,7 @@ artgov:baseIri rdf:type owl:DatatypeProperty ;
     rdfs:domain artgov:Authority ;
     rdfs:range xsd:anyURI ;
     rdfs:label "Base IRI"@en ;
-    rdfs:comment "Base IRI of the artifacts published by an authority. An authority that publishes under both http and https carries both values."@en .
+    rdfs:comment "A base IRI of artifacts published by an authority. An authority may carry multiple base IRIs, including different hosts, schemes and historical locations. These values do not determine the authority's identity."@en .
 
 artgov:preferredNamespacePrefix rdf:type owl:DatatypeProperty ;
     rdfs:range xsd:string ;
