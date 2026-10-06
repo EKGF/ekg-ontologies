@@ -36,8 +36,8 @@ Every ontology lives in the file `ekgf-<name>.ttl` and has the IRI
 
 - `artifact-governance`: who governs an ontology, a shapeset, a
   taxonomy or a concept set, and which family it belongs to
-- `artifact-publication`: how a family is published, in profiles,
-  targets, runs and releases
+- `artifact-publication`: publication by family or individual artifact
+  references, with profiles, targets, runs, releases and approvals
 - `artifact-dependency`: what an artifact depends on, the evidence
   for it and whether the dependency resolves
 - `shape`: SHACL node shapes grouped into shapesets, and what a
@@ -144,9 +144,11 @@ organization classes.
 
 ### Families
 
-A family spans artifact types: the ontologies, shapesets and
-taxonomies of FIBO are members of the one FIBO family. A family
-recognises its artifacts by two prefixes.
+Families are optional. An authority can govern artifacts directly
+through `artgov:governedBy`, without any family. When used, a family
+spans artifact types: the ontologies, shapesets and taxonomies of
+FIBO are members of the one FIBO family. A family recognises its
+artifacts by two prefixes.
 
 - `artgov:namespaceIriPrefix` is what the namespace IRIs of its
   artifacts start with. It is an absolute IRI.
@@ -160,6 +162,66 @@ When the prefixes of several families match, the longest one wins.
 An artifact can also state its family itself, with
 `artgov:inFamily`. A stated family takes precedence: the prefixes
 recognise only the artifacts that state no family.
+
+### Publication, versions and approvals
+
+A family is an enduring grouping that can serve as a publication
+unit. Each version is a separate `artpub:StandardsRelease`, and
+approval applies to that exact release. Publication also works
+without families, by selecting one or more `artgov:Reference`
+resources representing the artifacts being published.
+
+| Scope | Publication profile | Standards release |
+| --- | --- | --- |
+| One family | `artpub:publishesFamily` | `artpub:releaseFamily` |
+| Explicit artifact references | `artpub:publishesReference` | `artpub:releaseReference` |
+
+Choose one scope form per profile or release. Selecting references
+does not create a family or assign family membership. References
+identify source artifacts; `artpub:publicationArtifact` identifies
+generated outputs such as RDF downloads and PDFs.
+
+Each release has its own identity and one `artpub:releaseVersion`.
+Its scope, version and content provenance are immutable: changed
+content requires a new release identity. Retain the configuration
+of any profile linked to a release; changed configuration needs a
+new profile identity. A version label can recur in another family's
+or artifact's publication history, so it is not an identity key.
+External releases can be recorded without a local publication run
+or input commit. If a run is linked, its profile must select the
+same scope and its input commit must match the release's commit.
+
+An `artpub:ReleaseApproval` records one authority's affirmative
+decision about one release, with `artpub:approvesRelease`,
+`artpub:approvedBy` and `artpub:approvedAt`. Several authorities
+can approve the same release through separate records. For example,
+this standalone ontology needs no family:
+
+```turtle
+@prefix ex: <https://example.org/> .
+@prefix artgov: <https://ekgf.org/ontology/artifact-governance#> .
+@prefix artpub: <https://ekgf.org/ontology/artifact-publication#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:authority a artgov:Authority .
+ex:reference a artgov:Reference ;
+    artgov:refersTo ex:ontology ;
+    artgov:governedBy ex:authority .
+ex:release a artpub:StandardsRelease ;
+    artpub:releaseReference ex:reference ;
+    artpub:releaseVersion "1.0" .
+ex:approval a artpub:ReleaseApproval ;
+    artpub:approvesRelease ex:release ;
+    artpub:approvedBy ex:authority ;
+    artpub:approvedAt "2026-10-01T09:00:00Z"^^xsd:dateTime .
+```
+
+Approval does not transfer to later releases or future family
+members. A governing or publishing role does not prove approval,
+and approval does not itself publish a release. Lifecycle state
+can change independently, including to superseded or withdrawn.
+Required approvers and withdrawal procedures belong to governance
+policy. Supporting approval evidence can use `rdfs:seeAlso`.
 
 ### Lifecycles
 
@@ -202,10 +264,26 @@ python3 -m pip install -r requirements-test.txt
 python3 -B -m unittest discover -s tests -v
 ```
 
-The tests check registered identities, references and Commons role
-semantics. They run offline using the relevant Commons 1.3 axioms
-in a test fixture. Its `.ttl.txt` suffix keeps it out of RDF file
+The tests check registered identities, references, Commons role
+semantics and publication constraints, including publication without
+families. They run offline using the relevant Commons 1.3 axioms in
+a test fixture. Its `.ttl.txt` suffix keeps it out of RDF file
 discovery when consumers load this repository.
+
+`ekgf-artifact-publication.ttl` includes SHACL shapes for profiles,
+releases and approvals. Validate publication records before accepting
+them, including the referenced authority, family or reference types
+in the data graph:
+
+```sh
+pyshacl -s ekgf-artifact-publication.ttl -f human publication-data.ttl
+```
+
+Validation rejects missing or conflicting scopes, missing versions,
+incomplete approvals and inconsistent profile or run provenance.
+The validator exits nonzero on failure. Consumers must also enforce
+immutability when storing updates; validation of a single graph
+cannot detect a change to a previously stored release.
 
 ## License
 

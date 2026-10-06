@@ -33,7 +33,7 @@ artgov:Authority rdf:type owl:Class ;
 
 artgov:Family rdf:type owl:Class ;
     rdfs:label "Family"@en ;
-    rdfs:comment "A collection of related artifacts governed by one or more authorities, such as FIBO. A family spans artifact types: its ontologies, shapesets and taxonomies are members of the same family."@en .
+    rdfs:comment "An optional, enduring collection of related artifacts governed by one or more authorities, such as FIBO. A family spans artifact types: its ontologies, shapesets and taxonomies are members of the same family. Authorities can govern artifacts directly without organizing them into families. When used for publication, the family groups the artifacts across releases; each version and its approvals belong to a distinct standards release."@en .
 
 artgov:Reference rdf:type owl:Class ;
     rdfs:label "Reference"@en ;
