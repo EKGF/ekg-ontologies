@@ -62,8 +62,11 @@ the ontology IRI without `#`; its declared term namespace retains `#`.
 - [Specification by example](../ekgf-specification-by-example.ttl),
   `ekg-sbe`: scenarios that say what a story must do, as given, when
   and then.
-- [Concept](../ekgf-concept.ttl), `ekg-concept`: concepts and their
-  manifestations, such as a business term, query variable or OWL class.
+- [Concept](../ekgf-concept.ttl), `ekg-concept`: reusable data element
+  concepts and their business and technical manifestations, including
+  whole classes and shapes. See
+  [concepts and manifestations](concepts.md) for the broader scope
+  of `DataElementConcept` and its relationship to ISO/IEC 11179.
 - [Persona](../ekgf-persona.ttl), `ekg-persona`: personas that play
   stories.
 - [Outcome](../ekgf-outcome.ttl), `ekg-outcome`: outcomes that use cases

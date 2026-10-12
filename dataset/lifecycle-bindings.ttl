@@ -21,7 +21,7 @@
 <https://ekgf.org/lifecycle/continuous-improvement>
     lifecycle:appliesTo use-case:UseCase ,
                         story:Story ,
-                        concept:Concept ,
+                        concept:DataElementConcept ,
                         concept:ConceptSet ,
                         persona:Persona .
 

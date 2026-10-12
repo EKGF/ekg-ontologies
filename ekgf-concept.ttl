@@ -17,7 +17,7 @@
   owl:imports  rdf: ;
   rdfs:label   "EKGF Concept Ontology"@en ;
   rdfs:comment
-    "Concepts are deliberately thin linking pins. Their lexical forms, code identifiers, schema references, RDF resources, and source occurrences are represented as ConceptManifestations."@en .
+    "Data element concepts, called concepts for short, identify reusable meanings independently of their business and technical manifestations. The scope includes individual data elements and compound data constructs such as whole classes and shapes. ManifestationOccurrence records where a manifestation appears in a source."@en .
 
 #################################################################
 #    Object properties
@@ -25,18 +25,18 @@
 
 :hasConcept
   rdf:type      owl:ObjectProperty ;
-  rdfs:range    :Concept ;
+  rdfs:range    :DataElementConcept ;
   rdfs:label    "has concept"@en .
 
 :inConceptSet
   rdf:type      owl:ObjectProperty ;
-  rdfs:domain   :Concept ;
+  rdfs:domain   :DataElementConcept ;
   rdfs:range    :ConceptSet ;
   rdfs:label    "in concept set"@en .
 
 :hasManifestation
   rdf:type      owl:ObjectProperty ;
-  rdfs:domain   :Concept ;
+  rdfs:domain   :DataElementConcept ;
   rdfs:range    :ConceptManifestation ;
   rdfs:label    "has manifestation"@en ;
   rdfs:comment
@@ -46,34 +46,34 @@
   rdf:type      owl:ObjectProperty ;
   owl:inverseOf :hasManifestation ;
   rdfs:domain   :ConceptManifestation ;
-  rdfs:range    :Concept ;
+  rdfs:range    :DataElementConcept ;
   rdfs:label    "concept"@en .
 
 :preferredManifestation
   rdf:type           owl:ObjectProperty ;
   rdfs:subPropertyOf :hasManifestation ;
-  rdfs:domain        :Concept ;
+  rdfs:domain        :DataElementConcept ;
   rdfs:range         :ConceptManifestation ;
   rdfs:label         "preferred manifestation"@en .
 
 :preferredBusinessTerm
   rdf:type           owl:ObjectProperty ;
   rdfs:subPropertyOf :preferredManifestation ;
-  rdfs:domain        :Concept ;
+  rdfs:domain        :DataElementConcept ;
   rdfs:range         :BusinessTerm ;
   rdfs:label         "preferred business term"@en .
 
 :preferredQueryParameterManifestation
   rdf:type           owl:ObjectProperty ;
   rdfs:subPropertyOf :preferredManifestation ;
-  rdfs:domain        :Concept ;
+  rdfs:domain        :DataElementConcept ;
   rdfs:range         :URIParameterManifestation ;
   rdfs:label         "preferred query parameter manifestation"@en .
 
 :preferredResultColumnManifestation
   rdf:type           owl:ObjectProperty ;
   rdfs:subPropertyOf :preferredManifestation ;
-  rdfs:domain        :Concept ;
+  rdfs:domain        :DataElementConcept ;
   rdfs:range         :SPARQLResultColumnManifestation ;
   rdfs:label         "preferred result column manifestation"@en ;
   rdfs:comment       "The manifestation whose label is the concept's public response-column name — what the edge projector renders in place of the SPARQL projection variable (story-signature design)."@en .
@@ -138,23 +138,28 @@
 #    Classes
 #################################################################
 
-:Concept
+:DataElementConcept
   rdf:type      owl:Class ;
-  rdfs:label    "concept"@en ;
+  rdfs:label    "data element concept"@en ;
   rdfs:comment
-    "A broad, context-dependent linking pin. A concept may be duplicated and later merged when owners decide two concepts mean the same thing. The concept itself carries little meaning; its graph context and manifestations carry the useful detail."@en ;
+    """A reusable concept identifying the meaning of a data element or compound data construct, independently of its particular business or technical manifestations. Called a concept for short.
+
+This class follows the distinction between meaning and representation in ISO/IEC 11179, while extending beyond its object-class/property combinations to encompass compound data constructs. Manifestations may include business terms, programming-language identifiers, query variables, whole OWL classes, or SHACL shapes.
+
+Reuse across contexts is encouraged. A concept is not inherently scoped to a particular context, although separate concepts may be created where needed. Independently created concepts may later be merged when their owners establish that they represent the same meaning. The concept identifies the shared meaning; its manifestations and graph relationships express and describe that meaning."""@en ;
+  rdfs:seeAlso  <https://www.iso.org/standard/78925.html> ;
   dct:created   "2020-04-22T17:56:44Z"^^xsd:dateTime .
 
 :ConceptSet
   rdf:type      owl:Class ;
   rdfs:label    "concept set"@en ;
-  rdfs:comment  "A governed set of related concepts."@en .
+  rdfs:comment  "A governed set of related data element concepts."@en .
 
 :ConceptManifestation
   rdf:type      owl:Class ;
   rdfs:label    "concept manifestation"@en ;
   rdfs:comment
-    "A concrete real-world manifestation of a concept: a human term, abbreviation, synonym, API parameter, variable name, RDF resource, OWL axiom, SHACL shape, SKOS term, table, column, source-code identifier, or another discovered occurrence."@en .
+    "A business or technical expression of a data element concept: a human term, abbreviation, synonym, API parameter, variable name, RDF resource, OWL class, OWL axiom, SHACL shape, SKOS concept, table, column, or source-code identifier. Its appearances in sources are recorded as ManifestationOccurrence instances."@en .
 
 :BusinessTerm
   rdf:type         owl:Class ;

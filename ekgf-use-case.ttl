@@ -92,17 +92,17 @@ use-case:isInvolvedInUseCase rdf:type owl:ObjectProperty ;
 
 use-case:usesConcept rdf:type owl:ObjectProperty ;
     rdfs:domain use-case:UseCase ;
-    rdfs:range concept:Concept ;
+    rdfs:range concept:DataElementConcept ;
     rdfs:label "Uses concept"@en ;
     dc:creator <http://orcid.org/0000-0003-2309-5068> ;
     dc:date "2020-06-20T12:40:26Z"^^xsd:dateTime .
 
 use-case:isUsedInUseCase rdf:type owl:ObjectProperty ;
     owl:inverseOf use-case:usesConcept ;
-    rdfs:domain concept:Concept ;
+    rdfs:domain concept:DataElementConcept ;
     rdfs:range use-case:UseCase ;
     rdfs:label "Is used in use case"@en ;
-    rdfs:comment "The current Concept is used in the given UseCase"@en ;
+    rdfs:comment "The current data element concept is used in the given UseCase"@en ;
     dc:creator <http://orcid.org/0000-0003-2309-5068> ;
     dc:date "2020-06-20T12:40:56Z"^^xsd:dateTime .
 
@@ -207,7 +207,7 @@ use-case:UseCaseStereoTypeApplication rdf:type owl:NamedIndividual ,
 #################################################################
 
 [ rdf:type owl:AllDisjointClasses ;
-  owl:members ( concept:Concept
+  owl:members ( concept:DataElementConcept
                 story:Story
                 use-case:UseCase
               )

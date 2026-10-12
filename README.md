@@ -32,6 +32,9 @@ The Data Product Ontology is maintained in the separate
 - [Ontology catalog and prefixes](docs/ontologies.md): all ontologies,
   their preferred prefixes, namespace conventions and SHACL
   declarations.
+- [Data element concepts](docs/concepts.md): reusable meanings,
+  business and technical manifestations, compound constructs and the
+  relationship to ISO/IEC 11179.
 - [Authorities and organizations](docs/governance.md): registered
   identities, Commons roles, organization categories and artifact
   references.
@@ -77,6 +80,8 @@ python3 -B -m unittest discover -s tests -v
 The [tests](tests/) check registered identities, references, Commons
 role semantics, namespace declarations, family recognition and
 publication constraints, including publication without families.
+They also check data element concept inference, manifestation
+separation, class disjointness and lifecycle bindings.
 They run offline using the relevant Commons 1.3 axioms in a test
 fixture. Its `.ttl.txt` suffix keeps it out of RDF file discovery
 when consumers load this repository.
