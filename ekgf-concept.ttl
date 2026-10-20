@@ -92,6 +92,14 @@
   rdfs:range    :ConceptManifestation ;
   rdfs:label    "occurrence of"@en .
 
+:sourceSystem
+  rdf:type      owl:ObjectProperty ;
+  rdfs:domain   :ManifestationOccurrence ;
+  rdfs:range    rdfs:Resource ;
+  rdfs:label    "source system"@en ;
+  rdfs:comment
+    "The system in which this occurrence of a manifestation was observed, identified by a resource IRI. A source repository is not required; the same manifestation may occur in multiple systems."@en .
+
 #################################################################
 #    Data properties
 #################################################################
@@ -303,10 +311,26 @@ Reuse across contexts is encouraged. A concept is not inherently scoped to a par
   rdfs:subClassOf  :TechnicalManifestation ;
   rdfs:label       "Cypher identifier manifestation"@en .
 
-:JavaScriptIdentifierManifestation
+:SourceCodeIdentifierManifestation
   rdf:type         owl:Class ;
   rdfs:subClassOf  :TechnicalManifestation ;
+  rdfs:label       "source code identifier manifestation"@en ;
+  rdfs:comment     "An identifier in a programming language, such as a variable, field, function, or class name. Use this class directly for languages without a dedicated subclass. manifestationValue records the exact identifier; ManifestationOccurrence records where it appears."@en .
+
+:JavaScriptIdentifierManifestation
+  rdf:type         owl:Class ;
+  rdfs:subClassOf  :SourceCodeIdentifierManifestation ;
   rdfs:label       "JavaScript identifier manifestation"@en .
+
+:PythonIdentifierManifestation
+  rdf:type         owl:Class ;
+  rdfs:subClassOf  :SourceCodeIdentifierManifestation ;
+  rdfs:label       "Python identifier manifestation"@en .
+
+:JavaIdentifierManifestation
+  rdf:type         owl:Class ;
+  rdfs:subClassOf  :SourceCodeIdentifierManifestation ;
+  rdfs:label       "Java identifier manifestation"@en .
 
 :JSONFieldManifestation
   rdf:type         owl:Class ;
@@ -317,4 +341,4 @@ Reuse across contexts is encouraged. A concept is not inherently scoped to a par
   rdf:type      owl:Class ;
   rdfs:label    "manifestation occurrence"@en ;
   rdfs:comment
-    "A concrete sighting of a concept manifestation in a source repository, statement, RDF file, OWL file, SHACL file, SPARQL query, SQL statement, Cypher statement, or code file."@en .
+    "A concrete sighting of a concept manifestation in a system, source repository, statement, RDF file, OWL file, SHACL file, SPARQL query, SQL statement, Cypher statement, or code file."@en .

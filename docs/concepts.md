@@ -55,9 +55,20 @@ Technical manifestations supply expressions in particular languages
 and systems. For RDF resources, a manifestation links to the resource
 through `manifestationResource`. A `ManifestationOccurrence` records
 a particular sighting in a source, including its repository, path,
-line or commit.
+line or commit. `sourceSystem` links an occurrence to the resource IRI
+of the system where it was observed, including legacy systems without
+a source repository. System provenance belongs to each occurrence;
+one manifestation may occur in several systems.
 
-For example, these business, SPARQL and API manifestations share one
+`SourceCodeIdentifierManifestation` groups programming-language
+identifiers. JavaScript, Python and Java identifiers have dedicated
+subclasses: `JavaScriptIdentifierManifestation`,
+`PythonIdentifierManifestation` and `JavaIdentifierManifestation`.
+Use the parent class directly for other programming languages.
+Query-language identifiers retain their existing technical types,
+such as `CypherIdentifierManifestation`.
+
+For example, these business, SPARQL, Python and API manifestations share one
 concept:
 
 ```turtle
@@ -69,7 +80,7 @@ ex:customerIdentifier
     a ekg-concept:DataElementConcept ;
     ekg-concept:preferredBusinessTerm ex:customerIdentifierTerm ;
     ekg-concept:preferredQueryParameterManifestation ex:customerIdAPI ;
-    ekg-concept:hasManifestation ex:customerIdSPARQL .
+    ekg-concept:hasManifestation ex:customerIdSPARQL, ex:customerIdPython .
 
 ex:customerIdentifierTerm
     a ekg-concept:BusinessTerm ;
@@ -78,6 +89,15 @@ ex:customerIdentifierTerm
 ex:customerIdSPARQL
     a ekg-concept:SPARQLVariableManifestation ;
     ekg-concept:manifestationValue "?customerId" .
+
+ex:customerIdPython
+    a ekg-concept:PythonIdentifierManifestation ;
+    ekg-concept:manifestationValue "customer_id" .
+
+ex:legacyOccurrence
+    a ekg-concept:ManifestationOccurrence ;
+    ekg-concept:occurrenceOf ex:customerIdPython ;
+    ekg-concept:sourceSystem ex:legacyCustomerSystem .
 
 ex:customerIdAPI
     a ekg-concept:URIParameterManifestation ;
