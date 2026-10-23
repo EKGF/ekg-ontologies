@@ -3,7 +3,7 @@
 import unittest
 
 from pyshacl import validate
-from rdflib import Graph, Literal, Namespace, RDF
+from rdflib import BNode, Graph, Literal, Namespace, RDF
 from rdflib.namespace import XSD
 
 from test_governance_registry import ARTGOV, ERROR, EX, ORG, reason, turtle
@@ -29,7 +29,10 @@ def publication_data():
         graph.add((release, ARTPUB.releaseVersion, Literal(version)))
         graph.add((release, ARTPUB.inputCommitCid, Literal(commit)))
         graph.add((release, ARTPUB.publicationProfile, EX.profile))
-        graph.add((release, LIFECYCLE.hasState, state))
+        occurrence = BNode()
+        graph.add((release, LIFECYCLE.inState, occurrence))
+        graph.add((occurrence, RDF.type, LIFECYCLE.StateTransition))
+        graph.add((occurrence, LIFECYCLE.currentState, state))
     graph.add((EX.approval, RDF.type, ARTPUB.ReleaseApproval))
     graph.add((EX.approval, ARTPUB.approvesRelease, EX.release1))
     graph.add((EX.approval, ARTPUB.approvedBy, EX.authority))
@@ -92,7 +95,8 @@ class FamilyPublicationTests(unittest.TestCase):
         graph = reason(data + self.ontology)
         self.assertEqual(set(graph.objects(EX.approval, ARTPUB.approvesRelease)),
                          {EX.release1})
-        self.assertEqual(set(graph.objects(EX.release1, LIFECYCLE.hasState)),
+        head = graph.value(EX.release1, LIFECYCLE.inState)
+        self.assertEqual(set(graph.objects(head, LIFECYCLE.currentState)),
                          {PUBLICATION.Superseded})
         self.assertNotIn((EX.family, RDF.type, ARTPUB.StandardsRelease), graph)
         self.assertNotIn((EX.family, ARTPUB.releaseVersion, Literal("1.0")), graph)
