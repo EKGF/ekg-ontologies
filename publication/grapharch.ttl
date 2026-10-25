@@ -1,0 +1,37 @@
+@prefix ga: <https://ekgf.org/ontology/grapharch#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix artpub: <https://ekgf.org/ontology/artifact-publication#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix doc: <urn:ekgf-ontologies:documentation:> .
+
+# Publication settings, not ontology axioms. Family membership, authority
+# identity, labels and role players come from the existing dataset/ registry.
+doc:project a ga:Project ;
+    dct:title "EKGF Ontologies" ;
+    ga:repository <https://github.com/EKGF/ekg-ontologies> ;
+    ga:target doc:specification .
+
+doc:scope a ga:Scope .
+doc:profile a ga:Profile, artpub:PublicationProfile ;
+    artpub:publishesFamily <urn:uuid:c0eda36a-f42a-4fa3-aea9-c7a5543207eb> .
+
+doc:specification a ga:Target ;
+    dct:title "EKGF Ontology Family" ;
+    dct:description "A reference to the related EKGF ontologies. These vocabularies describe enterprise knowledge graphs, their concepts, use cases, stories, artifacts, governance, publication and lifecycles." ;
+    rdfs:comment "This editor's draft is generated from the ontology sources and their registry. It is a documentation preview, not an approved standards release. Supplied source annotations are reproduced. Documentation gaps are reported explicitly; ontology imports are not fetched and this publication does not establish semantic correctness." ;
+    ga:scope doc:scope ;
+    ga:profile doc:profile ;
+    ga:renderer "specification" ;
+    ga:destination "spec/develop" ;
+    ga:publisher <urn:uuid:6c1408aa-039c-42f9-8dee-9c3f0009d61a> ;
+    ga:publicationStatus "Editor's Draft" ;
+    ga:publicationDate "2026-10-25"^^xsd:date ;
+    ga:thisVersion <https://ekgf.github.io/ekg-ontologies/spec/develop/> ;
+    ga:latestVersion <https://ekgf.github.io/ekg-ontologies/spec/develop/> ;
+    ga:editorDraft <https://github.com/EKGF/ekg-ontologies> ;
+    ga:license <https://creativecommons.org/publicdomain/zero/1.0/> .
+
+<urn:uuid:6c1408aa-039c-42f9-8dee-9c3f0009d61a>
+    ga:accentColor "#2b5f9f" ;
+    ga:url "https://ekgf.org/" .
