@@ -55,20 +55,20 @@
       sh:prefix "ekg-capability" ;
       sh:namespace "https://ekgf.org/ontology/capability#"^^xsd:anyURI
   ] ;
-  rdfs:label "The Digital Twin Capability Ontology"@en .
+  rdfs:label "Capability Ontology"@en .
 
 <http://purl.org/dc/elements/1.1/creator> a owl:AnnotationProperty .
 
 <http://purl.org/dc/elements/1.1/date> a owl:AnnotationProperty .
 
 :Capability a owl:Class ;
-  rdfs:label "Data Sharing and Marketplace"@en ;
+  rdfs:label "Capability"@en ;
   rdfs:isDefinedBy <https://ekgf.org/ontology/capability#> .
 
 :CapabilityDomain a owl:Class .
 
 :SubCapability a owl:Class ;
-  rdfs:label "Designing and Managing Data Products"@en ;
+  rdfs:label "Sub-capability"@en ;
   rdfs:isDefinedBy <https://ekgf.org/ontology/capability#> .
 
 :Data_Sharing_and_Marketplace a owl:NamedIndividual, :Capability ;
@@ -78,3 +78,33 @@
 :Designing_and_Managing_Data_Products a owl:NamedIndividual, :SubCapability ;
   <http://purl.org/dc/elements/1.1/creator> "Jacobus Geluk" ;
   <http://purl.org/dc/elements/1.1/date> "2023-08-28T12:56:51Z"^^xsd:dateTime .
+
+
+#################################################################
+#    Documentation annotations
+#################################################################
+
+<https://ekgf.org/ontology/capability#>
+    rdfs:comment "A vocabulary for capabilities and capability domains, with example capabilities for sharing data and managing data products. The current vocabulary does not define the relationships assigning capabilities to domains."@en ;
+    <http://purl.org/dc/terms/license> <https://creativecommons.org/publicdomain/zero/1.0/> .
+
+<https://ekgf.org/ontology/capability#Capability>
+    rdfs:comment "An ability represented in the capability model, such as the ability to share data or manage data products."@en .
+
+<https://ekgf.org/ontology/capability#CapabilityDomain>
+    rdfs:label "Capability Domain"@en ;
+    rdfs:comment "A subject area used to organize capabilities in a capability model. This vocabulary does not yet declare the relationship assigning capabilities to a domain."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/capability#> .
+
+<https://ekgf.org/ontology/capability#Data_Sharing_and_Marketplace>
+    rdfs:label "Data sharing and marketplace"@en ;
+    rdfs:comment "The example capability covering the sharing of data and its provision through a marketplace."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/capability#> .
+
+<https://ekgf.org/ontology/capability#Designing_and_Managing_Data_Products>
+    rdfs:label "Designing and managing data products"@en ;
+    rdfs:comment "The example sub-capability covering the design and management of data products."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/capability#> .
+
+<https://ekgf.org/ontology/capability#SubCapability>
+    rdfs:comment "A more specific capability represented at a subordinate level of a capability model. The current vocabulary declares it independently and does not assert a subclass relationship to Capability."@en .

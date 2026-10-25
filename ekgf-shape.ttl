@@ -14,7 +14,7 @@
         sh:prefix "ekg-shape" ;
         sh:namespace "https://ekgf.org/ontology/shape#"^^xsd:anyURI
     ] ;
-    rdfs:label "The EKG Shape Ontology"@en ;
+    rdfs:label "Shape Ontology"@en ;
     rdfs:comment "Metadata vocabulary for grouping SHACL node shapes into shapesets and for saying what a shape is for."@en ;
     annotation:markdownDescription "Defines `shape:ShapeSet` and membership properties for grouping SHACL node shapes into governed shapesets, and `shape:ShapePurpose` with `shape:shapePurpose` for saying what a shape is for."@en .
 
@@ -52,3 +52,29 @@ shape:shapePurpose rdf:type owl:AnnotationProperty ;
     rdfs:range shape:ShapePurpose ;
     rdfs:label "Shape purpose"@en ;
     rdfs:comment "Relates a node shape or a shapeset to what it is for. It is an annotation property because a node shape can also be a class, and a class is not an individual."@en .
+
+
+#################################################################
+#    Documentation annotations
+#################################################################
+
+<https://ekgf.org/ontology/shape#>
+    <http://purl.org/dc/terms/license> <https://creativecommons.org/publicdomain/zero/1.0/> .
+
+<https://ekgf.org/ontology/shape#ShapeOrShapeSet>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/shape#> .
+
+<https://ekgf.org/ontology/shape#ShapePurpose>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/shape#> .
+
+<https://ekgf.org/ontology/shape#ShapeSet>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/shape#> .
+
+<https://ekgf.org/ontology/shape#hasNodeShape>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/shape#> .
+
+<https://ekgf.org/ontology/shape#inShapeSet>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/shape#> .
+
+<https://ekgf.org/ontology/shape#shapePurpose>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/shape#> .

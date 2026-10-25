@@ -13,7 +13,7 @@
         sh:prefix "ekg-lifecycle" ;
         sh:namespace "https://ekgf.org/ontology/lifecycle#"^^xsd:anyURI
     ] ;
-    rdfs:label "EKGF Lifecycle Ontology"@en ;
+    rdfs:label "Lifecycle Ontology"@en ;
     rdfs:comment """Everything has a lifecycle: use cases, stories, concepts, personas, outcomes, data products and datasets. This ontology says what a lifecycle is, which lifecycle a thing follows and which state the thing is in. It depends on none of the ontologies that describe those things.
 
 A lifecycle has a name, states and permitted transitions, optionally grouped into phases. Its states and transitions form a directed graph; it does not require a separate RDF named graph. Multiple lifecycles can share an RDF graph, with inLifecycle expressing membership independently of graph placement. State order controls presentation, not which moves are permitted. There can be any number of lifecycles. This ontology defines none: the well-known lifecycles are a dataset (dataset/well-known-lifecycles.ttl), and anyone can define more. The registry uses a separate namespace for each lifecycle to distinguish shared state names such as Draft and Deprecated. This is an IRI naming convention, not a graph-storage requirement; custom lifecycles can use another IRI naming convention.
@@ -344,3 +344,87 @@ lifecycle:LegacyStateShape rdf:type sh:NodeShape ;
         sh:maxCount 0 ;
         sh:message "hasState was removed. Use inState with a StateTransition occurrence."@en
     ] .
+
+
+#################################################################
+#    Documentation annotations
+#################################################################
+
+<https://ekgf.org/ontology/lifecycle#>
+    <http://purl.org/dc/terms/license> <https://creativecommons.org/publicdomain/zero/1.0/> .
+
+<https://ekgf.org/ontology/lifecycle#CurrentStateShape>
+    rdfs:label "Current State Shape"@en ;
+    rdfs:comment "Validates effective lifecycle selection and current history-head assignments, including explicitly selected lifecycles and class defaults."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/lifecycle#> .
+
+<https://ekgf.org/ontology/lifecycle#HistoryStateShape>
+    rdfs:label "History State Shape"@en ;
+    rdfs:comment "Validates the State resources referenced by history occurrences, requiring each state to identify exactly one lifecycle."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/lifecycle#> .
+
+<https://ekgf.org/ontology/lifecycle#LegacyStateShape>
+    rdfs:label "Legacy State Shape"@en ;
+    rdfs:comment "Rejects use of the removed hasState predicate. Current assignments use inState with StateTransition occurrences instead."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/lifecycle#> .
+
+<https://ekgf.org/ontology/lifecycle#Lifecycle>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/lifecycle#> .
+
+<https://ekgf.org/ontology/lifecycle#Phase>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/lifecycle#> .
+
+<https://ekgf.org/ontology/lifecycle#State>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/lifecycle#> .
+
+<https://ekgf.org/ontology/lifecycle#StateTransition>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/lifecycle#> .
+
+<https://ekgf.org/ontology/lifecycle#StateTransitionShape>
+    rdfs:label "State Transition Shape"@en ;
+    rdfs:comment "Validates a recorded state-transition event, including its current state and predecessor transition where supplied."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/lifecycle#> .
+
+<https://ekgf.org/ontology/lifecycle#Transition>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/lifecycle#> .
+
+<https://ekgf.org/ontology/lifecycle#TransitionShape>
+    rdfs:label "Transition Shape"@en ;
+    rdfs:comment "Validates a lifecycle transition's lifecycle, source state, destination state, and trigger."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/lifecycle#> .
+
+<https://ekgf.org/ontology/lifecycle#appliesTo>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/lifecycle#> .
+
+<https://ekgf.org/ontology/lifecycle#currentState>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/lifecycle#> .
+
+<https://ekgf.org/ontology/lifecycle#followsLifecycle>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/lifecycle#> .
+
+<https://ekgf.org/ontology/lifecycle#fromState>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/lifecycle#> .
+
+<https://ekgf.org/ontology/lifecycle#inLifecycle>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/lifecycle#> .
+
+<https://ekgf.org/ontology/lifecycle#inState>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/lifecycle#> .
+
+<https://ekgf.org/ontology/lifecycle#isTerminal>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/lifecycle#> .
+
+<https://ekgf.org/ontology/lifecycle#order>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/lifecycle#> .
+
+<https://ekgf.org/ontology/lifecycle#phase>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/lifecycle#> .
+
+<https://ekgf.org/ontology/lifecycle#priorStateTransition>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/lifecycle#> .
+
+<https://ekgf.org/ontology/lifecycle#toState>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/lifecycle#> .
+
+<https://ekgf.org/ontology/lifecycle#trigger>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/lifecycle#> .

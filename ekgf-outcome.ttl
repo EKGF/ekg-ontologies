@@ -1,7 +1,7 @@
 @base <https://ekgf.org/ontology/outcome#> .
 @prefix : <https://ekgf.org/ontology/outcome#> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
-@prefix dct: <http://purl.org/dc/terms> .
+@prefix dct: <http://purl.org/dc/terms/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
@@ -102,7 +102,7 @@
       sh:prefix "ekg-outcome" ;
       sh:namespace "https://ekgf.org/ontology/outcome#"^^xsd:anyURI
   ] ;
-  rdfs:label "EKGF Outcome Ontology"@en ;
+  rdfs:label "Outcome Ontology"@en ;
   rdfs:comment "The outcomes that use cases and stories contribute to. An outcome has a stereotype and a priority. Its lifecycle is described with the Lifecycle Ontology."@en .
 
 dc:creator a owl:AnnotationProperty .
@@ -226,3 +226,104 @@ dc:date a owl:AnnotationProperty .
   :stereotype :OutcomeStereoTypeTheme ;
   rdfs:comment "The default outcome. Think about what your use case or story accomplishes."@en ;
   rdfs:label "Unknown Outcome"@en, "Onbekende uitkomst"@nl .
+
+
+#################################################################
+#    Documentation annotations
+#################################################################
+
+<https://ekgf.org/ontology/outcome#>
+    <http://purl.org/dc/terms/license> <https://creativecommons.org/publicdomain/zero/1.0/> .
+
+<https://ekgf.org/ontology/outcome#Outcome>
+    rdfs:label "Outcome"@en ;
+    rdfs:comment "A result, goal, benefit, or theme to which an EKG use case or story contributes, classified by an outcome stereotype and optionally prioritized."@en .
+
+<https://ekgf.org/ontology/outcome#OutcomeStereoTypeBenefit>
+    rdfs:comment "The outcome stereotype used to classify an outcome as a benefit."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/outcome#> .
+
+<https://ekgf.org/ontology/outcome#OutcomeStereoTypeGoal>
+    rdfs:comment "The outcome stereotype used to classify an outcome as a goal."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/outcome#> .
+
+<https://ekgf.org/ontology/outcome#OutcomeStereoTypeObjective>
+    rdfs:comment "The outcome stereotype used to classify an outcome as an objective."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/outcome#> .
+
+<https://ekgf.org/ontology/outcome#OutcomeStereoTypeTheme>
+    rdfs:comment "The outcome stereotype used to classify an outcome as a guiding theme."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/outcome#> .
+
+<https://ekgf.org/ontology/outcome#ThemeAccountability>
+    rdfs:comment "A theme outcome for recording goals and benefits concerning accountability, linked to the corresponding EKG principle for further explanation."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/outcome#> .
+
+<https://ekgf.org/ontology/outcome#ThemeComposableBusiness>
+    rdfs:comment "A theme outcome for recording goals and benefits concerning composable business, linked to the corresponding EKG principle for further explanation."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/outcome#> .
+
+<https://ekgf.org/ontology/outcome#ThemeContextualTruth>
+    rdfs:comment "A theme outcome for recording goals and benefits concerning contextual truth, linked to the corresponding EKG principle for further explanation."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/outcome#> .
+
+<https://ekgf.org/ontology/outcome#ThemeDigitalAssets>
+    rdfs:comment "A theme outcome for recording goals and benefits concerning digital assets, linked to the corresponding EKG principle for further explanation."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/outcome#> .
+
+<https://ekgf.org/ontology/outcome#ThemeEnvironmentalSustainability>
+    rdfs:comment "A theme outcome for recording goals and benefits concerning environmental sustainability, linked to the corresponding EKG principle for further explanation."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/outcome#> .
+
+<https://ekgf.org/ontology/outcome#ThemeFairness>
+    rdfs:comment "A theme outcome for recording goals and benefits concerning fairness, linked to the corresponding EKG principle for further explanation."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/outcome#> .
+
+<https://ekgf.org/ontology/outcome#ThemeManageProfitability>
+    rdfs:comment "A theme outcome for recording goals and benefits concerning profitability management, linked to the corresponding EKG principle for further explanation."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/outcome#> .
+
+<https://ekgf.org/ontology/outcome#ThemeManageRiskAndCompliance>
+    rdfs:comment "A theme outcome for recording goals and benefits concerning risk and compliance management, linked to the corresponding EKG principle for further explanation."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/outcome#> .
+
+<https://ekgf.org/ontology/outcome#ThemeOpenness>
+    rdfs:comment "A theme outcome for recording goals and benefits concerning openness, linked to the corresponding EKG principle for further explanation."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/outcome#> .
+
+<https://ekgf.org/ontology/outcome#ThemePowerOfAbstraction>
+    rdfs:comment "A theme outcome for recording goals and benefits concerning the use of abstraction, linked to the corresponding EKG principle for further explanation."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/outcome#> .
+
+<https://ekgf.org/ontology/outcome#ThemeResilience>
+    rdfs:comment "A theme outcome for recording goals and benefits concerning resilience, linked to the corresponding EKG principle for further explanation."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/outcome#> .
+
+<https://ekgf.org/ontology/outcome#ThemeReusability>
+    rdfs:comment "A theme outcome for recording goals and benefits concerning reusability, linked to the corresponding EKG principle for further explanation."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/outcome#> .
+
+<https://ekgf.org/ontology/outcome#ThemeSustainability>
+    rdfs:comment "A theme outcome for recording goals and benefits concerning sustainability, linked to the corresponding EKG principle for further explanation."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/outcome#> .
+
+<https://ekgf.org/ontology/outcome#ThemeTransparency>
+    rdfs:comment "A theme outcome for recording goals and benefits concerning transparency, linked to the corresponding EKG principle for further explanation."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/outcome#> .
+
+<https://ekgf.org/ontology/outcome#UnknownOutcome>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/outcome#> .
+
+<https://ekgf.org/ontology/outcome#hasOutcome>
+    rdfs:label "Has Outcome"@en ;
+    rdfs:comment "Relates a resource, such as a use case or story, to an outcome it contributes to. No domain restriction is declared."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/outcome#> .
+
+<https://ekgf.org/ontology/outcome#priority>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/outcome#> .
+
+<https://ekgf.org/ontology/outcome#stereotype>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/outcome#> .
+
+<https://ekgf.org/ontology/outcome#updatedAt>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/outcome#> .

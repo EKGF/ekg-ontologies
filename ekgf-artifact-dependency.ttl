@@ -15,7 +15,7 @@
       sh:namespace "https://ekgf.org/ontology/artifact-dependency#"^^xsd:anyURI
   ] ;
   owl:imports <https://ekgf.org/ontology/lifecycle#> ;
-  rdfs:label "EKGF Artifact Dependency Ontology"@en ;
+  rdfs:label "Artifact Dependency Ontology"@en ;
   rdfs:comment "Generic dependency vocabulary for Semantic Modelling artifacts such as OWL ontologies, SHACL shapesets, SKOS taxonomies, and concept sets."@en ;
   annotation:markdownDescription "Separates dependency facts, evidence, and workspace or branch resolution status for Semantic Modelling dependency management."@en .
 
@@ -311,3 +311,146 @@
   rdf:type owl:NamedIndividual, :DependencyKind ;
   rdfs:label "Profile dependency"@en ;
   rdfs:comment "A dependency on a standards or implementation profile."@en .
+
+
+#################################################################
+#    Documentation annotations
+#################################################################
+
+<https://ekgf.org/ontology/artifact-dependency#>
+    <http://purl.org/dc/terms/license> <https://creativecommons.org/publicdomain/zero/1.0/> .
+
+<https://ekgf.org/ontology/artifact-dependency#Ambiguous>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#DeclaredImportDependency>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#Dependency>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#DependencyEvidence>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#DependencyKind>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#DependencyResolution>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#ExplicitDependency>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#External>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#Failed>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#ImplicitDependency>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#Incomplete>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#Loaded>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#NamespaceReferenceDependency>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#OntologyLoadRequest>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#ProfileDependency>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#ResolutionStatus>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#SemanticArtifact>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#ShapeGraphDependency>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#TermReferenceDependency>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#Unloaded>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#Unsupported>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#ValidationDependency>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#dependencyEvidence>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#dependencyKind>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#dependencyTarget>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#dependentArtifact>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#dependsOn>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#evidenceGraph>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#evidenceObject>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#evidencePredicate>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#evidenceSubject>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#hasDependency>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#loadHint>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#loadRequestAuthority>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#loadRequestDependency>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#loadRequestFamily>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#loadRequestTarget>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#referencedNamespace>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#resolution>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#resolutionBranch>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#resolutionCommit>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#resolutionMessage>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#resolutionStatus>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#resolutionWorkspace>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .
+
+<https://ekgf.org/ontology/artifact-dependency#resolvedArtifact>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-dependency#> .

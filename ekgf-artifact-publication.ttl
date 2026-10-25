@@ -15,7 +15,7 @@
         sh:prefix "ekg-artpub" ;
         sh:namespace "https://ekgf.org/ontology/artifact-publication#"^^xsd:anyURI
     ] ;
-    rdfs:label "The EKG Artifact Publication Ontology"@en ;
+    rdfs:label "Artifact Publication Ontology"@en ;
     rdfs:comment "How semantic artifacts are published, either as a family or as explicitly selected artifact references: profiles configure generation, targets identify destinations, runs generate outputs, releases identify versions and approvals record authority decisions about exact releases. Family grouping is optional. The state of a run and of a release is described with the Lifecycle Ontology. SHACL shapes validate the scope and approval records."@en ;
     owl:imports artgov: ,
                 lifecycle: .
@@ -313,3 +313,116 @@ artpub:ReleaseApprovalShape rdf:type sh:NodeShape ;
                   sh:class artgov:Authority ; sh:nodeKind sh:IRI ] ;
     sh:property [ sh:path artpub:approvedAt ;
                   sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] .
+
+
+#################################################################
+#    Documentation annotations
+#################################################################
+
+<https://ekgf.org/ontology/artifact-publication#>
+    <http://purl.org/dc/terms/license> <https://creativecommons.org/publicdomain/zero/1.0/> .
+
+<https://ekgf.org/ontology/artifact-publication#PublicationArtifact>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-publication#> .
+
+<https://ekgf.org/ontology/artifact-publication#PublicationProfile>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-publication#> .
+
+<https://ekgf.org/ontology/artifact-publication#PublicationProfileShape>
+    rdfs:label "Publication Profile Shape"@en ;
+    rdfs:comment "Validates that a publication profile explicitly selects a family or artifact references using the supported scope alternatives."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-publication#> .
+
+<https://ekgf.org/ontology/artifact-publication#PublicationRun>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-publication#> .
+
+<https://ekgf.org/ontology/artifact-publication#PublicationTarget>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-publication#> .
+
+<https://ekgf.org/ontology/artifact-publication#ReleaseApproval>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-publication#> .
+
+<https://ekgf.org/ontology/artifact-publication#ReleaseApprovalShape>
+    rdfs:label "Release Approval Shape"@en ;
+    rdfs:comment "Validates an approval record identifying the exact release approved, the approving authority, and the approval time."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-publication#> .
+
+<https://ekgf.org/ontology/artifact-publication#StandardsRelease>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-publication#> .
+
+<https://ekgf.org/ontology/artifact-publication#StandardsReleaseShape>
+    rdfs:label "Standards Release Shape"@en ;
+    rdfs:comment "Validates a standards release's family or reference scope, version label, and optional publication and content-provenance records."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-publication#> .
+
+<https://ekgf.org/ontology/artifact-publication#approvedAt>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-publication#> .
+
+<https://ekgf.org/ontology/artifact-publication#approvedBy>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-publication#> .
+
+<https://ekgf.org/ontology/artifact-publication#approvesRelease>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-publication#> .
+
+<https://ekgf.org/ontology/artifact-publication#artifactChecksum>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-publication#> .
+
+<https://ekgf.org/ontology/artifact-publication#artifactMediaType>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-publication#> .
+
+<https://ekgf.org/ontology/artifact-publication#artifactUrl>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-publication#> .
+
+<https://ekgf.org/ontology/artifact-publication#generatorVersion>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-publication#> .
+
+<https://ekgf.org/ontology/artifact-publication#inputCommitCid>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-publication#> .
+
+<https://ekgf.org/ontology/artifact-publication#publicationArtifact>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-publication#> .
+
+<https://ekgf.org/ontology/artifact-publication#publicationBranch>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-publication#> .
+
+<https://ekgf.org/ontology/artifact-publication#publicationCompletedAt>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-publication#> .
+
+<https://ekgf.org/ontology/artifact-publication#publicationProfile>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-publication#> .
+
+<https://ekgf.org/ontology/artifact-publication#publicationRelease>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-publication#> .
+
+<https://ekgf.org/ontology/artifact-publication#publicationRun>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-publication#> .
+
+<https://ekgf.org/ontology/artifact-publication#publicationStartedAt>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-publication#> .
+
+<https://ekgf.org/ontology/artifact-publication#publicationTarget>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-publication#> .
+
+<https://ekgf.org/ontology/artifact-publication#publishesFamily>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-publication#> .
+
+<https://ekgf.org/ontology/artifact-publication#publishesReference>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-publication#> .
+
+<https://ekgf.org/ontology/artifact-publication#releaseFamily>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-publication#> .
+
+<https://ekgf.org/ontology/artifact-publication#releaseReference>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-publication#> .
+
+<https://ekgf.org/ontology/artifact-publication#releaseVersion>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-publication#> .
+
+<https://ekgf.org/ontology/artifact-publication#releasedAt>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-publication#> .
+
+<https://ekgf.org/ontology/artifact-publication#targetKind>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-publication#> .
+
+<https://ekgf.org/ontology/artifact-publication#targetUrl>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-publication#> .

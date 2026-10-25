@@ -19,7 +19,7 @@
         sh:prefix "ekg-artgov" ;
         sh:namespace "https://ekgf.org/ontology/artifact-governance#"^^xsd:anyURI
     ] ;
-    rdfs:label "The EKG Artifact Governance Ontology"@en ;
+    rdfs:label "Artifact Governance Ontology"@en ;
     rdfs:comment "Who governs a semantic artifact and which family it belongs to. One vocabulary for OWL ontologies, SHACL shapesets, SKOS taxonomies and concept sets. Replaces the Ontology Ontology (https://ekgf.org/ontology/ontology#)."@en ;
     owl:imports cmns-cls: ,
                 cmns-dsg: ,
@@ -310,3 +310,154 @@ artgov:StandardsStaffRole rdf:type owl:NamedIndividual ,
         artgov:StandardsCommunityRole ;
     api:slug "standards-staff" ;
     rdfs:label "standards staff"@en .
+
+
+#################################################################
+#    Documentation annotations
+#################################################################
+
+<https://ekgf.org/ontology/artifact-governance#>
+    <http://purl.org/dc/terms/license> <https://creativecommons.org/publicdomain/zero/1.0/> .
+
+<https://ekgf.org/ontology/artifact-governance#Authority>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#AuthorityCoOwnerRole>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#AuthorityMaintainerRole>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#AuthorityOwnerRole>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#AuthorityPublisherRole>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#AuthorityPublishingRole>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#CommunityCategory>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#ConsortiumCategory>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#Family>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#OrganizationCategory>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#OrganizationCategoryScheme>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#ProjectCategory>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#Reference>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#StandardsBodyCategory>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#StandardsCommunityRole>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#StandardsEditorRole>
+    rdfs:comment "A standards-community participation role for editing the content of standards and their supporting artifacts."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#StandardsPublisherRole>
+    rdfs:comment "A standards-community participation role for publishing standards artifacts and releases."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#StandardsReviewerRole>
+    rdfs:comment "A standards-community participation role for reviewing standards content and proposed changes."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#StandardsStaffRole>
+    rdfs:comment "A standards-community participation role for staff supporting the operation of the standards community."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#WorkingGroupChairRole>
+    rdfs:comment "A standards-community participation role for chairing a working group and coordinating its work."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#authorityAcronym>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#authorityHost>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#autoLoad>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#baseIri>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#communityOrganization>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#communityRole>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#familyAcronym>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#filePathPrefix>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#gitBranch>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#gitPath>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#gitRepositoryUrl>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#governedBy>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#graphIriPrefix>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#historicalName>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#inFamily>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#legalOwner>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#maxFamilyLoadQuads>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#maxSourceQuads>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#namespaceIriPrefix>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#organizationCategory>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#predecessorAuthority>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#publishingRole>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#rdfFileExtension>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#refersTo>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#sourceGraphRepositoryUrl>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#successorAuthority>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .

@@ -29,6 +29,8 @@ The Data Product Ontology is maintained in the separate
 
 ## Documentation
 
+- [Documentation coverage and modeling review](docs/documentation-audit.md):
+  annotation coverage, corrected labels, and model decisions requiring review.
 - [Ontology catalog and prefixes](docs/ontologies.md): all ontologies,
   their preferred prefixes, namespace conventions and SHACL
   declarations.
@@ -80,7 +82,8 @@ python3 -B -m unittest discover -s tests -v
 The [tests](tests/) check registered identities, references, Commons
 role semantics, namespace declarations, family recognition and
 publication constraints, including publication without families.
-They also check data element concept inference, manifestation
+They also check documentation coverage for locally defined named terms and
+ontology headers, data element concept inference, manifestation
 separation, class disjointness and lifecycle bindings.
 They run offline using the relevant Commons 1.3 axioms in a test
 fixture. Its `.ttl.txt` suffix keeps it out of RDF file discovery

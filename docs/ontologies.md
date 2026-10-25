@@ -6,6 +6,49 @@ These ontologies describe Enterprise Knowledge Graphs, their use cases
 and the artifacts used to build and govern them. Each catalog entry
 links to its Turtle source and names its preferred prefix.
 
+## Ontology titles
+
+An ontology's canonical English `rdfs:label` uses **"<Subject> Ontology"**,
+with title capitalization, no leading "The", and no trailing punctuation.
+For example: "Artifact Governance Ontology", "DataOps Ontology", and
+"SPARQL Story Implementation Ontology". Each ontology has one canonical
+English title, tagged `@en`; other-language translations can be added separately.
+
+Titles omit the EKGF or EKG prefix. The family and governing authority are
+identified by RDF relationships such as `ekg-artgov:inFamily` and
+`ekg-artgov:governedBy`, including assertions on the registered artifact
+references. Changing a display title does not change an ontology IRI,
+namespace, family identity, or authority identity.
+
+## Markdown explanations
+
+Ontologies and individual terms can carry explanatory Markdown through
+`annotation:markdownDescription`, defined in the
+[Annotation Ontology](../ekgf-annotation.ttl). Use an English `@en` literal for
+scope, modeling rationale, examples, ownership rules, and application behavior.
+For example:
+
+```turtle
+@prefix annotation: <https://ekgf.org/ontology/annotation#> .
+@prefix ekg-story: <https://ekgf.org/ontology/story#> .
+
+ekg-story: annotation:markdownDescription """
+## Concept usage
+
+Stories share data element concepts through story-owned usage objects.
+"""@en .
+```
+
+Keep short definitions in `rdfs:comment` where useful. Renderers use the
+Markdown description when present and `rdfs:comment` when absent.
+Documentation coverage accepts either description format.
+
+Descriptions record decisions separately from their implementation in OWL,
+SHACL, and applications. State explicitly when an agreed model still requires
+axiom migration. The [Story](../ekgf-story.ttl) and
+[Story Service](../ekgf-story-service.ttl) ontologies record the concept-usage
+decision and false input-flag defaults with their implementation status.
+
 ## Namespaces and prefixes
 
 Each ontology lives in `ekgf-<name>.ttl`. Its ontology IRI and term

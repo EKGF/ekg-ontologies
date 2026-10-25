@@ -15,7 +15,7 @@
       sh:prefix "ekg-file-system" ;
       sh:namespace "https://ekgf.org/ontology/file-system#"^^xsd:anyURI
   ] ;
-  rdfs:label   "File System ontology"@en ;
+  rdfs:label   "File System Ontology"@en ;
   rdfs:comment """A provider-neutral filesystem vocabulary: rooted views,
 directories, named directory entries, stable file series, immutable file
 versions whose content is a MIME-typed literal, symbolic links and
@@ -649,3 +649,340 @@ fs:memberTarget
   rdfs:label   "member target"@en ;
   rdfs:comment "What a member resolves to: a regular member's file version, or a nested container's own archive version. Directory, link, and metadata-only entries have no target."@en ;
   rdfs:domain  fs:ArchiveMember .
+
+
+#################################################################
+#    Documentation annotations
+#################################################################
+
+<https://ekgf.org/ontology/file-system#>
+    <http://purl.org/dc/terms/license> <https://creativecommons.org/publicdomain/zero/1.0/> .
+
+<https://ekgf.org/ontology/file-system#ArchiveDirectoryEntry>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#ArchiveEntryKind>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#ArchiveFormat>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#ArchiveMember>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#ArchiveVersion>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#Attachment>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#AttachmentMode>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#AttachmentRole>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#CapabilityProfile>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#Directory>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#DirectoryEntry>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#ExactVersion>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#ExternalObject>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#FileSeries>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#FileSystemView>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#FileVersion>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#Gzip>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#HardlinkEntry>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#NameFamilyRule>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#NativeUpload>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#NestedArchive>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#OtherEntry>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#PathRule>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#ProviderSync>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#RegularFile>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#ServiceShortcut>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#SourceKind>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#SuffixPattern>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#SymbolicLink>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#SymlinkEntry>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#Tar>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#TarGzip>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#Tombstone>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#TrackExternalId>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#TrackNameFamily>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#TrackPath>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#TrackSeries>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#WindowsCopySuffix>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#Zip>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#allowedSuffixPattern>
+    rdfs:comment "Associates a name-family rule with a suffix pattern that the rule permits."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#alsoAllowFinalDraftSuffix>
+    rdfs:comment "Records whether a name-family rule also permits a final or draft suffix."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#archiveFormat>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#archiveVersion>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#attachedTo>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#attachmentMode>
+    rdfs:comment "Specifies the attachment mode selected for an attachment."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#attachmentRole>
+    rdfs:comment "Specifies the role assigned to an attachment."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#baseName>
+    rdfs:comment "Records the base-name component of a name-family rule, separately from its extension and folder."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#byteSize>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#capabilityProfile>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#caseSensitiveNames>
+    rdfs:comment "Records whether a capability profile treats file and folder names as case-sensitive."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#content>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#currentVersion>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#deletedAt>
+    rdfs:comment "Records the deletion time represented by a tombstone."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#entryCount>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#entryKind>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#extension>
+    rdfs:comment "Records the filename-extension component of a name-family rule."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#externalId>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#externalObject>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#externalRevisionId>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#folder>
+    rdfs:comment "Records the folder component of a name-family rule."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#hasAttachment>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#hasVersion>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#inView>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#legalNamePattern>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#linkTarget>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#memberCount>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#memberMode>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#memberMtime>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#memberOrdinal>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#memberPath>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#memberTarget>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#name>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#normalizedName>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#normalizedSourceFileName>
+    rdfs:comment "Records the normalized source filename retained for a file version, separately from the originally observed filename."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#observedAt>
+    rdfs:comment "Records when a file version was observed by the source integration."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#officePackageKind>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#opaqueReason>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#parent>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#provider>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#root>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#sourceFileName>
+    rdfs:comment "Records the filename observed for a file version in its source."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#sourceKind>
+    rdfs:comment "Classifies the source from which a file version was obtained using a SourceKind value."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#supportsAtomicMove>
+    rdfs:comment "Records whether the source capability profile supports atomic move operations."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#supportsLinks>
+    rdfs:comment "Records whether the source capability profile supports links."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#supportsMultipleRoots>
+    rdfs:comment "Records whether the source capability profile supports multiple roots."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#supportsRangeReads>
+    rdfs:comment "Records whether the source capability profile supports reading a selected byte range."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#supportsServerSideCopy>
+    rdfs:comment "Records whether the source capability profile supports copying within the source system without downloading and re-uploading the file."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#supportsShortcuts>
+    rdfs:comment "Records whether the source capability profile supports shortcut resources."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#supportsStableRevisionIds>
+    rdfs:comment "Records whether the source capability profile supplies stable revision identifiers."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#supportsTrash>
+    rdfs:comment "Records whether the source capability profile supports a trash or recycle-bin facility."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#supportsVersioning>
+    rdfs:comment "Records whether the source capability profile supports file versions."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#symbolicTargetPath>
+    rdfs:comment "Records the target path named by a symbolic link."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#target>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#targetExternalObject>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#targetNameFamilyRule>
+    rdfs:comment "Identifies the rule governing the filename family of an attachment in its target view."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#targetPathRule>
+    rdfs:comment "Identifies the rule governing the target-view path of an attachment."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#targetSeries>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#targetVersion>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#tombstoneOf>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#unicodeNormalization>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .
+
+<https://ekgf.org/ontology/file-system#viewPath>
+    rdfs:comment "Records the path expression used by a path rule in a target view."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/file-system#> .

@@ -11,6 +11,7 @@
 @prefix use-case: <https://ekgf.org/ontology/use-case#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix ekg-use-case: <https://ekgf.org/ontology/use-case#> .
+@prefix annotation: <https://ekgf.org/ontology/annotation#> .
 @base <https://ekgf.org/ontology/use-case#> .
 
 <https://ekgf.org/ontology/use-case#>
@@ -23,7 +24,7 @@
                 outcome: ,
                 persona: ,
                 story: ;
-    rdfs:label "EKGF Use Case Ontology"@en ;
+    rdfs:label "Use Case Ontology"@en ;
     rdfs:comment "The EKGF Use Case Ontology, based on the EKG/Method as documented on https://method.ekgf.org. It describes the use case tree and the stereotype of each use case. The lifecycle of a use case is described with the Lifecycle Ontology."@en .
 
 #################################################################
@@ -212,3 +213,132 @@ use-case:UseCaseStereoTypeApplication rdf:type owl:NamedIndividual ,
                 use-case:UseCase
               )
 ] .
+
+
+#################################################################
+#    Documentation annotations
+#################################################################
+
+<https://ekgf.org/ontology/use-case#>
+    <http://purl.org/dc/terms/license> <https://creativecommons.org/publicdomain/zero/1.0/> .
+
+<https://ekgf.org/ontology/use-case#UseCase>
+    rdfs:comment "A description of a business interaction or need, organized in a use-case tree and connected to its stories, outcomes, and concepts."@en .
+
+<https://ekgf.org/ontology/use-case#UseCaseStereoType>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/use-case#> .
+
+<https://ekgf.org/ontology/use-case#UseCaseStereoTypeApplication>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/use-case#> .
+
+<https://ekgf.org/ontology/use-case#UseCaseStereoTypeBusinessCapability>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/use-case#> .
+
+<https://ekgf.org/ontology/use-case#UseCaseStereoTypeBusinessCapabilityArea>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/use-case#> .
+
+<https://ekgf.org/ontology/use-case#UseCaseStereoTypeDataDomain>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/use-case#> .
+
+<https://ekgf.org/ontology/use-case#UseCaseStereoTypeDataLandscape>
+    rdfs:comment "The controlled use-case stereotype identifying a data-landscape use case."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/use-case#> .
+
+<https://ekgf.org/ontology/use-case#UseCaseStereoTypeDataSubdomain>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/use-case#> .
+
+<https://ekgf.org/ontology/use-case#UseCaseStereoTypeDataTransformation>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/use-case#> .
+
+<https://ekgf.org/ontology/use-case#UseCaseStereoTypeRoot>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/use-case#> .
+
+<https://ekgf.org/ontology/use-case#UseCaseStereoTypeUseCase>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/use-case#> .
+
+<https://ekgf.org/ontology/use-case#hasColor>
+    rdfs:comment "Associates a resource with a color resource used for presentation. It is an object property, distinct from a hexadecimal color literal annotation."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/use-case#> .
+
+<https://ekgf.org/ontology/use-case#hasOutcome>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/use-case#> .
+
+<https://ekgf.org/ontology/use-case#hasStereoType>
+    rdfs:comment "Assigns a use-case stereotype to a use case. Its functional-property axiom limits a use case to one stereotype through this property."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/use-case#> .
+
+<https://ekgf.org/ontology/use-case#hexColor>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/use-case#> .
+
+<https://ekgf.org/ontology/use-case#involvesPersona>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/use-case#> .
+
+<https://ekgf.org/ontology/use-case#isInvolvedInUseCase>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/use-case#> .
+
+<https://ekgf.org/ontology/use-case#isPartOf>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/use-case#> .
+
+<https://ekgf.org/ontology/use-case#isUsedIn>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/use-case#> .
+
+<https://ekgf.org/ontology/use-case#isUsedInUseCase>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/use-case#> .
+
+<https://ekgf.org/ontology/use-case#ownsConceptSet>
+    rdfs:comment "Identifies a concept set owned by a use case, separating ownership of the set from use of individual concepts."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/use-case#> .
+
+<https://ekgf.org/ontology/use-case#screenLayoutIndex>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/use-case#> .
+
+<https://ekgf.org/ontology/use-case#usedIn>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/use-case#> .
+
+<https://ekgf.org/ontology/use-case#usesConcept>
+    rdfs:comment "Relates a use case to a data element concept involved in its interactions."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/use-case#> .
+
+#################################################################
+#    Markdown explanations
+#################################################################
+
+<https://ekgf.org/ontology/use-case#>
+    annotation:markdownDescription """
+# Use cases, stories, and concept vocabularies
+
+Use cases organize business needs in a tree. Stories belong to use cases,
+describe interactions, and use data element concepts to express their inputs,
+outputs, and dependencies.
+
+The Method assigns concept-vocabulary ownership to use cases. Descendant use
+cases inherit access to their ancestors' vocabularies. A story references the
+concepts through its own usage objects; the shared concepts retain their
+vocabulary memberships.
+
+See `ownsConceptSet` for the ownership policy and the
+[Story Ontology](https://ekgf.org/ontology/story#) for the agreed usage-object
+model and its pending axiom migration.
+"""@en .
+
+use-case:ownsConceptSet annotation:markdownDescription """
+## Vocabulary ownership and inheritance
+
+Under the [Use Case Tree Method](https://method.ekgf.org/concept/concept/concept-vocabulary/#ontology),
+each concept vocabulary is owned by exactly one use case; a use case can own
+several vocabularies. The vocabulary is represented here by
+`ekg-concept:ConceptSet`, with concepts linked by `ekg-concept:inConceptSet`.
+
+Stories can draw concepts from vocabularies owned by their use case and those
+inherited from any ancestor through the `isPartOf` tree. The Method gives
+descendants read-only access to ancestor vocabularies. Inheritance makes
+concepts available without copying them or transferring vocabulary ownership.
+
+The story owns the particular usage relationship, including how the concept
+is used as input, output, or dependent. Deleting a story does not delete the
+shared concept.
+
+This annotation records the Method's ownership and access policy. The current
+OWL domain and range do not enforce unique ownership, compute inherited
+availability, or grant application access.
+"""@en .

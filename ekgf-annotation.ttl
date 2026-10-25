@@ -13,7 +13,7 @@
         sh:prefix "ekg-annotation" ;
         sh:namespace "https://ekgf.org/ontology/annotation#"^^xsd:anyURI
     ] ;
-    rdfs:label "EKGF Annotation Ontology"@en ;
+    rdfs:label "Annotation Ontology"@en ;
     rdfs:comment "Descriptive text that any resource can carry: a description in Markdown, a subtitle and a summary. These are annotation properties, so they apply to classes and properties as well as to individuals."@en .
 
 #################################################################
@@ -31,3 +31,37 @@ annotation:subtitle rdf:type owl:AnnotationProperty ;
 annotation:summary rdf:type owl:AnnotationProperty ;
     rdfs:label "summary"@en ;
     rdfs:comment "A short summary of the resource, in plain text."@en .
+
+
+#################################################################
+#    Documentation annotations
+#################################################################
+
+<https://ekgf.org/ontology/annotation#>
+    <http://purl.org/dc/terms/license> <https://creativecommons.org/publicdomain/zero/1.0/> .
+
+<https://ekgf.org/ontology/annotation#markdownDescription>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/annotation#> ;
+    annotation:markdownDescription """
+## Explanatory documentation
+
+Use this annotation on an ontology, class, property, or individual for
+explanations that benefit from Markdown: scope, examples, modeling decisions,
+ownership rules, and application behavior. Use an English language tag for the
+English explanation. Keep a short definition in `rdfs:comment` where useful.
+
+Markdown can include headings, lists, tables, fenced code examples, and links.
+Consumers render this description when present and use `rdfs:comment` when it
+is absent.
+
+An explanation is an annotation. Describing a subclass relationship, a property
+range, a SHACL constraint, or an application default does not implement it.
+Identify agreed changes awaiting implementation explicitly, so readers can
+distinguish the recorded decision from the current axioms.
+"""@en .
+
+<https://ekgf.org/ontology/annotation#subtitle>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/annotation#> .
+
+<https://ekgf.org/ontology/annotation#summary>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/annotation#> .

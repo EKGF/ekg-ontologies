@@ -6,6 +6,7 @@
 @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix ekg-concept: <https://ekgf.org/ontology/concept#> .
+@prefix annotation: <https://ekgf.org/ontology/annotation#> .
 @base         <https://ekgf.org/ontology/concept#> .
 
 <https://ekgf.org/ontology/concept#>
@@ -15,7 +16,7 @@
       sh:namespace "https://ekgf.org/ontology/concept#"^^xsd:anyURI
   ] ;
   owl:imports  rdf: ;
-  rdfs:label   "EKGF Concept Ontology"@en ;
+  rdfs:label   "Concept Ontology"@en ;
   rdfs:comment
     "Data element concepts, called concepts for short, identify reusable meanings independently of their business and technical manifestations. The scope includes individual data elements and compound data constructs such as whole classes and shapes. ManifestationOccurrence records where a manifestation appears in a source."@en .
 
@@ -342,3 +343,253 @@ Reuse across contexts is encouraged. A concept is not inherently scoped to a par
   rdfs:label    "manifestation occurrence"@en ;
   rdfs:comment
     "A concrete sighting of a concept manifestation in a system, source repository, statement, RDF file, OWL file, SHACL file, SPARQL query, SQL statement, Cypher statement, or code file."@en .
+
+
+#################################################################
+#    Documentation annotations
+#################################################################
+
+<https://ekgf.org/ontology/concept#>
+    <http://purl.org/dc/terms/license> <https://creativecommons.org/publicdomain/zero/1.0/> .
+
+<https://ekgf.org/ontology/concept#Abbreviation>
+    rdfs:comment "A shortened business term used as a business-language manifestation of a data element concept."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#BusinessTerm>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#ConceptManifestation>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#ConceptSet>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#CypherIdentifierManifestation>
+    rdfs:comment "A technical manifestation expressing a data element concept through an identifier in Cypher source or queries. The manifestation is distinct from the reusable meaning of the concept and from its occurrences in source files."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#DataElementConcept>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#Description>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#FullPluralBusinessTerm>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#FullSingularBusinessTerm>
+    rdfs:comment "A business term expressing the full name of a data element concept in singular form."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#JSONFieldManifestation>
+    rdfs:comment "A technical manifestation expressing a data element concept through a field in a JSON document or interface. The manifestation is distinct from the reusable meaning of the concept and from its occurrences in source files."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#JavaIdentifierManifestation>
+    rdfs:comment "A technical manifestation expressing a data element concept through an identifier in Java source code. The manifestation is distinct from the reusable meaning of the concept and from its occurrences in source files."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#JavaScriptIdentifierManifestation>
+    rdfs:comment "A technical manifestation expressing a data element concept through an identifier in JavaScript source code. The manifestation is distinct from the reusable meaning of the concept and from its occurrences in source files."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#LegraDollarManifestation>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#LiteralDatatypeManifestation>
+    rdfs:comment "A technical manifestation expressing a data element concept through a literal datatype. The manifestation is distinct from the reusable meaning of the concept and from its occurrences in source files."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#ManifestationOccurrence>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#OWLAxiomManifestation>
+    rdfs:comment "A technical manifestation expressing a data element concept through an OWL axiom. The manifestation is distinct from the reusable meaning of the concept and from its occurrences in source files."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#OWLClassManifestation>
+    rdfs:comment "A technical manifestation expressing a data element concept through an OWL class. The manifestation is distinct from the reusable meaning of the concept and from its occurrences in source files."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#OWLNamedIndividualManifestation>
+    rdfs:comment "A technical manifestation expressing a data element concept through an OWL named individual. The manifestation is distinct from the reusable meaning of the concept and from its occurrences in source files."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#OWLPropertyManifestation>
+    rdfs:comment "A technical manifestation expressing a data element concept through an OWL property. The manifestation is distinct from the reusable meaning of the concept and from its occurrences in source files."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#PythonIdentifierManifestation>
+    rdfs:comment "A technical manifestation expressing a data element concept through an identifier in Python source code. The manifestation is distinct from the reusable meaning of the concept and from its occurrences in source files."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#RDFPredicateManifestation>
+    rdfs:comment "A technical manifestation expressing a data element concept through a predicate used in RDF statements. The manifestation is distinct from the reusable meaning of the concept and from its occurrences in source files."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#RDFSClassManifestation>
+    rdfs:comment "A technical manifestation expressing a data element concept through an RDFS class. The manifestation is distinct from the reusable meaning of the concept and from its occurrences in source files."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#RawSourceFieldManifestation>
+    rdfs:comment "A technical manifestation expressing a data element concept through a field in captured raw source data. The manifestation is distinct from the reusable meaning of the concept and from its occurrences in source files."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#SHACLShapeManifestation>
+    rdfs:comment "A technical manifestation expressing a data element concept through a SHACL shape. The manifestation is distinct from the reusable meaning of the concept and from its occurrences in source files."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#SHACLShapeSetManifestation>
+    rdfs:comment "A technical manifestation expressing a data element concept through a collection of SHACL shapes. The manifestation is distinct from the reusable meaning of the concept and from its occurrences in source files."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#SKOSConceptManifestation>
+    rdfs:comment "A technical manifestation expressing a data element concept through a SKOS concept. The manifestation is distinct from the reusable meaning of the concept and from its occurrences in source files."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#SKOSConceptSchemeManifestation>
+    rdfs:comment "A technical manifestation expressing a data element concept through a SKOS concept scheme. The manifestation is distinct from the reusable meaning of the concept and from its occurrences in source files."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#SPARQLResultColumnManifestation>
+    rdfs:comment "A technical manifestation expressing a data element concept through a column in a SPARQL query result. The manifestation is distinct from the reusable meaning of the concept and from its occurrences in source files."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#SPARQLVariableManifestation>
+    rdfs:comment "A technical manifestation expressing a data element concept through a variable in a SPARQL statement. The manifestation is distinct from the reusable meaning of the concept and from its occurrences in source files."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#SQLColumnManifestation>
+    rdfs:comment "A technical manifestation expressing a data element concept through a column in a relational database schema. The manifestation is distinct from the reusable meaning of the concept and from its occurrences in source files."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#SQLTableManifestation>
+    rdfs:comment "A technical manifestation expressing a data element concept through a table in a relational database schema. The manifestation is distinct from the reusable meaning of the concept and from its occurrences in source files."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#SourceCodeIdentifierManifestation>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#Tagline>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#TechnicalManifestation>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#TemplateParameterManifestation>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#URIParameterManifestation>
+    rdfs:comment "A technical manifestation expressing a data element concept through a URI parameter in an interface. The manifestation is distinct from the reusable meaning of the concept and from its occurrences in source files."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#concept>
+    rdfs:comment "Identifies the data element concept expressed by a concept manifestation; it is the inverse of hasManifestation."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#hasConcept>
+    rdfs:comment "Associates a resource with a data element concept. It does not impose a domain on the resource using the concept."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#hasManifestation>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#inConceptSet>
+    rdfs:comment "Associates a data element concept with a concept set containing it."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#manifestationResource>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#manifestationValue>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#occurrenceOf>
+    rdfs:comment "Identifies the concept manifestation that occurs at a particular source location."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#preferredBusinessTerm>
+    rdfs:comment "Identifies a preferred business-language term for a data element concept."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#preferredManifestation>
+    rdfs:comment "Identifies a preferred manifestation of a data element concept, specializing hasManifestation."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#preferredQueryParameterManifestation>
+    rdfs:comment "Identifies a preferred URI-parameter manifestation for a data element concept."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#preferredResultColumnManifestation>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#sourceColumn>
+    rdfs:comment "Records the column position of a manifestation occurrence in its source. The ontology does not specify whether the position is zero-based or one-based."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#sourceCommit>
+    rdfs:comment "Records the source repository commit associated with a manifestation occurrence."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#sourceLine>
+    rdfs:comment "Records the line position of a manifestation occurrence in its source. The ontology does not specify whether the position is zero-based or one-based."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#sourcePath>
+    rdfs:comment "Records the source path at which a manifestation occurrence is located."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#sourceRepository>
+    rdfs:comment "Records the repository IRI associated with a manifestation occurrence as an xsd:anyURI literal."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+<https://ekgf.org/ontology/concept#sourceSystem>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+#################################################################
+#    Markdown explanations
+#################################################################
+
+<https://ekgf.org/ontology/concept#>
+    annotation:markdownDescription """
+# Shared meanings, usage, and manifestations
+
+A data element concept identifies reusable meaning. A story's concept usage
+records how that story uses the meaning. A manifestation expresses the meaning
+in business language or a technical system. These resources serve different
+purposes and retain separate identities.
+
+The [Story Ontology](https://ekgf.org/ontology/story#) records the agreed
+input, output, and dependent usage model and its pending migration. The
+[Use Case Ontology](https://ekgf.org/ontology/use-case#) describes concept-set
+ownership. Together these distinguish the story-owned usage from the shared
+concept and its vocabulary membership.
+"""@en .
+
+:DataElementConcept annotation:markdownDescription """
+## Reuse across stories
+
+For example, a customer-identifier concept can be an input to one story and an
+output from another. Both stories reference the same data element concept.
+Each story owns a separate usage object describing how it uses that concept.
+Requiredness and server provision describe an input usage, rather than the
+reusable meaning.
+
+## Vocabulary membership and ownership
+
+`inConceptSet` links a concept to its vocabularies. A use case owns a concept
+set through `ekg-use-case:ownsConceptSet`. Stories select concepts from their
+use case's own vocabularies and those inherited from ancestor use cases.
+Referencing a concept does not give the story ownership of the concept.
+
+## Manifestations
+
+A business term, an API name, and a SPARQL variable can express the same
+concept in different ways. `ConceptManifestation` resources record those
+expressions, and `ManifestationOccurrence` resources record their appearances
+in sources. A compound concept may also have a whole OWL class or SHACL shape
+as a manifestation.
+
+See the [Method's concept-vocabulary documentation](https://method.ekgf.org/concept/concept/concept-vocabulary/#ontology).
+"""@en .

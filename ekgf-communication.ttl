@@ -14,7 +14,7 @@
       sh:prefix "ekg-communication" ;
       sh:namespace "https://ekgf.org/ontology/communication#"^^xsd:anyURI
   ] ;
-  rdfs:label "EKGF Communication Ontology"@en ;
+  rdfs:label "Communication Ontology"@en ;
   rdfs:comment "Channel-neutral ontology for recipients, endpoints, audiences, memberships, consent and legal-basis evidence, campaign snapshots, communication attempts, and delivery outcomes."@en ;
   annotation:markdownDescription "Models communication recipients separately from people and organizations. Audiences, lists, tags, and campaign snapshots are collections with reified memberships. Consent, withdrawal, suppression, legal classification, and derivation evidence attach to memberships rather than being flattened onto recipients."@en .
 
@@ -272,7 +272,7 @@
 :LegalBasis
   rdf:type owl:Class ;
   rdfs:label "Legal basis"@en ;
-  rdfs:comment "Controlled legal basis or exemption that permits a communication for a purpose, channel, recipient category, and jurisdiction."@en .
+  rdfs:comment "A controlled classification for recording a legal basis or exemption associated with a communication purpose, channel, recipient category, and jurisdiction. The classification alone does not establish permission to communicate."@en .
 
 :MembershipStatus
   rdf:type owl:Class ;
@@ -963,3 +963,489 @@
     sh:datatype xsd:dateTime ;
     sh:name "Occurred at"@en
   ] .
+
+
+#################################################################
+#    Documentation annotations
+#################################################################
+
+<https://ekgf.org/ontology/communication#>
+    <http://purl.org/dc/terms/license> <https://creativecommons.org/publicdomain/zero/1.0/> .
+
+<https://ekgf.org/ontology/communication#ActiveMembership>
+    rdfs:comment "The membership-status value for a membership currently classified as active. Channel and purpose eligibility still depend on the applicable program and policy."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#Audience>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#AudienceMembership>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#Bounced>
+    rdfs:comment "The delivery-status value recording that an attempt was reported as bounced."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#CampaignAudienceSnapshot>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#CampaignRecipient>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#CommunicationAttempt>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#CommunicationAttemptShape>
+    rdfs:label "Communication Attempt Shape"@en ;
+    rdfs:comment "Validates a communication attempt's program, recipient, and endpoint references."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#CommunicationChannel>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#CommunicationEndpoint>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#CommunicationEndpointShape>
+    rdfs:label "Communication Endpoint Shape"@en ;
+    rdfs:comment "Validates a communication endpoint's channel and address literals."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#CommunicationProgram>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#CommunicationProgramShape>
+    rdfs:label "Communication Program Shape"@en ;
+    rdfs:comment "Validates a communication program's declared channel and purpose."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#CommunicationPurpose>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#Complained>
+    rdfs:comment "The delivery-status value recording a complaint associated with an attempt."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#ConsentLegalBasis>
+    rdfs:comment "A controlled legal-basis value for recording a classification based on consent. The value records the asserted classification; selecting it does not itself establish permission to communicate."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#ConsentWithdrawnMembership>
+    rdfs:comment "The membership-status value recording that consent associated with the membership has been withdrawn."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#ContractLegalBasis>
+    rdfs:comment "A controlled legal-basis value for recording a classification based on a contract. The value records the asserted classification; selecting it does not itself establish permission to communicate."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#Delivered>
+    rdfs:comment "The delivery-status value recording that an attempt was reported as delivered."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#DeliveryEvent>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#DeliveryEventShape>
+    rdfs:label "Delivery Event Shape"@en ;
+    rdfs:comment "Validates a delivery event's attempt, delivery status, and occurrence time."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#DeliveryStatus>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#EmailChannel>
+    rdfs:comment "The communication-channel value identifying email transport."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#EmailEndpoint>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#EmailRecipient>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#EmailRecipientShape>
+    rdfs:label "Email Recipient Shape"@en ;
+    rdfs:comment "Validates the endpoint constraints declared for an email recipient."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#EmployeeCategory>
+    rdfs:comment "The recipient legal-category value identifying an employee in a recorded jurisdictional classification."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#EmployeeOperationalLegalBasis>
+    rdfs:comment "A controlled legal-basis value for recording a classification based on an employee operational context. The value records the asserted classification; selecting it does not itself establish permission to communicate."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#Failed>
+    rdfs:comment "The delivery-status value recording that an attempt failed."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#GroupMailboxCategory>
+    rdfs:comment "The recipient legal-category value identifying a shared or group mailbox in a recorded jurisdictional classification."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#GroupRecipient>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#HumanRecipient>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#InAppEndpoint>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#InAppNotificationChannel>
+    rdfs:comment "The communication-channel value identifying an in-application notification or message-center transport."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#InAppRecipient>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#InactiveMembership>
+    rdfs:comment "The membership-status value for a membership currently classified as inactive."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#LegalBasis>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#LegalNoticePurpose>
+    rdfs:comment "The communication-purpose value identifying communications classified as legal notices."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#LegalObligationLegalBasis>
+    rdfs:comment "A controlled legal-basis value for recording a classification based on a legal obligation. The value records the asserted classification; selecting it does not itself establish permission to communicate."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#LegitimateInterestLegalBasis>
+    rdfs:comment "A controlled legal-basis value for recording a classification based on legitimate interests. The value records the asserted classification; selecting it does not itself establish permission to communicate."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#ListMembership>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#MailboxRecipient>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#MarketingProgram>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#MarketingPurpose>
+    rdfs:comment "The communication-purpose value identifying marketing communications."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#Membership>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#MembershipDerivationEvidence>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#MembershipEvent>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#MembershipEvidence>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#MembershipShape>
+    rdfs:label "Membership Shape"@en ;
+    rdfs:comment "Validates the collection, recipient or endpoint, and status recorded for a membership."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#MembershipStatus>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#NaturalPersonCategory>
+    rdfs:comment "The recipient legal-category value identifying a natural person in a recorded jurisdictional classification."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#OperationalPurpose>
+    rdfs:comment "The communication-purpose value identifying operational communications."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#OrganizationCategory>
+    rdfs:comment "The recipient legal-category value identifying an organization in a recorded jurisdictional classification."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#OrganizationRecipient>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#Pending>
+    rdfs:comment "The delivery-status value recording an attempt awaiting further processing or an outcome."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#PostalEndpoint>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#PostalMailChannel>
+    rdfs:comment "The communication-channel value identifying postal-mail transport."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#PostalRecipient>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#PublicAuthorityCategory>
+    rdfs:comment "The recipient legal-category value identifying a public authority in a recorded jurisdictional classification."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#PushEndpoint>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#PushNotificationChannel>
+    rdfs:comment "The communication-channel value identifying push-notification transport."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#PushRecipient>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#Recipient>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#RecipientCollection>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#RecipientCollectionShape>
+    rdfs:label "Recipient Collection Shape"@en ;
+    rdfs:comment "Validates a recipient collection's declared channels and purpose."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#RecipientConsent>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#RecipientConsentShape>
+    rdfs:label "Recipient Consent Shape"@en ;
+    rdfs:comment "Validates recorded consent or legal-basis evidence for a membership, including its capture time. Structural validity does not determine legal sufficiency."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#RecipientConsentWithdrawal>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#RecipientLegalCategory>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#RecipientLegalClassification>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#RecipientLegalClassificationShape>
+    rdfs:label "Recipient Legal Classification Shape"@en ;
+    rdfs:comment "Validates a recipient's recorded jurisdiction and legal category. Structural validity does not establish the correctness of that legal classification."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#RecipientList>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#RecipientShape>
+    rdfs:label "Recipient Shape"@en ;
+    rdfs:comment "Validates the resource represented by a communication recipient."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#RecipientSuppression>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#RecipientTag>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#SecurityPurpose>
+    rdfs:comment "The communication-purpose value identifying security communications."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#Sent>
+    rdfs:comment "The delivery-status value recording that an attempt was sent, separately from evidence of delivery."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#ServiceRecipient>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#Skipped>
+    rdfs:comment "The delivery-status value recording that an intended attempt was skipped rather than sent."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#SmsChannel>
+    rdfs:comment "The communication-channel value identifying SMS transport."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#SmsEndpoint>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#SmsRecipient>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#SupportPurpose>
+    rdfs:comment "The communication-purpose value identifying support communications."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#Suppressed>
+    rdfs:comment "The delivery-status value recording that an attempt was suppressed by a policy or suppression decision."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#SuppressedMembership>
+    rdfs:comment "The membership-status value recording that communication under the membership is suppressed."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#TagAssignment>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#TechnicalServiceCategory>
+    rdfs:comment "The recipient legal-category value identifying a technical service in a recorded jurisdictional classification."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#TechnicalServiceLegalBasis>
+    rdfs:comment "A controlled legal-basis value for recording a classification based on a technical-service context. The value records the asserted classification; selecting it does not itself establish permission to communicate."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#TransactionalPurpose>
+    rdfs:comment "The communication-purpose value identifying communications associated with a transaction."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#Unsubscribed>
+    rdfs:comment "The delivery-status value recording an unsubscribe event associated with an attempt."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#VoiceCallChannel>
+    rdfs:comment "The communication-channel value identifying voice-call transport."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#VoiceEndpoint>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#VoiceRecipient>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#WebhookChannel>
+    rdfs:comment "The communication-channel value identifying a webhook or machine-to-machine callback transport."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#WebhookEndpoint>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#WebhookRecipient>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#allowedChannel>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#attemptEndpoint>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#attemptRecipient>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#campaignAudience>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#capturedAt>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#collectionPurpose>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#communicationProgram>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#consentMembership>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#deliveryAttempt>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#deliveryStatus>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#derivedFromMembership>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#effectiveFrom>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#effectiveThrough>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#endpointAddress>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#endpointChannel>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#evidenceCollection>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#evidenceSource>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#hasDeliveryEvent>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#hasEndpoint>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#hasMembership>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#jurisdictionCode>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#legalBasis>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#legalCategory>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#legalClassificationRecipient>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#legalJurisdiction>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#membershipCollection>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#membershipEndpoint>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#membershipEvent>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#membershipEvidence>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#membershipRecipient>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#membershipStatus>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#occurredAt>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#policyVersion>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#programChannel>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#programPurpose>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#provenance>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#providerMessageId>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#providerRecipientId>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#recordedAt>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#representedResource>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#retentionPeriod>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#retentionPolicy>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#suppressionMembership>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+<https://ekgf.org/ontology/communication#withdrawnConsent>
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
