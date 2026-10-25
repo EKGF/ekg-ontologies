@@ -11,6 +11,7 @@
 @prefix story-svc: <https://ekgf.org/ontology/ekg-platform-story-service#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix ekg-story: <https://ekgf.org/ontology/story#> .
+@prefix ekg-shape: <https://ekgf.org/ontology/shape#> .
 @prefix annotation: <https://ekgf.org/ontology/annotation#> .
 
 <https://ekgf.org/ontology/story#> a owl:Ontology ;
@@ -18,7 +19,7 @@
       sh:prefix "ekg-story" ;
       sh:namespace "https://ekgf.org/ontology/story#"^^xsd:anyURI
   ] ;
-	owl:imports <https://ekgf.org/ontology/persona#> , <https://ekgf.org/ontology/concept#> , <https://ekgf.org/ontology/outcome#> ;
+	owl:imports <https://ekgf.org/ontology/persona#> , <https://ekgf.org/ontology/concept#> , <https://ekgf.org/ontology/outcome#> , ekg-shape: ;
 	rdfs:comment "The EKGF Story Ontology"@en ;
 	rdfs:label "Story Ontology"@en .
 # 
@@ -694,3 +695,15 @@ the inverse of `implementedBy`. `StoryImplementationShape` counts owners
 from both directions, so duplicating an assertion in its inverse form still
 identifies one owner, while conflicting links are rejected.
 """@en .
+
+#################################################################
+#    Validation shapeset
+#################################################################
+
+:ValidationShapeSet a owl:NamedIndividual , ekg-shape:ShapeSet ;
+    rdfs:label "Story Validation Shapes"@en ;
+    rdfs:comment "Validates single-story implementation ownership and rejects retired implementation links."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/story#> ;
+    ekg-shape:shapePurpose ekg-shape:Validation ;
+    ekg-shape:hasShape :StoryImplementationShape ,
+                       :LegacyImplementationShape .

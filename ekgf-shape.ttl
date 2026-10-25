@@ -14,44 +14,277 @@
         sh:prefix "ekg-shape" ;
         sh:namespace "https://ekgf.org/ontology/shape#"^^xsd:anyURI
     ] ;
-    rdfs:label "Shape Ontology"@en ;
-    rdfs:comment "Metadata vocabulary for grouping SHACL node shapes into shapesets and for saying what a shape is for."@en ;
-    annotation:markdownDescription "Defines `shape:ShapeSet` and membership properties for grouping SHACL node shapes into governed shapesets, and `shape:ShapePurpose` with `shape:shapePurpose` for saying what a shape is for."@en .
+    rdfs:label "SHACL Shape Metadata Ontology"@en ;
+    rdfs:comment "Metadata and validation for grouping SHACL node and property shapes into shapesets and recording their purpose."@en ;
+    annotation:markdownDescription """
+# Shapesets and purpose
+
+A `ShapeSet` groups SHACL shape definitions. Its declared entry shapes can be
+node shapes or property shapes, named or anonymous. Their nested definitions
+are part of the set as well: follow `sh:property`, `sh:node`, `sh:not`,
+`sh:qualifiedValueShape`, and the members of `sh:and`, `sh:or`, and
+`sh:xone` lists. This includes inline property shapes and empty logical
+branches without assigning them artificial global identities.
+
+Record entry membership using `hasShape` on the set or `inShapeSet` on the
+shape. These are annotation properties. Reading membership counts both
+directions; no OWL inverse inference is required. A reusable shape can belong
+to several sets, and a nested shape can be reached from several entries.
+
+## Validation and purpose values
+
+Each shapeset has an IRI, a label, at least one entry shape, and at least one
+purpose. A purpose is a labeled IRI explicitly typed as `ShapePurpose`.
+`Validation` is the purpose used by this repository. Applications can define
+additional purpose individuals. Purposes can also be attached directly to
+individual shapes.
+
+The included shapes validate membership endpoints, purpose values, and
+coverage of the supplied shape definitions. Every shape must be an entry or
+reachable from an entry. Undefined members, unregistered shapesets, empty
+sets, missing purposes, and orphan shapes are errors. Shapes can be
+identified through their types, targets, paths, SHACL Core constraints,
+SHACL-SPARQL constraints, and shape-reference parameters.
+
+This validates shapeset metadata. SHACL meta-validation supplies the complete
+SHACL syntax checks; ordinary data validation executes the selected constraints.
+Shapeset membership itself does not change which targets a SHACL engine runs.
+
+## Using our own metadata
+
+Every ontology containing shapes declares a `ValidationShapeSet` that lists all
+its named entry shapes and assigns the `Validation` purpose. Inline definitions
+are included through their entries. This ontology groups its own metadata
+validators in exactly the same way.
+
+Validate a module's metadata using this ontology as the shapes graph and as
+the ontology graph supplying the purpose definitions:
+
+```sh
+pyshacl -s ekgf-shape.ttl -e ekgf-shape.ttl ekgf-lifecycle.ttl
+```
+
+The repository test suite also validates the combined ontology sources and
+checks entry and nested-shape coverage independently.
+
+## Migration
+
+`hasShape` replaces the node-only `hasNodeShape` predicate. Migrate those
+assertions; `LegacyShapeMembershipShape` rejects the old predicate.
+`inShapeSet` now covers both node and property shapes. The ontology IRI,
+namespace, preferred prefix, and registered artifact identity are retained.
+"""@en .
 
 shape:ShapeSet rdf:type owl:Class ;
-    rdfs:label "ShapeSet"@en ;
-    rdfs:comment "A managed collection of related SHACL node shapes."@en .
+    rdfs:label "Shapeset"@en ;
+    rdfs:comment "A managed collection of SHACL entry shapes and the nested shape definitions they reference. Entries can be node or property shapes, and shapes can be reused in several sets."@en .
 
 shape:ShapePurpose rdf:type owl:Class ;
     rdfs:label "Shape purpose"@en ;
-    rdfs:comment "What a node shape or a shapeset is for. The purposes are controlled values, each an instance of this class."@en .
+    rdfs:comment "What a SHACL shape or shapeset is for. Purposes are extensible controlled values, each a labeled individual of this class."@en .
 
 shape:ShapeOrShapeSet rdf:type owl:Class ;
     owl:equivalentClass [ rdf:type owl:Class ;
-                          owl:unionOf ( sh:NodeShape
+                          owl:unionOf ( sh:Shape
                                         shape:ShapeSet
                                       )
                         ] ;
-    rdfs:label "Node shape or shapeset"@en ;
-    rdfs:comment "Anything that is a SHACL node shape or a shapeset. It exists to be the domain of shapePurpose: the domain of an annotation property has to be a named class."@en .
+    rdfs:label "Shape or shapeset"@en ;
+    rdfs:comment "A SHACL node shape, property shape, or shapeset. This named union supplies the domain of the shapePurpose annotation property."@en .
 
-shape:hasNodeShape rdf:type owl:AnnotationProperty ;
+shape:hasShape rdf:type owl:AnnotationProperty ;
     rdfs:domain shape:ShapeSet ;
-    rdfs:range sh:NodeShape ;
-    rdfs:label "Has node shape"@en ;
-    rdfs:comment "Relates a shapeset to a SHACL node shape that belongs to it. It is an annotation property because a node shape can also be a class, and a class is not an individual."@en .
+    rdfs:range sh:Shape ;
+    rdfs:label "Has shape"@en ;
+    rdfs:comment "Registers an entry shape in a shapeset. Both node and property shapes are supported; their nested definitions are included through SHACL shape-reference paths. As an annotation, it can describe shapes also used as OWL classes."@en .
 
 shape:inShapeSet rdf:type owl:AnnotationProperty ;
-    rdfs:domain sh:NodeShape ;
+    rdfs:domain sh:Shape ;
     rdfs:range shape:ShapeSet ;
     rdfs:label "In shapeset"@en ;
-    rdfs:comment "Relates a SHACL node shape to the shapeset it belongs to. It is an annotation property because a node shape can also be a class, and a class is not an individual."@en .
+    rdfs:comment "Registers a SHACL node or property shape as an entry in a shapeset. Membership can instead be asserted with hasShape in the other direction; readers count both directions explicitly."@en .
 
 shape:shapePurpose rdf:type owl:AnnotationProperty ;
     rdfs:domain shape:ShapeOrShapeSet ;
     rdfs:range shape:ShapePurpose ;
     rdfs:label "Shape purpose"@en ;
-    rdfs:comment "Relates a node shape or a shapeset to what it is for. It is an annotation property because a node shape can also be a class, and a class is not an individual."@en .
+    rdfs:comment "Relates a SHACL shape or shapeset to a purpose individual. Purposes describe the intended use of constraints and do not execute them."@en .
+
+shape:Validation rdf:type owl:NamedIndividual , shape:ShapePurpose ;
+    rdfs:label "Validation"@en ;
+    rdfs:comment "The purpose of checking supplied RDF data or metadata against declared constraints."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/shape#> .
+
+#################################################################
+#    Shapeset metadata validation
+#################################################################
+
+shape:ShapeDefinitionShape a sh:NodeShape ;
+    sh:targetObjectsOf shape:hasShape ;
+    sh:targetSubjectsOf shape:inShapeSet ;
+    sh:nodeKind sh:BlankNodeOrIRI ;
+    sh:or (
+        [ sh:class sh:NodeShape ]
+        [ sh:class sh:PropertyShape ]
+        [ sh:property [
+            sh:path [ sh:alternativePath (
+                sh:path sh:targetClass sh:targetNode sh:targetSubjectsOf sh:targetObjectsOf
+                sh:and sh:class sh:closed sh:datatype sh:disjoint sh:equals sh:flags
+                sh:hasValue sh:ignoredProperties sh:in sh:languageIn sh:lessThan
+                sh:lessThanOrEquals sh:maxCount sh:maxExclusive sh:maxInclusive
+                sh:maxLength sh:minCount sh:minExclusive sh:minInclusive sh:minLength
+                sh:node sh:nodeKind sh:not sh:or sh:pattern sh:property
+                sh:qualifiedMaxCount sh:qualifiedMinCount sh:qualifiedValueShape
+                sh:qualifiedValueShapesDisjoint sh:uniqueLang sh:xone sh:sparql
+            ) ] ;
+            sh:minCount 1
+        ] ]
+        [ sh:property [
+            sh:path [ sh:inversePath [
+                sh:alternativePath ( sh:property sh:node sh:not sh:qualifiedValueShape )
+            ] ] ;
+            sh:minCount 1
+        ] ]
+        [ sh:property [
+            sh:path [ sh:inversePath (
+                [ sh:alternativePath ( sh:and sh:or sh:xone ) ]
+                [ sh:zeroOrMorePath rdf:rest ]
+                rdf:first
+            ) ] ;
+            sh:minCount 1
+        ] ]
+    ) ;
+    sh:property [
+        sh:path sh:path ; sh:maxCount 1 ; sh:nodeKind sh:BlankNodeOrIRI
+    ] ;
+    sh:message "A shapeset member must be a supplied SHACL shape definition."@en ;
+    rdfs:label "Shape Definition Shape"@en ;
+    rdfs:comment "Checks that membership and purpose targets identify supplied SHACL shape definitions, including implicit and nested shapes. Complete SHACL syntax validation is a separate meta-validation step."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/shape#> .
+
+shape:ShapeSetShape a sh:NodeShape ;
+    sh:targetClass shape:ShapeSet ;
+    sh:targetSubjectsOf shape:hasShape ;
+    sh:targetObjectsOf shape:inShapeSet ;
+    sh:class shape:ShapeSet ;
+    sh:nodeKind sh:IRI ;
+    sh:property [
+        sh:path rdfs:label ; sh:minCount 1 ;
+        sh:or ( [ sh:datatype xsd:string ] [ sh:datatype rdf:langString ] ) ;
+        sh:minLength 1
+    ] ;
+    sh:property [
+        sh:path [ sh:alternativePath (
+            shape:hasShape [ sh:inversePath shape:inShapeSet ]
+        ) ] ;
+        sh:minCount 1 ;
+        sh:node shape:ShapeDefinitionShape
+    ] ;
+    sh:property [
+        sh:path shape:shapePurpose ; sh:minCount 1 ;
+        sh:nodeKind sh:IRI ; sh:class shape:ShapePurpose
+    ] ;
+    rdfs:label "Shapeset Shape"@en ;
+    rdfs:comment "Validates a labeled shapeset IRI, at least one defined entry shape, and at least one typed purpose. Membership is counted in both directions and can be shared across sets."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/shape#> .
+
+shape:ShapePurposeShape a sh:NodeShape ;
+    sh:targetClass shape:ShapePurpose ;
+    sh:targetObjectsOf shape:shapePurpose ;
+    sh:class shape:ShapePurpose ;
+    sh:nodeKind sh:IRI ;
+    sh:property [
+        sh:path rdfs:label ; sh:minCount 1 ;
+        sh:or ( [ sh:datatype xsd:string ] [ sh:datatype rdf:langString ] ) ;
+        sh:minLength 1
+    ] ;
+    rdfs:label "Shape Purpose Shape"@en ;
+    rdfs:comment "Requires each purpose value to be an explicitly typed, labeled ShapePurpose IRI while permitting additional purpose individuals."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/shape#> .
+
+shape:ShapePurposeTargetShape a sh:NodeShape ;
+    sh:targetSubjectsOf shape:shapePurpose ;
+    sh:or (
+        [ sh:class shape:ShapeSet ]
+        [ sh:node shape:ShapeDefinitionShape ]
+    ) ;
+    rdfs:label "Shape Purpose Target Shape"@en ;
+    rdfs:comment "Restricts purpose annotations to shapesets and supplied SHACL shape definitions."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/shape#> .
+
+shape:ShapeSetCoverageShape a sh:NodeShape ;
+    sh:targetNode shape:ShapeSetCoverageShape ;
+    sh:sparql [
+        sh:message "Shape {?value} is outside every declared shapeset."@en ;
+        sh:select """
+            PREFIX shape: <https://ekgf.org/ontology/shape#>
+            PREFIX sh: <http://www.w3.org/ns/shacl#>
+            PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+            PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+            SELECT DISTINCT $this (?candidate AS ?value) WHERE {
+                {
+                    ?candidate rdf:type/rdfs:subClassOf* ?type .
+                    FILTER (?type IN (sh:NodeShape, sh:PropertyShape))
+                } UNION {
+                    ?candidate ?parameter ?argument .
+                    FILTER (?parameter IN (
+                        sh:path, sh:targetClass, sh:targetNode,
+                        sh:targetSubjectsOf, sh:targetObjectsOf,
+                        sh:and, sh:class, sh:closed, sh:datatype, sh:disjoint,
+                        sh:equals, sh:flags, sh:hasValue, sh:ignoredProperties,
+                        sh:in, sh:languageIn, sh:lessThan, sh:lessThanOrEquals,
+                        sh:maxCount, sh:maxExclusive, sh:maxInclusive, sh:maxLength,
+                        sh:minCount, sh:minExclusive, sh:minInclusive, sh:minLength,
+                        sh:node, sh:nodeKind, sh:not, sh:or, sh:pattern, sh:property,
+                        sh:qualifiedMaxCount, sh:qualifiedMinCount,
+                        sh:qualifiedValueShape, sh:qualifiedValueShapesDisjoint,
+                        sh:uniqueLang, sh:xone, sh:sparql
+                    ))
+                } UNION {
+                    ?parent (sh:property|sh:node|sh:not|sh:qualifiedValueShape) ?candidate .
+                } UNION {
+                    ?parent (sh:and|sh:or|sh:xone)/rdf:rest*/rdf:first ?candidate .
+                }
+                FILTER NOT EXISTS {
+                    ?set a shape:ShapeSet .
+                    {
+                        ?set shape:hasShape ?entry .
+                    } UNION {
+                        ?entry shape:inShapeSet ?set .
+                    }
+                    ?entry (
+                        sh:property|sh:node|sh:not|sh:qualifiedValueShape|
+                        (sh:and|sh:or|sh:xone)/rdf:rest*/rdf:first
+                    )* ?candidate .
+                }
+            }
+        """
+    ] ;
+    rdfs:label "Shapeset Coverage Shape"@en ;
+    rdfs:comment "Rejects orphan shape definitions anywhere in the supplied graph. Coverage includes both membership directions and all nested SHACL Core shape-reference paths."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/shape#> .
+
+shape:LegacyShapeMembershipShape a sh:NodeShape ;
+    sh:targetSubjectsOf shape:hasNodeShape ;
+    sh:property [
+        sh:path shape:hasNodeShape ; sh:maxCount 0 ;
+        sh:message "hasNodeShape was removed. Use hasShape or inShapeSet."@en
+    ] ;
+    rdfs:label "Legacy Shape Membership Shape"@en ;
+    rdfs:comment "Rejects the retired node-only hasNodeShape predicate. Generic membership uses hasShape and inShapeSet."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/shape#> .
+
+shape:ValidationShapeSet a owl:NamedIndividual , shape:ShapeSet ;
+    rdfs:label "SHACL Shape Metadata Validation Shapes"@en ;
+    rdfs:comment "Validates shapeset membership, purpose annotations, and complete coverage of shape definitions, including this ontology's own validators."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/shape#> ;
+    shape:shapePurpose shape:Validation ;
+    shape:hasShape shape:ShapeDefinitionShape ,
+                   shape:ShapeSetShape ,
+                   shape:ShapePurposeShape ,
+                   shape:ShapePurposeTargetShape ,
+                   shape:ShapeSetCoverageShape ,
+                   shape:LegacyShapeMembershipShape .
 
 
 #################################################################
@@ -70,7 +303,7 @@ shape:shapePurpose rdf:type owl:AnnotationProperty ;
 <https://ekgf.org/ontology/shape#ShapeSet>
     rdfs:isDefinedBy <https://ekgf.org/ontology/shape#> .
 
-<https://ekgf.org/ontology/shape#hasNodeShape>
+<https://ekgf.org/ontology/shape#hasShape>
     rdfs:isDefinedBy <https://ekgf.org/ontology/shape#> .
 
 <https://ekgf.org/ontology/shape#inShapeSet>

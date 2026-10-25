@@ -70,6 +70,33 @@ into a valid single ownership view.
 implementations per story, missing and conflicting owners, subclass coverage,
 invalid endpoints, retired links, and separate versus combined snapshots.
 
+## SHACL shape metadata and shapesets
+
+The former Shape Ontology is now titled **SHACL Shape Metadata Ontology**.
+Its ontology IRI, namespace, preferred prefix, and registered artifact identity
+are retained. `ShapeSet` supports both node and property shapes through
+`hasShape` and `inShapeSet`. The node-only `hasNodeShape` predicate is
+retired and rejected by validation.
+
+The ontology includes validators for membership endpoints, labeled and typed
+purpose values, nonempty shapesets, and complete coverage of supplied shape
+definitions. Every shape must be a registered entry or reachable from one
+through SHACL shape-reference properties and logical lists. Membership can be
+asserted in either direction. Shapes can be reused across several sets;
+membership does not imply exclusive ownership.
+
+Each shape-bearing ontology declares a `ValidationShapeSet` and lists all its
+named entry shapes. The nested property shapes and logical branches are
+included through those definitions. The metadata ontology does this for its
+own validators as well. All five sets use the defined `Validation` purpose
+individual; additional purpose individuals can be supplied.
+
+`tests/test_shape_metadata.py` validates the combined sources, independently
+checks entry and nested-shape coverage, and exercises invalid memberships and
+purpose annotations. The metadata validators also pass standard SHACL
+meta-validation. The [ontology's Markdown description](../ekgf-shape.ttl)
+documents the validation command and migration.
+
 ## Recorded story-usage decision
 
 The agreed replacement uses `StoryInput`, `StoryOutput`, and

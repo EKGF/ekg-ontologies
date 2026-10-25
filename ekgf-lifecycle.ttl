@@ -5,6 +5,7 @@
 @prefix lifecycle: <https://ekgf.org/ontology/lifecycle#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix ekg-lifecycle: <https://ekgf.org/ontology/lifecycle#> .
+@prefix ekg-shape: <https://ekgf.org/ontology/shape#> .
 @base <https://ekgf.org/ontology/lifecycle#> .
 
 <https://ekgf.org/ontology/lifecycle#>
@@ -14,6 +15,7 @@
         sh:namespace "https://ekgf.org/ontology/lifecycle#"^^xsd:anyURI
     ] ;
     rdfs:label "Lifecycle Ontology"@en ;
+    owl:imports ekg-shape: ;
     rdfs:comment """Everything has a lifecycle: use cases, stories, concepts, personas, outcomes, data products and datasets. This ontology says what a lifecycle is, which lifecycle a thing follows and which state the thing is in. It depends on none of the ontologies that describe those things.
 
 A lifecycle has a name, states and permitted transitions, optionally grouped into phases. Its states and transitions form a directed graph; it does not require a separate RDF named graph. Multiple lifecycles can share an RDF graph, with inLifecycle expressing membership independently of graph placement. State order controls presentation, not which moves are permitted. There can be any number of lifecycles. This ontology defines none: the well-known lifecycles are a dataset (dataset/well-known-lifecycles.ttl), and anyone can define more. The registry uses a separate namespace for each lifecycle to distinguish shared state names such as Draft and Deprecated. This is an IRI naming convention, not a graph-storage requirement; custom lifecycles can use another IRI naming convention.
@@ -428,3 +430,18 @@ lifecycle:LegacyStateShape rdf:type sh:NodeShape ;
 
 <https://ekgf.org/ontology/lifecycle#trigger>
     rdfs:isDefinedBy <https://ekgf.org/ontology/lifecycle#> .
+
+#################################################################
+#    Validation shapeset
+#################################################################
+
+lifecycle:ValidationShapeSet a owl:NamedIndividual , ekg-shape:ShapeSet ;
+    rdfs:label "Lifecycle Validation Shapes"@en ;
+    rdfs:comment "Validates permitted lifecycle transitions, state-entry history, effective current heads, and migration from direct state assignments."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/lifecycle#> ;
+    ekg-shape:shapePurpose ekg-shape:Validation ;
+    ekg-shape:hasShape lifecycle:TransitionShape ,
+                       lifecycle:HistoryStateShape ,
+                       lifecycle:StateTransitionShape ,
+                       lifecycle:CurrentStateShape ,
+                       lifecycle:LegacyStateShape .

@@ -6,6 +6,7 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix ekg-communication: <https://ekgf.org/ontology/communication#> .
+@prefix ekg-shape: <https://ekgf.org/ontology/shape#> .
 @base <https://ekgf.org/ontology/communication#> .
 
 <https://ekgf.org/ontology/communication#>
@@ -15,6 +16,7 @@
       sh:namespace "https://ekgf.org/ontology/communication#"^^xsd:anyURI
   ] ;
   rdfs:label "Communication Ontology"@en ;
+  owl:imports ekg-shape: ;
   rdfs:comment "Channel-neutral ontology for recipients, endpoints, audiences, memberships, consent and legal-basis evidence, campaign snapshots, communication attempts, and delivery outcomes."@en ;
   annotation:markdownDescription "Models communication recipients separately from people and organizations. Audiences, lists, tags, and campaign snapshots are collections with reified memberships. Consent, withdrawal, suppression, legal classification, and derivation evidence attach to memberships rather than being flattened onto recipients."@en .
 
@@ -1449,3 +1451,23 @@
 
 <https://ekgf.org/ontology/communication#withdrawnConsent>
     rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
+
+#################################################################
+#    Validation shapeset
+#################################################################
+
+:ValidationShapeSet a owl:NamedIndividual , ekg-shape:ShapeSet ;
+    rdfs:label "Communication Validation Shapes"@en ;
+    rdfs:comment "Validates recipients, endpoints, programs, collections, memberships, legal classifications, consent evidence, attempts, and delivery events."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> ;
+    ekg-shape:shapePurpose ekg-shape:Validation ;
+    ekg-shape:hasShape :RecipientShape ,
+                       :EmailRecipientShape ,
+                       :CommunicationEndpointShape ,
+                       :CommunicationProgramShape ,
+                       :RecipientCollectionShape ,
+                       :MembershipShape ,
+                       :RecipientLegalClassificationShape ,
+                       :RecipientConsentShape ,
+                       :CommunicationAttemptShape ,
+                       :DeliveryEventShape .

@@ -7,6 +7,7 @@
 @prefix artpub: <https://ekgf.org/ontology/artifact-publication#> .
 @prefix lifecycle: <https://ekgf.org/ontology/lifecycle#> .
 @prefix ekg-artpub: <https://ekgf.org/ontology/artifact-publication#> .
+@prefix ekg-shape: <https://ekgf.org/ontology/shape#> .
 @base <https://ekgf.org/ontology/artifact-publication#> .
 
 <https://ekgf.org/ontology/artifact-publication#>
@@ -18,7 +19,8 @@
     rdfs:label "Artifact Publication Ontology"@en ;
     rdfs:comment "How semantic artifacts are published, either as a family or as explicitly selected artifact references: profiles configure generation, targets identify destinations, runs generate outputs, releases identify versions and approvals record authority decisions about exact releases. Family grouping is optional. The state of a run and of a release is described with the Lifecycle Ontology. SHACL shapes validate the scope and approval records."@en ;
     owl:imports artgov: ,
-                lifecycle: .
+                lifecycle: ,
+                ekg-shape: .
 
 #################################################################
 #    Classes
@@ -426,3 +428,16 @@ artpub:ReleaseApprovalShape rdf:type sh:NodeShape ;
 
 <https://ekgf.org/ontology/artifact-publication#targetUrl>
     rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-publication#> .
+
+#################################################################
+#    Validation shapeset
+#################################################################
+
+artpub:ValidationShapeSet a owl:NamedIndividual , ekg-shape:ShapeSet ;
+    rdfs:label "Artifact Publication Validation Shapes"@en ;
+    rdfs:comment "Validates publication profiles, release scope and provenance, and release-approval records."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-publication#> ;
+    ekg-shape:shapePurpose ekg-shape:Validation ;
+    ekg-shape:hasShape artpub:PublicationProfileShape ,
+                       artpub:StandardsReleaseShape ,
+                       artpub:ReleaseApprovalShape .

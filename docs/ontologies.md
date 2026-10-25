@@ -136,8 +136,13 @@ the ontology IRI without `#`; its declared term namespace retains `#`.
 - [Artifact dependency](../ekgf-artifact-dependency.ttl), `ekg-artdep`:
   what an artifact depends on, the evidence for it and whether the
   dependency resolves.
-- [Shape](../ekgf-shape.ttl), `ekg-shape`: SHACL node shapes grouped
-  into shapesets, and what a shape is for.
+- [SHACL shape metadata](../ekgf-shape.ttl), `ekg-shape`: shapesets containing
+  node and property shapes, extensible purpose values, and validation of
+  membership and coverage. Each ontology containing shapes declares its own
+  validation shapeset, including the metadata ontology itself. Nested shape
+  definitions are included through their entry shapes. Generic `hasShape`
+  replaces the former node-only `hasNodeShape`; the ontology IRI and namespace
+  are retained.
 - [Lifecycle](../ekgf-lifecycle.ttl), `ekg-lifecycle`: lifecycles and
   the states their members occupy. See [lifecycles](lifecycles.md).
 
