@@ -2,15 +2,16 @@
 
 [Documentation index](../README.md#documentation)
 
-The October 2026 documentation pass covers the 24 root ontology files.
-All 704 locally defined, named, explicitly typed resources now have an English
-label, a definition, and `rdfs:isDefinedBy` pointing to their source ontology.
-This includes classes, properties, named individuals, datatypes, and named SHACL
-shapes. Each ontology header also has a name, a description, and the repository's
-CC0 license link.
+The initial October 2026 documentation pass covered the 24 root ontology files.
+At that point, all 704 locally defined, named, explicitly typed resources had an
+English label, a definition, and `rdfs:isDefinedBy` pointing to their source
+ontology. These included classes, properties, named individuals, datatypes, and
+named SHACL shapes. Each ontology header also received a name, a description,
+and the repository's CC0 license link. Coverage checks continue to apply as the
+model evolves.
 
-The pass adds 135 labels, 288 definitions, 665 defining-ontology links, and 24
-ontology license links. It corrects the unused Outcome Dublin Core namespace
+That pass added 135 labels, 288 definitions, 665 defining-ontology links, and 24
+ontology license links. It corrected the unused Outcome Dublin Core namespace
 binding and the User Experience prototype default prefix/base, with regression
 checks. It corrects capability class labels that contained the
 names of example individuals and replaces an internal story-service question
@@ -37,10 +38,37 @@ story-usage model, with its pending implementation stated explicitly.
 
 The test detects missing documentation. It does not certify business accuracy,
 completeness of examples, a publishable standards release, or a sound OWL model.
-During this pass, the before/after RDF graphs were compared with documentation
+During that initial pass, the before/after RDF graphs were compared with documentation
 annotations excluded: structural assertions remained isomorphic in all 24 files.
 No domains, ranges, imports, restrictions, class relationships, SHACL constraints,
-or registered identities were changed.
+or registered identities were changed by the documentation pass. Subsequent
+semantic changes are recorded separately below.
+
+## Story implementation ownership
+
+The [Story Ontology](../ekgf-story.ttl) now uses `implementedBy` and its inverse
+`implementationOf` as its canonical implementation relationship.
+`implementationOf` is functional, and `StoryImplementation` has an OWL
+exactly-one-owner restriction. A story can have zero or more implementations;
+each implementation belongs to exactly one story.
+
+`StoryImplementationShape` rejects missing or multiple owners, counting both
+relationship directions without requiring OWL inverse inference. Predicate
+targets also cover untyped endpoints and implementation metadata. RDFS
+inference with the ontology graph provides endpoint types and subclass
+relationships. `LegacyImplementationShape` rejects the removed
+`hasImplementation` predicate; stored assertions must migrate to the
+canonical relationship.
+
+Validate a coherent version context. Named graphs may hold historical
+snapshots, but their contents must be selected explicitly for validation.
+Repeated owner assertions for the same story identity count once. Graphs that
+link one implementation IRI to different story-version IRIs cannot be combined
+into a valid single ownership view.
+
+`tests/test_story_implementations.py` covers inverse inference, multiple
+implementations per story, missing and conflicting owners, subclass coverage,
+invalid endpoints, retired links, and separate versus combined snapshots.
 
 ## Recorded story-usage decision
 

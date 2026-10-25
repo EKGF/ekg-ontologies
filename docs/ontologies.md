@@ -97,7 +97,10 @@ the ontology IRI without `#`; its declared term namespace retains `#`.
 - [Use case](../ekgf-use-case.ttl), `ekg-use-case`: the use case tree
   and the stereotype of each use case.
 - [Story](../ekgf-story.ttl), `ekg-story`: stories, their inputs and
-  outputs, and their implementations.
+  outputs, and their implementations. `implementedBy` and its inverse
+  `implementationOf` link each implementation to exactly one story;
+  a story can have several implementations. The ontology includes SHACL
+  ownership validation and Markdown migration and snapshot-validation guidance.
 - [SPARQL story implementation](../ekgf-story-impl-sparql.ttl),
   `ekg-story-impl-sparql`: a story implemented as a SPARQL statement.
 - [Story service](../ekgf-story-service.ttl), `ekg-story-service`:

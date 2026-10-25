@@ -84,7 +84,8 @@ role semantics, namespace declarations, family recognition and
 publication constraints, including publication without families.
 They also check documentation coverage for locally defined named terms and
 ontology headers, data element concept inference, manifestation
-separation, class disjointness and lifecycle bindings.
+separation, class disjointness, lifecycle bindings, and exactly one owning
+story per implementation, including validation of versioned snapshots.
 They run offline using the relevant Commons 1.3 axioms in a test
 fixture. Its `.ttl.txt` suffix keeps it out of RDF file discovery
 when consumers load this repository.
