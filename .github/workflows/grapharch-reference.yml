@@ -34,7 +34,7 @@ jobs:
         run: python3 -B -m unittest discover -s tests -p test_grapharch_pages.py
       - name: Build HTML, PDF and documentation KG
         id: grapharch
-        uses: EKGF/grapharch@735e76d3b711dcc888713f7bde3d5a734df85efb
+        uses: EKGF/grapharch@800e13241c793435f214f5ff93f666d6bf9430d1
         with:
           version: '0.0.1'
           source-kind: checkout
