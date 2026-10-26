@@ -3,6 +3,7 @@ import pathlib
 import unittest
 
 from rdflib import Graph, Namespace, RDF, URIRef
+from rdflib.namespace import DCTERMS, RDFS
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 GA = Namespace("https://ekgf.org/ontology/grapharch#")
@@ -14,6 +15,15 @@ AUTHORITY = URIRef("urn:uuid:6c1408aa-039c-42f9-8dee-9c3f0009d61a")
 
 
 class GraphArchPublicationTests(unittest.TestCase):
+    def test_publication_uses_the_registered_family_name(self):
+        settings = Graph().parse(ROOT / "publication/grapharch.ttl")
+        registry = Graph().parse(ROOT / "dataset/well-known-families.ttl")
+        names = [str(value) for value in registry.objects(FAMILY, RDFS.label)
+                 if value.language == "en"]
+        self.assertEqual(names, ["EKGF Ontologies"])
+        for subject in (DOC.project, DOC.specification):
+            self.assertEqual([str(value) for value in settings.objects(subject, DCTERMS.title)], names)
+
     def test_profile_and_publisher_resolve_to_existing_registry_entities(self):
         settings = Graph().parse(ROOT / "publication/grapharch.ttl")
         registry = Graph()
