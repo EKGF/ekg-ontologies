@@ -10,6 +10,11 @@ existing EKGF family and authority UUIDs; they do not redefine those identities
 or change ontology axioms. The generated reference is an editor's draft, not an
 approved standards release.
 
+Read the generated [EKGF ontology reference](https://ekgf.github.io/ekg-ontologies/spec/develop/).
+Its PDF download contains the same specification, and its
+[documentation graph](https://ekgf.github.io/ekg-ontologies/spec/develop/documentation.nq)
+is available as a restorable RDF archive.
+
 ## Build locally
 
 Install a published GraphArch release, then run from this repository's root:
@@ -17,9 +22,6 @@ Install a published GraphArch release, then run from this repository's root:
 ```sh
 grapharch publication build-family \
   --local-repository . \
-  --definitions publication/grapharch.ttl \
-  --project urn:ekgf-ontologies:documentation:project \
-  --target urn:ekgf-ontologies:documentation:specification \
   --output-root _site \
   --json
 ```
@@ -38,18 +40,18 @@ the next run. Do not commit generated output.
 
 ## Build in GitHub Actions
 
-The **Build ontology reference** workflow is manual while the first verified
-GraphArch binary release is being published. Once that release is available,
-run it from the Actions tab with its exact version, without a leading `v`.
-The workflow uses the GraphArch action pinned to a full commit SHA, builds from
-`actions/checkout`, and uploads the HTML, PDF and KG archive as workflow artifacts.
-It does not publish a release or deploy GitHub Pages.
+The **Publish ontology reference** workflow runs when ontology, registry,
+documentation or publication sources change. Pull requests build and check the
+reference; successful builds on `main` deploy it to GitHub Pages. You can also
+run the workflow manually. The site root redirects to `spec/develop/`, preserving
+the canonical version URLs declared in the publication settings.
 
-The action takes the same source, definitions, project, target and output settings
-as the local command. It downloads and verifies the selected release binary;
-it does not compile GraphArch or require a Rust installation in this repository.
-After the first verified run, push/PR triggers or a separately authorized Pages
-deployment can be added using the same publication configuration.
+The workflow uses the GraphArch action pinned to a full commit SHA and a verified
+binary release version. It builds directly from `actions/checkout`, discovering
+the project and target from `publication/grapharch.ttl`, as the local command does.
+It downloads and verifies the release binary; no Rust installation or compilation
+is required. Generated HTML, PDF and the restorable KG archive are included in
+the Pages artifact. The persistent graph store is not published.
 
 Update the publication date and version URLs in the Turtle configuration when
 preparing a new publication. Authority labels, family members, descriptions and

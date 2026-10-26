@@ -1,34 +1,70 @@
-name: Build ontology reference
+name: Publish ontology reference
 on:
+  push:
+    branches: [main]
+    paths:
+      - '**.ttl'
+      - 'docs/**'
+      - 'README.md'
+      - 'publication/**'
+      - 'scripts/stage_grapharch_pages.py'
+      - 'tests/test_grapharch_pages.py'
+      - '.github/workflows/grapharch-reference.yml'
+  pull_request:
+    paths:
+      - '**.ttl'
+      - 'docs/**'
+      - 'README.md'
+      - 'publication/**'
+      - 'scripts/stage_grapharch_pages.py'
+      - 'tests/test_grapharch_pages.py'
+      - '.github/workflows/grapharch-reference.yml'
   workflow_dispatch:
-    inputs:
-      grapharch-version:
-        description: Exact verified GraphArch release version (without v); run after release publication
-        required: true
-        type: string
 permissions:
   contents: read
+concurrency:
+  group: ontology-pages-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   reference:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+      - name: Verify publication staging
+        run: python3 -B -m unittest discover -s tests -p test_grapharch_pages.py
       - name: Build HTML, PDF and documentation KG
         id: grapharch
-        uses: EKGF/grapharch@3dd1d4b21ff897b5761f2ee1e31e10ec97f3e9c8
+        uses: EKGF/grapharch@40e6dd87ebdceb0ddf5f8c7d132569c6f9aa7ffe
         with:
-          version: ${{ inputs.grapharch-version }}
+          version: '0.0.1'
           source-kind: checkout
           source: .
-          definitions: publication/grapharch.ttl
-          project: urn:ekgf-ontologies:documentation:project
-          target: urn:ekgf-ontologies:documentation:specification
           output: _site
-      - name: Upload generated reference and restorable KG
-        uses: actions/upload-artifact@v4
+      - name: Stage the configured publication destination
+        env:
+          PUBLICATION_PATH: ${{ steps.grapharch.outputs.publication-path }}
+          KG_PATH: ${{ steps.grapharch.outputs.kg-path }}
+          PAGES_PATH: ${{ runner.temp }}/ontology-pages
+        run: >-
+          python3 scripts/stage_grapharch_pages.py
+          --output _site
+          --publication "$PUBLICATION_PATH"
+          --archive "$KG_PATH"
+          --destination "$PAGES_PATH"
+      - uses: actions/upload-pages-artifact@v5
         with:
-          name: ekgf-ontology-reference
-          if-no-files-found: error
-          path: |
-            ${{ steps.grapharch.outputs.publication-path }}
-            ${{ steps.grapharch.outputs.kg-path }}
+          path: ${{ runner.temp }}/ontology-pages
+  deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: reference
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

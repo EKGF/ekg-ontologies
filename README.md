@@ -29,6 +29,8 @@ The Data Product Ontology is maintained in the separate
 
 ## Documentation
 
+- [Ontology reference](https://ekgf.github.io/ekg-ontologies/spec/develop/):
+  the generated editor's draft, with a PDF download and documentation graph.
 - [Generate the HTML and PDF ontology reference](docs/generated-reference.md):
   build the family directly from this checkout with GraphArch.
 
