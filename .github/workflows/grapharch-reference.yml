@@ -2,23 +2,7 @@ name: Publish ontology reference
 on:
   push:
     branches: [main]
-    paths:
-      - '**.ttl'
-      - 'docs/**'
-      - 'README.md'
-      - 'publication/**'
-      - 'scripts/stage_grapharch_pages.py'
-      - 'tests/test_grapharch_pages.py'
-      - '.github/workflows/grapharch-reference.yml'
   pull_request:
-    paths:
-      - '**.ttl'
-      - 'docs/**'
-      - 'README.md'
-      - 'publication/**'
-      - 'scripts/stage_grapharch_pages.py'
-      - 'tests/test_grapharch_pages.py'
-      - '.github/workflows/grapharch-reference.yml'
   workflow_dispatch:
 permissions:
   contents: read
