@@ -317,8 +317,8 @@ concepts through its own usage objects; the shared concepts retain their
 vocabulary memberships.
 
 See `ownsConceptSet` for the ownership policy and the
-[Story Ontology](https://ekgf.org/ontology/story#) for the agreed usage-object
-model and its pending axiom migration.
+[Story Ontology](https://ekgf.org/ontology/story#) for the declared usage-object
+model, validation shapes, and data migration instructions.
 """@en .
 
 use-case:ownsConceptSet annotation:markdownDescription """

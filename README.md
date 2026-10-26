@@ -42,6 +42,8 @@ The Data Product Ontology is maintained in the separate
 - [Data element concepts](docs/concepts.md): reusable meanings,
   business and technical manifestations, compound constructs and the
   relationship to ISO/IEC 11179.
+- [Story concept usages](docs/story-concept-usages.md): typed input, output,
+  and dependent usages, ownership, input defaults, validation and migration.
 - [Authorities and organizations](docs/governance.md): registered
   identities, Commons roles, organization categories and artifact
   references.
@@ -92,6 +94,10 @@ They also check documentation coverage for locally defined named terms and
 ontology headers, data element concept inference, manifestation
 separation, class disjointness, lifecycle bindings, and exactly one owning
 story per implementation, including validation of versioned snapshots.
+Story-usage checks cover role inference, one owner and concept per usage,
+shared meanings, input flags and defaults, and rejection of retired vocabulary.
+Template checks cover source languages, renderer support, separation of
+template documents from native SPARQL, and RDF-aware value substitution.
 They also validate shapeset membership, purpose annotations, and coverage of
 all entry and nested shapes, including the shape-metadata validators themselves.
 They run offline using the relevant Commons 1.3 axioms in a test

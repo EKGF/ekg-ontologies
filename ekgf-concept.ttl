@@ -7,6 +7,7 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix ekg-concept: <https://ekgf.org/ontology/concept#> .
 @prefix annotation: <https://ekgf.org/ontology/annotation#> .
+@prefix ekg-shape: <https://ekgf.org/ontology/shape#> .
 @base         <https://ekgf.org/ontology/concept#> .
 
 <https://ekgf.org/ontology/concept#>
@@ -15,7 +16,7 @@
       sh:prefix "ekg-concept" ;
       sh:namespace "https://ekgf.org/ontology/concept#"^^xsd:anyURI
   ] ;
-  owl:imports  rdf: ;
+  owl:imports  rdf: , ekg-shape: ;
   rdfs:label   "Concept Ontology"@en ;
   rdfs:comment
     "Data element concepts, called concepts for short, identify reusable meanings independently of their business and technical manifestations. The scope includes individual data elements and compound data constructs such as whole classes and shapes. ManifestationOccurrence records where a manifestation appears in a source."@en .
@@ -100,6 +101,12 @@
   rdfs:label    "source system"@en ;
   rdfs:comment
     "The system in which this occurrence of a manifestation was observed, identified by a resource IRI. A source repository is not required; the same manifestation may occur in multiple systems."@en .
+
+:templateLanguage a owl:ObjectProperty ;
+  rdfs:range :TemplateLanguage ;
+  rdfs:label "template language"@en ;
+  rdfs:comment "Identifies the documented template language or substitution profile of a template document or placeholder manifestation. This general metadata property imposes no domain; each resource kind constrains its own language cardinality."@en ;
+  rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
 
 #################################################################
 #    Data properties
@@ -227,15 +234,22 @@ Reuse across contexts is encouraged. A concept is not inherently scoped to a par
 
 :TemplateParameterManifestation
   rdf:type         owl:Class ;
-  rdfs:subClassOf  :TechnicalManifestation ;
+  rdfs:subClassOf  :TechnicalManifestation , [
+    a owl:Restriction ;
+    owl:onProperty :templateLanguage ;
+    owl:minCardinality "1"^^xsd:nonNegativeInteger
+  ] , [
+    a owl:Restriction ;
+    owl:onProperty :templateLanguage ;
+    owl:maxCardinality "1"^^xsd:nonNegativeInteger
+  ] ;
   rdfs:label       "template parameter manifestation"@en ;
-  rdfs:comment     "A concept's appearance as a parameter token in a statement-template language. Concrete subclasses fix the language and its token syntax, so implementations join template tokens to concepts structurally, per language."@en .
+  rdfs:comment     "A concept's appearance as a placeholder in a statement template. A template processor substitutes validated input values before the resulting statement is parsed and executed. The template language determines the token syntax; its spelling alone does not identify a language or a native query variable."@en .
 
-:LegraDollarManifestation
-  rdf:type         owl:Class ;
-  rdfs:subClassOf  :TemplateParameterManifestation ;
-  rdfs:label       "LegraDollar manifestation"@en ;
-  rdfs:comment     "A LegraDollar template parameter token; the manifestation label is the literal token, for example \"$ekgid\"."@en .
+:TemplateLanguage a owl:Class ;
+  rdfs:label "Template Language"@en ;
+  rdfs:comment "A documented template language or substitution profile defining how a template document is interpreted. Its identity is distinct from a renderer implementing it and from the language of the rendered output. Declaring a profile does not approve it for execution."@en ;
+  rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
 
 :OWLClassManifestation
   rdf:type         owl:Class ;
@@ -394,9 +408,6 @@ Reuse across contexts is encouraged. A concept is not inherently scoped to a par
     rdfs:comment "A technical manifestation expressing a data element concept through an identifier in JavaScript source code. The manifestation is distinct from the reusable meaning of the concept and from its occurrences in source files."@en ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
 
-<https://ekgf.org/ontology/concept#LegraDollarManifestation>
-    rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
-
 <https://ekgf.org/ontology/concept#LiteralDatatypeManifestation>
     rdfs:comment "A technical manifestation expressing a data element concept through a literal datatype. The manifestation is distinct from the reusable meaning of the concept and from its occurrences in source files."@en ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
@@ -548,6 +559,53 @@ Reuse across contexts is encouraged. A concept is not inherently scoped to a par
     rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
 
 #################################################################
+#    Template metadata validation
+#################################################################
+
+:TemplateParameterManifestationShape a sh:NodeShape ;
+  sh:targetClass :TemplateParameterManifestation ;
+  sh:nodeKind sh:BlankNodeOrIRI ;
+  sh:property [
+    sh:path :templateLanguage ;
+    sh:minCount 1 ; sh:maxCount 1 ;
+    sh:nodeKind sh:IRI ; sh:class :TemplateLanguage
+  ] ;
+  sh:property [
+    sh:path :manifestationValue ;
+    sh:minCount 1 ; sh:maxCount 1 ;
+    sh:datatype xsd:string ; sh:minLength 1
+  ] ;
+  rdfs:label "Template Parameter Manifestation Shape"@en ;
+  rdfs:comment "Requires a template-placeholder manifestation to identify its language and its exact nonempty token. A shared token is interpreted within that language, not from its punctuation alone."@en ;
+  rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+:TemplateLanguageShape a sh:NodeShape ;
+  sh:targetClass :TemplateLanguage ;
+  sh:targetObjectsOf :templateLanguage ;
+  sh:nodeKind sh:IRI ;
+  sh:property [ sh:path rdfs:label ; sh:minCount 1 ; sh:nodeKind sh:Literal ; sh:minLength 1 ] ;
+  sh:property [ sh:path rdfs:seeAlso ; sh:minCount 1 ; sh:nodeKind sh:IRI ] ;
+  rdfs:label "Template Language Shape"@en ;
+  rdfs:comment "Requires a stable language/profile IRI, a human-readable name, and a reference to its documentation. These metadata do not certify renderer behavior or execution approval."@en ;
+  rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+:LegacyTemplateManifestationShape a sh:NodeShape ;
+  sh:targetClass :LegraDollarManifestation ;
+  sh:not [ sh:class :LegraDollarManifestation ] ;
+  sh:message "LegraDollarManifestation is retired. Replace that type with TemplateParameterManifestation and declare its documented templateLanguage profile."@en ;
+  rdfs:label "Legacy Template Manifestation Shape"@en ;
+  rdfs:comment "Rejects instances of the retired product-specific template-placeholder class, including instances also given the current type or a language. Migration must remove the retired type and identify the placeholder's language profile."@en ;
+  rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+:ValidationShapeSet a owl:NamedIndividual , ekg-shape:ShapeSet ;
+  rdfs:label "Concept Validation Shapes"@en ;
+  rdfs:comment "Validates template-placeholder tokens and their documented template-language profiles, and rejects retired template-placeholder classifications."@en ;
+  rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> ;
+  ekg-shape:shapePurpose ekg-shape:Validation ;
+  ekg-shape:hasShape :TemplateParameterManifestationShape , :TemplateLanguageShape ,
+                     :LegacyTemplateManifestationShape .
+
+#################################################################
 #    Markdown explanations
 #################################################################
 
@@ -560,8 +618,8 @@ records how that story uses the meaning. A manifestation expresses the meaning
 in business language or a technical system. These resources serve different
 purposes and retain separate identities.
 
-The [Story Ontology](https://ekgf.org/ontology/story#) records the agreed
-input, output, and dependent usage model and its pending migration. The
+The [Story Ontology](https://ekgf.org/ontology/story#) declares the
+input, output, and dependent usage model and its validation shapes. The
 [Use Case Ontology](https://ekgf.org/ontology/use-case#) describes concept-set
 ownership. Together these distinguish the story-owned usage from the shared
 concept and its vocabulary membership.
@@ -590,6 +648,40 @@ concept in different ways. `ConceptManifestation` resources record those
 expressions, and `ManifestationOccurrence` resources record their appearances
 in sources. A compound concept may also have a whole OWL class or SHACL shape
 as a manifestation.
+
+Reuse one manifestation for the same expression of the same concept within
+the same language across story implementations; record individual appearances
+as occurrences. For
+example, twenty statement templates using `$m` as a placeholder for the same
+meaning can reference one `TemplateParameterManifestation` with label and
+`manifestationValue` `"$m"`. Its appearances in the template sources are
+separate occurrences. The manifestation's `templateLanguage` identifies
+the syntax in which that token is a placeholder. Native SPARQL variables use
+`SPARQLVariableManifestation`. SPARQL itself permits dollar-prefixed query
+variables, so the template language and the expression's role determine
+the distinction; spelling alone does not establish it or shared meaning.
+
+The template processor must use a documented, explicitly supported language
+profile. For SPARQL value substitution, validated inputs must be serialized
+as RDF terms for their intended positions, rather than copied as arbitrary
+query fragments. The rendered statement must be parsed before execution.
+The generic manifestation class neither selects an engine nor certifies
+that an engine or its output is safe.
+
+`TemplateLanguage` identifies the source language/profile, not its renderer
+or its generated output language. A template targeting SPARQL is still a
+document in the declared template language until rendered. The
+[SPARQL Story Implementation Ontology](https://ekgf.org/ontology/story-impl-sparql#)
+declares template documents, renderers, and their implementation relationships.
+
+## Template-placeholder migration
+
+`LegraDollarManifestation` is retired. Replace that type assertion with
+`TemplateParameterManifestation` and declare the manifestation's documented
+`templateLanguage` profile. Keep the manifestation's identity, token, concept
+links, and occurrence references. Do not infer its language from the `$`
+prefix. `LegacyTemplateManifestationShape` rejects the retired classification
+even when the current type and a language are also present.
 
 See the [Method's concept-vocabulary documentation](https://method.ekgf.org/concept/concept/concept-vocabulary/#ontology).
 """@en .

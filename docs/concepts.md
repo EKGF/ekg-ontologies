@@ -26,6 +26,11 @@ the same meaning. Matching names alone do not establish that identity.
 expressions. Properties such as `hasConcept`, `hasManifestation` and
 `concept` use the everyday short form in their names.
 
+Stories reference concepts through story-owned `StoryInput`, `StoryOutput`,
+and `StoryDependent` usage objects. Requiredness and server provision belong
+to an input usage. See [story concept usages](story-concept-usages.md) for the
+declared model, executable example, validation and migration.
+
 ## Relationship to ISO/IEC 11179
 
 This class deliberately generalizes the data element concept in
@@ -119,9 +124,9 @@ no alias or equivalence axiom for the retired IRI.
 
 The namespace `https://ekgf.org/ontology/concept#`, preferred prefix
 `ekg-concept`, source filename, `ConceptSet`, `ConceptManifestation`
-and property names retain the short form. Story and use-case links,
-class disjointness and the default lifecycle now reference the new
-class.
+and property names retain the short form. Concept references from story usages
+and use cases, class disjointness and the default lifecycle now reference the
+new class.
 
 Replace previous ontology graphs when loading this version so the
 retired class declarations and the former SKOS superclass axiom in

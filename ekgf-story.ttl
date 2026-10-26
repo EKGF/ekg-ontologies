@@ -20,7 +20,7 @@
       sh:namespace "https://ekgf.org/ontology/story#"^^xsd:anyURI
   ] ;
 	owl:imports <https://ekgf.org/ontology/persona#> , <https://ekgf.org/ontology/concept#> , <https://ekgf.org/ontology/outcome#> , ekg-shape: ;
-	rdfs:comment "The EKGF Story Ontology"@en ;
+	rdfs:comment "Stories and their story-owned input, output, and dependent concept usages, execution requirements, and implementation ownership."@en ;
 	rdfs:label "Story Ontology"@en .
 # 
 # 
@@ -48,38 +48,14 @@
 # #################################################################
 # 
 # 
-# https://ekgf.org/ontology/concept#hasConcept
+# https://ekgf.org/ontology/story#hasConceptUsage
 
-concept:hasConcept rdfs:domain _:genid1 .
-
-_:genid1 a owl:Class ;
-	owl:unionOf _:genid3 .
-
-_:genid3 a rdf:List ;
-	rdf:first :StoryInput ;
-	rdf:rest _:genid2 .
-
-_:genid2 a rdf:List ;
-	rdf:first :StoryOutput ;
-	rdf:rest rdf:nil .
-# 
-# https://ekgf.org/ontology/story#hasInput
-
-:hasInput a owl:ObjectProperty , owl:InverseFunctionalProperty ;
-	rdfs:domain :Story ;
-	rdfs:range :StoryInput ;
-	<http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
-	<http://purl.org/dc/elements/1.1/date> "2020-04-28T13:27:52Z"^^xsd:dateTime ;
-	rdfs:comment "An Input Parameter links a data element concept to a Story as one of its inputs"@en ;
-	rdfs:label "has input parameter"@en .
-# 
-# https://ekgf.org/ontology/story#hasOutput
-
-:hasOutput a owl:ObjectProperty , owl:InverseFunctionalProperty ;
-	rdfs:domain :Story ;
-	rdfs:range :StoryOutput ;
-	<http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
-	<http://purl.org/dc/elements/1.1/date> "2020-04-28T18:48:14Z"^^xsd:dateTime .
+:hasConceptUsage a owl:ObjectProperty , owl:InverseFunctionalProperty ;
+    rdfs:domain :Story ;
+    rdfs:range :StoryConceptUsage ;
+    rdfs:label "has concept usage"@en ;
+    rdfs:comment "Links a story to a concept-usage object owned by that story. Different stories use separate usage objects when referencing the same reusable concept."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/story#> .
 # 
 # https://ekgf.org/ontology/story#implementationOf
 
@@ -94,31 +70,34 @@ _:genid2 a rdf:List ;
 # https://ekgf.org/ontology/story#hasInputConcept
 
 :hasInputConcept a owl:ObjectProperty ;
+	rdfs:subPropertyOf :hasConceptUsage ;
 	rdfs:domain :Story ;
-	rdfs:range concept:DataElementConcept ;
+	rdfs:range :StoryInput ;
 	<http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
 	<http://purl.org/dc/elements/1.1/date> "2026-02-23T00:00:00Z"^^xsd:dateTime ;
-	rdfs:comment "Direct projection of the input concepts required by the Story."@en ;
+	rdfs:comment "Links a story to its input-concept usage. The usage references a shared data element concept through concept:hasConcept and carries the story's input requirements."@en ;
 	rdfs:label "has input concept"@en .
 # 
 # https://ekgf.org/ontology/story#hasOutputConcept
 
 :hasOutputConcept a owl:ObjectProperty ;
+	rdfs:subPropertyOf :hasConceptUsage ;
 	rdfs:domain :Story ;
-	rdfs:range concept:DataElementConcept ;
+	rdfs:range :StoryOutput ;
 	<http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
 	<http://purl.org/dc/elements/1.1/date> "2026-02-23T00:00:00Z"^^xsd:dateTime ;
-	rdfs:comment "Direct projection of the output concepts produced by the Story."@en ;
+	rdfs:comment "Links a story to an output-concept usage referencing the shared data element concept produced by the story."@en ;
 	rdfs:label "has output concept"@en .
 # 
 # https://ekgf.org/ontology/story#hasDependentConcept
 
 :hasDependentConcept a owl:ObjectProperty ;
+	rdfs:subPropertyOf :hasConceptUsage ;
 	rdfs:domain :Story ;
-	rdfs:range concept:DataElementConcept ;
+	rdfs:range :StoryDependent ;
 	<http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
 	<http://purl.org/dc/elements/1.1/date> "2026-02-23T00:00:00Z"^^xsd:dateTime ;
-	rdfs:comment "Concepts referenced by implementation logic (for example discovered from statement algebra)."@en ;
+	rdfs:comment "Links a story to a dependent-concept usage referencing a shared data element concept used internally rather than exposed as an input or output."@en ;
 	rdfs:label "has dependent concept"@en .
 # 
 # https://ekgf.org/ontology/story#playedBy
@@ -166,14 +145,21 @@ _:genid2 a rdf:List ;
 	<http://purl.org/dc/elements/1.1/date> "2020-05-06T09:37:47Z"^^xsd:dateTime ;
 	rdfs:comment "Means that the user story mutates the database by insert or delete statements"@en .
 # 
-# https://ekgf.org/ontology/story#serverProvidedIRI
+# https://ekgf.org/ontology/story#isMandatory
 
-:serverProvidedIRI a owl:DatatypeProperty , owl:FunctionalProperty ;
-	rdfs:domain :Story ;
-	rdfs:range xsd:boolean ;
-	<http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
-	<http://purl.org/dc/elements/1.1/date> "2020-04-07T20:48:22Z"^^xsd:dateTime ;
-	rdfs:comment "indicates that, if provided and if true, the Story Service needs to provide a KGIRI as the value for this input parameter."@en .
+:isMandatory a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain :StoryInput ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "is mandatory"@en ;
+    rdfs:comment "Whether this story's input-concept usage is required for execution. A Story Service interprets an absent value as false; OWL and SHACL validation do not insert a value."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/story#> .
+
+:isServerProvided a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain :StoryInput ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "is server provided"@en ;
+    rdfs:comment "Whether the Story Service supplies this story's input concept. Independent of requiredness. A Story Service interprets an absent value as false; the flag does not specify how the value is generated or injected."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/story#> .
 # 
 # https://ekgf.org/ontology/story#implementationType
 
@@ -201,41 +187,54 @@ outcome:Outcome a owl:Class .
 
 persona:Persona a owl:Class .
 # 
-# https://ekgf.org/ontology/story#MandatoryParameter
+# https://ekgf.org/ontology/story#StoryConceptUsage
 
-:MandatoryParameter a owl:Class ;
-	rdfs:subClassOf :StoryInput ;
-	owl:disjointWith :OptionalParameter ;
-	<http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
-	<http://purl.org/dc/elements/1.1/date> "2020-05-03T10:47:58Z"^^xsd:dateTime .
-# 
-# https://ekgf.org/ontology/story#OptionalParameter
-
-:OptionalParameter a owl:Class ;
-	rdfs:subClassOf :StoryInput ;
-	<http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
-	<http://purl.org/dc/elements/1.1/date> "2020-05-03T10:48:18Z"^^xsd:dateTime .
-# 
-# https://ekgf.org/ontology/story#OptionalStoryOutput
-
-:OptionalStoryOutput a owl:Class ;
-	rdfs:subClassOf :StoryOutput ;
-	<http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
-	<http://purl.org/dc/elements/1.1/date> "2020-05-06T09:03:23Z"^^xsd:dateTime .
+:StoryConceptUsage a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty [ owl:inverseOf :hasConceptUsage ] ;
+        owl:minCardinality "1"^^xsd:nonNegativeInteger
+    ] , [
+        a owl:Restriction ;
+        owl:onProperty [ owl:inverseOf :hasConceptUsage ] ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger
+    ] , [
+        a owl:Restriction ;
+        owl:onProperty concept:hasConcept ;
+        owl:minCardinality "1"^^xsd:nonNegativeInteger
+    ] , [
+        a owl:Restriction ;
+        owl:onProperty concept:hasConcept ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger
+    ] ;
+    owl:disjointWith :Story , concept:DataElementConcept , concept:ConceptManifestation ;
+    rdfs:label "Story Concept Usage"@en ;
+    rdfs:comment "A story-owned relationship object with exactly one owning story and exactly one referenced data element concept. Its input, output, or dependent role describes the usage, not the reusable concept."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/story#> .
 # 
 # https://ekgf.org/ontology/story#StoryInput
 
 :StoryInput a owl:Class ;
+    rdfs:subClassOf :StoryConceptUsage ;
+    owl:disjointWith :StoryOutput , :StoryDependent ;
 	<http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
 	<http://purl.org/dc/elements/1.1/date> "2020-04-01T17:24:36Z"^^xsd:dateTime ;
-	rdfs:comment "A StoryInput in the context of the Concept and Story Ontologies is the type of a blank node that serves as the specification of a parameter to a user story."@en .
+	rdfs:comment "A story-owned input-concept usage referencing one reusable data element concept. Requiredness and server provision belong to this usage."@en .
 # 
 # https://ekgf.org/ontology/story#StoryOutput
 
 :StoryOutput a owl:Class ;
+    rdfs:subClassOf :StoryConceptUsage ;
+    owl:disjointWith :StoryDependent ;
 	<http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
 	<http://purl.org/dc/elements/1.1/date> "2020-04-07T20:40:12Z"^^xsd:dateTime ;
-	rdfs:comment "A StoryOutput in the context of the Concept and Story Ontologies is the type of a blank node that serves as the specification of a result-column or result-key of a user story."@en .
+	rdfs:comment "A story-owned output-concept usage referencing one reusable data element concept produced by the story, including compound output meanings."@en .
+
+:StoryDependent a owl:Class ;
+    rdfs:subClassOf :StoryConceptUsage ;
+    rdfs:label "Story Dependent"@en ;
+    rdfs:comment "A story-owned dependent-concept usage referencing one reusable data element concept used internally without exposing it as an input or output."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/story#> .
 # 
 # https://ekgf.org/ontology/story#StoryImplementation
 
@@ -319,8 +318,100 @@ persona:Persona a owl:Class .
 # Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
 
 #################################################################
-#    Story implementation validation
+#    Story validation
 #################################################################
+
+:StoryConceptUsageShape a sh:NodeShape ;
+    sh:targetClass :StoryConceptUsage ;
+    sh:targetObjectsOf :hasConceptUsage , :hasInputConcept , :hasOutputConcept , :hasDependentConcept ;
+    sh:targetSubjectsOf :isMandatory , :isServerProvided ;
+    sh:nodeKind sh:BlankNodeOrIRI ;
+    sh:xone (
+        [ sh:class :StoryInput ]
+        [ sh:class :StoryOutput ]
+        [ sh:class :StoryDependent ]
+    ) ;
+    sh:not [
+        sh:or (
+            [ sh:class :Story ]
+            [ sh:class concept:DataElementConcept ]
+            [ sh:class concept:ConceptManifestation ]
+        )
+    ] ;
+    sh:property [
+        sh:path [
+            sh:inversePath [
+                sh:alternativePath ( :hasConceptUsage :hasInputConcept :hasOutputConcept :hasDependentConcept )
+            ]
+        ] ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class :Story ;
+        sh:message "A concept usage must belong to exactly one story, counting general and specialized usage links together."@en
+    ] ;
+    sh:property [
+        sh:path concept:hasConcept ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:class concept:DataElementConcept ;
+        sh:message "A concept usage must reference exactly one reusable data element concept through concept:hasConcept."@en
+    ] ;
+    rdfs:label "Story Concept Usage Shape"@en ;
+    rdfs:comment "Validates one owning story, one referenced concept, and exactly one input, output, or dependent role. Usage objects are distinct from stories, concepts, and manifestations."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/story#> .
+
+:StoryInputShape a sh:NodeShape ;
+    sh:targetClass :StoryInput ;
+    sh:targetObjectsOf :hasInputConcept ;
+    sh:targetSubjectsOf :isMandatory , :isServerProvided ;
+    sh:property [
+        sh:path :isMandatory ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:boolean ;
+        sh:defaultValue false ;
+        sh:name "Is mandatory"@en
+    ] ;
+    sh:property [
+        sh:path :isServerProvided ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:boolean ;
+        sh:defaultValue false ;
+        sh:name "Is server provided"@en
+    ] ;
+    rdfs:label "Story Input Shape"@en ;
+    rdfs:comment "Validates optional, single-valued boolean input flags and records their false application defaults without materializing them."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/story#> .
+
+:LegacyConceptUsageShape a sh:NodeShape ;
+    sh:targetSubjectsOf :hasInput , :hasOutput , :serverProvidedIRI ;
+    sh:targetClass :MandatoryParameter , :OptionalParameter , :OptionalStoryOutput ;
+    sh:property [
+        sh:path :hasInput ;
+        sh:maxCount 0 ;
+        sh:message "hasInput was removed. Use hasInputConcept to link to a StoryInput usage object."@en
+    ] ;
+    sh:property [
+        sh:path :hasOutput ;
+        sh:maxCount 0 ;
+        sh:message "hasOutput was removed. Use hasOutputConcept to link to a StoryOutput usage object."@en
+    ] ;
+    sh:property [
+        sh:path :serverProvidedIRI ;
+        sh:maxCount 0 ;
+        sh:message "serverProvidedIRI was removed. Identify the input usage and set isServerProvided on that usage."@en
+    ] ;
+    sh:not [
+        sh:or (
+            [ sh:class :MandatoryParameter ]
+            [ sh:class :OptionalParameter ]
+            [ sh:class :OptionalStoryOutput ]
+        )
+    ] ;
+    rdfs:label "Legacy Concept Usage Shape"@en ;
+    rdfs:comment "Rejects retired story input/output predicates, parameter classification classes, and the story-level server-provided flag. Data must migrate to typed concept usages and input flags."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/story#> .
 
 :StoryImplementationShape a sh:NodeShape ;
     sh:targetClass :StoryImplementation ;
@@ -371,23 +462,8 @@ persona:Persona a owl:Class .
     rdfs:comment "A story implementation that delegates the interaction to an API through a proxy."@en ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/story#> .
 
-<https://ekgf.org/ontology/story#MandatoryParameter>
-    rdfs:label "Mandatory Parameter"@en ;
-    rdfs:comment "A story input classified as mandatory for the interaction. The class is disjoint with OptionalParameter."@en ;
-    rdfs:isDefinedBy <https://ekgf.org/ontology/story#> .
-
 <https://ekgf.org/ontology/story#NamedStatementImplementation>
     rdfs:comment "A story implementation identified through a named executable statement."@en ;
-    rdfs:isDefinedBy <https://ekgf.org/ontology/story#> .
-
-<https://ekgf.org/ontology/story#OptionalParameter>
-    rdfs:label "Optional Parameter"@en ;
-    rdfs:comment "A story input classified as optional for the interaction."@en ;
-    rdfs:isDefinedBy <https://ekgf.org/ontology/story#> .
-
-<https://ekgf.org/ontology/story#OptionalStoryOutput>
-    rdfs:label "Optional Story Output"@en ;
-    rdfs:comment "A story output classified as optional for the interaction."@en ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/story#> .
 
 <https://ekgf.org/ontology/story#Story>
@@ -415,15 +491,7 @@ persona:Persona a owl:Class .
 <https://ekgf.org/ontology/story#hasDependentConcept>
     rdfs:isDefinedBy <https://ekgf.org/ontology/story#> .
 
-<https://ekgf.org/ontology/story#hasInput>
-    rdfs:isDefinedBy <https://ekgf.org/ontology/story#> .
-
 <https://ekgf.org/ontology/story#hasInputConcept>
-    rdfs:isDefinedBy <https://ekgf.org/ontology/story#> .
-
-<https://ekgf.org/ontology/story#hasOutput>
-    rdfs:label "Has Output"@en ;
-    rdfs:comment "Associates a story with one of its output descriptions. Its inverse-functional axiom means that a shared output resource identifies the same story."@en ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/story#> .
 
 <https://ekgf.org/ontology/story#hasOutputConcept>
@@ -464,10 +532,6 @@ persona:Persona a owl:Class .
     rdfs:isDefinedBy <https://ekgf.org/ontology/story#> .
 
 <https://ekgf.org/ontology/story#providedBy>
-    rdfs:isDefinedBy <https://ekgf.org/ontology/story#> .
-
-<https://ekgf.org/ontology/story#serverProvidedIRI>
-    rdfs:label "Server Provided IRI"@en ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/story#> .
 
 #################################################################
@@ -550,10 +614,10 @@ concept vocabularies through `ekg-use-case:ownsConceptSet`; stories can draw
 from their use case's vocabularies and those inherited from ancestor use cases.
 Using a concept does not transfer its ownership to the story.
 
-## Agreed replacement model
+## Concept-usage model
 
-**Implementation status:** this decision is recorded here; the current axioms
-still contain earlier generations and require the migration described below.
+The OWL classes, property ranges, ownership restrictions, input flags, and
+SHACL constraints below are declared in this ontology.
 
 | Story predicate | Range of the predicate |
 | --- | --- |
@@ -567,7 +631,7 @@ reasoner infer both the specific usage class and its common superclass, and
 the general relationship. A separate usage-type value is unnecessary.
 These usage classes describe relationships to concepts.
 
-For example, the target model allows:
+For example:
 
 ```turtle
 @prefix ekg-story: <https://ekgf.org/ontology/story#> .
@@ -578,6 +642,8 @@ ex:findCustomer ekg-story:hasInputConcept [
     ekg-concept:hasConcept ex:customerIdentifier ;
     ekg-story:isMandatory true
 ] .
+
+ex:customerIdentifier a ekg-concept:DataElementConcept .
 ```
 
 The blank node is the story-owned input-concept usage. Its type is inferred
@@ -592,7 +658,7 @@ An input usage can carry `isMandatory` and `isServerProvided`.
 independent: an input can be mandatory and server-provided.
 
 A Story Service interprets each absent flag as **false**. Missing flags remain
-valid data. Planned SHACL property shapes record `sh:defaultValue false`,
+valid data. `StoryInputShape` property shapes record `sh:defaultValue false`,
 accept at most one value per flag, and require supplied values to be
 `xsd:boolean`. Invalid values are validation errors.
 
@@ -601,20 +667,49 @@ not insert it. OWL reasoning does not infer false from absence. A service
 applies these defaults during execution; materializing explicit false triples
 is an application choice.
 
-## Migration status
+`StoryConceptUsageShape` requires exactly one owning story, one referenced
+concept, and one of the three usage roles. The role classes are disjoint:
+use separate usage objects if a concept is both an input and an output.
+The general `hasConceptUsage` predicate requires an explicit or inferred
+role class. Either input flag infers `StoryInput` through its domain, even
+when false; specialized predicates infer their roles through their ranges.
+Blank nodes and IRIs are accepted for usage objects. Shared concepts are
+never usage objects. Consumers must retain usage identity rather than merge
+usages by concept IRI: distinct usages of one concept can have different flags.
 
-Currently `hasInput` and `hasOutput` point to usage objects, while
-`hasInputConcept`, `hasOutputConcept`, and `hasDependentConcept` point
-directly to data element concepts. The replacement changes the latter
-predicates' ranges to the usage classes, migrates their assertions, and retires
-the competing `hasInput` and `hasOutput` predicates.
+`concept:hasConcept` retains its general meaning and has no global domain.
+Its exactly-one restriction applies to `StoryConceptUsage`, so other
+resources can reference concepts without becoming story usages.
 
-`StoryConceptUsage`, `StoryDependent`, `hasConceptUsage`, the two input flags,
-and the corresponding SHACL shapes are not yet declared in this source.
-Existing `MandatoryParameter`, `OptionalParameter`, `OptionalStoryOutput`,
-and `serverProvidedIRI` declarations also require reconciliation with the
-agreed usage model. The existing domain restriction on
-`ekg-concept:hasConcept` must cover all three usage classes.
+## Migration from earlier generations
+
+For an old direct story-to-concept link, create a story-owned usage object
+and move the concept reference to its `concept:hasConcept` property. The
+`hasInputConcept`, `hasOutputConcept`, and `hasDependentConcept` predicates
+now range over usages, not directly over concepts. Never turn the reusable
+concept itself into the usage object.
+
+Replace `hasInput` and `hasOutput` with `hasInputConcept` and
+`hasOutputConcept`, retaining their usage objects and concept references.
+Replace `MandatoryParameter` with `StoryInput` plus `isMandatory true`.
+Replace `OptionalParameter` with `StoryInput`; `isMandatory false` can be
+explicit or absent. Retired `serverProvidedIRI` assertions must be resolved
+to the actual input usage and replaced with `isServerProvided` there; a
+story-level flag does not identify that input automatically.
+
+`OptionalStoryOutput` is retired. Resolve the intended output contract when
+migrating those records; input flags do not express output optionality.
+`LegacyConceptUsageShape` rejects all retired predicates and classes rather
+than silently translating them. Replace previously loaded ontology graphs
+to remove old ranges, parameter classes, and the former global domain of
+`concept:hasConcept`.
+
+All named validation shapes belong to `ValidationShapeSet`; nested shapes
+are included through their entry definitions. Validate with the Story
+Ontology as both shapes and ontology graph and enable RDFS inference, as
+in the validation command above. See the repository's
+[concept-usage guide](https://github.com/EKGF/ekg-ontologies/blob/main/docs/story-concept-usages.md)
+for a complete executable example.
 
 See the [Method's Story/Concept Relationship](https://method.ekgf.org/concept/concept/story-concept-relationship/#ontology),
 its [concept-vocabulary ownership rules](https://method.ekgf.org/concept/concept/concept-vocabulary/#ontology),
@@ -629,13 +724,14 @@ The story owns this usage object; `ekg-concept:hasConcept` references the shared
 data element concept. Separate stories use separate usage objects even when
 they reference the same concept.
 
-The agreed replacement model makes this class a subclass of
+This class is a subclass of
 `StoryConceptUsage` and the range of `hasInputConcept`. Input characteristics
-such as requiredness and server provision belong on the usage. Their agreed
+such as requiredness and server provision belong on the usage. Their
 false defaults are applied by the Story Service.
 
-Those superclass, range, flag, and SHACL changes are pending. See the ontology's
-Markdown description for the decision and migration status.
+`StoryInputShape` validates the flags, and `StoryConceptUsageShape` validates
+the owner, concept, and usage role. See the ontology's Markdown description
+for validation and migration instructions.
 """@en .
 
 :StoryOutput annotation:markdownDescription """
@@ -646,10 +742,19 @@ The story owns the usage object; `ekg-concept:hasConcept` references the shared
 data element concept. A concept can describe a compound output, including the
 meaning represented by a whole class or shape.
 
-The agreed replacement model makes this class a subclass of
-`StoryConceptUsage` and the range of `hasOutputConcept`. Those axiom changes
-are pending; the current `hasOutputConcept` range is still
-`ekg-concept:DataElementConcept`.
+This class is a subclass of `StoryConceptUsage` and the range of
+`hasOutputConcept`. The input flags do not apply to outputs. Use a separate
+input usage if the same concept is also an input to this story.
+"""@en .
+
+:StoryDependent annotation:markdownDescription """
+## A story's dependent-concept usage
+
+This usage records a concept used inside the story's implementation without
+exposing it as an input or output, such as a join or filter concept. It is a
+subclass of `StoryConceptUsage` and the range of `hasDependentConcept`.
+The story owns the usage; `concept:hasConcept` points to the shared meaning.
+Input flags apply only to input usages.
 """@en .
 
 :StoryImplementation annotation:markdownDescription """
@@ -702,8 +807,11 @@ identifies one owner, while conflicting links are rejected.
 
 :ValidationShapeSet a owl:NamedIndividual , ekg-shape:ShapeSet ;
     rdfs:label "Story Validation Shapes"@en ;
-    rdfs:comment "Validates single-story implementation ownership and rejects retired implementation links."@en ;
+    rdfs:comment "Validates story-owned concept usages, input flags, single-story implementation ownership, and migration from retired vocabulary."@en ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/story#> ;
     ekg-shape:shapePurpose ekg-shape:Validation ;
-    ekg-shape:hasShape :StoryImplementationShape ,
+    ekg-shape:hasShape :StoryConceptUsageShape ,
+                       :StoryInputShape ,
+                       :LegacyConceptUsageShape ,
+                       :StoryImplementationShape ,
                        :LegacyImplementationShape .

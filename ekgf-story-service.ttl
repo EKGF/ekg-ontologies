@@ -378,9 +378,9 @@ implementations. The story describes business concept usage; an implementation
 binds that usage to technical manifestations such as API names or SPARQL
 variables. Reusing a concept preserves its meaning across implementations.
 
-## Agreed input-concept defaults
+## Input-concept defaults
 
-The agreed story model gives each story its own `StoryInput` usage objects,
+The story model gives each story its own `StoryInput` usage objects,
 referencing shared data element concepts. On each input usage:
 
 | Flag | Meaning when true | Effective value when absent |
@@ -396,20 +396,39 @@ Missing flag assertions remain valid. A Story Service applies the false
 defaults when executing a story. Storing explicit false triples is optional;
 consumers must not assume that loading or validating the RDF populated them.
 
-The planned SHACL shapes declare `sh:defaultValue false` and validate supplied
-boolean values with a maximum count of one. SHACL Core default-value
+The Story Ontology's SHACL shapes declare `sh:defaultValue false` and validate
+supplied boolean values with a maximum count of one. SHACL Core default-value
 annotations do not populate data, and OWL does not infer false from an
 absent assertion. See [SHACL default values](https://www.w3.org/TR/shacl/#defaultValue).
 
-## Implementation status
+## Business concepts and technical bindings
 
-This explanation records the agreed application contract. The common usage
-class, specialized story predicates, input flags, and shapes still require
-axiom reconciliation in the
-[Story Ontology](https://ekgf.org/ontology/story#).
-This source's existing `Parameter`, `Result`, and statement properties also
-require review against that model; they do not establish a mapping between a
-business concept usage and a particular implementation binding.
+The [Story Ontology](https://ekgf.org/ontology/story#) declares the common usage
+class, specialized story predicates, input flags, and validation shapes.
+Its input flags describe a particular story's use of a shared concept.
+This source's `Parameter`, `Result`, and statement properties describe a
+technical statement interface; they do not replace story concept usages or
+establish a mapping to a particular execution binding. Variable manifestations
+record technical expressions independently of the mechanism used to supply
+their values.
+
+For a statement template, a template processor renders the source using the
+story's validated input values before parsing and executing the resulting
+SPARQL query or update. Support must be limited to explicitly documented
+language profiles. Value substitution requires RDF-aware serialization and
+escaping; shell evaluation and arbitrary query-fragment insertion are not
+input-value substitution. Unresolved placeholders and invalid generated
+statements are execution errors. A template-placeholder manifestation does
+not select or certify a template engine.
+
+The SPARQL Story Implementation Ontology declares
+`StorySPARQLTemplateImplementation`, which selects a template document and
+renderer through `hasTemplate` and `usesRenderer`. The document's
+`concept:templateLanguage` identifies its source language/profile, and the
+renderer declares matching `supportsTemplateLanguage` capabilities. The
+placeholder manifestation also identifies its template language. The service
+renders that document into a separate SPARQL statement for each invocation;
+the generated text is parsed before it is sent for execution.
 """@en .
 
 :StoryService annotation:markdownDescription """
@@ -419,5 +438,5 @@ A service application executes stories and applies their input-concept
 requirements. Under the agreed contract, it interprets absent
 `ekg-story:isMandatory` and `ekg-story:isServerProvided` flags as false on the
 story's input usages. The ontology's Markdown description records the full
-contract and the pending vocabulary changes.
+contract and links to the declared Story vocabulary.
 """@en .

@@ -10,6 +10,8 @@
 @prefix sparql-story: <https://ekgf.org/ontology/story-impl-sparql#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix ekg-story-impl-sparql: <https://ekgf.org/ontology/story-impl-sparql#> .
+@prefix ekg-shape: <https://ekgf.org/ontology/shape#> .
+@prefix annotation: <https://ekgf.org/ontology/annotation#> .
 @base <https://ekgf.org/ontology/story-impl-sparql#> .
 
 <https://ekgf.org/ontology/story-impl-sparql#> rdf:type owl:Ontology ;
@@ -19,9 +21,10 @@
   ] ;
     owl:imports
         concept:,
-        story: ;
+        story:,
+        ekg-shape: ;
     rdfs:comment
-        """The SPARQL Story Implementation Ontology defines the concepts needed to implement a Story with a SPARQL 1.1 statement (query or update).
+        """The SPARQL Story Implementation Ontology defines story implementations using executable SPARQL queries or updates, or explicitly declared template documents and renderers that generate SPARQL.
 
        The Story ontology itself is: https://ekgf.org/ontology/story#"""@en ;
     rdfs:label "SPARQL Story Implementation Ontology"@en .
@@ -37,6 +40,27 @@ sparql-story:flavor rdf:type owl:ObjectProperty ;
     rdfs:label
         "Supports SPARQL Flavor"@en-us,
         "Supports SPARQL Flavour"@en .
+
+:hasTemplate a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:domain :StorySPARQLTemplateImplementation ;
+    rdfs:range :StatementTemplate ;
+    rdfs:label "has template"@en ;
+    rdfs:comment "Links a SPARQL-producing story implementation to its template document. The source language is declared on that document; its text is not executable SPARQL source."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/story-impl-sparql#> .
+
+:usesRenderer a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:domain :StorySPARQLTemplateImplementation ;
+    rdfs:range :TemplateRenderer ;
+    rdfs:label "uses renderer"@en ;
+    rdfs:comment "Identifies the renderer selected for this template-based implementation. It must explicitly support the template document's declared language/profile."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/story-impl-sparql#> .
+
+:supportsTemplateLanguage a owl:ObjectProperty ;
+    rdfs:domain :TemplateRenderer ;
+    rdfs:range concept:TemplateLanguage ;
+    rdfs:label "supports template language"@en ;
+    rdfs:comment "Records a documented template-language profile implemented by a renderer. Support is an explicit capability assertion, not proof of safe RDF serialization or approval to execute."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/story-impl-sparql#> .
 
 
 #################################################################
@@ -60,8 +84,22 @@ sparql-story:sparql rdf:type
         owl:DatatypeProperty,
         owl:FunctionalProperty ;
     rdfs:domain sparql-story:StorySPARQLImplementation ;
-    rdfs:comment "The SPARQL statement as it is read from the file named by `fileName`"@en ;
+    rdfs:comment "Executable SPARQL query or update text. Template source belongs to a StatementTemplate linked through hasTemplate and must be rendered before the resulting SPARQL is parsed and executed."@en ;
     rdfs:label "SPARQL statement"@en .
+
+:templateText a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain :StatementTemplate ;
+    rdfs:range xsd:string ;
+    rdfs:label "template text"@en ;
+    rdfs:comment "The unrendered template document's source text, interpreted in its declared template language. Parsing this text as SPARQL does not replace template rendering."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/story-impl-sparql#> .
+
+:templateFileName a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain :StatementTemplate ;
+    rdfs:range xsd:string ;
+    rdfs:label "template file name"@en ;
+    rdfs:comment "The file containing a template document, relative to the document's source context. It identifies template source rather than a file of executable SPARQL."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/story-impl-sparql#> .
 
 
 #################################################################
@@ -157,6 +195,39 @@ sparql-story:StardogSPARQL rdf:type owl:Class ;
 sparql-story:StorySPARQLImplementation rdf:type owl:Class ;
   rdfs:subClassOf story:StoryImplementation ;
   rdfs:isDefinedBy <https://ekgf.org/ontology/story-impl-sparql#> .
+
+:StorySPARQLTemplateImplementation a owl:Class ;
+    rdfs:subClassOf :StorySPARQLImplementation , [
+        a owl:Restriction ; owl:onProperty :hasTemplate ;
+        owl:minCardinality "1"^^xsd:nonNegativeInteger
+    ] , [
+        a owl:Restriction ; owl:onProperty :usesRenderer ;
+        owl:minCardinality "1"^^xsd:nonNegativeInteger
+    ] ;
+    rdfs:label "Story SPARQL Template Implementation"@en ;
+    rdfs:comment "A story implementation that produces executable SPARQL by rendering exactly one template document with exactly one selected renderer. Its source is a document in a template language; the generated statement is SPARQL."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/story-impl-sparql#> .
+
+:StatementTemplate a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ; owl:onProperty concept:templateLanguage ;
+        owl:minCardinality "1"^^xsd:nonNegativeInteger
+    ] , [
+        a owl:Restriction ; owl:onProperty concept:templateLanguage ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger
+    ] ;
+    rdfs:label "Statement Template"@en ;
+    rdfs:comment "A document in one declared template language/profile, stored inline or in a file, that a renderer turns into a SPARQL query or update. It is template source even when its unexpanded text happens to parse as SPARQL."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/story-impl-sparql#> .
+
+:TemplateRenderer a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ; owl:onProperty :supportsTemplateLanguage ;
+        owl:minCardinality "1"^^xsd:nonNegativeInteger
+    ] ;
+    rdfs:label "Template Renderer"@en ;
+    rdfs:comment "A software component that renders statement-template documents using story input values and explicitly declares the template-language profiles it supports. The execution service is responsible for safe typed substitution and validation of generated SPARQL."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/story-impl-sparql#> .
 
 
 ###  https://ekgf.org/ontology/story-impl-sparql#StorySPARQLQueryImplementation
@@ -429,3 +500,128 @@ sparql-story:Virtuoso rdf:type
     rdfs:seeAlso <https://www.w3.org/TR/sparql11-update/#drop> .
 <https://ekgf.org/ontology/story-impl-sparql#UPDATE>
     rdfs:seeAlso <https://www.w3.org/TR/sparql11-update/> .
+
+#################################################################
+#    Template validation
+#################################################################
+
+:StatementTemplateShape a sh:NodeShape ;
+    sh:targetClass :StatementTemplate ;
+    sh:targetObjectsOf :hasTemplate ;
+    sh:targetSubjectsOf :templateText , :templateFileName ;
+    sh:nodeKind sh:BlankNodeOrIRI ;
+    sh:property [
+        sh:path concept:templateLanguage ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ; sh:class concept:TemplateLanguage
+    ] ;
+    sh:or (
+        [ sh:property [ sh:path :templateText ; sh:minCount 1 ] ]
+        [ sh:property [ sh:path :templateFileName ; sh:minCount 1 ] ]
+    ) ;
+    sh:property [
+        sh:path :templateText ; sh:maxCount 1 ;
+        sh:datatype xsd:string ; sh:minLength 1
+    ] ;
+    sh:property [
+        sh:path :templateFileName ; sh:maxCount 1 ;
+        sh:datatype xsd:string ; sh:minLength 1
+    ] ;
+    rdfs:label "Statement Template Shape"@en ;
+    rdfs:comment "Requires one documented template-language profile and nonempty inline or file-based template source. Source content and its file location may both be supplied."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/story-impl-sparql#> .
+
+:TemplateRendererShape a sh:NodeShape ;
+    sh:targetClass :TemplateRenderer ;
+    sh:targetObjectsOf :usesRenderer ;
+    sh:targetSubjectsOf :supportsTemplateLanguage ;
+    sh:nodeKind sh:BlankNodeOrIRI ;
+    sh:property [
+        sh:path :supportsTemplateLanguage ;
+        sh:minCount 1 ; sh:nodeKind sh:IRI ; sh:class concept:TemplateLanguage
+    ] ;
+    rdfs:label "Template Renderer Shape"@en ;
+    rdfs:comment "Requires a renderer to explicitly identify the template-language profiles it supports. Execution approval and safe substitution remain application responsibilities."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/story-impl-sparql#> .
+
+:StorySPARQLTemplateImplementationShape a sh:NodeShape ;
+    sh:targetClass :StorySPARQLTemplateImplementation ;
+    sh:targetSubjectsOf :hasTemplate , :usesRenderer ;
+    sh:nodeKind sh:BlankNodeOrIRI ;
+    sh:property [
+        sh:path :hasTemplate ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ; sh:class :StatementTemplate
+    ] ;
+    sh:property [
+        sh:path :usesRenderer ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ; sh:class :TemplateRenderer
+    ] ;
+    sh:property [
+        sh:path :sparql ; sh:maxCount 0 ;
+        sh:message "A template implementation supplies source through hasTemplate; executable SPARQL is produced during rendering."@en
+    ] ;
+    sh:property [
+        sh:path :fileName ; sh:maxCount 0 ;
+        sh:message "A template source file belongs to the linked StatementTemplate through templateFileName."@en
+    ] ;
+    sh:sparql [
+        sh:message "The selected renderer must explicitly support the template document's declared language/profile."@en ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://ekgf.org/ontology/story-impl-sparql#hasTemplate> ?template ;
+                      <https://ekgf.org/ontology/story-impl-sparql#usesRenderer> ?renderer .
+                ?template <https://ekgf.org/ontology/concept#templateLanguage> ?language .
+                FILTER NOT EXISTS {
+                    ?renderer <https://ekgf.org/ontology/story-impl-sparql#supportsTemplateLanguage> ?language .
+                }
+            }
+        """
+    ] ;
+    rdfs:label "Story SPARQL Template Implementation Shape"@en ;
+    rdfs:comment "Requires one template and one renderer with matching language support, and rejects mixing template source with executable-SPARQL source fields."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/story-impl-sparql#> .
+
+<https://ekgf.org/ontology/story-impl-sparql#> annotation:markdownDescription """
+# Source language, renderer, and generated SPARQL
+
+A direct SPARQL implementation supplies executable query/update source with
+`sparql` or `fileName`. A `StorySPARQLTemplateImplementation` instead uses
+`hasTemplate` to identify a `StatementTemplate` and `usesRenderer` to identify
+the selected `TemplateRenderer`.
+
+The template document supplies `templateText`, `templateFileName`, or both,
+and exactly one `concept:templateLanguage` profile. Its source is interpreted
+in that language. The renderer must explicitly declare matching
+`supportsTemplateLanguage` metadata. An execution service must also approve
+that profile and renderer; metadata alone does not certify safe execution.
+
+Rendering supplies validated story input values to the template and produces
+a SPARQL statement for that invocation. This output is parsed and validated
+before execution. It is a different artifact from the reusable template
+document and is not stored in the template implementation's native-source
+fields. The implementation still belongs to exactly one story.
+
+An input concept's placeholder is a `concept:TemplateParameterManifestation`
+with its own declared template language. A native query variable is a
+`concept:SPARQLVariableManifestation`. The source format and role determine
+the distinction: a dollar token can be native SPARQL syntax too, so a parser
+accepting unexpanded template text does not authorize executing it.
+
+`StatementTemplateShape`, `TemplateRendererShape`, and
+`StorySPARQLTemplateImplementationShape` validate these relationships. Load
+the local Concept and Story shapes as well when validating the full model.
+All entry shapes belong to this ontology's `ValidationShapeSet`.
+
+See the repository's
+[template processing guide](https://github.com/EKGF/ekg-ontologies/blob/main/docs/story-concept-usages.md#template-processing-contract)
+for input serialization requirements and an executable metadata example.
+"""@en .
+
+:ValidationShapeSet a owl:NamedIndividual , ekg-shape:ShapeSet ;
+    rdfs:label "SPARQL Story Implementation Validation Shapes"@en ;
+    rdfs:comment "Validates template documents, renderer language capabilities, and template-based SPARQL story implementations."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/story-impl-sparql#> ;
+    ekg-shape:shapePurpose ekg-shape:Validation ;
+    ekg-shape:hasShape :StatementTemplateShape ,
+                       :TemplateRendererShape ,
+                       :StorySPARQLTemplateImplementationShape .

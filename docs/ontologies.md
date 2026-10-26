@@ -46,8 +46,8 @@ Documentation coverage accepts either description format.
 Descriptions record decisions separately from their implementation in OWL,
 SHACL, and applications. State explicitly when an agreed model still requires
 axiom migration. The [Story](../ekgf-story.ttl) and
-[Story Service](../ekgf-story-service.ttl) ontologies record the concept-usage
-decision and false input-flag defaults with their implementation status.
+[Story Service](../ekgf-story-service.ttl) ontologies document the implemented
+concept-usage model and the false input-flag defaults applied by Story Services.
 
 ## Namespaces and prefixes
 
@@ -97,12 +97,16 @@ the ontology IRI without `#`; its declared term namespace retains `#`.
 - [Use case](../ekgf-use-case.ttl), `ekg-use-case`: the use case tree
   and the stereotype of each use case.
 - [Story](../ekgf-story.ttl), `ekg-story`: stories, their inputs and
-  outputs, and their implementations. `implementedBy` and its inverse
+  outputs, and their implementations. Typed story-owned usages reference
+  shared concepts; see [concept usages and migration](story-concept-usages.md).
+  `implementedBy` and its inverse
   `implementationOf` link each implementation to exactly one story;
   a story can have several implementations. The ontology includes SHACL
   ownership validation and Markdown migration and snapshot-validation guidance.
 - [SPARQL story implementation](../ekgf-story-impl-sparql.ttl),
-  `ekg-story-impl-sparql`: a story implemented as a SPARQL statement.
+  `ekg-story-impl-sparql`: native SPARQL implementations and template-based
+  implementations that render documents in declared template languages into
+  SPARQL. Includes renderer capabilities and validation of language compatibility.
 - [Story service](../ekgf-story-service.ttl), `ekg-story-service`:
   the service that turns stories into executable APIs.
 - [Specification by example](../ekgf-specification-by-example.ttl),
@@ -113,6 +117,7 @@ the ontology IRI without `#`; its declared term namespace retains `#`.
   whole classes and shapes. See
   [concepts and manifestations](concepts.md) for the broader scope
   of `DataElementConcept` and its relationship to ISO/IEC 11179.
+  Template-placeholder manifestations identify their documented source language.
 - [Persona](../ekgf-persona.ttl), `ekg-persona`: personas that play
   stories.
 - [Outcome](../ekgf-outcome.ttl), `ekg-outcome`: outcomes that use cases

@@ -49,10 +49,18 @@ class DataElementConceptTests(unittest.TestCase):
 
     def test_story_use_case_and_manifestation_links_infer_the_new_class(self):
         data = Graph()
+        usages = []
+        for concept, predicate in ((EX.input, STORY.hasInputConcept),
+                                   (EX.output, STORY.hasOutputConcept),
+                                   (EX.dependency, STORY.hasDependentConcept)):
+            usage = URIRef(str(concept) + "Usage")
+            usages.append(usage)
+            data.add((EX.story, predicate, usage))
+            data.add((usage, CONCEPT.hasConcept, concept))
         links = (
-            (EX.input, (EX.story, STORY.hasInputConcept, EX.input)),
-            (EX.output, (EX.story, STORY.hasOutputConcept, EX.output)),
-            (EX.dependency, (EX.story, STORY.hasDependentConcept, EX.dependency)),
+            (EX.input, (usages[0], CONCEPT.hasConcept, EX.input)),
+            (EX.output, (usages[1], CONCEPT.hasConcept, EX.output)),
+            (EX.dependency, (usages[2], CONCEPT.hasConcept, EX.dependency)),
             (EX.parameterConcept, (EX.parameter, CONCEPT.hasConcept, EX.parameterConcept)),
             (EX.used, (EX.useCase, USE_CASE.usesConcept, EX.used)),
             (EX.member, (EX.member, CONCEPT.inConceptSet, EX.conceptSet)),
@@ -66,6 +74,8 @@ class DataElementConceptTests(unittest.TestCase):
                 self.assertIn((concept, RDF.type, CONCEPT.DataElementConcept), graph)
         self.assertIn((EX.conceptSet, RDF.type, CONCEPT.ConceptSet), graph)
         self.assertIn((EX.manifested, CONCEPT.hasManifestation, EX.manifestation), graph)
+        for usage in usages:
+            self.assertNotIn((usage, RDF.type, CONCEPT.DataElementConcept), graph)
         self.assertFalse(list(graph.objects(None, ERROR)))
 
     def test_reused_concept_is_not_a_skos_concept_or_its_manifestations(self):

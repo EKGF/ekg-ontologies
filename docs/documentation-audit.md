@@ -34,7 +34,8 @@ English `annotation:markdownDescription` literals also count as definitions,
 including when a resource has no plain-text definition. A regression check
 exercises that case. Markdown explanations in the Story, Story Service,
 Concept, and Use Case ontologies record ownership, reuse, and the agreed
-story-usage model, with its pending implementation stated explicitly.
+story-usage model. The initial pending implementation has since been completed
+as described below.
 
 The test detects missing documentation. It does not certify business accuracy,
 completeness of examples, a publishable standards release, or a sound OWL model.
@@ -88,7 +89,7 @@ membership does not imply exclusive ownership.
 Each shape-bearing ontology declares a `ValidationShapeSet` and lists all its
 named entry shapes. The nested property shapes and logical branches are
 included through those definitions. The metadata ontology does this for its
-own validators as well. All five sets use the defined `Validation` purpose
+own validators as well. All sets use the defined `Validation` purpose
 individual; additional purpose individuals can be supplied.
 
 `tests/test_shape_metadata.py` validates the combined sources, independently
@@ -124,9 +125,9 @@ validation, recipient-only and endpoint-only records, both links together,
 multiple targets of the same kind, and literal targets. Unlinked recipients
 and endpoints elsewhere in the graph do not satisfy a record's requirement.
 
-## Recorded story-usage decision
+## Story concept-usage model
 
-The agreed replacement uses `StoryInput`, `StoryOutput`, and
+The implemented model uses `StoryInput`, `StoryOutput`, and
 `StoryDependent` as subclasses of `StoryConceptUsage`. Specific story
 predicates range over those usage objects and specialize `hasConceptUsage`,
 so the reasoner can infer the usage types. Each usage has one owning story and
@@ -134,10 +135,55 @@ references one shared data element concept. A Story Service interprets absent
 `isMandatory` and `isServerProvided` flags as false. Missing flags remain
 valid; SHACL default annotations do not populate the graph.
 
-The [Story Ontology's Markdown description](../ekgf-story.ttl) records the
-decision and required migration. The source axioms still mix usage-object and
-direct-concept links. Implementing the agreed classes, predicates, flags, and
-shapes is a semantic change that remains pending.
+The [Story Ontology](../ekgf-story.ttl) declares these classes and predicates,
+OWL ownership and concept cardinalities, disjoint usage roles, and boolean
+input flags. SHACL enforces one owner, one concept, one role, and valid flags.
+Its validators belong to the Story `ValidationShapeSet`. The former global
+domain on `concept:hasConcept` is removed: story-specific constraints apply
+to usage objects without narrowing the general Concept property.
+
+Retired `hasInput`, `hasOutput`, `serverProvidedIRI`, `MandatoryParameter`,
+`OptionalParameter`, and `OptionalStoryOutput` declarations are removed and
+their use is rejected by validation. Direct concept links must migrate to
+story-owned usage objects. The [usage guide](story-concept-usages.md) provides
+an executable example and migration instructions, including legacy records
+whose input or output contract needs an explicit decision.
+
+`tests/test_story_concept_usages.py` checks range and subproperty inference,
+usage/concept separation, shared-concept reuse, OWL identity consequences,
+ownership and concept cardinalities, role distinctions, boolean defaults and
+invalid flags, input-role inference from flags, distinct usages of one concept,
+retired vocabulary, general Concept-property behavior, and the complete
+documentation example with a shared template-placeholder manifestation. Tests first
+reproduced the missing axioms and constraints before the migration was
+implemented.
+
+## Statement templates and renderers
+
+The SPARQL Story Implementation Ontology distinguishes template source from
+the generated SPARQL statement. `StorySPARQLTemplateImplementation` links
+one `StatementTemplate` and one `TemplateRenderer`. Documents identify their
+source language through `concept:templateLanguage`; renderers explicitly
+declare matching `supportsTemplateLanguage` capabilities. Template text and
+file references are stored on the template document, while native SPARQL
+source fields are rejected on template-based implementations.
+
+The Concept Ontology declares `TemplateLanguage` and requires each
+`TemplateParameterManifestation` to identify a documented language and exact
+token. The shared language property has no global domain, so labeling a
+document does not classify it as a placeholder manifestation. These validators
+belong to each ontology's own `ValidationShapeSet`.
+The Concept `LegacyTemplateManifestationShape` explicitly rejects the retired
+`LegraDollarManifestation` type, including instances that also carry the current
+type and language metadata. Removing a class declaration alone does not reject
+its instances under open-world semantics.
+
+`tests/test_statement_templates.py` covers type inference, source requirements,
+language and renderer cardinalities, renderer compatibility, source separation,
+template-placeholder metadata and migration, standard SHACL meta-validation,
+the complete documentation example, and RDF literal substitution with query-like input.
+The runtime renderer and its approval policy remain service implementation
+responsibilities; these ontologies declare and validate their metadata.
 
 ## Decisions needed before changing axioms
 
@@ -171,7 +217,7 @@ pass leaves the import graph unchanged.
 
 ## Further documentation work
 
-Add executable examples for story concept usages and implementation bindings, authorization-rule
+Add executable examples for implementation bindings, authorization-rule
 interpretation, capability organization, and maturity assessment. Existing names
 or broad superclass declarations do not provide enough evidence to invent those
 application policies.
