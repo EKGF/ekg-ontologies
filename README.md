@@ -80,6 +80,7 @@ python3 -m venv ../ekg-ontologies-venv
 source ../ekg-ontologies-venv/bin/activate
 python3 -m pip install -r requirements-test.txt
 python3 -B -m unittest discover -s tests -v
+git diff --check
 ```
 
 The [tests](tests/) check registered identities, references, Commons
@@ -99,6 +100,22 @@ Use the [reference matcher](docs/families.md#reference-matcher) to
 recognize a family from an artifact IRI, source path or graph IRI.
 See [publication validation](docs/publication.md#validation) for the
 command to check release and approval records with SHACL.
+
+## GitHub Actions
+
+The [Build ontology reference](.github/workflows/grapharch-reference.yml)
+workflow runs only when started manually (`workflow_dispatch`). Pushes and
+pull requests do not trigger it. It is kept manual pending the first verified
+GraphArch binary release.
+
+Once a verified release is available, start the workflow from the repository's
+Actions tab and supply its exact version without a leading `v`. It builds the
+HTML and PDF reference and a restorable documentation KG, then uploads them as
+workflow artifacts. See the [reference generation guide](docs/generated-reference.md)
+for instructions. The workflow does not deploy GitHub Pages or publish a release.
+
+There is currently no workflow running the validation suite automatically.
+Run the checks in [Validation](#validation) locally before submitting changes.
 
 ## License
 
