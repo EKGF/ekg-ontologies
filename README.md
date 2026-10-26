@@ -105,18 +105,19 @@ command to check release and approval records with SHACL.
 
 ## GitHub Actions
 
-The [Build ontology reference](.github/workflows/grapharch-reference.yml)
-workflow runs only when started manually (`workflow_dispatch`). Pushes and
-pull requests do not trigger it. It is kept manual pending the first verified
-GraphArch binary release.
+The [Publish ontology reference](.github/workflows/grapharch-reference.yml)
+workflow builds the HTML and PDF reference and a restorable documentation KG
+when ontology, registry, documentation or publication sources change. Pull
+requests build the reference for review; successful builds on `main` deploy it
+to [GitHub Pages](https://ekgf.github.io/ekg-ontologies/spec/develop/). It can also
+be started manually from the Actions tab.
 
-Once a verified release is available, start the workflow from the repository's
-Actions tab and supply its exact version without a leading `v`. It builds the
-HTML and PDF reference and a restorable documentation KG, then uploads them as
-workflow artifacts. See the [reference generation guide](docs/generated-reference.md)
-for instructions. The workflow does not deploy GitHub Pages or publish a release.
+The workflow installs a pinned, verified GraphArch binary and discovers the
+publication settings in this repository. It requires no Rust build and does
+not publish an ontology release or change its approval status. See the
+[reference generation guide](docs/generated-reference.md) for details.
 
-There is currently no workflow running the validation suite automatically.
+The publication build does not execute the complete ontology validation suite.
 Run the checks in [Validation](#validation) locally before submitting changes.
 
 ## License
