@@ -843,6 +843,10 @@
 :MembershipShape
   rdf:type sh:NodeShape ;
   sh:targetClass :Membership ;
+  sh:or (
+    [ sh:property [ sh:path :membershipRecipient ; sh:minCount 1 ] ]
+    [ sh:property [ sh:path :membershipEndpoint ; sh:minCount 1 ] ]
+  ) ;
   sh:property [
     sh:path :membershipCollection ;
     sh:minCount 1 ;
@@ -921,6 +925,10 @@
 :CommunicationAttemptShape
   rdf:type sh:NodeShape ;
   sh:targetClass :CommunicationAttempt ;
+  sh:or (
+    [ sh:property [ sh:path :attemptRecipient ; sh:minCount 1 ] ]
+    [ sh:property [ sh:path :attemptEndpoint ; sh:minCount 1 ] ]
+  ) ;
   sh:property [
     sh:path :communicationProgram ;
     sh:minCount 1 ;
@@ -999,7 +1007,7 @@
 
 <https://ekgf.org/ontology/communication#CommunicationAttemptShape>
     rdfs:label "Communication Attempt Shape"@en ;
-    rdfs:comment "Validates a communication attempt's program, recipient, and endpoint references."@en ;
+    rdfs:comment "Requires exactly one communication program and at least one recipient or endpoint, with at most one of each target type."@en ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
 
 <https://ekgf.org/ontology/communication#CommunicationChannel>
@@ -1148,7 +1156,7 @@
 
 <https://ekgf.org/ontology/communication#MembershipShape>
     rdfs:label "Membership Shape"@en ;
-    rdfs:comment "Validates the collection, recipient or endpoint, and status recorded for a membership."@en ;
+    rdfs:comment "Requires exactly one collection and at least one recipient or endpoint, with at most one of each target type, and validates the recorded membership status."@en ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
 
 <https://ekgf.org/ontology/communication#MembershipStatus>

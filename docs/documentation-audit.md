@@ -111,6 +111,19 @@ same recipient, multiple email endpoints, missing email endpoints, endpoint
 subclasses, recipient-specific endpoint links, invalid additional endpoints,
 and standard SHACL meta-validation.
 
+## Communication target validation
+
+`MembershipShape` requires a `membershipRecipient`, a `membershipEndpoint`,
+or both. `CommunicationAttemptShape` similarly requires an `attemptRecipient`,
+an `attemptEndpoint`, or both. Each shape uses `sh:or` to reject records that
+identify no target. The existing target type checks and maximum of one value
+per link remain in force, along with the required collection or program.
+
+`tests/test_communication_targets.py` covers missing targets, subclass
+validation, recipient-only and endpoint-only records, both links together,
+multiple targets of the same kind, and literal targets. Unlinked recipients
+and endpoints elsewhere in the graph do not satisfy a record's requirement.
+
 ## Recorded story-usage decision
 
 The agreed replacement uses `StoryInput`, `StoryOutput`, and
