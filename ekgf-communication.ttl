@@ -787,8 +787,8 @@
   sh:targetClass :EmailRecipient ;
   sh:property [
     sh:path :hasEndpoint ;
-    sh:minCount 1 ;
-    sh:class :EmailEndpoint ;
+    sh:qualifiedValueShape [ sh:class :EmailEndpoint ] ;
+    sh:qualifiedMinCount 1 ;
     sh:name "Email endpoint"@en
   ] .
 
@@ -1067,7 +1067,7 @@
 
 <https://ekgf.org/ontology/communication#EmailRecipientShape>
     rdfs:label "Email Recipient Shape"@en ;
-    rdfs:comment "Validates the endpoint constraints declared for an email recipient."@en ;
+    rdfs:comment "Requires at least one email endpoint while allowing additional endpoints for other communication channels."@en ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> .
 
 <https://ekgf.org/ontology/communication#EmployeeCategory>

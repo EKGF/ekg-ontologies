@@ -97,6 +97,20 @@ purpose annotations. The metadata validators also pass standard SHACL
 meta-validation. The [ontology's Markdown description](../ekgf-shape.ttl)
 documents the validation command and migration.
 
+## Communication endpoint validation
+
+`EmailRecipientShape` requires at least one `EmailEndpoint` through
+`hasEndpoint`. It uses a qualified minimum count so that a recipient can also
+have SMS, voice, or other channel endpoints. The previous class constraint
+incorrectly required every endpoint of an email recipient to be an email
+endpoint. All endpoints remain subject to the general channel and address
+constraints in `CommunicationEndpointShape`.
+
+`tests/test_communication_endpoints.py` covers email and SMS endpoints on the
+same recipient, multiple email endpoints, missing email endpoints, endpoint
+subclasses, recipient-specific endpoint links, invalid additional endpoints,
+and standard SHACL meta-validation.
+
 ## Recorded story-usage decision
 
 The agreed replacement uses `StoryInput`, `StoryOutput`, and
