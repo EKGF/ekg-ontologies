@@ -17,7 +17,7 @@ doc:profile a ga:Profile, artpub:PublicationProfile ;
     artpub:publishesFamily <urn:uuid:c0eda36a-f42a-4fa3-aea9-c7a5543207eb> .
 
 doc:specification a ga:Target ;
-    dct:title "EKGF Ontology Family" ;
+    dct:title "EKGF Ontologies" ;
     dct:description "A reference to the related EKGF ontologies. These vocabularies describe enterprise knowledge graphs, their concepts, use cases, stories, artifacts, governance, publication and lifecycles." ;
     rdfs:comment "This editor's draft is generated from the ontology sources and their registry. It is a documentation preview, not an approved standards release. Supplied source annotations are reproduced. Documentation gaps are reported explicitly; ontology imports are not fetched and this publication does not establish semantic correctness." ;
     ga:scope doc:scope ;
