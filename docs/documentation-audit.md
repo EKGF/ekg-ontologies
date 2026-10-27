@@ -185,6 +185,43 @@ the complete documentation example, and RDF literal substitution with query-like
 The runtime renderer and its approval policy remain service implementation
 responsibilities; these ontologies declare and validate their metadata.
 
+## Raw captured content
+
+The Raw Data Ontology now gives `Value` occurrences explicit content through
+`literalValue`, preserving available RDF datatypes and languages. Optional
+`sourceText` records original text when exposed by the source reader.
+`NullValue` represents an explicit source null without a literal payload.
+Empty strings, whitespace, zero, and false remain values; missing content
+metadata is not interpreted as null.
+
+`ValueContentShape` enforces the alternatives and cardinalities, covers
+subclasses and untyped subjects of occurrence metadata, and belongs to the
+Raw Data `ValidationShapeSet`. The [raw-data guide](raw-data.md) provides
+executable examples, migration instructions, and an explicit list of remaining
+work. `tests/test_raw_values.py` covers these behaviors and SHACL meta-validation.
+
+## Raw source locations
+
+`forColumn` locates a value occurrence in exactly one physical source column.
+The existing `valueOf` now has a Value domain and is functional; each occurrence
+requires one row. Rows belong to one view through `isRowInView`. Columns belong
+to one view through `isColumnInView` or inverse `hasColumn`, which allows many
+columns per view. Sharing a mapped predicate does not merge column identities
+or substitute for these physical links.
+
+`ValueLocationShape`, `RowLocationShape`, and `ColumnLocationShape` require
+these memberships, reject nonresource endpoints, and require a value's row
+and column to have the same containing view. Column ownership counts either
+direction, including mixed and repeated assertions, without requiring OWL
+inverse inference. These validators join `ValueContentShape` in the Raw Data
+`ValidationShapeSet`. `tests/test_raw_locations.py` checks inference,
+cardinalities, view mismatches, null locations, mapping ambiguity, reuse of a
+column across rows, blank nodes, subclass coverage, and the complete example.
+
+Original headers and view names, further structural validation including
+view-to-source ownership and distinct structural roles, coordinate constraints,
+mapping-property semantics, and source-key identities remain separate improvements.
+
 ## Decisions needed before changing axioms
 
 | Area | Evidence in the current sources | Opportunity |

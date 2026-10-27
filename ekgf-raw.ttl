@@ -8,6 +8,8 @@
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix ekg-raw: <https://ekgf.org/ontology/raw#> .
+@prefix ekg-shape: <https://ekgf.org/ontology/shape#> .
+@prefix annotation: <https://ekgf.org/ontology/annotation#> .
 @base <https://ekgf.org/ontology/raw#> .
 
 :
@@ -16,7 +18,7 @@
         sh:prefix "ekg-raw" ;
         sh:namespace "https://ekgf.org/ontology/raw#"^^xsd:anyURI
     ] ;
-    owl:imports rdf: ;
+    owl:imports rdf: , ekg-shape: ;
     rdfs:comment
         "The Raw Data Ontology is used by a \"capture step\" in an EKG DataOps pipeline to capture any data from any data source as RDF triples without mapping it to higher level ontologies. It is assumed that subsequent steps in a given EKG DataOps pipeline will transform the raw data to match with target ontologies."@en ;
     rdfs:label "Raw Data Ontology"@en .
@@ -33,6 +35,31 @@
 #################################################################
 #    Object Properties
 #################################################################
+
+:forColumn
+    a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:domain :Value ;
+    rdfs:range :Column ;
+    rdfs:label "For column"@en ;
+    rdfs:comment "Identifies the physical source column of a captured value occurrence. Each occurrence has exactly one column, belonging to the same view as its row. A shared predicate mapping does not establish column identity."@en ;
+    rdfs:isDefinedBy : .
+
+:hasColumn
+    a owl:ObjectProperty , owl:InverseFunctionalProperty ;
+    owl:inverseOf :isColumnInView ;
+    rdfs:domain :View ;
+    rdfs:range :Column ;
+    rdfs:label "Has column"@en ;
+    rdfs:comment "Lists a view's physical source columns. A view can contain multiple columns; each column belongs to exactly one view. Columns sharing a mapped predicate retain separate identities."@en ;
+    rdfs:isDefinedBy : .
+
+:isColumnInView
+    a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:domain :Column ;
+    rdfs:range :View ;
+    rdfs:label "Is column in view"@en ;
+    rdfs:comment "Identifies the one view containing a physical source column; inverse of hasColumn. Assert either direction or both consistently. Reusing a mapped property does not reuse the column across views."@en ;
+    rdfs:isDefinedBy : .
 
 ###  https://ekgf.org/ontology/raw#forPredicate
 :forPredicate
@@ -88,17 +115,34 @@
 
 ###  https://ekgf.org/ontology/raw#valueOf
 :valueOf
-    rdf:type owl:ObjectProperty ;
+    rdf:type owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:domain :Value ;
     rdfs:range :Row ;
     <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
     <http://purl.org/dc/elements/1.1/date> "2020-06-13T09:17:59Z"^^xsd:dateTime ;
-    rdfs:comment "The Row at which we encountered this value"@en ;
+    rdfs:comment "Identifies the one source row at which a value occurrence was captured. The row and the occurrence's forColumn must belong to the same view."@en ;
     rdfs:label "Value of"@en .
 
 
 #################################################################
 #    Data properties
 #################################################################
+
+:literalValue
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain :Value ;
+    rdfs:range rdfs:Literal ;
+    rdfs:label "Literal value"@en ;
+    rdfs:comment "The source-supplied content of a captured value occurrence, represented as one RDF literal with its datatype or language retained. An empty string is content; a source null is represented by NullValue without this property."@en ;
+    rdfs:isDefinedBy : .
+
+:sourceText
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain :Value ;
+    rdfs:range xsd:string ;
+    rdfs:label "Source text"@en ;
+    rdfs:comment "The original text of a captured value as exposed by the source reader before value normalization, when such text is available. This optional string preserves lexical details independently of literalValue and may record a source's explicit null marker."@en ;
+    rdfs:isDefinedBy : .
 
 ###  https://ekgf.org/ontology/raw#columnNumber
 :columnNumber
@@ -272,6 +316,9 @@
 ###  https://ekgf.org/ontology/raw#Column
 :Column
     rdf:type owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ; owl:onProperty :isColumnInView ; owl:minCardinality 1
+    ] ;
     <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
     <http://purl.org/dc/elements/1.1/date> "2020-06-13T09:09:19Z"^^xsd:dateTime ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/raw#> .
@@ -289,6 +336,9 @@
 ###  https://ekgf.org/ontology/raw#Row
 :Row
     rdf:type owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ; owl:onProperty :isRowInView ; owl:minCardinality 1
+    ] ;
     <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
     <http://purl.org/dc/elements/1.1/date> "2020-06-13T09:09:08Z"^^xsd:dateTime ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/raw#> .
@@ -305,10 +355,30 @@
 ###  https://ekgf.org/ontology/raw#Value
 :Value
     rdf:type owl:Class ;
+    rdfs:subClassOf [
+        a owl:Class ;
+        owl:unionOf (
+            :NullValue
+            [ a owl:Restriction ; owl:onProperty :literalValue ; owl:minCardinality 1 ]
+        )
+    ] , [
+        a owl:Restriction ; owl:onProperty :valueOf ; owl:minCardinality 1
+    ] , [
+        a owl:Restriction ; owl:onProperty :forColumn ; owl:minCardinality 1
+    ] ;
     <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
     <http://purl.org/dc/elements/1.1/date> "2020-06-13T09:14:07Z"^^xsd:dateTime ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/raw#> .
 
+
+:NullValue
+    a owl:Class ;
+    rdfs:subClassOf :Value , [
+        a owl:Restriction ; owl:onProperty :literalValue ; owl:maxCardinality 0
+    ] ;
+    rdfs:label "Null value"@en ;
+    rdfs:comment "A captured value occurrence whose source explicitly reports null. It has no literalValue. Missing content metadata and empty strings do not imply this classification; the source reader must identify the null according to the source format or an explicit capture policy."@en ;
+    rdfs:isDefinedBy : .
 
 ###  https://ekgf.org/ontology/raw#View
 :View
@@ -328,6 +398,101 @@
 
 
 ###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+
+#################################################################
+#    Raw data validation
+#################################################################
+
+:ValueContentShape a sh:NodeShape ;
+    sh:targetClass :Value ;
+    sh:targetSubjectsOf :literalValue , :sourceText , :valueOf , :forPredicate , :forColumn ;
+    sh:nodeKind sh:BlankNodeOrIRI ;
+    sh:xone (
+        [
+            sh:class :NullValue ;
+            sh:property [ sh:path :literalValue ; sh:maxCount 0 ]
+        ]
+        [
+            sh:not [ sh:class :NullValue ] ;
+            sh:property [
+                sh:path :literalValue ;
+                sh:minCount 1 ; sh:maxCount 1 ;
+                sh:nodeKind sh:Literal
+            ]
+        ]
+    ) ;
+    sh:property [
+        sh:path :sourceText ; sh:maxCount 1 ; sh:datatype xsd:string
+    ] ;
+    sh:message "A captured value must have exactly one literalValue or be explicitly typed NullValue without a literalValue. Source text alone does not supply the content."@en ;
+    rdfs:label "Value Content Shape"@en ;
+    rdfs:comment "Validates the content of raw value occurrences, including subclasses and untyped resources using capture properties. Accepts typed and language-tagged literals and empty strings, distinguishes explicit source nulls, and checks optional original source text. Location constraints are enforced separately by ValueLocationShape, RowLocationShape, and ColumnLocationShape."@en ;
+    rdfs:isDefinedBy : .
+
+:ValueLocationShape a sh:NodeShape ;
+    sh:targetClass :Value ;
+    sh:targetSubjectsOf :literalValue , :sourceText , :valueOf , :forPredicate , :forColumn ;
+    sh:nodeKind sh:BlankNodeOrIRI ;
+    sh:property [
+        sh:path :valueOf ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ; sh:class :Row ;
+        sh:message "A captured value must identify exactly one source row through valueOf."@en
+    ] ;
+    sh:property [
+        sh:path :forColumn ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ; sh:class :Column ;
+        sh:message "A captured value must identify exactly one physical source column through forColumn."@en
+    ] ;
+    sh:sparql [
+        sh:message "A captured value's row and column must belong to the same view."@en ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://ekgf.org/ontology/raw#valueOf>/<https://ekgf.org/ontology/raw#isRowInView> ?rowView .
+                $this <https://ekgf.org/ontology/raw#forColumn>/(<https://ekgf.org/ontology/raw#isColumnInView>|^<https://ekgf.org/ontology/raw#hasColumn>) ?columnView .
+                FILTER (?rowView != ?columnView)
+            }
+        """
+    ] ;
+    rdfs:label "Value Location Shape"@en ;
+    rdfs:comment "Requires one resource row and one resource column for each captured value, including nulls, and rejects row/column view mismatches. Predicate mappings cannot substitute for physical column links."@en ;
+    rdfs:isDefinedBy : .
+
+:RowLocationShape a sh:NodeShape ;
+    sh:targetClass :Row ;
+    sh:targetObjectsOf :valueOf ;
+    sh:targetSubjectsOf :isRowInView ;
+    sh:nodeKind sh:BlankNodeOrIRI ;
+    sh:property [
+        sh:path :isRowInView ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ; sh:class :View ;
+        sh:message "A source row must belong to exactly one view through isRowInView."@en
+    ] ;
+    rdfs:label "Row Location Shape"@en ;
+    rdfs:comment "Requires each supplied source row to identify one resource view, including subclasses and untyped row-link endpoints. Coordinate bounds and view-to-source ownership are separate constraints."@en ;
+    rdfs:isDefinedBy : .
+
+:ColumnLocationShape a sh:NodeShape ;
+    sh:targetClass :Column ;
+    sh:targetObjectsOf :forColumn , :hasColumn ;
+    sh:targetSubjectsOf :isColumnInView ;
+    sh:nodeKind sh:BlankNodeOrIRI ;
+    sh:property [
+        sh:path [ sh:alternativePath ( :isColumnInView [ sh:inversePath :hasColumn ] ) ] ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:nodeKind sh:BlankNodeOrIRI ; sh:class :View ;
+        sh:message "A physical source column must belong to exactly one view, counting isColumnInView and inverse hasColumn together."@en
+    ] ;
+    rdfs:label "Column Location Shape"@en ;
+    rdfs:comment "Requires each physical source column to belong to one resource view. Counts both membership directions without requiring OWL inverse inference, and covers subclasses and untyped link endpoints."@en ;
+    rdfs:isDefinedBy : .
+
+:ValidationShapeSet a owl:NamedIndividual , ekg-shape:ShapeSet ;
+    rdfs:label "Raw Data Validation Shapes"@en ;
+    rdfs:comment "Validates captured content, explicit source nulls, optional source text, row and column membership, and agreement on the containing view. View-to-source ownership and coordinate constraints require separate validation."@en ;
+    rdfs:isDefinedBy : ;
+    ekg-shape:shapePurpose ekg-shape:Validation ;
+    ekg-shape:hasShape :ValueContentShape , :ValueLocationShape ,
+                       :RowLocationShape , :ColumnLocationShape .
 
 
 #################################################################
@@ -354,7 +519,7 @@
 
 <https://ekgf.org/ontology/raw#Column>
     rdfs:label "Column"@en ;
-    rdfs:comment "A field position in a captured raw-data view, with source metadata and optional statistics or mapping information."@en .
+    rdfs:comment "A physical field position in exactly one captured raw-data view, linked through isColumnInView or inverse hasColumn. Its identity is independent of its mapped predicate; source metadata and optional statistics describe the column."@en .
 
 <https://ekgf.org/ontology/raw#File>
     rdfs:label "File"@en ;
@@ -362,7 +527,7 @@
 
 <https://ekgf.org/ontology/raw#Row>
     rdfs:label "Row"@en ;
-    rdfs:comment "A record encountered in a raw-data view, retaining its source identifier, sequence position, and captured values."@en .
+    rdfs:comment "A record encountered in exactly one raw-data view, retaining its source identifier, sequence position, and captured value occurrences. Each occurrence identifies this row through valueOf and its physical source column through forColumn."@en .
 
 <https://ekgf.org/ontology/raw#Source>
     rdfs:label "Source"@en ;
@@ -370,7 +535,7 @@
 
 <https://ekgf.org/ontology/raw#Value>
     rdfs:label "Value"@en ;
-    rdfs:comment "A captured value occurrence associated with a source row and the predicate for which it was encountered."@en .
+    rdfs:comment "A captured value occurrence at one source row and one physical column belonging to the same view. It carries one source-supplied RDF literal through literalValue, or is explicitly classified as NullValue. Optional sourceText preserves original textual representation. A mapped predicate is separate from the occurrence's physical location."@en .
 
 <https://ekgf.org/ontology/raw#View>
     rdfs:label "View"@en ;
@@ -448,3 +613,61 @@
 <https://ekgf.org/ontology/raw#viewRowNumber>
     rdfs:label "View Row Number"@en ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/raw#> .
+
+#################################################################
+#    Markdown explanations
+#################################################################
+
+:Value annotation:markdownDescription """
+## Captured content
+
+`Value` identifies an occurrence of source data. Its `literalValue` contains
+the source-supplied content as an RDF literal, retaining the available datatype
+or language. Text stays text when the source supplies no type; the capture step
+must not guess that a string such as `"00123"` denotes a number. Domain-specific
+interpretation belongs to later transformation steps.
+
+Use `sourceText` when the reader exposes an original textual representation.
+For example, literal content `7` and source text `"0007"` preserve both the
+source-supplied numeric value and its textual spelling. Do not fabricate source
+text by formatting a parsed value. This field records reader-exposed text, not
+the source file's bytes, quoting, or complete spreadsheet formatting.
+
+An empty string, whitespace, zero, and false are values. Explicit source nulls
+use `NullValue` and have no `literalValue`. A null may retain its source marker
+in `sourceText`. Missing payload metadata is invalid, not an implicit null.
+No string, including `"NULL"`, becomes null without the source format or an
+explicit capture policy establishing that interpretation. An omitted source
+field is not automatically an explicit null occurrence.
+
+`ValueContentShape`, registered in `ValidationShapeSet`, checks this contract.
+OWL models the alternatives and cardinalities; it does not supply missing
+content or classify an incomplete occurrence as null.
+
+## Migration and scope
+
+Existing `Value` resources need their captured content or an explicit
+`NullValue` classification. Preserve their identities and references. Recover
+content from the original source or the capture application's documented
+representation; do not infer content from resource IRIs or reinterpret a
+mapped row property as an occurrence without establishing the correspondence.
+
+Each occurrence also requires one `valueOf` row and one `forColumn` column.
+Rows identify their one view through `isRowInView`; columns identify theirs
+through `isColumnInView` or inverse `hasColumn`. The two views must match.
+`ValueLocationShape`, `RowLocationShape`, and `ColumnLocationShape` validate
+these relationships and belong to the same `ValidationShapeSet`.
+
+Recover column links from the source's physical structure or documented
+capture metadata. Do not join occurrences to columns by mapped predicate alone:
+different columns can share a mapping, including columns in different views.
+Validate the supplied capture context before OWL identity reasoning; functional
+relationships can equate conflicting owner IRIs rather than rejecting them.
+
+Original headers and view names, view-to-source ownership validation, coordinate
+constraints, mapping-property semantics, and source-key identity remain separate
+modeling work.
+
+See the [raw-data guide](https://github.com/EKGF/ekg-ontologies/blob/main/docs/raw-data.md)
+for executable examples, validation, and the remaining work.
+"""@en .

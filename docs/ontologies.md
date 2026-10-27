@@ -166,7 +166,11 @@ the ontology IRI without `#`; its declared term namespace retains `#`.
 - [File system](../ekgf-file-system.ttl), `ekg-file-system`: files,
   directories, versions and links.
 - [Raw](../ekgf-raw.ttl), `ekg-raw`: data captured from a source before
-  it is mapped to other ontologies.
+  it is mapped to other ontologies. Captured-content validation distinguishes
+  literals, original source text, and explicit source nulls. Source locations
+  identify a value's row and physical column within the same view. See
+  [raw data capture](raw-data.md) for examples, migration, and remaining
+  structural modeling work.
 - [User experience](../ekgf-user-experience.ttl), `ekg-ux`: hints for
   user interfaces, such as colors and sort keys.
 

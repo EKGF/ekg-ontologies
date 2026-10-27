@@ -44,6 +44,8 @@ The Data Product Ontology is maintained in the separate
   relationship to ISO/IEC 11179.
 - [Story concept usages](docs/story-concept-usages.md): typed input, output,
   and dependent usages, ownership, input defaults, validation and migration.
+- [Raw data capture](docs/raw-data.md): captured literals, original source text,
+  explicit source nulls, physical source locations, validation and migration.
 - [Authorities and organizations](docs/governance.md): registered
   identities, Commons roles, organization categories and artifact
   references.
@@ -98,6 +100,9 @@ Story-usage checks cover role inference, one owner and concept per usage,
 shared meanings, input flags and defaults, and rejection of retired vocabulary.
 Template checks cover source languages, renderer support, separation of
 template documents from native SPARQL, and RDF-aware value substitution.
+Raw-data checks cover literal content, source text, explicit nulls, physical
+columns, row/column view consistency, and rejection of incomplete or conflicting
+value occurrences and memberships.
 They also validate shapeset membership, purpose annotations, and coverage of
 all entry and nested shapes, including the shape-metadata validators themselves.
 They run offline using the relevant Commons 1.3 axioms in a test
