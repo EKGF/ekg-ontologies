@@ -98,6 +98,33 @@ purpose annotations. The metadata validators also pass standard SHACL
 meta-validation. The [ontology's Markdown description](../ekgf-shape.ttl)
 documents the validation command and migration.
 
+## Shape collections and concrete validation graphs
+
+`hasShapesGraph` links a ShapeSet to a concrete ShapesGraph IRI. It supports
+multiple graph references and shared graphs without equating their identities.
+ShapeSet and ShapesGraph roles are disjoint; unlinked collections remain valid.
+The external graph role is referenced from the 25 October 2026 SHACL 1.2 Core
+Working Draft without claiming full runtime support for that specification.
+
+`ShapesGraphLinkShape` checks endpoint roles and separate identities.
+`ShapeSetShape` also checks collection metadata on graph-link subjects. The new
+validator belongs to the metadata ontology's own `ValidationShapeSet`. Every
+repository validation set now explicitly references its module's graph IRI,
+including the metadata validators themselves.
+
+`tests/test_shapes_graph_links.py` covers inference, optional and shared links,
+invalid endpoints, role conflicts, local module bindings, Markdown annotations,
+SHACL meta-validation, and actual data validation using the complete
+[graph-selection example](shapes-graphs.md). Metadata validation does not fetch
+or prove the contents of linked graphs; applications resolve and supply complete
+inputs explicitly.
+
+Use-case parentage and reuse imply no profile inheritance, graph selection,
+conformance, or positional warnings. Child use cases can choose stricter,
+looser, or different requirements. Future inheritance policy requires an
+explicit decision. Profile ownership, conformance-evidence processing, and
+SHACL-based Story implementation links remain separate work.
+
 ## Communication endpoint validation
 
 `EmailRecipientShape` requires at least one `EmailEndpoint` through

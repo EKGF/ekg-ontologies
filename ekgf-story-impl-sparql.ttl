@@ -617,7 +617,10 @@ See the repository's
 for input serialization requirements and an executable metadata example.
 """@en .
 
+<https://ekgf.org/ontology/story-impl-sparql#> a sh:ShapesGraph .
+
 :ValidationShapeSet a owl:NamedIndividual , ekg-shape:ShapeSet ;
+    ekg-shape:hasShapesGraph <https://ekgf.org/ontology/story-impl-sparql#> ;
     rdfs:label "SPARQL Story Implementation Validation Shapes"@en ;
     rdfs:comment "Validates template documents, renderer language capabilities, and template-based SPARQL story implementations."@en ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/story-impl-sparql#> ;

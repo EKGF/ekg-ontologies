@@ -486,7 +486,10 @@
     rdfs:comment "Requires each physical source column to belong to one resource view. Counts both membership directions without requiring OWL inverse inference, and covers subclasses and untyped link endpoints."@en ;
     rdfs:isDefinedBy : .
 
+<https://ekgf.org/ontology/raw#> a sh:ShapesGraph .
+
 :ValidationShapeSet a owl:NamedIndividual , ekg-shape:ShapeSet ;
+    ekg-shape:hasShapesGraph <https://ekgf.org/ontology/raw#> ;
     rdfs:label "Raw Data Validation Shapes"@en ;
     rdfs:comment "Validates captured content, explicit source nulls, optional source text, row and column membership, and agreement on the containing view. View-to-source ownership and coordinate constraints require separate validation."@en ;
     rdfs:isDefinedBy : ;

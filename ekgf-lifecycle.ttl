@@ -435,7 +435,10 @@ lifecycle:LegacyStateShape rdf:type sh:NodeShape ;
 #    Validation shapeset
 #################################################################
 
+<https://ekgf.org/ontology/lifecycle#> a sh:ShapesGraph .
+
 lifecycle:ValidationShapeSet a owl:NamedIndividual , ekg-shape:ShapeSet ;
+    ekg-shape:hasShapesGraph <https://ekgf.org/ontology/lifecycle#> ;
     rdfs:label "Lifecycle Validation Shapes"@en ;
     rdfs:comment "Validates permitted lifecycle transitions, state-entry history, effective current heads, and migration from direct state assignments."@en ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/lifecycle#> ;

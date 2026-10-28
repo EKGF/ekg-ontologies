@@ -9,13 +9,13 @@
 @base <https://ekgf.org/ontology/shape#> .
 
 <https://ekgf.org/ontology/shape#>
-    rdf:type owl:Ontology ;
+    rdf:type owl:Ontology , sh:ShapesGraph ;
     sh:declare [
         sh:prefix "ekg-shape" ;
         sh:namespace "https://ekgf.org/ontology/shape#"^^xsd:anyURI
     ] ;
     rdfs:label "SHACL Shape Metadata Ontology"@en ;
-    rdfs:comment "Metadata and validation for grouping SHACL node and property shapes into shapesets and recording their purpose."@en ;
+    rdfs:comment "Metadata and validation for grouping SHACL node and property shapes into shapesets, recording their purpose, and linking collections to concrete shapes graphs with separate identities."@en ;
     annotation:markdownDescription """
 # Shapesets and purpose
 
@@ -50,12 +50,46 @@ This validates shapeset metadata. SHACL meta-validation supplies the complete
 SHACL syntax checks; ordinary data validation executes the selected constraints.
 Shapeset membership itself does not change which targets a SHACL engine runs.
 
+## Concrete validation graphs
+
+`hasShapesGraph` links a shapeset to an explicitly identified `sh:ShapesGraph`.
+The set records collection membership; the graph identifies an actual RDF
+validation input. Their identities are separate, and their classes are disjoint.
+A set may reference several graphs, and one graph may serve several sets.
+No graph is selected by default. A set may also exist without a graph link.
+
+Each linked graph must be an IRI with the Shapes Graph role. The caller selects
+the intended graph, resolves it, checks that the required shape definitions and
+dependencies are present, and supplies that concrete graph to the validator.
+The link does not fetch data, copy definitions, enact imports, or prove
+conformance. Metadata validation alone cannot verify the graph's availability
+or contents.
+
+The graph role uses `sh:ShapesGraph` from the
+[25 October 2026 SHACL 1.2 Core Working Draft](https://www.w3.org/TR/2026/WD-shacl12-core-20261025/).
+This is a referenced external term, not a class owned by this ontology.
+Our metadata constraints use SHACL Core features already supported by the
+repository's pinned validator; this reference does not claim full SHACL 1.2
+implementation support.
+
+Use-case parentage and reuse do not imply graph selection, profile
+specialization, inherited constraints, conformance, or warnings. Child use cases
+may choose stricter, looser, or different constraints. Inheritance policy would
+require a separate explicit decision.
+
 ## Using our own metadata
 
 Every ontology containing shapes declares a `ValidationShapeSet` that lists all
 its named entry shapes and assigns the `Validation` purpose. Inline definitions
 are included through their entries. This ontology groups its own metadata
 validators in exactly the same way.
+
+Each repository validation set links to its module's ontology IRI through
+`hasShapesGraph`, and the module identifies that IRI as `sh:ShapesGraph`.
+Load the corresponding local file as the graph under that IRI. The ontology
+IRI identifies the module graph; its distinct `ValidationShapeSet` IRI identifies
+the collection. This explicit binding also applies to the validators in this
+metadata ontology.
 
 Validate a module's metadata using this ontology as the shapes graph and as
 the ontology graph supplying the purpose definitions:
@@ -76,6 +110,7 @@ namespace, preferred prefix, and registered artifact identity are retained.
 """@en .
 
 shape:ShapeSet rdf:type owl:Class ;
+    owl:disjointWith sh:ShapesGraph ;
     rdfs:label "Shapeset"@en ;
     rdfs:comment "A managed collection of SHACL entry shapes and the nested shape definitions they reference. Entries can be node or property shapes, and shapes can be reused in several sets."@en .
 
@@ -103,6 +138,13 @@ shape:inShapeSet rdf:type owl:AnnotationProperty ;
     rdfs:range shape:ShapeSet ;
     rdfs:label "In shapeset"@en ;
     rdfs:comment "Registers a SHACL node or property shape as an entry in a shapeset. Membership can instead be asserted with hasShape in the other direction; readers count both directions explicitly."@en .
+
+shape:hasShapesGraph a owl:ObjectProperty ;
+    rdfs:domain shape:ShapeSet ;
+    rdfs:range sh:ShapesGraph ;
+    rdfs:label "Has shapes graph"@en ;
+    rdfs:comment "Links a shapeset to a concrete RDF graph containing definitions for validation with that set. The collection and graph retain separate identities. Several graph references per set and several sets per graph are permitted; the caller explicitly selects and resolves the graph used for a validation run."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/shape#> .
 
 shape:shapePurpose rdf:type owl:AnnotationProperty ;
     rdfs:domain shape:ShapeOrShapeSet ;
@@ -164,10 +206,11 @@ shape:ShapeDefinitionShape a sh:NodeShape ;
 
 shape:ShapeSetShape a sh:NodeShape ;
     sh:targetClass shape:ShapeSet ;
-    sh:targetSubjectsOf shape:hasShape ;
+    sh:targetSubjectsOf shape:hasShape , shape:hasShapesGraph ;
     sh:targetObjectsOf shape:inShapeSet ;
     sh:class shape:ShapeSet ;
     sh:nodeKind sh:IRI ;
+    sh:not [ sh:class sh:ShapesGraph ] ;
     sh:property [
         sh:path rdfs:label ; sh:minCount 1 ;
         sh:or ( [ sh:datatype xsd:string ] [ sh:datatype rdf:langString ] ) ;
@@ -185,7 +228,21 @@ shape:ShapeSetShape a sh:NodeShape ;
         sh:nodeKind sh:IRI ; sh:class shape:ShapePurpose
     ] ;
     rdfs:label "Shapeset Shape"@en ;
-    rdfs:comment "Validates a labeled shapeset IRI, at least one defined entry shape, and at least one typed purpose. Membership is counted in both directions and can be shared across sets."@en ;
+    rdfs:comment "Validates a labeled shapeset IRI distinct from a shapes graph, at least one defined entry shape, and at least one typed purpose. Membership is counted in both directions and can be shared across sets. Graph-link subjects must satisfy the same collection metadata requirements."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/shape#> .
+
+shape:ShapesGraphLinkShape a sh:NodeShape ;
+    sh:targetSubjectsOf shape:hasShapesGraph ;
+    sh:class shape:ShapeSet ;
+    sh:nodeKind sh:IRI ;
+    sh:property [
+        sh:path shape:hasShapesGraph ;
+        sh:nodeKind sh:IRI ; sh:class sh:ShapesGraph ;
+        sh:not [ sh:class shape:ShapeSet ] ;
+        sh:message "A shapeset must link to a ShapesGraph IRI with a separate identity; a collection cannot itself be the concrete graph."@en
+    ] ;
+    rdfs:label "Shapes Graph Link Shape"@en ;
+    rdfs:comment "Checks collection-to-graph references, requiring typed IRI endpoints with separate collection and graph roles. It permits multiple graph references and shared graph inputs without dereferencing graph IRIs or checking graph contents."@en ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/shape#> .
 
 shape:ShapePurposeShape a sh:NodeShape ;
@@ -275,12 +332,14 @@ shape:LegacyShapeMembershipShape a sh:NodeShape ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/shape#> .
 
 shape:ValidationShapeSet a owl:NamedIndividual , shape:ShapeSet ;
+    shape:hasShapesGraph <https://ekgf.org/ontology/shape#> ;
     rdfs:label "SHACL Shape Metadata Validation Shapes"@en ;
-    rdfs:comment "Validates shapeset membership, purpose annotations, and complete coverage of shape definitions, including this ontology's own validators."@en ;
+    rdfs:comment "Validates shapeset membership, purpose annotations, explicit shapes-graph links, and complete coverage of shape definitions, including this ontology's own validators."@en ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/shape#> ;
     shape:shapePurpose shape:Validation ;
     shape:hasShape shape:ShapeDefinitionShape ,
                    shape:ShapeSetShape ,
+                   shape:ShapesGraphLinkShape ,
                    shape:ShapePurposeShape ,
                    shape:ShapePurposeTargetShape ,
                    shape:ShapeSetCoverageShape ,
@@ -311,3 +370,93 @@ shape:ValidationShapeSet a owl:NamedIndividual , shape:ShapeSet ;
 
 <https://ekgf.org/ontology/shape#shapePurpose>
     rdfs:isDefinedBy <https://ekgf.org/ontology/shape#> .
+
+#################################################################
+#    Markdown explanations
+#################################################################
+
+shape:ShapeSet annotation:markdownDescription """
+## Collection and concrete graph
+
+A ShapeSet groups entry shapes and the nested definitions they reference.
+Its membership and purpose describe a collection independently of how those
+definitions are packaged for validation. `hasShapesGraph` identifies concrete
+RDF graph inputs associated with the collection. A set and a shapes graph have
+separate identities; their classes are disjoint.
+
+A set can reference zero or more graphs, and one graph can serve multiple sets.
+For an actual validation run, select the intended graph explicitly. Resolve
+its IRI, load the required definitions and dependencies, and validate using
+that fixed graph. Do not select an arbitrary graph from several links or treat
+an unresolved reference as an empty validation graph.
+
+For example, `ex:personShapeSet` can link to `ex:personShapesGraph`; the former
+records membership and the latter identifies the RDF input given to the
+validator. The graph may contain additional sets, shapes, and supporting data,
+so passing it to a validator can run more than the one set's entry shapes.
+Collection membership is not an execution filter.
+
+Use-case parentage and reuse imply no profile inheritance or graph selection.
+Child use cases may select stricter, looser, or different constraints. No
+conformance statement or positional warning is inferred from the use-case tree.
+Any future inheritance policy requires a separate explicit decision.
+"""@en .
+
+shape:hasShapesGraph annotation:markdownDescription """
+## Explicit validation input
+
+Links a ShapeSet to an IRI identifying a concrete shapes graph containing
+definitions for validation with that set. Its domain is ShapeSet and its range
+is the external `sh:ShapesGraph` role. The property is neither functional nor
+inverse-functional: several graph references and shared graphs are allowed.
+It does not equate a set with a graph or materialize a default graph.
+
+```turtle
+@prefix shape: <https://ekgf.org/ontology/shape#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ex: <https://example.test/> .
+
+ex:personShapeSet shape:hasShapesGraph ex:personShapesGraph .
+ex:personShapesGraph a sh:ShapesGraph .
+```
+
+This fragment illustrates the link. A complete set also needs its type, label,
+purpose, and entry shapes. The referenced graph must be resolved and loaded
+explicitly; typing its IRI does not prove availability, completeness, or a
+successful validation. The application checks that required definitions and
+dependencies are supplied and records the actual graph used in a run.
+
+This is not `sh:shapesGraph`, the SHACL data-to-validation-graph link. It does
+not generate that property, assert conformance, load imports, select targets,
+or introduce use-case profile inheritance. These behaviors require their own
+explicit declarations and processing contracts.
+
+The graph role is referenced from the
+[SHACL 1.2 Core Working Draft dated 25 October 2026](https://www.w3.org/TR/2026/WD-shacl12-core-20261025/).
+The reference is metadata vocabulary use, not an assertion that the execution
+engine implements every feature of that draft.
+
+See the [shapes-graph guide](https://github.com/EKGF/ekg-ontologies/blob/main/docs/shapes-graphs.md)
+for a complete example, validation, and graph selection.
+"""@en .
+
+shape:ShapesGraphLinkShape annotation:markdownDescription """
+## What this validator establishes
+
+The subject of `hasShapesGraph` must identify a ShapeSet. Each object must be
+a ShapesGraph IRI and must not also be a ShapeSet. `ShapeSetShape` checks the
+collection's label, purpose, and entry definitions. Both validators are
+registered in this ontology's ValidationShapeSet.
+
+The documented metadata-validation command uses no entailment, so endpoint
+types are supplied explicitly. RDFS or OWL reasoning can infer these types
+from the link's domain and range, but inferred typing is still not evidence
+that a graph has been retrieved or used successfully.
+
+This validator does not dereference IRIs, compare named-graph contents against
+collection membership, check import closure, or validate application data.
+The repository tests load every linked local module as its named graph and
+exercise real data validation with the executable example's concrete graph.
+An application must reject unavailable or incomplete graph inputs before
+treating a validation result as conformance evidence.
+"""@en .

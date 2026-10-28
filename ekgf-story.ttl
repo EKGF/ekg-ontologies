@@ -929,7 +929,10 @@ identifies one owner, while conflicting links are rejected.
 #    Validation shapeset
 #################################################################
 
+<https://ekgf.org/ontology/story#> a sh:ShapesGraph .
+
 :ValidationShapeSet a owl:NamedIndividual , ekg-shape:ShapeSet ;
+    ekg-shape:hasShapesGraph <https://ekgf.org/ontology/story#> ;
     rdfs:label "Story Validation Shapes"@en ;
     rdfs:comment "Validates optional story stereotypes and their definitions, story-owned concept usages, input flags, single-story implementation ownership, and migration from retired vocabulary."@en ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/story#> ;

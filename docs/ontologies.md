@@ -145,8 +145,11 @@ the ontology IRI without `#`; its declared term namespace retains `#`.
   dependency resolves.
 - [SHACL shape metadata](../ekgf-shape.ttl), `ekg-shape`: shapesets containing
   node and property shapes, extensible purpose values, and validation of
-  membership and coverage. Each ontology containing shapes declares its own
-  validation shapeset, including the metadata ontology itself. Nested shape
+  membership and coverage. `hasShapesGraph` explicitly links collections to
+  concrete validation graphs with separate identities; see
+  [shape collections and validation graphs](shapes-graphs.md). Each ontology
+  containing shapes declares its own validation shapeset, including the metadata
+  ontology itself. Nested shape
   definitions are included through their entry shapes. Generic `hasShape`
   replaces the former node-only `hasNodeShape`; the ontology IRI and namespace
   are retained.

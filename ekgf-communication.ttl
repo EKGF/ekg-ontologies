@@ -1464,7 +1464,10 @@
 #    Validation shapeset
 #################################################################
 
+<https://ekgf.org/ontology/communication#> a sh:ShapesGraph .
+
 :ValidationShapeSet a owl:NamedIndividual , ekg-shape:ShapeSet ;
+    ekg-shape:hasShapesGraph <https://ekgf.org/ontology/communication#> ;
     rdfs:label "Communication Validation Shapes"@en ;
     rdfs:comment "Validates recipients, endpoints, programs, collections, memberships, legal classifications, consent evidence, attempts, and delivery events."@en ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/communication#> ;

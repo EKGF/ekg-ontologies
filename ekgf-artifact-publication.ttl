@@ -433,7 +433,10 @@ artpub:ReleaseApprovalShape rdf:type sh:NodeShape ;
 #    Validation shapeset
 #################################################################
 
+<https://ekgf.org/ontology/artifact-publication#> a sh:ShapesGraph .
+
 artpub:ValidationShapeSet a owl:NamedIndividual , ekg-shape:ShapeSet ;
+    ekg-shape:hasShapesGraph <https://ekgf.org/ontology/artifact-publication#> ;
     rdfs:label "Artifact Publication Validation Shapes"@en ;
     rdfs:comment "Validates publication profiles, release scope and provenance, and release-approval records."@en ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-publication#> ;

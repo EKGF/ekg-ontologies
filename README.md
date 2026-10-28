@@ -46,6 +46,8 @@ The Data Product Ontology is maintained in the separate
   and dependent usages, ownership, input defaults, validation and migration.
 - [Story stereotypes](docs/story-stereotypes.md): extensible primary-purpose
   classifications, independent of implementation technology.
+- [Shape collections and validation graphs](docs/shapes-graphs.md): explicit
+  graph inputs, separate collection and graph identities, and executable examples.
 - [Raw data capture](docs/raw-data.md): captured literals, original source text,
   explicit source nulls, physical source locations, validation and migration.
 - [Authorities and organizations](docs/governance.md): registered
@@ -109,6 +111,8 @@ columns, row/column view consistency, and rejection of incomplete or conflicting
 value occurrences and memberships.
 They also validate shapeset membership, purpose annotations, and coverage of
 all entry and nested shapes, including the shape-metadata validators themselves.
+Graph-link checks cover endpoint roles, separate identities, shared and multiple
+graph references, local module bindings, and actual validation using a named graph.
 They run offline using the relevant Commons 1.3 axioms in a test
 fixture. Its `.ttl.txt` suffix keeps it out of RDF file discovery
 when consumers load this repository.

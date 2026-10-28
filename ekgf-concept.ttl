@@ -597,7 +597,10 @@ Reuse across contexts is encouraged. A concept is not inherently scoped to a par
   rdfs:comment "Rejects instances of the retired product-specific template-placeholder class, including instances also given the current type or a language. Migration must remove the retired type and identify the placeholder's language profile."@en ;
   rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
 
+<https://ekgf.org/ontology/concept#> a sh:ShapesGraph .
+
 :ValidationShapeSet a owl:NamedIndividual , ekg-shape:ShapeSet ;
+  ekg-shape:hasShapesGraph <https://ekgf.org/ontology/concept#> ;
   rdfs:label "Concept Validation Shapes"@en ;
   rdfs:comment "Validates template-placeholder tokens and their documented template-language profiles, and rejects retired template-placeholder classifications."@en ;
   rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> ;
