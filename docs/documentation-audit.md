@@ -158,6 +158,32 @@ documentation example with a shared template-placeholder manifestation. Tests fi
 reproduced the missing axioms and constraints before the migration was
 implemented.
 
+## Story stereotypes
+
+The Story Ontology defines `StoryStereoType` and functional `hasStereoType`
+for an optional primary-purpose classification. Query, Update, Transformation
+Rule, and Validation Rule are distinct named individuals; applications can
+define additional stereotypes with their own IRIs, labels, and definitions.
+No default classification, execution technology, or mutation flag is inferred.
+
+`StoryClassificationShape` validates zero or one classification per story and
+keeps assignments off implementations and usages. `StoryStereoTypeShape`
+requires a stereotype IRI, label, and plain-text or Markdown definition,
+including for custom types and subclasses. Both shapes belong to the Story
+`ValidationShapeSet`. Story and StoryImplementation are now disjoint, matching
+their separate requirement and realization roles.
+
+`tests/test_story_stereotypes.py` covers inference, extensibility, cardinality,
+metadata validation, role separation, identity consequences, implementation
+independence, and the executable [stereotype guide](story-stereotypes.md).
+Explicit SHACL-based implementation selection and rule-execution metadata
+remain separate modeling work.
+
+All six built-in identity differences are direct `owl:differentFrom` assertions,
+and the tests exercise every pair. The pinned `owlrl==7.6.2` checker skips the
+final member when checking an `owl:AllDifferent` list. That reasoner limitation
+remains; passing its checks is not complete evidence for other such assertions.
+
 ## Statement templates and renderers
 
 The SPARQL Story Implementation Ontology distinguishes template source from

@@ -97,7 +97,9 @@ the ontology IRI without `#`; its declared term namespace retains `#`.
 - [Use case](../ekgf-use-case.ttl), `ekg-use-case`: the use case tree
   and the stereotype of each use case.
 - [Story](../ekgf-story.ttl), `ekg-story`: stories, their inputs and
-  outputs, and their implementations. Typed story-owned usages reference
+  outputs, and their implementations. Optional
+  [story stereotypes](story-stereotypes.md) classify primary purpose through an
+  extensible vocabulary. Typed story-owned usages reference
   shared concepts; see [concept usages and migration](story-concept-usages.md).
   `implementedBy` and its inverse
   `implementationOf` link each implementation to exactly one story;

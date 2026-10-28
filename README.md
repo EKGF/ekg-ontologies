@@ -44,6 +44,8 @@ The Data Product Ontology is maintained in the separate
   relationship to ISO/IEC 11179.
 - [Story concept usages](docs/story-concept-usages.md): typed input, output,
   and dependent usages, ownership, input defaults, validation and migration.
+- [Story stereotypes](docs/story-stereotypes.md): extensible primary-purpose
+  classifications, independent of implementation technology.
 - [Raw data capture](docs/raw-data.md): captured literals, original source text,
   explicit source nulls, physical source locations, validation and migration.
 - [Authorities and organizations](docs/governance.md): registered
@@ -98,6 +100,8 @@ separation, class disjointness, lifecycle bindings, and exactly one owning
 story per implementation, including validation of versioned snapshots.
 Story-usage checks cover role inference, one owner and concept per usage,
 shared meanings, input flags and defaults, and rejection of retired vocabulary.
+Story-classification checks cover built-in and custom stereotypes, metadata,
+optionality, cardinality, and independence from implementation technology.
 Template checks cover source languages, renderer support, separation of
 template documents from native SPARQL, and RDF-aware value substitution.
 Raw-data checks cover literal content, source text, explicit nulls, physical
