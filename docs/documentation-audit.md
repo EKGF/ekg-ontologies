@@ -71,6 +71,40 @@ into a valid single ownership view.
 implementations per story, missing and conflicting owners, subclass coverage,
 invalid endpoints, retired links, and separate versus combined snapshots.
 
+## Use-case outcome relationships
+
+The [Outcome Ontology](../ekgf-outcome.ttl) now models the Method's
+`OutcomeRelationship` as a separately identified contribution from one use case
+to one shared outcome. `outcome:useCase` and `outcome:targetOutcome` are
+functional endpoints with exact cardinalities. `use-case:outcomeLink` is the
+inverse source relationship. Optional `contributionDescription` supports
+nonblank plain and language-tagged text, including translations.
+
+Relationship identities use UUID URNs. Neither shared endpoints nor a repeated
+source-target pair merges relationship identities. Relationship, UseCase and
+Outcome roles are separated. OWL derives `use-case:hasOutcome` through the
+relationship path as an unqualified summary; direct summary assertions do not
+create contribution records. Existing story contribution links retain their
+direct-outcome meaning.
+
+`OutcomeRelationshipShape` checks supplied endpoint terms in both source
+directions, UUID URN syntax, endpoint classes and contribution text. Predicate
+targets cover incomplete records without explicit relationship types. The
+validator and its nested shapes belong to the Outcome `ValidationShapeSet`,
+which explicitly references the module's ShapesGraph. All new terms have
+English Markdown explanations.
+
+`tests/test_outcome_relationships.py` covers inference, endpoint cardinality,
+identity separation, shared outcomes, text, snapshot contexts, metadata and
+standard SHACL meta-validation. It validates and queries the
+[complete example](outcome-relationships.md). Validate supplied terms before
+OWL identity reasoning and select one coherent snapshot context.
+
+Parentage and reuse create no outcome relationships, inherited contribution
+metadata or ownership. Outcome priority remains on the shared Outcome.
+Confidence scales, contribution priority, explicit outcome ownership, and
+global complete-UseCase validation remain separate decisions.
+
 ## SHACL shape metadata and shapesets
 
 The former Shape Ontology is now titled **SHACL Shape Metadata Ontology**.

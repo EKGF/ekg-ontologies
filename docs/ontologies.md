@@ -95,7 +95,8 @@ the ontology IRI without `#`; its declared term namespace retains `#`.
 ## Method ontologies
 
 - [Use case](../ekgf-use-case.ttl), `ekg-use-case`: the use case tree
-  and the stereotype of each use case.
+  and the stereotype of each use case. `outcomeLink` navigates to identified
+  contributions; `hasOutcome` provides an OWL-derived unqualified summary.
 - [Story](../ekgf-story.ttl), `ekg-story`: stories, their inputs and
   outputs, and their implementations. Optional
   [story stereotypes](story-stereotypes.md) classify primary purpose through an
@@ -123,7 +124,9 @@ the ontology IRI without `#`; its declared term namespace retains `#`.
 - [Persona](../ekgf-persona.ttl), `ekg-persona`: personas that play
   stories.
 - [Outcome](../ekgf-outcome.ttl), `ekg-outcome`: outcomes that use cases
-  and stories contribute to.
+  and stories contribute to, and identified use-case contribution relationships.
+  [Outcome relationships](outcome-relationships.md) have one source use case,
+  one target outcome, optional contribution text and SHACL validation.
 - [Capability](../ekgf-capability.ttl), `ekg-capability`: business
   capabilities.
 - [DataOps](../ekgf-dataops.ttl), `ekg-dataops`: pipelines and load

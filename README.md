@@ -46,6 +46,8 @@ The Data Product Ontology is maintained in the separate
   and dependent usages, ownership, input defaults, validation and migration.
 - [Story stereotypes](docs/story-stereotypes.md): extensible primary-purpose
   classifications, independent of implementation technology.
+- [Outcome relationships](docs/outcome-relationships.md): identified use-case
+  contributions to shared outcomes, endpoint validation and summary inference.
 - [Shape collections and validation graphs](docs/shapes-graphs.md): explicit
   graph inputs, separate collection and graph identities, and executable examples.
 - [Raw data capture](docs/raw-data.md): captured literals, original source text,
@@ -104,6 +106,9 @@ Story-usage checks cover role inference, one owner and concept per usage,
 shared meanings, input flags and defaults, and rejection of retired vocabulary.
 Story-classification checks cover built-in and custom stereotypes, metadata,
 optionality, cardinality, and independence from implementation technology.
+Outcome-relationship checks cover UUID identities, endpoint cardinality in
+either source direction, shared outcomes, contribution text, summary inference,
+and explicit references independent of use-case hierarchy and ownership.
 Template checks cover source languages, renderer support, separation of
 template documents from native SPARQL, and RDF-aware value substitution.
 Raw-data checks cover literal content, source text, explicit nulls, physical

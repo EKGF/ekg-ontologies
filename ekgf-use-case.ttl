@@ -71,8 +71,17 @@ use-case:isUsedIn rdf:type owl:ObjectProperty ,
 use-case:hasOutcome rdf:type owl:ObjectProperty ;
     rdfs:domain use-case:UseCase ;
     rdfs:range outcome:Outcome ;
+    owl:propertyChainAxiom ( use-case:outcomeLink outcome:targetOutcome ) ;
     rdfs:label "has outcome"@en ;
-    rdfs:comment "An outcome the use case is meant to achieve."@en .
+    rdfs:comment "An unqualified outcome the use case contributes to. OWL derives this summary through outcomeLink and targetOutcome; the identified relationship carries the contribution details."@en .
+
+use-case:outcomeLink rdf:type owl:ObjectProperty ;
+    owl:inverseOf outcome:useCase ;
+    rdfs:domain use-case:UseCase ;
+    rdfs:range outcome:OutcomeRelationship ;
+    rdfs:label "outcome link"@en ;
+    rdfs:comment "Links a use case to an independently identified relationship describing its contribution to one outcome. A use case can have several relationships; each relationship has one source use case."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/use-case#> .
 
 use-case:involvesPersona rdf:type owl:ObjectProperty ;
     owl:inverseOf use-case:isInvolvedInUseCase ;
@@ -319,6 +328,53 @@ vocabulary memberships.
 See `ownsConceptSet` for the ownership policy and the
 [Story Ontology](https://ekgf.org/ontology/story#) for the declared usage-object
 model, validation shapes, and data migration instructions.
+
+## Outcome contributions
+
+`outcomeLink` connects a use case to an `ekg-outcome:OutcomeRelationship` with
+its own identity, one target outcome and optional contribution text. The
+inverse source property is `ekg-outcome:useCase`. Several use cases can refer
+to the same outcome through different relationships. `hasOutcome` supplies
+an unqualified summary inferred from the relationship path.
+
+An outcome relationship records contribution, not outcome ownership. Referring
+to an ancestor's outcome requires an explicit relationship. `isPartOf` and
+`isUsedIn` create no outcome relationships or inherited contribution metadata.
+The [Outcome Ontology](https://ekgf.org/ontology/outcome#) declares and validates
+the relationship model.
+"""@en .
+
+use-case:outcomeLink annotation:markdownDescription """
+## Use case to an identified outcome relationship
+
+Links a UseCase to an OutcomeRelationship describing that use case's
+contribution. Its inverse is `ekg-outcome:useCase`; assert either direction.
+The range lets an OWL reasoner infer the relationship class, while the domain
+infers the source UseCase class.
+
+A use case can have several relationships. Each relationship has exactly one
+source and one target outcome, enforced by the Outcome Ontology's validator,
+which counts both source directions without requiring OWL inverse inference.
+Sharing an outcome or a source-target pair does not merge relationship identities.
+Use-case parentage and reuse do not create these links automatically.
+"""@en .
+
+use-case:hasOutcome annotation:markdownDescription """
+## Unqualified outcome summary
+
+The property chain `outcomeLink / ekg-outcome:targetOutcome` derives a direct
+UseCase-to-Outcome relationship under OWL reasoning. This summary is convenient
+for queries that only need the target outcomes. Query the OutcomeRelationship
+objects when contribution identity or descriptions matter.
+
+A direct assertion carries no contribution metadata and does not create an
+OutcomeRelationship or establish outcome ownership. RDFS inference alone does
+not execute OWL property chains. Queries can follow the relationship path
+directly when summary triples have not been materialized.
+
+This property has no inheritance chain through `isPartOf` or `isUsedIn`.
+Use cases referencing the same ancestor outcome must each state their own
+relationship when recording a contribution.
 """@en .
 
 use-case:ownsConceptSet annotation:markdownDescription """
