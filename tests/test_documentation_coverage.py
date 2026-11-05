@@ -77,6 +77,21 @@ class DocumentationCoverageTests(unittest.TestCase):
             with self.subTest(subject=subject):
                 self.assertIn(Literal(label, lang="en"), graph.objects(subject, RDFS.label))
 
+    def test_enterprise_stereotype_replaces_the_root_name_consistently(self):
+        graph = Graph().parse(ROOT / "ekgf-use-case.ttl", format="turtle")
+        use_case = Namespace("https://ekgf.org/ontology/use-case#")
+        api = Namespace("https://ekgf.org/ontology/api#")
+        stereotype = use_case.UseCaseStereoTypeEnterprise
+        self.assertIn((stereotype, RDF.type, OWL.NamedIndividual), graph)
+        self.assertIn((stereotype, RDF.type, use_case.UseCaseStereoType), graph)
+        self.assertEqual(set(graph.objects(stereotype, RDFS.label)),
+                         {Literal("Enterprise", lang="en")})
+        self.assertEqual(set(graph.objects(stereotype, api.slug)),
+                         {Literal("enterprise")})
+        self.assertIn((stereotype, RDFS.isDefinedBy, URIRef(str(use_case))), graph)
+        self.assertTrue(english(graph.objects(stereotype, ANNOTATION.markdownDescription)))
+        self.assertFalse(any(use_case.UseCaseStereoTypeRoot in triple for triple in graph))
+
     def test_maturity_documentation_names_the_actual_domain_members(self):
         graph = Graph().parse(ROOT / "ekgf-maturity-model.ttl", format="turtle")
         maturity = Namespace("https://ekgf.org/ontology/ekgf-maturity-model#")

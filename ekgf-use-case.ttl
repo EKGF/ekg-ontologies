@@ -151,11 +151,11 @@ use-case:hexColor rdf:type owl:DatatypeProperty ;
 #    Stereotypes
 #################################################################
 
-use-case:UseCaseStereoTypeRoot rdf:type owl:NamedIndividual ,
+use-case:UseCaseStereoTypeEnterprise rdf:type owl:NamedIndividual ,
         use-case:UseCaseStereoType ;
-    api:slug "root" ;
-    rdfs:label "Root"@en ;
-    rdfs:comment "A structural root node in the use case tree. A root use case has no parent. Ideally there is one, but nothing stops you from having several."@en ;
+    api:slug "enterprise" ;
+    rdfs:label "Enterprise"@en ;
+    rdfs:comment "An enterprise-level use case at the root of a use-case tree. A root use case has no parent; a graph can describe several enterprise roots."@en ;
     use-case:hexColor "#6b7280" .
 
 use-case:UseCaseStereoTypeBusinessCapabilityArea rdf:type owl:NamedIndividual ,
@@ -259,7 +259,7 @@ use-case:UseCaseStereoTypeApplication rdf:type owl:NamedIndividual ,
 <https://ekgf.org/ontology/use-case#UseCaseStereoTypeDataTransformation>
     rdfs:isDefinedBy <https://ekgf.org/ontology/use-case#> .
 
-<https://ekgf.org/ontology/use-case#UseCaseStereoTypeRoot>
+<https://ekgf.org/ontology/use-case#UseCaseStereoTypeEnterprise>
     rdfs:isDefinedBy <https://ekgf.org/ontology/use-case#> .
 
 <https://ekgf.org/ontology/use-case#UseCaseStereoTypeUseCase>
@@ -311,6 +311,27 @@ use-case:UseCaseStereoTypeApplication rdf:type owl:NamedIndividual ,
 #################################################################
 #    Markdown explanations
 #################################################################
+
+use-case:UseCaseStereoTypeEnterprise annotation:markdownDescription """
+## Enterprise use case
+
+The Enterprise stereotype identifies the enterprise scope at the root of a
+use-case tree. Its public name is `Enterprise`, its identifier is
+`UseCaseStereoTypeEnterprise`, and its API slug is `enterprise`.
+
+Assign it to a use case through `hasStereoType`, for example:
+
+```turtle
+@prefix use-case: <https://ekgf.org/ontology/use-case#> .
+@prefix ex: <https://example.test/> .
+
+ex:enterprise use-case:hasStereoType use-case:UseCaseStereoTypeEnterprise .
+```
+
+A structural root has no parent through `isPartOf`. Several enterprise roots
+can be represented in the same graph; the stereotype imposes no global
+single-enterprise constraint or automatic parent assignment.
+"""@en .
 
 <https://ekgf.org/ontology/use-case#>
     annotation:markdownDescription """
