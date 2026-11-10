@@ -122,6 +122,8 @@ the ontology IRI without `#`; its declared term namespace retains `#`.
   [concepts and manifestations](concepts.md) for the broader scope
   of `DataElementConcept` and its relationship to ISO/IEC 11179.
   Template-placeholder manifestations identify their documented source language.
+  `occursWithin` records direct, acyclic containment between observed
+  occurrences; see [occurrence containment](occurrence-containment.md).
 - [Persona](../ekgf-persona.ttl), `ekg-persona`: personas that play
   stories.
 - [Outcome](../ekgf-outcome.ttl), `ekg-outcome`: outcomes that use cases

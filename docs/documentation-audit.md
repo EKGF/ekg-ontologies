@@ -159,6 +159,31 @@ looser, or different requirements. Future inheritance policy requires an
 explicit decision. Profile ownership, conformance-evidence processing, and
 SHACL-based Story implementation links remain separate work.
 
+## Observed occurrence containment
+
+`concept:occursWithin` links ManifestationOccurrences in an observed direct
+containment context. It permits multiple children and parents without merging
+their identities. The property is irreflexive, non-transitive and has no
+functional or inverse-functional constraint. Occurrences are disjoint from
+DataElementConcepts and ConceptManifestations.
+
+`OccurrenceContainmentShape` rejects literal endpoints, role conflicts and
+containment cycles. It belongs to the Concept `ValidationShapeSet` with its
+nested shapes. RDFS inference supplies endpoint types, and ancestor queries use
+`occursWithin+` without materializing indirect links as direct containment.
+
+`tests/test_occurrence_containment.py` covers inference, optional and multiple
+parents, identity, blank nodes, cycles, source metadata and independence from
+Story declarations. It validates and queries the
+[complete example](occurrence-containment.md). Markdown explanations accompany
+the property, occurrence class and validator.
+
+Harvesters establish actual same-source containment. The validator does not
+inspect source content, compare provenance for equality, or prove source-span
+and harvest completeness. Comparing declared Story concepts to observations
+requires an explicitly selected implementation context and produces diagnostics;
+an absent observation alone does not prove an ignored input.
+
 ## Communication endpoint validation
 
 `EmailRecipientShape` requires at least one `EmailEndpoint` through

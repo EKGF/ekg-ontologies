@@ -94,6 +94,15 @@
   rdfs:range    :ConceptManifestation ;
   rdfs:label    "occurrence of"@en .
 
+:occursWithin
+  rdf:type      owl:ObjectProperty , owl:IrreflexiveProperty ;
+  rdfs:domain   :ManifestationOccurrence ;
+  rdfs:range    :ManifestationOccurrence ;
+  rdfs:label    "occurs within"@en ;
+  rdfs:comment
+    "Links an observed manifestation occurrence to an occurrence that directly contains it in the same source context. A column occurrence can occur within a sheet occurrence, or a property-shape occurrence within a node-shape occurrence. Multiple containers are permitted; ancestor links are queried rather than inferred."@en ;
+  rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
 :sourceSystem
   rdf:type      owl:ObjectProperty ;
   rdfs:domain   :ManifestationOccurrence ;
@@ -156,7 +165,7 @@
 
 :DataElementConcept
   rdf:type      owl:Class ;
-  rdfs:label    "data element concept"@en ;
+  rdfs:label    "Data Element Concept"@en ;
   rdfs:comment
     """A reusable concept identifying the meaning of a data element or compound data construct, independently of its particular business or technical manifestations. Called a concept for short.
 
@@ -168,69 +177,69 @@ Reuse across contexts is encouraged. A concept is not inherently scoped to a par
 
 :ConceptSet
   rdf:type      owl:Class ;
-  rdfs:label    "concept set"@en ;
+  rdfs:label    "Concept Set"@en ;
   rdfs:comment  "A governed set of related data element concepts."@en .
 
 :ConceptManifestation
   rdf:type      owl:Class ;
-  rdfs:label    "concept manifestation"@en ;
+  rdfs:label    "Concept Manifestation"@en ;
   rdfs:comment
     "A business or technical expression of a data element concept: a human term, abbreviation, synonym, API parameter, variable name, RDF resource, OWL class, OWL axiom, SHACL shape, SKOS concept, table, column, or source-code identifier. Its appearances in sources are recorded as ManifestationOccurrence instances."@en .
 
 :BusinessTerm
   rdf:type         owl:Class ;
   rdfs:subClassOf  :ConceptManifestation ;
-  rdfs:label       "business term"@en ;
+  rdfs:label       "Business Term"@en ;
   rdfs:comment     "A human-facing manifestation such as a preferred label, synonym, or abbreviation."@en .
 
 :Abbreviation
   rdf:type         owl:Class ;
   rdfs:subClassOf  :BusinessTerm ;
-  rdfs:label       "abbreviation"@en .
+  rdfs:label       "Abbreviation"@en .
 
 :FullSingularBusinessTerm
   rdf:type         owl:Class ;
   rdfs:subClassOf  :BusinessTerm ;
-  rdfs:label       "full singular business term"@en .
+  rdfs:label       "Full Singular Business Term"@en .
 
 :FullPluralBusinessTerm
   rdf:type         owl:Class ;
   rdfs:subClassOf  :BusinessTerm ;
-  rdfs:label       "full plural business term"@en ;
+  rdfs:label       "Full Plural Business Term"@en ;
   rdfs:comment     "The plural noun form of a concept's business term — what a column header or collection heading shows."@en .
 
 :Tagline
   rdf:type         owl:Class ;
   rdfs:subClassOf  :BusinessTerm ;
-  rdfs:label       "tagline"@en ;
+  rdfs:label       "Tagline"@en ;
   rdfs:comment     "A short subtitle or tagline shown beneath a concept's title."@en .
 
 :Description
   rdf:type         owl:Class ;
   rdfs:subClassOf  :BusinessTerm ;
-  rdfs:label       "description"@en ;
+  rdfs:label       "Description"@en ;
   rdfs:comment     "A longer human-facing description of a concept — hover text, tooltips, and detail panes."@en .
 
 :TechnicalManifestation
   rdf:type         owl:Class ;
   rdfs:subClassOf  :ConceptManifestation ;
-  rdfs:label       "technical manifestation"@en ;
+  rdfs:label       "Technical Manifestation"@en ;
   rdfs:comment     "A machine-facing manifestation such as an API token, query variable, code identifier, RDF resource, schema object, table, or column."@en .
 
 :URIParameterManifestation
   rdf:type         owl:Class ;
   rdfs:subClassOf  :TechnicalManifestation ;
-  rdfs:label       "URI parameter manifestation"@en .
+  rdfs:label       "URI Parameter Manifestation"@en .
 
 :SPARQLVariableManifestation
   rdf:type         owl:Class ;
   rdfs:subClassOf  :TechnicalManifestation ;
-  rdfs:label       "SPARQL variable manifestation"@en .
+  rdfs:label       "SPARQL Variable Manifestation"@en .
 
 :SPARQLResultColumnManifestation
   rdf:type         owl:Class ;
   rdfs:subClassOf  :TechnicalManifestation ;
-  rdfs:label       "SPARQL result column manifestation"@en .
+  rdfs:label       "SPARQL Result Column Manifestation"@en .
 
 :TemplateParameterManifestation
   rdf:type         owl:Class ;
@@ -243,7 +252,7 @@ Reuse across contexts is encouraged. A concept is not inherently scoped to a par
     owl:onProperty :templateLanguage ;
     owl:maxCardinality "1"^^xsd:nonNegativeInteger
   ] ;
-  rdfs:label       "template parameter manifestation"@en ;
+  rdfs:label       "Template Parameter Manifestation"@en ;
   rdfs:comment     "A concept's appearance as a placeholder in a statement template. A template processor substitutes validated input values before the resulting statement is parsed and executed. The template language determines the token syntax; its spelling alone does not identify a language or a native query variable."@en .
 
 :TemplateLanguage a owl:Class ;
@@ -254,107 +263,108 @@ Reuse across contexts is encouraged. A concept is not inherently scoped to a par
 :OWLClassManifestation
   rdf:type         owl:Class ;
   rdfs:subClassOf  :TechnicalManifestation ;
-  rdfs:label       "OWL class manifestation"@en .
+  rdfs:label       "OWL Class Manifestation"@en .
 
 :OWLPropertyManifestation
   rdf:type         owl:Class ;
   rdfs:subClassOf  :TechnicalManifestation ;
-  rdfs:label       "OWL property manifestation"@en .
+  rdfs:label       "OWL Property Manifestation"@en .
 
 :OWLAxiomManifestation
   rdf:type         owl:Class ;
   rdfs:subClassOf  :TechnicalManifestation ;
-  rdfs:label       "OWL axiom manifestation"@en .
+  rdfs:label       "OWL Axiom Manifestation"@en .
 
 :OWLNamedIndividualManifestation
   rdf:type         owl:Class ;
   rdfs:subClassOf  :TechnicalManifestation ;
-  rdfs:label       "OWL named individual manifestation"@en .
+  rdfs:label       "OWL Named Individual Manifestation"@en .
 
 :SHACLShapeManifestation
   rdf:type         owl:Class ;
   rdfs:subClassOf  :TechnicalManifestation ;
-  rdfs:label       "SHACL shape manifestation"@en .
+  rdfs:label       "SHACL Shape Manifestation"@en .
 
 :SHACLShapeSetManifestation
   rdf:type         owl:Class ;
   rdfs:subClassOf  :TechnicalManifestation ;
-  rdfs:label       "SHACL shapeset manifestation"@en .
+  rdfs:label       "SHACL Shape Set Manifestation"@en .
 
 :SKOSConceptManifestation
   rdf:type         owl:Class ;
   rdfs:subClassOf  :TechnicalManifestation ;
-  rdfs:label       "SKOS concept manifestation"@en .
+  rdfs:label       "SKOS Concept Manifestation"@en .
 
 :SKOSConceptSchemeManifestation
   rdf:type         owl:Class ;
   rdfs:subClassOf  :TechnicalManifestation ;
-  rdfs:label       "SKOS concept scheme manifestation"@en .
+  rdfs:label       "SKOS Concept Scheme Manifestation"@en .
 
 :LiteralDatatypeManifestation
   rdf:type         owl:Class ;
   rdfs:subClassOf  :TechnicalManifestation ;
-  rdfs:label       "literal datatype manifestation"@en .
+  rdfs:label       "Literal Datatype Manifestation"@en .
 
 :RDFPredicateManifestation
   rdf:type         owl:Class ;
   rdfs:subClassOf  :TechnicalManifestation ;
-  rdfs:label       "RDF predicate manifestation"@en .
+  rdfs:label       "RDF Predicate Manifestation"@en .
 
 :RDFSClassManifestation
   rdf:type         owl:Class ;
   rdfs:subClassOf  :TechnicalManifestation ;
-  rdfs:label       "RDFS class manifestation"@en .
+  rdfs:label       "RDFS Class Manifestation"@en .
 
 :RawSourceFieldManifestation
   rdf:type         owl:Class ;
   rdfs:subClassOf  :TechnicalManifestation ;
-  rdfs:label       "raw source field manifestation"@en .
+  rdfs:label       "Raw Source Field Manifestation"@en .
 
 :SQLTableManifestation
   rdf:type         owl:Class ;
   rdfs:subClassOf  :TechnicalManifestation ;
-  rdfs:label       "SQL table manifestation"@en .
+  rdfs:label       "SQL Table Manifestation"@en .
 
 :SQLColumnManifestation
   rdf:type         owl:Class ;
   rdfs:subClassOf  :TechnicalManifestation ;
-  rdfs:label       "SQL column manifestation"@en .
+  rdfs:label       "SQL Column Manifestation"@en .
 
 :CypherIdentifierManifestation
   rdf:type         owl:Class ;
   rdfs:subClassOf  :TechnicalManifestation ;
-  rdfs:label       "Cypher identifier manifestation"@en .
+  rdfs:label       "Cypher Identifier Manifestation"@en .
 
 :SourceCodeIdentifierManifestation
   rdf:type         owl:Class ;
   rdfs:subClassOf  :TechnicalManifestation ;
-  rdfs:label       "source code identifier manifestation"@en ;
+  rdfs:label       "Source Code Identifier Manifestation"@en ;
   rdfs:comment     "An identifier in a programming language, such as a variable, field, function, or class name. Use this class directly for languages without a dedicated subclass. manifestationValue records the exact identifier; ManifestationOccurrence records where it appears."@en .
 
 :JavaScriptIdentifierManifestation
   rdf:type         owl:Class ;
   rdfs:subClassOf  :SourceCodeIdentifierManifestation ;
-  rdfs:label       "JavaScript identifier manifestation"@en .
+  rdfs:label       "JavaScript Identifier Manifestation"@en .
 
 :PythonIdentifierManifestation
   rdf:type         owl:Class ;
   rdfs:subClassOf  :SourceCodeIdentifierManifestation ;
-  rdfs:label       "Python identifier manifestation"@en .
+  rdfs:label       "Python Identifier Manifestation"@en .
 
 :JavaIdentifierManifestation
   rdf:type         owl:Class ;
   rdfs:subClassOf  :SourceCodeIdentifierManifestation ;
-  rdfs:label       "Java identifier manifestation"@en .
+  rdfs:label       "Java Identifier Manifestation"@en .
 
 :JSONFieldManifestation
   rdf:type         owl:Class ;
   rdfs:subClassOf  :TechnicalManifestation ;
-  rdfs:label       "JSON field manifestation"@en .
+  rdfs:label       "JSON Field Manifestation"@en .
 
 :ManifestationOccurrence
   rdf:type      owl:Class ;
-  rdfs:label    "manifestation occurrence"@en ;
+  owl:disjointWith :DataElementConcept , :ConceptManifestation ;
+  rdfs:label    "Manifestation Occurrence"@en ;
   rdfs:comment
     "A concrete sighting of a concept manifestation in a system, source repository, statement, RDF file, OWL file, SHACL file, SPARQL query, SQL statement, Cypher statement, or code file."@en .
 
@@ -559,6 +569,37 @@ Reuse across contexts is encouraged. A concept is not inherently scoped to a par
     rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
 
 #################################################################
+#    Occurrence containment validation
+#################################################################
+
+:OccurrenceContainmentShape a sh:NodeShape ;
+  sh:targetSubjectsOf :occursWithin ;
+  sh:targetObjectsOf :occursWithin ;
+  sh:nodeKind sh:BlankNodeOrIRI ;
+  sh:class :ManifestationOccurrence ;
+  sh:not [ sh:or (
+    [ sh:class :DataElementConcept ]
+    [ sh:class :ConceptManifestation ]
+  ) ] ;
+  sh:property [
+    sh:path :occursWithin ;
+    sh:nodeKind sh:BlankNodeOrIRI ;
+    sh:class :ManifestationOccurrence
+  ] ;
+  sh:sparql [
+    sh:message "Occurrence containment must be acyclic; an occurrence cannot contain itself directly or through other occurrences."@en ;
+    sh:select """
+      PREFIX concept: <https://ekgf.org/ontology/concept#>
+      SELECT $this WHERE {
+        $this concept:occursWithin+ $this .
+      }
+    """
+  ] ;
+  rdfs:label "Occurrence Containment Shape"@en ;
+  rdfs:comment "Validates resource-valued occurrence endpoints, separation from concepts and manifestations, and acyclic direct containment. Parent links are optional and may be multiple. Source-context correctness remains an observation made by the source analyzer."@en ;
+  rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+#################################################################
 #    Template metadata validation
 #################################################################
 
@@ -602,11 +643,11 @@ Reuse across contexts is encouraged. A concept is not inherently scoped to a par
 :ValidationShapeSet a owl:NamedIndividual , ekg-shape:ShapeSet ;
   ekg-shape:hasShapesGraph <https://ekgf.org/ontology/concept#> ;
   rdfs:label "Concept Validation Shapes"@en ;
-  rdfs:comment "Validates template-placeholder tokens and their documented template-language profiles, and rejects retired template-placeholder classifications."@en ;
+  rdfs:comment "Validates occurrence containment and template-placeholder metadata, including documented template-language profiles and rejection of retired template-placeholder classifications."@en ;
   rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> ;
   ekg-shape:shapePurpose ekg-shape:Validation ;
   ekg-shape:hasShape :TemplateParameterManifestationShape , :TemplateLanguageShape ,
-                     :LegacyTemplateManifestationShape .
+                     :LegacyTemplateManifestationShape , :OccurrenceContainmentShape .
 
 #################################################################
 #    Markdown explanations
@@ -626,6 +667,14 @@ input, output, and dependent usage model and its validation shapes. The
 [Use Case Ontology](https://ekgf.org/ontology/use-case#) describes concept-set
 ownership. Together these distinguish the story-owned usage from the shared
 concept and its vocabulary membership.
+
+## Vocabulary class labels
+
+Classes in this ontology have English title-case `rdfs:label` values, such as
+`Data Element Concept` and `Business Term`. Labels preserve acronyms such as
+OWL, RDF, SHACL and SPARQL, and language names such as JavaScript. These labels
+name the vocabulary classes. Business-term manifestations supply the names
+used for individual concepts in their business languages and contexts.
 """@en .
 
 :DataElementConcept annotation:markdownDescription """
@@ -671,6 +720,15 @@ query fragments. The rendered statement must be parsed before execution.
 The generic manifestation class neither selects an engine nor certifies
 that an engine or its output is safe.
 
+`occursWithin` links one observed occurrence to another, preserving the context
+in which an attribute manifestation appears within a compound manifestation.
+The same attribute concept can occur in different compounds in different
+sources; containment belongs to the occurrence records, not to the shared
+concepts or manifestations. A Story's concept usages declare its contract;
+occurrences record observed appearances. Neither side is inferred from the other.
+See the [occurrence containment guide](https://github.com/EKGF/ekg-ontologies/blob/main/docs/occurrence-containment.md)
+for an executable example and the limits of declaration/observation comparisons.
+
 `TemplateLanguage` identifies the source language/profile, not its renderer
 or its generated output language. A template targeting SPARQL is still a
 document in the declared template language until rendered. The
@@ -687,4 +745,75 @@ prefix. `LegacyTemplateManifestationShape` rejects the retired classification
 even when the current type and a language are also present.
 
 See the [Method's concept-vocabulary documentation](https://method.ekgf.org/concept/concept/concept-vocabulary/#ontology).
+"""@en .
+
+:occursWithin annotation:markdownDescription """
+## Observed direct containment
+
+Links a ManifestationOccurrence to an occurrence directly containing it in the
+same observed source context. For example, a column occurrence can be contained
+in a worksheet occurrence. Following each endpoint's `occurrenceOf` and concept
+links then relates the observed attribute meaning to the observed compound
+meaning in that context.
+
+Both endpoints are occurrences, not DataElementConcepts or ConceptManifestations.
+One occurrence can have several observed containers, and a container can have
+several children. This property is neither functional nor inverse-functional;
+shared endpoints do not merge identities. It is irreflexive and not transitive.
+Query `occursWithin+` to walk to all ancestors; the ontology does not materialize
+indirect ancestors as direct containment assertions.
+
+An analyzer must establish and assert containment from the source structure.
+Matching paths, positions, types or manifestation identities do not create a
+link. A referenced definition and a reference to it are different source
+occurrences. Source-location and provenance properties remain on the observed
+occurrences; containment does not copy or inherit those values.
+
+OccurrenceContainmentShape checks resource endpoints, occurrence roles and
+cycles. It does not read source content or prove that the asserted endpoints
+share the same source context. See the
+[containment guide](https://github.com/EKGF/ekg-ontologies/blob/main/docs/occurrence-containment.md)
+for validation and queries.
+"""@en .
+
+:ManifestationOccurrence annotation:markdownDescription """
+## An observed appearance
+
+An occurrence records where a manifestation was observed. `occurrenceOf`
+identifies the manifestation, while repository, system, path, commit and
+position metadata describe the observation. Separate appearances of the same
+manifestation have separate occurrence records. An occurrence is disjoint from
+the reusable DataElementConcept and ConceptManifestation roles.
+
+`occursWithin` records observed direct containment between occurrences.
+Containment is optional, may have several parents, and must be acyclic.
+Validate a coherent source/version context. A source analyzer is responsible
+for identifying that context and determining the actual structure; the current
+location fields do not constitute a unique source-artifact or source-span key.
+
+Observing a manifestation in a shape specification records the specification's
+appearance. The requirements expressed by that specification remain distinct
+from observations of the data it constrains. Similarly, a Story's declared
+input, output and dependent usages remain distinct from observations in an
+implementation source. Containment alone neither creates those declarations
+nor proves that a missing observation is an unused Story input.
+"""@en .
+
+:OccurrenceContainmentShape annotation:markdownDescription """
+## Validate the observed containment graph
+
+Targets subjects and objects of `occursWithin`, including untyped endpoints.
+Endpoints must be IRI or blank-node ManifestationOccurrences and must not also
+be DataElementConcepts or ConceptManifestations. RDFS inference with the Concept
+Ontology supplies endpoint types from the property's domain and range. Without
+inference, supply those occurrence types explicitly.
+
+A SPARQL property-path constraint rejects self-links and longer containment
+cycles without adding transitive property semantics. Roots without a container,
+multiple children and multiple direct parents remain valid. This validator and
+its nested constraints belong to the Concept ValidationShapeSet.
+
+The shape validates supplied graph structure. It does not inspect source files,
+infer containment from coordinates, enforce source-provenance equality or check
+harvest completeness. An analyzer must supply observed same-context edges.
 """@en .

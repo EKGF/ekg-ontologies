@@ -9,6 +9,12 @@ The [concept ontology](../ekgf-concept.ttl) defines
 > compound data construct, independently of its particular business
 > or technical manifestations.
 
+The vocabulary's class labels use English title case, for example
+`"Data Element Concept"@en`, `"Business Term"@en` and
+`"SPARQL Variable Manifestation"@en`. Acronyms and programming-language names
+keep their conventional capitalization. These labels name the OWL classes;
+business-term manifestations provide names for individual concepts.
+
 ## Reuse and identity
 
 A concept identifies a shared meaning. Its manifestations and graph
@@ -64,6 +70,14 @@ line or commit. `sourceSystem` links an occurrence to the resource IRI
 of the system where it was observed, including legacy systems without
 a source repository. System provenance belongs to each occurrence;
 one manifestation may occur in several systems.
+
+`occursWithin` links an occurrence to another occurrence directly containing
+it in the same source context. This records where an attribute manifestation
+was found within a compound manifestation. Several direct containers are
+permitted; containment is acyclic and is not transitive. Shared concepts and
+manifestations do not inherit those occurrence-specific links. See
+[occurrence containment](occurrence-containment.md) for validation, a complete
+example and a query relating the attribute and compound meanings.
 
 `SourceCodeIdentifierManifestation` groups programming-language
 identifiers. JavaScript, Python and Java identifiers have dedicated

@@ -33,7 +33,7 @@ class DataElementConceptTests(unittest.TestCase):
                       self.ontologies)
         self.assertEqual(
             set(self.ontologies.objects(CONCEPT.DataElementConcept, RDFS.label)),
-            {Literal("data element concept", lang="en")},
+            {Literal("Data Element Concept", lang="en")},
         )
         self.assertEqual(
             len(set(self.ontologies.objects(CONCEPT.DataElementConcept, RDFS.comment))),
