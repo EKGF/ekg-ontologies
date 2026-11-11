@@ -14,30 +14,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - name: Verify publication staging
-        run: python3 -B -m unittest discover -s tests -p test_grapharch_pages.py
-      - name: Build HTML, PDF and documentation KG
+      - name: Verify publication build orchestration
+        run: python3 -B -m unittest discover -s tests -p test_grapharch_build.py
+      - name: Install GraphArch v0.2.8
         id: grapharch
-        uses: EKGF/grapharch@800e13241c793435f214f5ff93f666d6bf9430d1
+        uses: EKGF/grapharch@595e55913096cb7f39633189ef67f5d916ef4dcc
         with:
-          version: '0.0.1'
-          source-kind: checkout
-          source: .
-          output: _site
-      - name: Stage the configured publication destination
+          version: '0.2.8'
+          expected-revision: '595e55913096cb7f39633189ef67f5d916ef4dcc'
+          mode: install
+      - name: Build and package the EKGF ontology family website
         env:
-          PUBLICATION_PATH: ${{ steps.grapharch.outputs.publication-path }}
-          KG_PATH: ${{ steps.grapharch.outputs.kg-path }}
-          PAGES_PATH: ${{ runner.temp }}/ontology-pages
+          GRAPHARCH_BINARY: ${{ steps.grapharch.outputs.binary-path }}
         run: >-
-          python3 scripts/stage_grapharch_pages.py
-          --output _site
-          --publication "$PUBLICATION_PATH"
-          --archive "$KG_PATH"
-          --destination "$PAGES_PATH"
+          python3 -B scripts/build_grapharch_pages.py
+          --grapharch "$GRAPHARCH_BINARY"
       - uses: actions/upload-pages-artifact@v5
         with:
-          path: ${{ runner.temp }}/ontology-pages
+          path: _site/pages/.vercel/output/static
   deploy:
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     needs: reference

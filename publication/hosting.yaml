@@ -1,0 +1,8 @@
+version: 1
+mount: /
+site: ../_site/site
+static_trees:
+  - source: ../_site/spec/main
+    destination: spec/main
+  - source: ../_site/documents/main
+    destination: documents/main

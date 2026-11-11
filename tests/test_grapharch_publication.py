@@ -2,7 +2,7 @@
 import pathlib
 import unittest
 
-from rdflib import Graph, Namespace, RDF, URIRef
+from rdflib import Graph, Literal, Namespace, RDF, URIRef
 from rdflib.namespace import DCTERMS, RDFS
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -15,6 +15,75 @@ AUTHORITY = URIRef("urn:uuid:6c1408aa-039c-42f9-8dee-9c3f0009d61a")
 
 
 class GraphArchPublicationTests(unittest.TestCase):
+    def test_publication_links_use_the_site_navigation_bar(self):
+        settings = Graph().parse(ROOT / "publication/grapharch.ttl")
+        self.assertFalse(list(settings.objects(DOC.websiteProfile, GA.headerLink)))
+        self.assertEqual(list(settings.objects(DOC.websiteProfile, GA.navigation)),
+                         [DOC.siteNavigation])
+        self.assertIn((DOC.siteNavigation, GA.navigationRegion, Literal("primary")), settings)
+        self.assertEqual(set(settings.objects(DOC.siteNavigation, GA.navigationEntry)),
+                         {DOC.familyLink, DOC.pdfLink})
+        for entry, label, order, url in (
+            (DOC.familyLink, "Ontology family", 1,
+             "https://ekgf.github.io/ekg-ontologies/spec/main/"),
+            (DOC.pdfLink, "PDF", 2,
+             "https://ekgf.github.io/ekg-ontologies/documents/main/document.pdf"),
+        ):
+            self.assertIn((entry, RDF.type, GA.NavigationEntry), settings)
+            self.assertEqual(str(settings.value(entry, DCTERMS.title)), label)
+            self.assertEqual(int(settings.value(entry, GA.order)), order)
+            self.assertEqual(str(settings.value(entry, GA.url)), url)
+
+    def test_main_publications_have_matching_destinations_urls_and_hosting_paths(self):
+        settings = Graph().parse(ROOT / "publication/grapharch.ttl")
+        hosting = (ROOT / "publication/hosting.yaml").read_text()
+        for target, destination in ((DOC.specification, "spec/main"),
+                                    (DOC.pdf, "documents/main")):
+            self.assertEqual(str(settings.value(target, GA.destination)), destination)
+            url = URIRef(f"https://ekgf.github.io/ekg-ontologies/{destination}/")
+            for field in (GA.thisVersion, GA.latestVersion):
+                self.assertIn((target, field, url), settings)
+            self.assertIn(f"source: ../_site/{destination}\n", hosting)
+            self.assertIn(f"destination: {destination}\n", hosting)
+
+    def test_family_browser_and_ekgf_website_have_distinct_targets(self):
+        settings = Graph().parse(ROOT / "publication/grapharch.ttl")
+        self.assertEqual(set(settings.objects(DOC.project, GA.target)),
+                         {DOC.website, DOC.specification, DOC.pdf})
+        for target, renderer in ((DOC.specification, GA.SpecificationPagesRenderer),
+                                 (DOC.pdf, GA.SpecificationRenderer),
+                                 (DOC.website, GA.WebsiteRenderer)):
+            self.assertEqual(list(settings.objects(target, GA.renderer)), [renderer])
+        self.assertIn((DOC.website, GA.profile, DOC.websiteProfile), settings)
+        self.assertIn((DOC.websiteProfile, GA.style, Literal("ekgf")), settings)
+        self.assertIn((DOC.websiteProfile, GA.layout, Literal("documentation")), settings)
+        self.assertIn((FAMILY, GA.collectionTerm, Literal("family")), settings)
+        for subject in (DOC.specification, DOC.pdf):
+            self.assertIn((subject, GA.profile, DOC.profile), settings)
+            self.assertIn((subject, GA.publisher, AUTHORITY), settings)
+        destinations = list(settings.objects(None, GA.destination))
+        self.assertEqual(len(destinations), len(set(destinations)))
+
+    def test_renderer_selection_uses_a_shared_rdf_resource(self):
+        settings = Graph().parse(ROOT / "publication/grapharch.ttl")
+        targets = set(settings.subjects(RDF.type, GA.Target))
+        self.assertEqual(targets, {DOC.website, DOC.specification, DOC.pdf})
+        for target in targets:
+            with self.subTest(target=target):
+                selectors = list(settings.objects(target, GA.renderer))
+                self.assertEqual(len(selectors), 1)
+                self.assertIsInstance(selectors[0], URIRef)
+
+    def test_workflow_pins_the_verified_grapharch_release(self):
+        workflow = (ROOT / ".github/workflows/grapharch-reference.yml").read_text()
+        revision = "595e55913096cb7f39633189ef67f5d916ef4dcc"
+        self.assertIn(f"uses: EKGF/grapharch@{revision}", workflow)
+        self.assertIn("version: '0.2.8'", workflow)
+        self.assertIn(f"expected-revision: '{revision}'", workflow)
+        self.assertIn("mode: install", workflow)
+        self.assertIn("scripts/build_grapharch_pages.py", workflow)
+        self.assertIn("_site/pages/.vercel/output/static", workflow)
+
     def test_publication_uses_the_registered_family_name(self):
         settings = Graph().parse(ROOT / "publication/grapharch.ttl")
         registry = Graph().parse(ROOT / "dataset/well-known-families.ttl")
