@@ -42,6 +42,9 @@ The Data Product Ontology is maintained in the separate
 - [Data element concepts](docs/concepts.md): reusable meanings,
   business and technical manifestations, compound constructs and the
   relationship to ISO/IEC 11179.
+- [Manifestation sightings](docs/manifestation-sightings.md): where and how a
+  concept was sighted, statement positions, and concepts used but not declared
+  by a story.
 - [Occurrence containment](docs/occurrence-containment.md): observed attributes
   within compounds, direct source structure, validation and contextual queries.
 - [Story concept usages](docs/story-concept-usages.md): typed input, output,
@@ -107,6 +110,9 @@ story per implementation, including validation of versioned snapshots.
 Occurrence-containment checks cover endpoint roles, identity, multiple
 containers, cycles, ancestor queries and separation of observations from
 Story declarations and shared concepts.
+Sighting checks cover artifact and position constraints, position-to-usage
+mappings, warnings for concepts used but not declared, per-implementation
+scoping, and missing mappings.
 Story-usage checks cover role inference, one owner and concept per usage,
 shared meanings, input flags and defaults, and rejection of retired vocabulary.
 Story-classification checks cover built-in and custom stereotypes, metadata,

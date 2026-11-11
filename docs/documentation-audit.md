@@ -184,6 +184,36 @@ and harvest completeness. Comparing declared Story concepts to observations
 requires an explicitly selected implementation context and produces diagnostics;
 an absent observation alone does not prove an ignored input.
 
+## Sighting artifacts and statement positions
+
+`DataElementConcept` is now defined as a logical data element with all its
+various forms of physical manifestations and their sightings. The concept, its
+manifestations and their occurrences keep separate identities.
+
+`concept:foundIn` links an occurrence to the artifacts in which it was sighted,
+at every resolved granularity, such as a dataset, file, statement template or
+story implementation. It is not functional. Paths and coordinates remain
+literals within those artifacts. `concept:statementPosition` classifies an
+appearance within a statement with the extensible `StatementPosition`
+vocabulary. The four built-in, pairwise distinct positions are parameter,
+projection, graph template and graph pattern. One appearance can have several
+positions. `OccurrenceSightingShape` and `StatementPositionShape` validate
+resource-valued artifacts, documented position IRIs, role separation and an
+identified artifact for every positioned occurrence.
+
+`ekg-story:expectedUsageRole` maps each position to `StoryInput`, `StoryOutput`
+or `StoryDependent`. The Story Ontology declares the four positions as
+individuals without claiming ownership, so it supplies its mappings when used
+alone as the ontology graph. `StatementPositionUsageRoleShape` rejects a
+position without exactly one role. `UndeclaredConceptUsageShape` warns once per
+implementation, concept and missing role. A dependent expectation applies only
+without input or output evidence for the concept, and any declared usage
+satisfies it. Sightings create no declarations, and the reverse comparison
+remains a diagnostic outside SHACL.
+
+`tests/test_manifestation_sightings.py` covers these constraints, mappings,
+warnings, scoping and the [executable example](manifestation-sightings.md).
+
 ## Communication endpoint validation
 
 `EmailRecipientShape` requires at least one `EmailEndpoint` through
@@ -346,6 +376,7 @@ mapping-property semantics, and source-key identities remain separate improvemen
 | Maturity assessment criteria | The example model declares five numbered levels but no assessment criteria or named maturity stages. | Supply actual criteria and evidence requirements before presenting the example as a complete assessment standard. |
 | Maturity membership | `inModel` is transitive and has a union domain of capability, capability area, level, and pillar. | Explain intended inference across `inArea`, `inPillar`, and model membership; transitivity alone does not provide cross-property inference. |
 | Source occurrence positions | `concept:sourceLine` and `sourceColumn` are integers without an indexing convention. | Choose and document zero-based or one-based positions, with examples. |
+| Deletion template positions | The built-in statement positions do not classify terms in SPARQL `DELETE` templates or `DELETE DATA`. | Decide which Story usage role a deleted term implies, then add a position and its `expectedUsageRole` mapping. |
 | SPARQL flavors | SPARQL flavors are classes, while `flavor` is an object property ranging over `SPARQLFlavor`. | Document whether implementations reference flavor instances or use class IRIs with OWL punning. |
 | Empty distinctness assertion | The SPARQL implementation ontology contains `owl:AllDifferent` with an empty member list. | Remove the ineffective axiom or populate an intentional list in a separate model change. |
 | Communication classification | Legal categories and basis values record classifications; consent records can reference bases other than consent. | Keep classification evidence separate from the policy that decides eligibility, and review whether the consent class name accurately covers its intended scope. |

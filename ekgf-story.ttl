@@ -360,6 +360,27 @@ persona:Persona a owl:Class .
     rdfs:isDefinedBy <https://ekgf.org/ontology/story#> .
 
 #################################################################
+#    Statement-position evidence
+#################################################################
+
+:expectedUsageRole a owl:AnnotationProperty ;
+    rdfs:label "expected usage role"@en ;
+    rdfs:comment "Identifies the concept-usage role, StoryInput, StoryOutput or StoryDependent, that a sighting in a statement position leads a Story analysis to expect the implemented story to declare for the sighted concept. The value is a usage class, referenced through an annotation so that the class is not treated as an individual. The mapping classifies evidence; it does not create usages."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/story#> .
+
+# The built-in positions are defined by the Concept Ontology. Declaring them as
+# individuals here keeps this ontology's mappings self-contained when it is the
+# only ontology graph, without claiming ownership of the positions.
+concept:ParameterPosition a owl:NamedIndividual ;
+    :expectedUsageRole :StoryInput .
+concept:ProjectionPosition a owl:NamedIndividual ;
+    :expectedUsageRole :StoryOutput .
+concept:GraphTemplatePosition a owl:NamedIndividual ;
+    :expectedUsageRole :StoryOutput .
+concept:GraphPatternPosition a owl:NamedIndividual ;
+    :expectedUsageRole :StoryDependent .
+
+#################################################################
 #    Story validation
 #################################################################
 
@@ -523,6 +544,72 @@ persona:Persona a owl:Class .
     ] ;
     rdfs:label "Story Implementation Shape"@en ;
     rdfs:comment "Validates exactly one owning story per implementation in the supplied version context. Counts both directions without requiring OWL inverse inference, including untyped relationship endpoints and implementation metadata."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/story#> .
+
+:StatementPositionUsageRoleShape a sh:NodeShape ;
+    sh:targetObjectsOf concept:statementPosition ;
+    sh:property [
+        sh:path :expectedUsageRole ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:in ( :StoryInput :StoryOutput :StoryDependent ) ;
+        sh:message "A statement position compared with Story declarations must identify exactly one expected usage role: StoryInput, StoryOutput or StoryDependent. Supply the Story Ontology as the ontology graph for the built-in positions."@en
+    ] ;
+    rdfs:label "Statement Position Usage Role Shape"@en ;
+    rdfs:comment "Requires each statement position used by a sighting to map to exactly one Story usage role, so that undeclared-usage analysis fails rather than silently skipping positions without a mapping."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/story#> .
+
+:UndeclaredConceptUsageShape a sh:NodeShape ;
+    sh:targetClass :StoryImplementation ;
+    sh:targetSubjectsOf :implementationOf ;
+    sh:targetObjectsOf :implementedBy ;
+    sh:severity sh:Warning ;
+    sh:sparql [
+        sh:message "Used, not declared: concept {?value} was sighted in this implementation in a position expecting a {?role} usage, but the implemented story declares no such usage of it."@en ;
+        sh:select """
+            PREFIX concept: <https://ekgf.org/ontology/concept#>
+            PREFIX story: <https://ekgf.org/ontology/story#>
+            SELECT DISTINCT $this ?value ?role WHERE {
+                $this story:implementationOf|^story:implementedBy ?story .
+                ?sighting concept:foundIn $this ;
+                    concept:statementPosition/story:expectedUsageRole ?role ;
+                    concept:occurrenceOf/(^concept:hasManifestation|concept:concept) ?value .
+                FILTER (?role IN (story:StoryInput, story:StoryOutput))
+                FILTER NOT EXISTS {
+                    ?story story:hasConceptUsage|story:hasInputConcept|story:hasOutputConcept|story:hasDependentConcept ?usage .
+                    ?usage concept:hasConcept ?value .
+                    { ?usage a ?role }
+                    UNION { ?story story:hasInputConcept ?usage . FILTER (?role = story:StoryInput) }
+                    UNION { ?story story:hasOutputConcept ?usage . FILTER (?role = story:StoryOutput) }
+                }
+            }
+        """
+    ] , [
+        sh:message "Used, not declared: concept {?value} was sighted in this implementation only in positions expecting a {?role} usage, and the implemented story declares no usage of it."@en ;
+        sh:select """
+            PREFIX concept: <https://ekgf.org/ontology/concept#>
+            PREFIX story: <https://ekgf.org/ontology/story#>
+            SELECT DISTINCT $this ?value ?role WHERE {
+                $this story:implementationOf|^story:implementedBy ?story .
+                ?sighting concept:foundIn $this ;
+                    concept:statementPosition/story:expectedUsageRole story:StoryDependent ;
+                    concept:occurrenceOf/(^concept:hasManifestation|concept:concept) ?value .
+                BIND (story:StoryDependent AS ?role)
+                FILTER NOT EXISTS {
+                    ?evidence concept:foundIn $this ;
+                        concept:statementPosition/story:expectedUsageRole ?evidenceRole ;
+                        concept:occurrenceOf/(^concept:hasManifestation|concept:concept) ?value .
+                    FILTER (?evidenceRole != story:StoryDependent)
+                }
+                FILTER NOT EXISTS {
+                    ?story story:hasConceptUsage|story:hasInputConcept|story:hasOutputConcept|story:hasDependentConcept ?usage .
+                    ?usage concept:hasConcept ?value .
+                }
+            }
+        """
+    ] ;
+    rdfs:label "Undeclared Concept Usage Shape"@en ;
+    rdfs:comment "Warns when a concept sighted in a story implementation, in a statement position expecting an input or output usage, has no such usage declared by the implemented story, or when a concept sighted only in dependent positions has no declared usage at all. One result is reported per implementation, concept and expected role."@en ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/story#> .
 
 :LegacyImplementationShape a sh:NodeShape ;
@@ -847,6 +934,75 @@ The story owns the usage; `concept:hasConcept` points to the shared meaning.
 Input flags apply only to input usages.
 """@en .
 
+:expectedUsageRole annotation:markdownDescription """
+## The usage a statement position leads an analysis to expect
+
+Maps a `concept:StatementPosition` to the Story usage role that a sighting in
+that position implies for the sighted concept:
+
+| Position | Expected usage | Reason |
+| --- | --- | --- |
+| `concept:ParameterPosition` | `StoryInput` | The invocation supplies the value. |
+| `concept:ProjectionPosition` | `StoryOutput` | The story returns it as a result. |
+| `concept:GraphTemplatePosition` | `StoryOutput` | The story constructs or adds it. |
+| `concept:GraphPatternPosition` | `StoryDependent` | The story only matches it against data. |
+
+The value is one of the three usage classes. The property is an annotation, so
+OWL does not treat those classes as individuals. An application-defined
+position compared with Story declarations must declare its expected role;
+`StatementPositionUsageRoleShape` rejects positions without exactly one.
+
+The mapping classifies evidence. It never creates a usage or changes a declared
+one. `UndeclaredConceptUsageShape` compares the expectations with the story's
+declared usages.
+"""@en .
+
+:UndeclaredConceptUsageShape annotation:markdownDescription """
+## Used, not declared
+
+Compares sightings in a story implementation with the concept usages that its
+story declares, and reports gaps as **warnings**: quality findings for review,
+not structural violations. A sighting is in scope when it is `foundIn` the
+implementation and has a statement position. The implementation's story is
+found through `implementationOf` or inverse `implementedBy`. The sighted concept
+is found from the occurrence's manifestation, through `concept:hasManifestation`
+or `concept:concept`. With RDFS inference, preferred-manifestation links count
+as `hasManifestation`.
+
+For each implementation and concept:
+
+- A position expecting `StoryInput` requires an input usage of the concept.
+- A position expecting `StoryOutput` requires an output usage of the concept.
+- If the concept is sighted only in positions expecting `StoryDependent`, any
+  declared usage of it satisfies the expectation. Graph patterns also use
+  inputs and outputs. A concept with no declared usage is reported as an
+  expected dependent.
+
+Input or output evidence takes the place of the dependent expectation. Each
+missing role is reported once per implementation and concept, however many
+sightings support it. The result's value is the concept, and its message names
+the expected role.
+
+The warnings rely on the harvested evidence. Missing sightings are not reported:
+harvest coverage, indirect use, template rendering and service-side input
+handling can all hide a use. Validate a coherent version context, with the Story
+Ontology as the ontology graph so that the position mappings are present.
+Allowing warnings, for example with `pyshacl --allow-warnings`, keeps these
+findings visible while only violations fail conformance. See the
+[sightings guide](https://github.com/EKGF/ekg-ontologies/blob/main/docs/manifestation-sightings.md)
+for an executable example.
+"""@en .
+
+:StatementPositionUsageRoleShape annotation:markdownDescription """
+## Every compared position has one expected role
+
+Targets each object of `concept:statementPosition`. The position must identify
+exactly one of `StoryInput`, `StoryOutput` or `StoryDependent` through
+`expectedUsageRole`. This prevents a missing mapping from silently disabling
+the undeclared-usage comparison, for example when the Story Ontology was not
+supplied as the ontology graph.
+"""@en .
+
 :StoryStereoType annotation:markdownDescription """
 ## Primary purpose, independent of execution
 
@@ -934,7 +1090,7 @@ identifies one owner, while conflicting links are rejected.
 :ValidationShapeSet a owl:NamedIndividual , ekg-shape:ShapeSet ;
     ekg-shape:hasShapesGraph <https://ekgf.org/ontology/story#> ;
     rdfs:label "Story Validation Shapes"@en ;
-    rdfs:comment "Validates optional story stereotypes and their definitions, story-owned concept usages, input flags, single-story implementation ownership, and migration from retired vocabulary."@en ;
+    rdfs:comment "Validates optional story stereotypes and their definitions, story-owned concept usages, input flags, single-story implementation ownership, and migration from retired vocabulary. Warns when sightings in an implementation's statements expect concept usages its story does not declare."@en ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/story#> ;
     ekg-shape:shapePurpose ekg-shape:Validation ;
     ekg-shape:hasShape :StoryClassificationShape ,
@@ -943,4 +1099,6 @@ identifies one owner, while conflicting links are rejected.
                        :StoryInputShape ,
                        :LegacyConceptUsageShape ,
                        :StoryImplementationShape ,
-                       :LegacyImplementationShape .
+                       :LegacyImplementationShape ,
+                       :StatementPositionUsageRoleShape ,
+                       :UndeclaredConceptUsageShape .

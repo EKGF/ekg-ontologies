@@ -19,7 +19,7 @@
   owl:imports  rdf: , ekg-shape: ;
   rdfs:label   "Concept Ontology"@en ;
   rdfs:comment
-    "Data element concepts, called concepts for short, identify reusable meanings independently of their business and technical manifestations. The scope includes individual data elements and compound data constructs such as whole classes and shapes. ManifestationOccurrence records where a manifestation appears in a source."@en .
+    "Data element concepts, called concepts for short, describe logical data elements with all their various forms of physical manifestations, as business and technical terms, and their sightings. The scope includes individual data elements and compound data constructs such as whole classes and shapes. ManifestationOccurrence records each sighting: the artifacts in which a manifestation was found and, within a statement, the positions in which it appears."@en .
 
 #################################################################
 #    Object properties
@@ -111,6 +111,24 @@
   rdfs:comment
     "The system in which this occurrence of a manifestation was observed, identified by a resource IRI. A source repository is not required; the same manifestation may occur in multiple systems."@en .
 
+:foundIn
+  rdf:type      owl:ObjectProperty ;
+  rdfs:domain   :ManifestationOccurrence ;
+  rdfs:range    rdfs:Resource ;
+  rdfs:label    "found in"@en ;
+  rdfs:comment
+    "Identifies an artifact in which this occurrence was sighted, such as a dataset, a dataset file, a statement template, a story implementation, a raw-data view or a code file. An occurrence can identify containing artifacts at several granularities, for example a statement template, the story implementation using it and the dataset including its file. Containment between occurrences uses occursWithin; path and position literals locate the sighting within an artifact."@en ;
+  rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+:statementPosition
+  rdf:type      owl:ObjectProperty ;
+  rdfs:domain   :ManifestationOccurrence ;
+  rdfs:range    :StatementPosition ;
+  rdfs:label    "statement position"@en ;
+  rdfs:comment
+    "Classifies a position in which this occurrence appears within a query or update statement, or within a statement template rendering one, identified through foundIn. One appearance can have several positions, such as a parameter appearing in a graph pattern. The position is evidence about the statement; it does not declare a story's concept usage."@en ;
+  rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
 :templateLanguage a owl:ObjectProperty ;
   rdfs:range :TemplateLanguage ;
   rdfs:label "template language"@en ;
@@ -167,7 +185,9 @@
   rdf:type      owl:Class ;
   rdfs:label    "Data Element Concept"@en ;
   rdfs:comment
-    """A reusable concept identifying the meaning of a data element or compound data construct, independently of its particular business or technical manifestations. Called a concept for short.
+    """A logical data element with all its various forms of physical manifestations and their sightings. Called a concept for short.
+
+The concept resource identifies the reusable meaning. Its manifestations record how that meaning is expressed, as business terms or as technical terms of many kinds, such as API parameters, SPARQL variables, template placeholders, OWL classes, SHACL shapes, table columns and source-code identifiers. ManifestationOccurrence resources record where each manifestation was observed physically: the systems and artifacts, such as datasets, files, statements and story implementations, in which it was sighted, and the positions in which it appears within a statement. The meaning, its manifestations and their occurrences keep separate identities; renaming a term or recording another sighting does not create a new concept.
 
 This class follows the distinction between meaning and representation in ISO/IEC 11179, while extending beyond its object-class/property combinations to encompass compound data constructs. Manifestations may include business terms, programming-language identifiers, query variables, whole OWL classes, or SHACL shapes.
 
@@ -366,7 +386,46 @@ Reuse across contexts is encouraged. A concept is not inherently scoped to a par
   owl:disjointWith :DataElementConcept , :ConceptManifestation ;
   rdfs:label    "Manifestation Occurrence"@en ;
   rdfs:comment
-    "A concrete sighting of a concept manifestation in a system, source repository, statement, RDF file, OWL file, SHACL file, SPARQL query, SQL statement, Cypher statement, or code file."@en .
+    "A concrete sighting of a concept manifestation in a system, source repository, dataset, statement, RDF file, OWL file, SHACL file, SPARQL query, SQL statement, Cypher statement, story implementation, or code file. foundIn identifies the artifacts in which it was sighted, and statementPosition classifies its positions within a statement."@en .
+
+:StatementPosition
+  rdf:type      owl:Class ;
+  owl:disjointWith :DataElementConcept , :ConceptManifestation , :ManifestationOccurrence ;
+  rdfs:label    "Statement Position"@en ;
+  rdfs:comment
+    "A classification of a syntactic position in which a manifestation occurrence appears within a query or update statement, or within a statement template rendering one. Positions classify observed appearances; they do not declare a story's concept usages. The built-in positions are ParameterPosition, ProjectionPosition, GraphTemplatePosition and GraphPatternPosition. Applications can define further positions as labeled and defined IRIs."@en ;
+  rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+:ParameterPosition
+  rdf:type      owl:NamedIndividual , :StatementPosition ;
+  owl:differentFrom :ProjectionPosition , :GraphTemplatePosition , :GraphPatternPosition ;
+  rdfs:label    "Parameter"@en ;
+  rdfs:comment
+    "An appearance whose value is supplied for an invocation rather than matched or produced by the statement: a template placeholder substituted before the statement is parsed, or a statement variable that the executing service pre-binds under its documented binding profile. Spelling does not establish this position; SPARQL treats $name and ?name as the same variable."@en ;
+  rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+:ProjectionPosition
+  rdf:type      owl:NamedIndividual , :StatementPosition ;
+  owl:differentFrom :GraphTemplatePosition , :GraphPatternPosition ;
+  rdfs:label    "Projection"@en ;
+  rdfs:comment
+    "An appearance as a result the statement returns: a variable or expression alias projected by its SELECT clause, or a DESCRIBE target. A projection inside a subquery belongs to the enclosing graph pattern, not to the statement's results."@en ;
+  rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+:GraphTemplatePosition
+  rdf:type      owl:NamedIndividual , :StatementPosition ;
+  owl:differentFrom :GraphPatternPosition ;
+  rdfs:label    "Graph Template"@en ;
+  rdfs:comment
+    "An appearance in a graph template whose instantiations the statement returns or adds: a CONSTRUCT template, an INSERT template, or INSERT DATA. This is the statement's own SPARQL graph template, not a template document in a template language. Terms in DELETE templates and DELETE DATA are not classified by this position."@en ;
+  rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+:GraphPatternPosition
+  rdf:type      owl:NamedIndividual , :StatementPosition ;
+  rdfs:label    "Graph Pattern"@en ;
+  rdfs:comment
+    "An appearance in the graph pattern that the statement matches against data: its WHERE clause, including filters, bindings, inline data, optional, union, negation and subquery patterns, and the solution modifiers applied to those solutions."@en ;
+  rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
 
 
 #################################################################
@@ -600,6 +659,75 @@ Reuse across contexts is encouraged. A concept is not inherently scoped to a par
   rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
 
 #################################################################
+#    Sighting source and position validation
+#################################################################
+
+:OccurrenceSightingShape a sh:NodeShape ;
+  sh:targetSubjectsOf :foundIn , :statementPosition ;
+  sh:nodeKind sh:BlankNodeOrIRI ;
+  sh:class :ManifestationOccurrence ;
+  sh:not [ sh:or (
+    [ sh:class :DataElementConcept ]
+    [ sh:class :ConceptManifestation ]
+  ) ] ;
+  sh:property [
+    sh:path :foundIn ;
+    sh:nodeKind sh:BlankNodeOrIRI ;
+    sh:not [ sh:or (
+      [ sh:class :ManifestationOccurrence ]
+      [ sh:class :DataElementConcept ]
+      [ sh:class :ConceptManifestation ]
+      [ sh:class :StatementPosition ]
+    ) ] ;
+    sh:message "foundIn must identify an artifact resource, not a literal, occurrence, concept, manifestation or statement position. Containment between occurrences uses occursWithin."@en
+  ] ;
+  sh:property [
+    sh:path :statementPosition ;
+    sh:nodeKind sh:IRI ;
+    sh:class :StatementPosition ;
+    sh:message "statementPosition must identify a StatementPosition IRI."@en
+  ] ;
+  sh:sparql [
+    sh:message "An occurrence with a statement position must identify, through foundIn, an artifact containing that statement."@en ;
+    sh:select """
+      PREFIX concept: <https://ekgf.org/ontology/concept#>
+      SELECT $this WHERE {
+        $this concept:statementPosition ?position .
+        FILTER NOT EXISTS { $this concept:foundIn ?artifact }
+      }
+    """
+  ] ;
+  rdfs:label "Occurrence Sighting Shape"@en ;
+  rdfs:comment "Validates where an occurrence was found and the positions in which it appears. Artifacts are resources distinct from occurrences, concepts, manifestations and positions; positions are StatementPosition IRIs; and a positioned occurrence identifies at least one containing artifact. Both properties remain optional for other occurrences."@en ;
+  rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+:StatementPositionShape a sh:NodeShape ;
+  sh:targetClass :StatementPosition ;
+  sh:targetObjectsOf :statementPosition ;
+  sh:nodeKind sh:IRI ;
+  sh:not [ sh:or (
+    [ sh:class :DataElementConcept ]
+    [ sh:class :ConceptManifestation ]
+    [ sh:class :ManifestationOccurrence ]
+  ) ] ;
+  sh:property [
+    sh:path rdfs:label ; sh:minCount 1 ; sh:nodeKind sh:Literal ; sh:minLength 1
+  ] ;
+  sh:property [
+    sh:path rdfs:comment ; sh:nodeKind sh:Literal ; sh:minLength 1
+  ] ;
+  sh:property [
+    sh:path annotation:markdownDescription ; sh:nodeKind sh:Literal ; sh:minLength 1
+  ] ;
+  sh:or (
+    [ sh:property [ sh:path rdfs:comment ; sh:minCount 1 ] ]
+    [ sh:property [ sh:path annotation:markdownDescription ; sh:minCount 1 ] ]
+  ) ;
+  rdfs:label "Statement Position Shape"@en ;
+  rdfs:comment "Requires a statement position to be an IRI with a nonempty literal label and a nonempty literal definition in rdfs:comment or markdownDescription, distinct from concepts, manifestations and occurrences. Covers built-in and application-defined positions."@en ;
+  rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> .
+
+#################################################################
 #    Template metadata validation
 #################################################################
 
@@ -643,11 +771,12 @@ Reuse across contexts is encouraged. A concept is not inherently scoped to a par
 :ValidationShapeSet a owl:NamedIndividual , ekg-shape:ShapeSet ;
   ekg-shape:hasShapesGraph <https://ekgf.org/ontology/concept#> ;
   rdfs:label "Concept Validation Shapes"@en ;
-  rdfs:comment "Validates occurrence containment and template-placeholder metadata, including documented template-language profiles and rejection of retired template-placeholder classifications."@en ;
+  rdfs:comment "Validates occurrence containment, where occurrences were found and their statement positions, and template-placeholder metadata, including documented template-language profiles and rejection of retired template-placeholder classifications."@en ;
   rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> ;
   ekg-shape:shapePurpose ekg-shape:Validation ;
   ekg-shape:hasShape :TemplateParameterManifestationShape , :TemplateLanguageShape ,
-                     :LegacyTemplateManifestationShape , :OccurrenceContainmentShape .
+                     :LegacyTemplateManifestationShape , :OccurrenceContainmentShape ,
+                     :OccurrenceSightingShape , :StatementPositionShape .
 
 #################################################################
 #    Markdown explanations
@@ -678,6 +807,25 @@ used for individual concepts in their business languages and contexts.
 """@en .
 
 :DataElementConcept annotation:markdownDescription """
+## Meaning, manifestations and sightings
+
+A data element concept describes a logical data element in three layers:
+
+| Layer | Resource | Answers |
+| --- | --- | --- |
+| Meaning | `DataElementConcept` | What does the data element mean? |
+| Manifestation | `ConceptManifestation` | How is it expressed, as a business term or as one of many kinds of technical term? |
+| Sighting | `ManifestationOccurrence` | Where was each manifestation observed physically, and in which statement position? |
+
+For example, one concept can manifest as the business term "Product category",
+as a `product_category` column in a dataset and as a placeholder in a story's
+statement template. Each observed appearance is a separate occurrence:
+`foundIn` identifies the dataset, file, template or story implementation, and
+`statementPosition` records how the appearance is used within a statement.
+These sightings are the evidence of how and where the logical data element
+manifests physically. The concept keeps its identity when terms are renamed
+or new sightings are recorded.
+
 ## Reuse across stories
 
 For example, a customer-identifier concept can be an input to one story and an
@@ -780,23 +928,119 @@ for validation and queries.
 ## An observed appearance
 
 An occurrence records where a manifestation was observed. `occurrenceOf`
-identifies the manifestation, while repository, system, path, commit and
-position metadata describe the observation. Separate appearances of the same
-manifestation have separate occurrence records. An occurrence is disjoint from
-the reusable DataElementConcept and ConceptManifestation roles.
+identifies the manifestation. `foundIn` identifies the artifacts containing the
+sighting, such as a dataset, file, statement template or story implementation.
+Repository, system, path, commit and line/column metadata locate it further.
+Separate appearances of the same manifestation have separate occurrence
+records. An occurrence is disjoint from the reusable DataElementConcept and
+ConceptManifestation roles.
+
+The manifestation's class records how the concept appears, for example as a
+raw source field or a template placeholder. Within a query or update statement,
+`statementPosition` records the role of the appearance: a parameter, a
+projected result, a graph-template term or a graph-pattern term.
 
 `occursWithin` records observed direct containment between occurrences.
 Containment is optional, may have several parents, and must be acyclic.
 Validate a coherent source/version context. A source analyzer is responsible
-for identifying that context and determining the actual structure; the current
-location fields do not constitute a unique source-artifact or source-span key.
+for identifying that context and determining the actual structure. Paths and
+line/column literals alone do not identify a source artifact or source span;
+`foundIn` links the sighting to resources representing its artifacts.
 
 Observing a manifestation in a shape specification records the specification's
 appearance. The requirements expressed by that specification remain distinct
 from observations of the data it constrains. Similarly, a Story's declared
 input, output and dependent usages remain distinct from observations in an
-implementation source. Containment alone neither creates those declarations
-nor proves that a missing observation is an unused Story input.
+implementation source. Observations never create those declarations.
+Statement positions identify the usage role a Story analysis expects; the
+[Story Ontology](https://ekgf.org/ontology/story#) compares that evidence with
+the declared usages and reports gaps as warnings. See the
+[sightings guide](https://github.com/EKGF/ekg-ontologies/blob/main/docs/manifestation-sightings.md).
+"""@en .
+
+:foundIn annotation:markdownDescription """
+## The artifacts containing a sighting
+
+Links an occurrence to each artifact in which it was sighted: a dataset, a
+dataset file, a statement template, a story implementation, a raw-data view,
+a code file or another identified source artifact. Assert the levels the
+harvester has resolved. One sighting in a statement template can be found in
+the template, in the story implementation using it, and in the dataset
+containing the template's file. Querying `foundIn` for a dataset then finds
+both column sightings and statement sightings, while the manifestation class
+and `statementPosition` distinguish how the concept appears in each.
+
+Values are IRIs or blank nodes representing artifacts. They are not
+occurrences, concepts, manifestations or statement positions; containment
+between occurrences uses `occursWithin`. The property is not functional: an
+occurrence can be found in several containing artifacts at different
+granularities. Paths, lines and columns remain literals locating the sighting
+within an artifact. A harvester must resolve artifact identity explicitly;
+matching paths do not establish that two sightings share an artifact.
+"""@en .
+
+:statementPosition annotation:markdownDescription """
+## How an appearance is used within a statement
+
+Classifies a position of an occurrence within the query or update statement,
+or the statement template rendering one, identified through `foundIn`:
+
+| Position | Appearance | Example |
+| --- | --- | --- |
+| `ParameterPosition` | A value supplied for the invocation. | A template placeholder, or a variable the service pre-binds. |
+| `ProjectionPosition` | A result the statement returns. | A projected `SELECT` variable or alias. |
+| `GraphTemplatePosition` | A term the statement constructs or inserts. | A predicate in a `CONSTRUCT` or `INSERT` template. |
+| `GraphPatternPosition` | A term matched against data. | A class or predicate in the `WHERE` clause. |
+
+One appearance can have several positions. A placeholder used in a triple
+pattern is a parameter appearing in the graph pattern; record both. Record
+the parameter position from the template language or the service's documented
+binding profile, never from a token's spelling: SPARQL treats `$name` and
+`?name` as one variable.
+
+A positioned occurrence must identify at least one artifact through `foundIn`.
+Positions are evidence about a statement. They do not declare a story's concept
+usages; the Story Ontology maps each position to the usage role it leads an
+analysis to expect.
+"""@en .
+
+:StatementPosition annotation:markdownDescription """
+## An extensible classification of statement positions
+
+The four built-in positions are distinct named individuals. Applications can
+define more positions as IRIs with a label and a definition. A position
+compared with Story declarations must also identify the usage role it implies
+through `ekg-story:expectedUsageRole`.
+
+The built-ins classify SPARQL query and update positions. They do not yet
+classify terms in `DELETE` templates or `DELETE DATA`; that usage role remains
+an open modeling decision, so analyzers must not record those terms as
+`GraphTemplatePosition`.
+"""@en .
+
+:OccurrenceSightingShape annotation:markdownDescription """
+## Validate sighting artifacts and positions
+
+Targets subjects of `foundIn` and `statementPosition`, which must be
+ManifestationOccurrences and not concepts or manifestations. Artifact values
+must be resources other than occurrences, concepts, manifestations and
+positions. Position values must be StatementPosition IRIs. An occurrence with a
+statement position must identify at least one artifact. RDFS inference supplies
+occurrence and position types from the property domains and ranges; without
+inference, supply those types explicitly.
+
+The shape checks the supplied graph. It does not read source files or prove
+that the asserted artifacts and positions match the source.
+"""@en .
+
+:StatementPositionShape annotation:markdownDescription """
+## Validate position definitions
+
+Targets declared positions and every object of `statementPosition`. A position
+must be an IRI with a nonempty label and a nonempty definition in `rdfs:comment`
+or `markdownDescription`, and must not also be a concept, manifestation or
+occurrence. Load the Concept Ontology as the ontology graph to supply the
+built-in definitions.
 """@en .
 
 :OccurrenceContainmentShape annotation:markdownDescription """

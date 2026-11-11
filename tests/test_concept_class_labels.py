@@ -46,6 +46,7 @@ CLASS_LABELS = {
     "JavaIdentifierManifestation": "Java Identifier Manifestation",
     "JSONFieldManifestation": "JSON Field Manifestation",
     "ManifestationOccurrence": "Manifestation Occurrence",
+    "StatementPosition": "Statement Position",
 }
 
 

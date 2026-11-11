@@ -107,6 +107,10 @@ the ontology IRI without `#`; its declared term namespace retains `#`.
   `implementationOf` link each implementation to exactly one story;
   a story can have several implementations. The ontology includes SHACL
   ownership validation and Markdown migration and snapshot-validation guidance.
+  `expectedUsageRole` maps statement positions to usage roles, and
+  `UndeclaredConceptUsageShape` warns about concepts sighted in an
+  implementation but not declared by its story; see
+  [manifestation sightings](manifestation-sightings.md).
 - [SPARQL story implementation](../ekgf-story-impl-sparql.ttl),
   `ekg-story-impl-sparql`: native SPARQL implementations and template-based
   implementations that render documents in declared template languages into
@@ -124,6 +128,9 @@ the ontology IRI without `#`; its declared term namespace retains `#`.
   Template-placeholder manifestations identify their documented source language.
   `occursWithin` records direct, acyclic containment between observed
   occurrences; see [occurrence containment](occurrence-containment.md).
+  `foundIn` and `statementPosition` record where a sighting was found and
+  how it is used within a statement; see
+  [manifestation sightings](manifestation-sightings.md).
 - [Persona](../ekgf-persona.ttl), `ekg-persona`: personas that play
   stories.
 - [Outcome](../ekgf-outcome.ttl), `ekg-outcome`: outcomes that use cases

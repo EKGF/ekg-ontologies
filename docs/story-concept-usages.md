@@ -141,11 +141,22 @@ ex:customerIdentifierTemplateParameter a concept:TemplateParameterManifestation 
 
 ex:findTemplateOccurrence a concept:ManifestationOccurrence ;
     concept:occurrenceOf ex:customerIdentifierTemplateParameter ;
+    concept:foundIn ex:findCustomerTemplate , ex:findCustomerSPARQL ;
+    concept:statementPosition concept:ParameterPosition ;
     concept:sourcePath "find-customer.rq.template" .
 ex:updateTemplateOccurrence a concept:ManifestationOccurrence ;
     concept:occurrenceOf ex:customerIdentifierTemplateParameter ;
+    concept:foundIn ex:updateCustomerTemplate , ex:updateCustomerSPARQL ;
+    concept:statementPosition concept:ParameterPosition ;
     concept:sourcePath "update-customer.rq.template" .
 ```
+
+Each placeholder occurrence is found in its template document and in the
+implementation using it, in the parameter position. Both stories declare the
+customer identifier as an input, so the
+[undeclared-usage comparison](manifestation-sightings.md#used-not-declared)
+reports nothing. Without those input usages, it would warn that the concept is
+used but not declared as an input.
 
 Reuse a manifestation when the expression and its meaning are the same.
 For template placeholders, the declared template language/profile must also

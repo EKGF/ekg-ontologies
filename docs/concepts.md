@@ -5,9 +5,15 @@
 The [concept ontology](../ekgf-concept.ttl) defines
 `ekg-concept:DataElementConcept`, called a **concept** for short:
 
-> A reusable concept identifying the meaning of a data element or
-> compound data construct, independently of its particular business
-> or technical manifestations.
+> A logical data element with all its various forms of physical
+> manifestations and their sightings.
+
+The concept resource identifies the reusable meaning. Its manifestations
+record how that meaning is expressed, as business terms or as technical terms
+of many kinds. Manifestation occurrences record where each manifestation was
+sighted physically and, within a statement, in which position. The meaning,
+its manifestations and their sightings keep separate identities; see
+[manifestation sightings](manifestation-sightings.md).
 
 The vocabulary's class labels use English title case, for example
 `"Data Element Concept"@en`, `"Business Term"@en` and
@@ -70,6 +76,16 @@ line or commit. `sourceSystem` links an occurrence to the resource IRI
 of the system where it was observed, including legacy systems without
 a source repository. System provenance belongs to each occurrence;
 one manifestation may occur in several systems.
+
+`foundIn` links an occurrence to the artifacts in which it was sighted, such
+as a dataset, a file, a statement template or a story implementation. The
+manifestation's class records how the concept appears there, for example as a
+source column or a template placeholder. Within a statement,
+`statementPosition` records whether the appearance is a parameter, a projected
+result, a graph-template term or a graph-pattern term. The Story Ontology
+compares those positions with a story's declared usages. See
+[manifestation sightings](manifestation-sightings.md) for an example, a query
+and validation.
 
 `occursWithin` links an occurrence to another occurrence directly containing
 it in the same source context. This records where an attribute manifestation

@@ -98,16 +98,17 @@ edge. A reference to a named definition has its own occurrence; the definition
 does not become physically contained in every location referencing it. Typing
 one source variable with several classes does not by itself establish nesting.
 
-The current location fields do not form a unique statement or source-artifact
-key. A file can contain several statements, and the same path can recur in
-different systems, repositories or versions. Harvesters must resolve the source
-and structural boundaries explicitly. Select a coherent source/version view
-when validating and querying observations.
+The path, line and column literals do not form a unique statement or
+source-artifact key. A file can contain several statements, and the same path
+can recur in different systems, repositories or versions. Harvesters must
+resolve the source and structural boundaries explicitly and identify the
+artifacts with [`foundIn`](manifestation-sightings.md). Select a coherent
+source/version view when validating and querying observations.
 
 Source metadata remains on the occurrence recording that observation.
-Containment does not copy paths, systems, commits or coordinates from a parent
-to its children. The ontology does not add source fields or prescribe coordinate
-indexing conventions as part of this change.
+Containment does not copy artifacts, paths, systems, commits or coordinates from
+a parent to its children. The ontology does not prescribe coordinate indexing
+conventions.
 
 ## Declarations and observations
 
@@ -117,15 +118,21 @@ Neither side is inferred from the other.
 
 An analyzer can compare those sets once it has scoped occurrences to the
 selected implementation and its actual statement or template. A file path and
-line number alone do not establish that scope. Include dependent usages when
-checking whether an observed concept was declared; not every internal concept
-is an input or output.
+line number alone do not establish that scope; `foundIn` links an occurrence to
+the implementation. Include dependent usages when checking whether an observed
+concept was declared; not every internal concept is an input or output.
+
+`statementPosition` records how an appearance is used within the statement.
+Each position maps to the usage role it leads an analysis to expect, and the
+Story Ontology reports a concept used but not declared in that role as a
+warning. See [manifestation sightings](manifestation-sightings.md). The
+expectation is evidence for review; it does not establish or create a declared
+input or output.
 
 A declared concept without a matching observation is a diagnostic requiring
 interpretation. It does not alone prove that an input is ignored: harvest
 coverage, indirect use, template rendering and service-side input handling can
-affect what the analyzer observes. Likewise, an observed source appearance does
-not by itself establish an input or output role.
+affect what the analyzer observes.
 
 An occurrence in a shape specification records the observed appearance of
 that specification. The constraints expressed by the shape describe requirements
