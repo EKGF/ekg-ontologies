@@ -816,6 +816,20 @@ The Concept Ontology lets an enterprise knowledge graph:
 - **Check reality against intent.** Compare where a data element was actually found
   with where stories declare that they use it.
 
+## Why this much detail: data lineage
+
+Maintaining data elements with all their manifestations and all their
+sightings is a lot of work. Sightings do not record themselves: finding them
+takes discovery mechanisms, such as harvesters that scan datasets, files,
+statements and source code.
+
+The reason to do this work is full, detailed data lineage: tracing a piece of
+data from system to system, for example from a form field through an API
+parameter and a query variable to the column where it is stored. That trace is
+only possible with an explicit record of every manifestation and every place
+where it appears. An organization that needs detailed data lineage needs this
+level of detail.
+
 ## Meaning, manifestations and sightings
 
 | Layer | Resource | Answers |
