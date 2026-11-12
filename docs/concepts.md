@@ -3,7 +3,7 @@
 [Documentation index](../README.md#documentation)
 
 The [concept ontology](../ekgf-concept.ttl) defines
-`ekg-concept:DataElementConcept`, called a **concept** for short:
+`ekg-concept:DataElementConcept`, called a **data element** for short:
 
 > A logical data element with all its various forms of physical
 > manifestations and their sightings.

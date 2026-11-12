@@ -19,7 +19,7 @@
   owl:imports  rdf: , ekg-shape: ;
   rdfs:label   "Concept Ontology"@en ;
   rdfs:comment
-    "Data element concepts, called concepts for short, describe logical data elements with all their various forms of physical manifestations, as business and technical terms, and their sightings. The scope includes individual data elements and compound data constructs such as whole classes and shapes. ManifestationOccurrence records each sighting: the artifacts in which a manifestation was found and, within a statement, the positions in which it appears."@en .
+    "Data element concepts, called data elements for short, describe logical data elements with all their various forms of physical manifestations, as business and technical terms, and their sightings. The scope includes individual data elements and compound data constructs such as whole classes and shapes. ManifestationOccurrence records each sighting: the artifacts in which a manifestation was found and, within a statement, the positions in which it appears."@en .
 
 #################################################################
 #    Object properties
@@ -185,7 +185,7 @@
   rdf:type      owl:Class ;
   rdfs:label    "Data Element Concept"@en ;
   rdfs:comment
-    """A logical data element with all its various forms of physical manifestations and their sightings. Called a concept for short.
+    """A logical data element with all its various forms of physical manifestations and their sightings. Called a data element for short. It is not a skos:Concept: a SKOS concept is an entry in a taxonomy or thesaurus, and such an entry can be one of the data element's manifestations.
 
 The concept resource identifies the reusable meaning. Its manifestations record how that meaning is expressed, as business terms or as technical terms of many kinds, such as API parameters, SPARQL variables, template placeholders, OWL classes, SHACL shapes, table columns and source-code identifiers. ManifestationOccurrence resources record where each manifestation was observed physically: the systems and artifacts, such as datasets, files, statements and story implementations, in which it was sighted, and the positions in which it appears within a statement. The meaning, its manifestations and their occurrences keep separate identities; renaming a term or recording another sighting does not create a new concept.
 
@@ -794,21 +794,41 @@ departments. Without an explicit record of what each of these means, and where
 it appears, nobody can tell whether two systems talk about the same thing.
 
 The Concept Ontology gives each meaning its own identity: the **data element
-concept** (DEC), or **concept** for short. A DEC is a logical data element with
-all its various forms of physical manifestations and their sightings. It lets an
-enterprise knowledge graph:
+concept** (DEC), or **data element** for short. A DEC is a logical data element
+with all its various forms of physical manifestations and their sightings.
+
+Despite its name, a DEC is not a `skos:Concept`. A `skos:Concept` is an entry
+in a taxonomy or thesaurus. Such an entry can be one of a data element's
+manifestations, just like a column or an API parameter.
+
+The Concept Ontology lets an enterprise knowledge graph:
 
 - **Preserve business language.** Capture terms as the business uses them, not
   as an external standard names them.
-- **Connect meaning to every physical form.** Link the same concept to its
+- **Connect meaning to every physical form.** Link the same data element to its
   business terms, API parameters, query variables, columns, ontology classes,
   SHACL shapes and taxonomy entries.
-- **Keep meaning consistent.** Reuse one concept across use cases, stories,
+- **Keep meaning consistent.** Reuse one data element across use cases, stories,
   languages and systems wherever the meaning is the same.
 - **Make the semantics explicit.** Represent different terms for the same
-  concept, and the same term for different concepts, instead of hiding them.
-- **Check reality against intent.** Compare where a concept was actually found
+  data element, and the same term for different data elements, instead of
+  hiding them.
+- **Check reality against intent.** Compare where a data element was actually found
   with where stories declare that they use it.
+
+## Why this much detail: data lineage
+
+Maintaining data elements with all their manifestations and all their
+sightings is a lot of work. Sightings do not record themselves: finding them
+takes discovery mechanisms, such as harvesters that scan datasets, files,
+statements and source code.
+
+The reason to do this work is full, detailed data lineage: tracing a piece of
+data from system to system, for example from a form field through an API
+parameter and a query variable to the column where it is stored. That trace is
+only possible with an explicit record of every manifestation and every place
+where it appears. An organization that needs detailed data lineage needs this
+level of detail.
 
 ## Meaning, manifestations and sightings
 
@@ -818,9 +838,10 @@ enterprise knowledge graph:
 | Manifestation | `ConceptManifestation` | How is it expressed, as a business term or as one of many kinds of technical term? |
 | Sighting | `ManifestationOccurrence` | Where was each manifestation observed, and in which statement position? |
 
-A concept for a single attribute, such as a customer identifier, works the same
-way as a concept for a compound construct, such as a whole customer record with
-an OWL class and a SHACL shape as its manifestations. Concepts have no subtype
+A data element for a single attribute, such as a customer identifier, works the
+same way as a data element for a compound construct, such as a whole customer
+record with an OWL class and a SHACL shape as its manifestations. Data elements
+have no subtype
 hierarchy for classes, properties or shapes; their manifestations carry that
 detail. Matching names alone never establish that two manifestations express
 the same meaning.
@@ -830,36 +851,37 @@ the same meaning.
 At the start of a use case, capture what the business calls things and what
 those things mean in its context. Ontologies are not needed at this stage. The
 business owns its use cases and should recognize its language throughout their
-lifecycle. Capturing a concept before its technical manifestations are known
+lifecycle. Capturing a data element before its technical manifestations are known
 is normal.
 
 ## From capture to ontology mapping
 
-As the use case matures, map its concepts to technical manifestations:
+As the use case matures, map its data elements to technical manifestations:
 ontology classes and properties, shapes, taxonomies, API parameters, columns
 and code identifiers. A technical manifestation points at the ontology resource
 or shape through `manifestationResource`, or records its exact token through
 `manifestationValue`. Harvesters record where each manifestation appears as
-sightings. As understanding grows, adjust concepts to better reflect the
+sightings. As understanding grows, adjust data elements to better reflect the
 domain, and link them to more appropriate ontology resources.
 
 ## Reuse across the use case tree
 
-Concepts are grouped into concept vocabularies, represented by `ConceptSet`.
+Data elements are grouped into vocabularies, represented by `ConceptSet`.
 A use case owns its vocabularies through `ekg-use-case:ownsConceptSet`, and its
-stories select concepts from those vocabularies and the ones of its ancestor
-use cases. Reuse an existing concept wherever its meaning fits, even when a new
-context needs a different name or technical form. Create a separate concept
-only for a different meaning. When owners establish that independently created
-concepts mean the same thing, they can merge them.
+stories select data elements from those vocabularies and the ones of its
+ancestor use cases. Reuse an existing data element wherever its meaning fits,
+even when a new context needs a different name or technical form. Create a
+separate data element only for a different meaning. When owners establish that
+independently created data elements mean the same thing, they can merge them.
 
-## Concepts in stories
+## Data elements in stories
 
-A story declares how it uses a concept through a story-owned usage: an input
-the caller supplies, an output the story returns, or a dependent concept used
-internally, such as a join or filter concept. The
+A story declares how it uses a data element through a story-owned usage: an
+input the caller supplies, an output the story returns, or a dependent data
+element used
+internally, such as a join or filter data element. The
 [Story Ontology](https://ekgf.org/ontology/story#) defines those usages and
-compares them with the sightings in a story's implementation. A concept used in
+compares them with the sightings in a story's implementation. A data element used in
 an implementation but not declared by its story is reported for review.
 
 ## Relationship to ISO/IEC 11179
@@ -869,11 +891,10 @@ in [ISO/IEC 11179-31:2023](https://www.iso.org/standard/78925.html), section
 3.25, where a data element concept combines an object class and a property,
 such as Customer and Identifier. This ontology extends that scope to compound
 data constructs. That broader scope does not claim formal equivalence to the
-ISO model. A concept is not a `skos:Concept`; SKOS resources link to it as
-manifestations.
+ISO model.
 
 The [EKG/Method](https://method.ekgf.org/concept/concept/) explains how
-concepts, vocabularies and stories fit into the Use Case Tree Method.
+data elements, vocabularies and stories fit into the Use Case Tree Method.
 
 ## Vocabulary class labels
 
@@ -881,7 +902,7 @@ Classes in this ontology have English title-case `rdfs:label` values, such as
 `Data Element Concept` and `Business Term`. Labels preserve acronyms such as
 OWL, RDF, SHACL and SPARQL, and language names such as JavaScript. These labels
 name the vocabulary classes. Business-term manifestations supply the names
-used for individual concepts in their business languages and contexts.
+used for individual data elements in their business languages and contexts.
 """@en .
 
 :DataElementConcept annotation:markdownDescription """
