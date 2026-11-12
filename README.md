@@ -34,7 +34,7 @@ The Data Product Ontology is maintained in the separate
 - [Ontology family reference](https://ekgf.github.io/ekg-ontologies/spec/main/):
   an overview, one page per ontology, shared search, a PDF and documentation graphs.
 - [Generate the website and family reference](docs/generated-reference.md):
-  build directly from this checkout with GraphArch v0.2.8.
+  build directly from this checkout with GraphArch.
 
 - [Documentation coverage and modeling review](docs/documentation-audit.md):
   annotation coverage, corrected labels, and model decisions requiring review.
@@ -149,8 +149,8 @@ requests build the reference for review; successful builds on `main` deploy it
 to [GitHub Pages](https://ekgf.github.io/ekg-ontologies/). It can also
 be started manually from the Actions tab.
 
-The workflow installs GraphArch v0.2.8, with its action and release source commit
-pinned to `595e55913096cb7f39633189ef67f5d916ef4dcc`. It selects the three targets
+The workflow installs the GraphArch release of its pinned action commit.
+Dependabot opens a pull request for each newer GraphArch release. It selects the three targets
 declared in this repository and packages only their public artifacts.
 It requires no Rust build and does
 not publish an ontology release or change its approval status. See the

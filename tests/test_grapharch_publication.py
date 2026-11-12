@@ -1,5 +1,6 @@
 """Publication settings reuse the canonical registry without redefining it."""
 import pathlib
+import re
 import unittest
 
 from rdflib import Graph, Literal, Namespace, RDF, URIRef
@@ -74,13 +75,17 @@ class GraphArchPublicationTests(unittest.TestCase):
                 self.assertEqual(len(selectors), 1)
                 self.assertIsInstance(selectors[0], URIRef)
 
-    def test_workflow_pins_the_verified_grapharch_release(self):
+    def test_workflow_pins_one_dependabot_managed_grapharch_release(self):
         workflow = (ROOT / ".github/workflows/grapharch-reference.yml").read_text()
-        revision = "595e55913096cb7f39633189ef67f5d916ef4dcc"
-        self.assertIn(f"uses: EKGF/grapharch@{revision}", workflow)
-        self.assertIn("version: '0.2.8'", workflow)
-        self.assertIn(f"expected-revision: '{revision}'", workflow)
+        pins = re.findall(r"uses: EKGF/grapharch@([0-9a-f]{40}) # v(\d+\.\d+\.\d+)\n",
+                          workflow)
+        self.assertEqual(len(pins), 1, workflow)
         self.assertIn("mode: install", workflow)
+        self.assertNotIn("version:", workflow)
+        self.assertNotIn("expected-revision:", workflow)
+        dependabot = (ROOT / ".github/dependabot.yml").read_text()
+        self.assertIn("package-ecosystem: github-actions", dependabot)
+        self.assertIn("interval: daily", dependabot)
         self.assertIn("scripts/build_grapharch_pages.py", workflow)
         self.assertIn("_site/pages/.vercel/output/static", workflow)
 

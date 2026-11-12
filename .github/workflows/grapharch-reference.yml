@@ -16,12 +16,10 @@ jobs:
       - uses: actions/checkout@v7
       - name: Verify publication build orchestration
         run: python3 -B -m unittest discover -s tests -p test_grapharch_build.py
-      - name: Install GraphArch v0.2.8
+      - name: Install the GraphArch release of the pinned action
         id: grapharch
-        uses: EKGF/grapharch@595e55913096cb7f39633189ef67f5d916ef4dcc
+        uses: EKGF/grapharch@eb358c6553ef377158d5523bddda9378f1481d1a # v0.2.9
         with:
-          version: '0.2.8'
-          expected-revision: '595e55913096cb7f39633189ef67f5d916ef4dcc'
           mode: install
       - name: Build and package the EKGF ontology family website
         env:

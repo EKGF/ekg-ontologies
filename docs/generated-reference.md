@@ -2,7 +2,7 @@
 
 [Documentation index](../README.md#documentation)
 
-[GraphArch v0.2.8](https://github.com/EKGF/grapharch/releases/tag/v0.2.8) builds
+[GraphArch](https://github.com/EKGF/grapharch/releases) builds
 the EKGF website, a multipage ontology family reference and a PDF directly from
 this checkout. The publication settings are in
 [`publication/grapharch.ttl`](../publication/grapharch.ttl). They refer to the
@@ -23,7 +23,7 @@ introduction and usage page live in [`publication/site/`](../publication/site/).
 The site's primary navigation places **Ontology family** and **PDF** in the
 second bar beside the site name. The top bar carries shared EKGF navigation.
 These cross-publication links use their canonical URLs, as required by
-GraphArch v0.2.8's primary navigation.
+GraphArch's primary navigation.
 
 The [family reference](https://ekgf.github.io/ekg-ontologies/spec/main/)
 uses the same `ga:SpecificationPagesRenderer` as GraphArch's Commons showcase:
@@ -37,7 +37,7 @@ is available as a restorable RDF archive.
 
 ## Build locally
 
-Install the verified GraphArch **v0.2.8** release, then run from this repository's root:
+Install the GraphArch release pinned in the workflow, then run from this repository's root:
 
 ```sh
 python3 -B scripts/build_grapharch_pages.py
@@ -94,9 +94,12 @@ reference; successful builds on `main` deploy it to GitHub Pages. You can also
 run the workflow manually. The site root serves the EKGF website, and the
 family reference retains its canonical `spec/main/` URL.
 
-The workflow uses the GraphArch action pinned to a full commit SHA and a verified
-binary release version. Both the action and the release's expected source
-revision are pinned to `595e55913096cb7f39633189ef67f5d916ef4dcc`.
+The workflow pins the GraphArch action to the full commit SHA of a release,
+with the release version as a comment. The action installs the binary of that
+same release and verifies its checksum and source commit against the pinned
+action commit. [Dependabot](../.github/dependabot.yml) checks GitHub Actions
+daily and opens a pull request when a newer GraphArch release exists. That pull
+request builds the reference with the new release before it is merged.
 It builds directly from `actions/checkout`, running the same build script as
 the local command. A failed renderer or invalid report stops packaging and deployment.
 It downloads and verifies the release binary; no Rust installation or compilation

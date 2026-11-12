@@ -1,0 +1,8 @@
+version: 2
+updates:
+  # Keeps the pinned GraphArch action and the GitHub actions current. A
+  # GraphArch bump installs the release of the pinned action commit.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily
