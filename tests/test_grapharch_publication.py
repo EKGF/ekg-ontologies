@@ -60,7 +60,11 @@ class GraphArchPublicationTests(unittest.TestCase):
                                  (DOC.website, GA.WebsiteRenderer)):
             self.assertEqual(list(settings.objects(target, GA.renderer)), [renderer])
         self.assertIn((DOC.website, GA.profile, DOC.websiteProfile), settings)
-        self.assertIn((DOC.websiteProfile, GA.style, Literal("ekgf")), settings)
+        self.assertFalse(list(settings.objects(None, GA.style)))
+        self.assertEqual(list(settings.objects(DOC.websiteProfile, GA.theme)), [GA.EkgfTheme])
+        self.assertEqual(list(settings.objects(DOC.pdfProfile, GA.theme)), [GA.SpecificationTheme])
+        self.assertEqual({str(v) for v in settings.objects(DOC.profile, GA.requiredMetadataField)},
+                         {"thisVersion", "latestVersion"})
         self.assertIn((DOC.websiteProfile, GA.layout, Literal("documentation")), settings)
         self.assertIn((FAMILY, GA.collectionTerm, Literal("family")), settings)
         self.assertIn((DOC.specification, GA.profile, DOC.profile), settings)
