@@ -29,7 +29,7 @@ jobs:
           --grapharch "$GRAPHARCH_BINARY"
       - uses: actions/upload-pages-artifact@v5
         with:
-          path: _site/pages/.vercel/output/static
+          path: _site/pages/static
   deploy:
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     needs: reference

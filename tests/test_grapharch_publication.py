@@ -25,42 +25,49 @@ class GraphArchPublicationTests(unittest.TestCase):
         self.assertEqual(set(settings.objects(DOC.siteNavigation, GA.navigationEntry)),
                          {DOC.familyLink, DOC.pdfLink})
         for entry, label, order, url in (
-            (DOC.familyLink, "Ontology family", 1,
-             "https://ekgf.github.io/ekg-ontologies/spec/main/"),
-            (DOC.pdfLink, "PDF", 2,
-             "https://ekgf.github.io/ekg-ontologies/documents/main/document.pdf"),
+            (DOC.familyLink, "Ontology family", 1, "spec/main/"),
+            (DOC.pdfLink, "PDF", 2, "pdf/document.pdf"),
         ):
             self.assertIn((entry, RDF.type, GA.NavigationEntry), settings)
             self.assertEqual(str(settings.value(entry, DCTERMS.title)), label)
             self.assertEqual(int(settings.value(entry, GA.order)), order)
             self.assertEqual(str(settings.value(entry, GA.url)), url)
 
-    def test_main_publications_have_matching_destinations_urls_and_hosting_paths(self):
+    def test_website_contains_the_reference_and_pdf_at_their_public_paths(self):
         settings = Graph().parse(ROOT / "publication/grapharch.ttl")
-        hosting = (ROOT / "publication/hosting.yaml").read_text()
-        for target, destination in ((DOC.specification, "spec/main"),
-                                    (DOC.pdf, "documents/main")):
-            self.assertEqual(str(settings.value(target, GA.destination)), destination)
-            url = URIRef(f"https://ekgf.github.io/ekg-ontologies/{destination}/")
+        self.assertEqual(str(settings.value(DOC.website, GA.destination)), "site")
+        self.assertEqual(set(settings.objects(DOC.website, GA.containsTarget)),
+                         {DOC.specification, DOC.pdf})
+        self.assertEqual(str(settings.value(DOC.project, GA.contentSource)), "publication/site")
+        for target, public in ((DOC.specification, "spec/main"), (DOC.pdf, "pdf")):
+            self.assertEqual(str(settings.value(target, GA.destination)), f"site/{public}")
+            url = URIRef(f"https://ekgf.github.io/ekg-ontologies/{public}/")
             for field in (GA.thisVersion, GA.latestVersion):
                 self.assertIn((target, field, url), settings)
-            self.assertIn(f"source: ../_site/{destination}\n", hosting)
-            self.assertIn(f"destination: {destination}\n", hosting)
+        for target in (DOC.website, DOC.specification, DOC.pdf):
+            self.assertEqual(str(settings.value(target, GA.documentationGraphPath)),
+                             "documentation.nq")
+        hosting = (ROOT / "publication/hosting.yaml").read_text()
+        self.assertEqual(hosting, "version: 2\nplatform: github-pages\nmount: /\n"
+                                  "site: ../_site/site\n")
 
     def test_family_browser_and_ekgf_website_have_distinct_targets(self):
         settings = Graph().parse(ROOT / "publication/grapharch.ttl")
         self.assertEqual(set(settings.objects(DOC.project, GA.target)),
                          {DOC.website, DOC.specification, DOC.pdf})
         for target, renderer in ((DOC.specification, GA.SpecificationPagesRenderer),
-                                 (DOC.pdf, GA.SpecificationRenderer),
+                                 (DOC.pdf, GA.TypstRenderer),
                                  (DOC.website, GA.WebsiteRenderer)):
             self.assertEqual(list(settings.objects(target, GA.renderer)), [renderer])
         self.assertIn((DOC.website, GA.profile, DOC.websiteProfile), settings)
         self.assertIn((DOC.websiteProfile, GA.style, Literal("ekgf")), settings)
         self.assertIn((DOC.websiteProfile, GA.layout, Literal("documentation")), settings)
         self.assertIn((FAMILY, GA.collectionTerm, Literal("family")), settings)
+        self.assertIn((DOC.specification, GA.profile, DOC.profile), settings)
+        self.assertIn((DOC.pdf, GA.profile, DOC.pdfProfile), settings)
+        for profile in (DOC.profile, DOC.pdfProfile):
+            self.assertIn((profile, ARTPUB.publishesFamily, FAMILY), settings)
         for subject in (DOC.specification, DOC.pdf):
-            self.assertIn((subject, GA.profile, DOC.profile), settings)
             self.assertIn((subject, GA.publisher, AUTHORITY), settings)
         destinations = list(settings.objects(None, GA.destination))
         self.assertEqual(len(destinations), len(set(destinations)))
@@ -87,7 +94,7 @@ class GraphArchPublicationTests(unittest.TestCase):
         self.assertIn("package-ecosystem: github-actions", dependabot)
         self.assertIn("interval: daily", dependabot)
         self.assertIn("scripts/build_grapharch_pages.py", workflow)
-        self.assertIn("_site/pages/.vercel/output/static", workflow)
+        self.assertIn("_site/pages/static", workflow)
 
     def test_publication_uses_the_registered_family_name(self):
         settings = Graph().parse(ROOT / "publication/grapharch.ttl")

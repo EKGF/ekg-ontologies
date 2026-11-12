@@ -2,7 +2,6 @@
 import argparse
 import json
 from pathlib import Path
-import shutil
 import subprocess
 
 
@@ -28,17 +27,18 @@ def retain_graph(report, output: Path, *, require_pdf: bool):
 
     publication = artifact("publication_path")
     archive = artifact("kg_path")
-    if not (publication / "index.html").is_file() or not archive.is_file():
-        raise ValueError("GraphArch did not produce an HTML publication and KG archive")
+    html = (publication / "index.html").is_file()
+    if (not html and not require_pdf) or not archive.is_file():
+        raise ValueError("GraphArch did not produce the publication and KG archive")
     pdf = report.get("pdf_path")
     if require_pdf and pdf is None:
         raise ValueError("The book target did not produce a PDF")
     if pdf is not None and not artifact("pdf_path").is_file():
         raise ValueError("GraphArch did not produce the reported PDF")
+    # GraphArch places the graph where ga:documentationGraphPath declares it.
     retained = publication / "documentation.nq"
-    if retained.exists():
-        raise ValueError("Refusing to overwrite an existing publication artifact")
-    shutil.copyfile(archive, retained)
+    if not retained.is_file() or retained.read_bytes() != archive.read_bytes():
+        raise ValueError("GraphArch did not retain the documentation graph in the publication")
 
 
 def build(binary: str, root: Path = ROOT):
@@ -49,7 +49,7 @@ def build(binary: str, root: Path = ROOT):
     output.mkdir(exist_ok=False)
     common = ["--definitions", "publication/grapharch.ttl", "--project", PROJECT]
     for target in ("specification", "pdf", "website"):
-        source = (["build-site", "--source", "publication/site"] if target == "website"
+        source = (["build-site", "--source", "."] if target == "website"
                   else ["build-family", "--local-repository", "."])
         result = subprocess.run(
             [binary, "publication", *source, *common, "--target", TARGET + target,
@@ -62,7 +62,7 @@ def build(binary: str, root: Path = ROOT):
          "--output-root", str(output / "pages"), "--mount", "/"],
         cwd=root, check=True,
     )
-    package = output / "pages/.vercel/output/static"
+    package = output / "pages/static"
     if not (package / "index.html").is_file():
         raise ValueError("GraphArch did not package the website home page")
     (package / ".nojekyll").touch()
