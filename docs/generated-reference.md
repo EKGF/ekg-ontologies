@@ -15,7 +15,7 @@ publications, declared through `ga:containsTarget`: the family reference at
 `spec/main/` and the PDF edition at `pdf/`. The paginated family reference does
 not produce a combined PDF, so the PDF edition is a separate target. Its
 `ga:TypstRenderer` renders the whole family as one document,
-`pdf/document.pdf`.
+`pdf/ekgf-spec-ekg-ontologies.pdf`.
 
 The [website](https://ekgf.github.io/ekg-ontologies/) uses the shared EKGF header,
 footer, typography and theme controls, as other EKGF websites do. Its authored
@@ -32,7 +32,7 @@ uses the same `ga:SpecificationPagesRenderer` as GraphArch's Commons showcase:
 a family overview, one reference page per ontology, links between terms, and
 shared search. The registered family explicitly selects `ga:collectionTerm
 "family"`. It retains its own name, EKGF publishing authority and namespaces.
-The [PDF edition](https://ekgf.github.io/ekg-ontologies/pdf/document.pdf)
+The [PDF edition](https://ekgf.github.io/ekg-ontologies/pdf/ekgf-spec-ekg-ontologies.pdf)
 contains the complete reference as a book. The reference's
 [documentation graph](https://ekgf.github.io/ekg-ontologies/spec/main/documentation.nq)
 is available as a restorable RDF archive.
@@ -80,7 +80,10 @@ Graph stores and intermediate build directories are excluded.
 
 The deployable static tree is `_site/pages/static/`. Its root is
 the EKGF website; the family reference is at `spec/main/`, and the PDF edition
-is at `pdf/`. Each has its own restorable `documentation.nq`.
+is at `pdf/`. The website and the family reference each have their own
+restorable `documentation.nq`; `pdf/` holds only the PDF, named
+`pdf/ekgf-spec-ekg-ontologies.pdf` on `main` and
+`pdf/ekgf-spec-ekg-ontologies-pr-<number>.pdf` in pull-request previews.
 Serve the assembled tree to preview the complete site:
 
 ```sh

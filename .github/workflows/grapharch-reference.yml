@@ -24,9 +24,11 @@ jobs:
       - name: Build and package the EKGF ontology family website
         env:
           GRAPHARCH_BINARY: ${{ steps.grapharch.outputs.binary-path }}
+          GRAPHARCH_EDITION: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.pull_request.number) || 'default' }}
         run: >-
           python3 -B scripts/build_grapharch_pages.py
           --grapharch "$GRAPHARCH_BINARY"
+          --edition "$GRAPHARCH_EDITION"
       - uses: actions/upload-pages-artifact@v5
         with:
           path: _site/pages/static

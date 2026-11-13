@@ -26,7 +26,7 @@ class GraphArchPublicationTests(unittest.TestCase):
                          {DOC.familyLink, DOC.pdfLink})
         for entry, label, order, url in (
             (DOC.familyLink, "Ontology family", 1, "spec/main/"),
-            (DOC.pdfLink, "PDF", 2, "pdf/document.pdf"),
+            (DOC.pdfLink, "PDF", 2, "urn:ekgf-ontologies:documentation:pdf"),
         ):
             self.assertIn((entry, RDF.type, GA.NavigationEntry), settings)
             self.assertEqual(str(settings.value(entry, DCTERMS.title)), label)
@@ -39,14 +39,20 @@ class GraphArchPublicationTests(unittest.TestCase):
         self.assertEqual(set(settings.objects(DOC.website, GA.containsTarget)),
                          {DOC.specification, DOC.pdf})
         self.assertEqual(str(settings.value(DOC.project, GA.contentSource)), "publication/site")
-        for target, public in ((DOC.specification, "spec/main"), (DOC.pdf, "pdf")):
+        for target, public, entry in ((DOC.specification, "spec/main", ""),
+                                      (DOC.pdf, "pdf", "ekgf-spec-ekg-ontologies.pdf")):
             self.assertEqual(str(settings.value(target, GA.destination)), f"site/{public}")
-            url = URIRef(f"https://ekgf.github.io/ekg-ontologies/{public}/")
+            url = URIRef(f"https://ekgf.github.io/ekg-ontologies/{public}/{entry}")
             for field in (GA.thisVersion, GA.latestVersion):
                 self.assertIn((target, field, url), settings)
-        for target in (DOC.website, DOC.specification, DOC.pdf):
+        for target in (DOC.website, DOC.specification):
             self.assertEqual(str(settings.value(target, GA.documentationGraphPath)),
                              "documentation.nq")
+        # The PDF target owns only its named PDF in pdf/.
+        self.assertIsNone(settings.value(DOC.pdf, GA.documentationGraphPath))
+        self.assertIn((DOC.pdf, GA.documentType, GA.SpecificationDocument), settings)
+        self.assertIn((AUTHORITY, GA.slug, Literal("ekgf")), settings)
+        self.assertIn((FAMILY, GA.slug, Literal("ekg-ontologies")), settings)
         hosting = (ROOT / "publication/hosting.yaml").read_text()
         self.assertEqual(hosting, "version: 2\nplatform: github-pages\nmount: /\n"
                                   "site: ../_site/site\n")

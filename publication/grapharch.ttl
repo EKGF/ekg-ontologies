@@ -50,9 +50,10 @@ doc:siteNavigation a ga:Navigation ;
 doc:familyLink a ga:NavigationEntry ; dct:title "Ontology family" ;
     ga:url "spec/main/" ; ga:order 1 .
 doc:pdfLink a ga:NavigationEntry ; dct:title "PDF" ;
-    ga:url "pdf/document.pdf" ; ga:order 2 .
+    ga:url "urn:ekgf-ontologies:documentation:pdf" ; ga:order 2 .
 
-<urn:uuid:c0eda36a-f42a-4fa3-aea9-c7a5543207eb> ga:collectionTerm "family" .
+<urn:uuid:c0eda36a-f42a-4fa3-aea9-c7a5543207eb> ga:collectionTerm "family" ;
+    ga:slug "ekg-ontologies" .
 
 doc:scope a ga:Scope .
 doc:pdfProfile a ga:Profile, artpub:PublicationProfile ;
@@ -96,16 +97,17 @@ doc:pdf a ga:Target ;
     ga:scope doc:scope ;
     ga:profile doc:pdfProfile ;
     ga:renderer ga:TypstRenderer ;
+    ga:documentType ga:SpecificationDocument ;
     ga:destination "site/pdf" ;
-    ga:documentationGraphPath "documentation.nq" ;
     ga:publisher <urn:uuid:6c1408aa-039c-42f9-8dee-9c3f0009d61a> ;
     ga:publicationStatus "Editor's Draft" ;
     ga:publicationDate "2026-11-11"^^xsd:date ;
-    ga:thisVersion <https://ekgf.github.io/ekg-ontologies/pdf/> ;
-    ga:latestVersion <https://ekgf.github.io/ekg-ontologies/pdf/> ;
+    ga:thisVersion <https://ekgf.github.io/ekg-ontologies/pdf/ekgf-spec-ekg-ontologies.pdf> ;
+    ga:latestVersion <https://ekgf.github.io/ekg-ontologies/pdf/ekgf-spec-ekg-ontologies.pdf> ;
     ga:editorDraft <https://github.com/EKGF/ekg-ontologies> ;
     ga:license <https://creativecommons.org/publicdomain/zero/1.0/> .
 
 <urn:uuid:6c1408aa-039c-42f9-8dee-9c3f0009d61a>
+    ga:slug "ekgf" ;
     ga:accentColor "#4949b5" ;
     ga:url "https://ekgf.org/" .

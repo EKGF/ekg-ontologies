@@ -35,19 +35,25 @@ def retain_graph(report, output: Path, *, require_pdf: bool):
         raise ValueError("The book target did not produce a PDF")
     if pdf is not None and not artifact("pdf_path").is_file():
         raise ValueError("GraphArch did not produce the reported PDF")
+    if require_pdf:
+        # A PDF target owns only its PDF; pdf/ holds PDFs, not graphs.
+        return
     # GraphArch places the graph where ga:documentationGraphPath declares it.
     retained = publication / "documentation.nq"
     if not retained.is_file() or retained.read_bytes() != archive.read_bytes():
         raise ValueError("GraphArch did not retain the documentation graph in the publication")
 
 
-def build(binary: str, root: Path = ROOT):
+def build(binary: str, edition: str, root: Path = ROOT):
     """Build explicit targets and use GraphArch's static hosting packager."""
     root = root.resolve(strict=True)
     output = root / "_site"
     # A fresh tree keeps partial builds and previous source snapshots out of a publication.
     output.mkdir(exist_ok=False)
-    common = ["--definitions", "publication/grapharch.ttl", "--project", PROJECT]
+    # The edition names the PDF: "default" only for the main build, otherwise
+    # pr-<number>, so previews never overwrite the published PDF name.
+    common = ["--definitions", "publication/grapharch.ttl", "--project", PROJECT,
+              "--edition", edition]
     for target in ("specification", "pdf", "website"):
         source = (["build-site", "--source", "."] if target == "website"
                   else ["build-family", "--local-repository", "."])
@@ -72,5 +78,7 @@ def build(binary: str, root: Path = ROOT):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--grapharch", default="grapharch", help="GraphArch executable")
+    parser.add_argument("--edition", required=True,
+                        help="default for main, otherwise pr-<number>")
     arguments = parser.parse_args()
-    print(build(arguments.grapharch))
+    print(build(arguments.grapharch, arguments.edition))
