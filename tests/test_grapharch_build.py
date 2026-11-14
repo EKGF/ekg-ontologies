@@ -26,19 +26,24 @@ class GraphArchBuildTests(unittest.TestCase):
                 commands.append(command)
                 self.assertEqual(kwargs["cwd"], root)
                 if "package-site" in command:
-                    package = root / "_site/pages/.vercel/output/static"
+                    package = root / "_site/pages/static"
                     package.mkdir(parents=True)
                     (package / "index.html").write_text("EKGF home")
                     return subprocess.CompletedProcess(command, 0, "package")
                 target = command[command.index("--target") + 1].rsplit(":", 1)[1]
-                folder = {"specification": "spec/main", "pdf": "documents/main",
+                folder = {"specification": "site/spec/main", "pdf": "site/pdf",
                           "website": "site"}[target]
                 publication = root / "_site" / folder
-                publication.mkdir(parents=True)
-                (publication / "index.html").write_text(target)
+                publication.mkdir(parents=True, exist_ok=True)
+                if target != "pdf":
+                    (publication / "index.html").write_text(target)
                 archive = root / "_site/documentation.nq"
                 archive.write_text(f"graph for {target}")
-                pdf = publication / "document.pdf" if target == "pdf" else None
+                if target != "pdf":
+                    # GraphArch writes each target's graph at its documentationGraphPath.
+                    (publication / "documentation.nq").write_text(f"graph for {target}")
+                pdf = (publication / "ekgf-spec-ekg-ontologies.pdf"
+                       if target == "pdf" else None)
                 if pdf:
                     pdf.write_bytes(b"%PDF-test")
                 report = {"schema_version": 1, "publication_path": str(publication),
@@ -46,16 +51,19 @@ class GraphArchBuildTests(unittest.TestCase):
                 return subprocess.CompletedProcess(command, 0, json.dumps(report))
 
             with patch.object(BUILD.subprocess, "run", side_effect=generator):
-                package = BUILD.build("grapharch-test", root)
-            self.assertEqual(package, root / "_site/pages/.vercel/output/static")
+                package = BUILD.build("grapharch-test", "default", root)
+            self.assertEqual(package, root / "_site/pages/static")
             self.assertTrue((package / ".nojekyll").is_file())
             self.assertEqual(len(commands), 4)
             for command in commands[:2]:
                 self.assertIn("build-family", command)
                 self.assertIn("--local-repository", command)
             self.assertIn("build-site", commands[2])
-            for target, folder in (("specification", "spec/main"),
-                                   ("pdf", "documents/main"), ("website", "site")):
+            for command in commands[:3]:
+                self.assertEqual(command[command.index("--edition") + 1], "default")
+            self.assertFalse((root / "_site/site/pdf/documentation.nq").exists())
+            for target, folder in (("specification", "site/spec/main"),
+                                   ("website", "site")):
                 self.assertEqual((root / "_site" / folder / "documentation.nq").read_text(),
                                  f"graph for {target}")
 
@@ -64,7 +72,7 @@ class GraphArchBuildTests(unittest.TestCase):
             error = subprocess.CalledProcessError(1, ["grapharch-test"])
             with patch.object(BUILD.subprocess, "run", side_effect=error) as run:
                 with self.assertRaises(subprocess.CalledProcessError):
-                    BUILD.build("grapharch-test", pathlib.Path(directory))
+                    BUILD.build("grapharch-test", "default", pathlib.Path(directory))
             self.assertEqual(run.call_count, 1)
 
     def test_rejects_invalid_or_escaping_build_reports(self):
