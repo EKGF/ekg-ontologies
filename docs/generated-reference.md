@@ -10,27 +10,29 @@ existing EKGF family and authority UUIDs; they do not redefine those identities
 or change ontology axioms. The generated reference is an editor's draft, not an
 approved standards release.
 
-This repository publishes from `main`. The family reference uses `spec/main/`
-and the PDF edition uses `documents/main/`. The paginated family reference does
-not produce a combined PDF, so the PDF edition is a separate publication target.
-It renders the whole family as one document, `documents/main/document.pdf`,
-with a single-page HTML rendition beside it. The `documents/<branch>` path
-follows GraphArch's convention for a family's PDF edition.
+This repository publishes from `main`. The website contains two further
+publications, declared through `ga:containsTarget`: the family reference at
+`spec/main/` and the PDF edition at `pdf/`. The paginated family reference does
+not produce a combined PDF, so the PDF edition is a separate target. Its
+`ga:TypstRenderer` renders the whole family as one document,
+`pdf/ekgf-spec-ekg-ontologies.pdf`.
 
 The [website](https://ekgf.github.io/ekg-ontologies/) uses the shared EKGF header,
 footer, typography and theme controls, as other EKGF websites do. Its authored
 introduction and usage page live in [`publication/site/`](../publication/site/).
 The site's primary navigation places **Ontology family** and **PDF** in the
 second bar beside the site name. The top bar carries shared EKGF navigation.
-These cross-publication links use their canonical URLs, as required by
-GraphArch's primary navigation.
+These links are relative to the website root, so the deployment location
+comes from the hosting profile rather than the definitions. Links between
+publications, such as the reference's download links, name the target IRI and
+GraphArch resolves its published location.
 
 The [family reference](https://ekgf.github.io/ekg-ontologies/spec/main/)
 uses the same `ga:SpecificationPagesRenderer` as GraphArch's Commons showcase:
 a family overview, one reference page per ontology, links between terms, and
 shared search. The registered family explicitly selects `ga:collectionTerm
 "family"`. It retains its own name, EKGF publishing authority and namespaces.
-The [PDF edition](https://ekgf.github.io/ekg-ontologies/documents/main/document.pdf)
+The [PDF edition](https://ekgf.github.io/ekg-ontologies/pdf/ekgf-spec-ekg-ontologies.pdf)
 contains the complete reference as a book. The reference's
 [documentation graph](https://ekgf.github.io/ekg-ontologies/spec/main/documentation.nq)
 is available as a restorable RDF archive.
@@ -52,11 +54,12 @@ The script explicitly selects three targets from `publication/grapharch.ttl`:
 | Target | Renderer | Generated destination |
 | --- | --- | --- |
 | `doc:website` | `ga:WebsiteRenderer`, EKGF theme and documentation layout | `_site/site/` |
-| `doc:specification` | `ga:SpecificationPagesRenderer` | `_site/spec/main/` |
-| `doc:pdf` | `ga:SpecificationRenderer`, including its PDF | `_site/documents/main/` |
+| `doc:specification` | `ga:SpecificationPagesRenderer` | `_site/site/spec/main/` |
+| `doc:pdf` | `ga:TypstRenderer` | `_site/site/pdf/` |
 
 Here `doc:` is `urn:ekgf-ontologies:documentation:`. The website has its own
-scope and profile. The reference and book share the registered family profile.
+scope and profile. The reference and the PDF edition use their own profiles,
+which both publish the registered family.
 The configuration records this arrangement in `annotation:markdownDescription`.
 
 Each family target uses `publication build-family --local-repository .` with
@@ -64,22 +67,27 @@ explicit `--definitions`, `--project` and `--target` arguments. The source
 checkout is read directly. Ontologies are not copied into another
 repository, and imports are not downloaded. Git provenance records the observed
 checkout state, including local edits. The website uses `publication build-site`
-on `publication/site/` with its own explicit target.
+with its own explicit target; its authored pages come from the project's
+`ga:contentSource "publication/site"`.
 
-The script checks each versioned JSON build report and retains that target's
-`documentation.nq` beside its pages before the next target runs. It then uses
-GraphArch's `publication package-site` with
-[`publication/hosting.yaml`](../publication/hosting.yaml) to combine the three
-artifact trees. Packaging rejects collisions, private files and symlinks.
+The script checks each versioned JSON build report. GraphArch writes each
+target's documentation graph at its `ga:documentationGraphPath`, and the script
+verifies that it matches the reported archive. It then uses GraphArch's
+`publication package-site` with
+[`publication/hosting.yaml`](../publication/hosting.yaml), a GitHub Pages
+profile, to package the composed website. Packaging rejects collisions, private files and symlinks.
 Graph stores and intermediate build directories are excluded.
 
-The deployable static tree is `_site/pages/.vercel/output/static/`. Its root is
-the EKGF website; the family reference remains at `spec/main/`, and the book
-is at `documents/main/`. Each has its own restorable `documentation.nq`.
+The deployable static tree is `_site/pages/static/`. Its root is
+the EKGF website; the family reference is at `spec/main/`, and the PDF edition
+is at `pdf/`. The website and the family reference each have their own
+restorable `documentation.nq`; `pdf/` holds only the PDF, named
+`pdf/ekgf-spec-ekg-ontologies.pdf` on `main` and
+`pdf/ekgf-spec-ekg-ontologies-pr-<number>.pdf` in pull-request previews.
 Serve the assembled tree to preview the complete site:
 
 ```sh
-python3 -m http.server 8770 --directory _site/pages/.vercel/output/static
+python3 -m http.server 8770 --directory _site/pages/static
 ```
 
 `_site/` is ignored by Git

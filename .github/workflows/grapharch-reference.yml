@@ -18,18 +18,20 @@ jobs:
         run: python3 -B -m unittest discover -s tests -p test_grapharch_build.py
       - name: Install the GraphArch release of the pinned action
         id: grapharch
-        uses: EKGF/grapharch@eb358c6553ef377158d5523bddda9378f1481d1a # v0.2.9
+        uses: EKGF/grapharch@c3ad8918a3916df53b306b639a519254fdf082bd # v0.2.10
         with:
           mode: install
       - name: Build and package the EKGF ontology family website
         env:
           GRAPHARCH_BINARY: ${{ steps.grapharch.outputs.binary-path }}
+          GRAPHARCH_EDITION: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.pull_request.number) || 'default' }}
         run: >-
           python3 -B scripts/build_grapharch_pages.py
           --grapharch "$GRAPHARCH_BINARY"
+          --edition "$GRAPHARCH_EDITION"
       - uses: actions/upload-pages-artifact@v5
         with:
-          path: _site/pages/.vercel/output/static
+          path: _site/pages/static
   deploy:
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     needs: reference

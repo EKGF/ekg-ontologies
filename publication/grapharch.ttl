@@ -12,13 +12,14 @@ doc:project a ga:Project ;
     dct:title "EKGF Ontologies" ;
     ga:repository <https://github.com/EKGF/ekg-ontologies> ;
     ga:target doc:website, doc:specification, doc:pdf ;
+    ga:contentSource "publication/site" ;
     annotation:markdownDescription """
 The EKGF website introduces this **ontology family**. Its family browser has an
 overview, one reference page per ontology, and shared search. A separate book
 target produces the downloadable PDF. All three publications read this checkout;
 family membership and the publishing authority come from the existing registry.
 This repository publishes from `main`: the family reference is at `spec/main/`
-and the book edition is at `documents/main/`.
+and the book edition is at `pdf/`.
 
 The website uses the shared EKGF presentation. Links to the ontology family and
 PDF belong in the site's primary navigation in the second bar, alongside its
@@ -34,10 +35,12 @@ doc:website a ga:Target ;
     ga:scope doc:websiteScope ;
     ga:profile doc:websiteProfile ;
     ga:renderer ga:WebsiteRenderer ;
-    ga:destination "site" .
+    ga:destination "site" ;
+    ga:containsTarget doc:specification, doc:pdf ;
+    ga:documentationGraphPath "documentation.nq" .
 doc:websiteScope a ga:Scope .
 doc:websiteProfile a ga:Profile ;
-    ga:style "ekgf" ;
+    ga:theme ga:EkgfTheme ;
     ga:layout "documentation" ;
     ga:navigation doc:siteNavigation .
 doc:siteNavigation a ga:Navigation ;
@@ -45,15 +48,20 @@ doc:siteNavigation a ga:Navigation ;
     ga:navigationRegion "primary" ;
     ga:navigationEntry doc:familyLink, doc:pdfLink .
 doc:familyLink a ga:NavigationEntry ; dct:title "Ontology family" ;
-    ga:url "https://ekgf.github.io/ekg-ontologies/spec/main/" ; ga:order 1 .
+    ga:url "spec/main/" ; ga:order 1 .
 doc:pdfLink a ga:NavigationEntry ; dct:title "PDF" ;
-    ga:url "https://ekgf.github.io/ekg-ontologies/documents/main/document.pdf" ; ga:order 2 .
+    ga:url "urn:ekgf-ontologies:documentation:pdf" ; ga:order 2 .
 
-<urn:uuid:c0eda36a-f42a-4fa3-aea9-c7a5543207eb> ga:collectionTerm "family" .
+<urn:uuid:c0eda36a-f42a-4fa3-aea9-c7a5543207eb> ga:collectionTerm "family" ;
+    ga:slug "ekg-ontologies" .
 
 doc:scope a ga:Scope .
+doc:pdfProfile a ga:Profile, artpub:PublicationProfile ;
+    artpub:publishesFamily <urn:uuid:c0eda36a-f42a-4fa3-aea9-c7a5543207eb> ;
+    ga:theme ga:SpecificationTheme .
 doc:profile a ga:Profile, artpub:PublicationProfile ;
-    artpub:publishesFamily <urn:uuid:c0eda36a-f42a-4fa3-aea9-c7a5543207eb> .
+    artpub:publishesFamily <urn:uuid:c0eda36a-f42a-4fa3-aea9-c7a5543207eb> ;
+    ga:requiredMetadataField "thisVersion", "latestVersion" .
 
 doc:specification a ga:Target ;
     dct:title "EKGF Ontologies" ;
@@ -62,7 +70,8 @@ doc:specification a ga:Target ;
     ga:scope doc:scope ;
     ga:profile doc:profile ;
     ga:renderer ga:SpecificationPagesRenderer ;
-    ga:destination "spec/main" ;
+    ga:destination "site/spec/main" ;
+    ga:documentationGraphPath "documentation.nq" ;
     ga:publisher <urn:uuid:6c1408aa-039c-42f9-8dee-9c3f0009d61a> ;
     ga:publicationStatus "Editor's Draft" ;
     ga:publicationDate "2026-11-11"^^xsd:date ;
@@ -79,24 +88,26 @@ doc:editorDraftRow dct:title "Source" ; ga:field "editorDraft" ; ga:order 3 .
 doc:licenseRow dct:title "License" ; ga:field "custom" ; ga:order 4 ;
     ga:body "<a href='https://creativecommons.org/publicdomain/zero/1.0/'>CC0 1.0</a>" .
 doc:downloadsRow dct:title "Downloads" ; ga:field "custom" ; ga:order 5 ;
-    ga:body "<a href='../../documents/main/document.pdf'>Family reference PDF</a> · <a href='documentation.nq'>Documentation graph</a> · <a href='../../'>EKGF Ontologies home</a>" .
+    ga:body "<a href='urn:ekgf-ontologies:documentation:pdf'>Family reference PDF</a> · <a href='documentation.nq'>Documentation graph</a> · <a href='urn:ekgf-ontologies:documentation:website'>EKGF Ontologies home</a>" .
 
 doc:pdf a ga:Target ;
     dct:title "EKGF Ontologies" ;
     dct:description "An ontology family for enterprise knowledge graphs: concepts, use cases, stories, artifacts, governance, publication and lifecycles." ;
     rdfs:comment "This editor's draft is generated from the ontology sources and their registry. It is a documentation preview, not an approved standards release. Supplied source annotations are reproduced. Documentation gaps are reported explicitly; ontology imports are not fetched and this publication does not establish semantic correctness." ;
     ga:scope doc:scope ;
-    ga:profile doc:profile ;
-    ga:renderer ga:SpecificationRenderer ;
-    ga:destination "documents/main" ;
+    ga:profile doc:pdfProfile ;
+    ga:renderer ga:TypstRenderer ;
+    ga:documentType ga:SpecificationDocument ;
+    ga:destination "site/pdf" ;
     ga:publisher <urn:uuid:6c1408aa-039c-42f9-8dee-9c3f0009d61a> ;
     ga:publicationStatus "Editor's Draft" ;
     ga:publicationDate "2026-11-11"^^xsd:date ;
-    ga:thisVersion <https://ekgf.github.io/ekg-ontologies/documents/main/> ;
-    ga:latestVersion <https://ekgf.github.io/ekg-ontologies/documents/main/> ;
+    ga:thisVersion <https://ekgf.github.io/ekg-ontologies/pdf/ekgf-spec-ekg-ontologies.pdf> ;
+    ga:latestVersion <https://ekgf.github.io/ekg-ontologies/pdf/ekgf-spec-ekg-ontologies.pdf> ;
     ga:editorDraft <https://github.com/EKGF/ekg-ontologies> ;
     ga:license <https://creativecommons.org/publicdomain/zero/1.0/> .
 
 <urn:uuid:6c1408aa-039c-42f9-8dee-9c3f0009d61a>
+    ga:slug "ekgf" ;
     ga:accentColor "#4949b5" ;
     ga:url "https://ekgf.org/" .
