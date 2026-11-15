@@ -14,7 +14,26 @@
         sh:namespace "https://ekgf.org/ontology/annotation#"^^xsd:anyURI
     ] ;
     rdfs:label "Annotation Ontology"@en ;
-    rdfs:comment "Descriptive text that any resource can carry: a description in Markdown, a subtitle and a summary. These are annotation properties, so they apply to classes and properties as well as to individuals."@en .
+    rdfs:comment "Descriptive resource metadata: Markdown descriptions, subtitles, summaries and URL slugs. Text annotations apply to classes, properties and individuals; slug is a datatype property for resource addressing."@en .
+
+annotation:slug a owl:DatatypeProperty ;
+    rdfs:range xsd:string ;
+    rdfs:label "slug"@en ;
+    rdfs:comment "The short, lowercase, hyphenated name by which a resource is addressed in a URL."@en ;
+    rdfs:isDefinedBy annotation: ;
+    annotation:markdownDescription """
+## Resource addressing
+
+A slug is a readable URL name, such as `enterprise` or `working-draft`.
+It does not replace the resource's stable IRI or registered UUID identity.
+Different contexts can reuse a slug: states in different lifecycles can both
+be named `deprecated`. This property declares no global uniqueness rule,
+cardinality restriction or automatic slug generation.
+
+The property is an `owl:DatatypeProperty` with string values. Its placement in
+this ontology does not turn it into an OWL annotation property. The existing
+Markdown, subtitle and summary predicates retain their annotation semantics.
+"""@en .
 
 #################################################################
 #    Annotation properties

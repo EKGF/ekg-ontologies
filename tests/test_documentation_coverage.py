@@ -80,13 +80,13 @@ class DocumentationCoverageTests(unittest.TestCase):
     def test_enterprise_stereotype_replaces_the_root_name_consistently(self):
         graph = Graph().parse(ROOT / "ekgf-use-case.ttl", format="turtle")
         use_case = Namespace("https://ekgf.org/ontology/use-case#")
-        api = Namespace("https://ekgf.org/ontology/api#")
+        annotation = Namespace("https://ekgf.org/ontology/annotation#")
         stereotype = use_case.UseCaseStereoTypeEnterprise
         self.assertIn((stereotype, RDF.type, OWL.NamedIndividual), graph)
         self.assertIn((stereotype, RDF.type, use_case.UseCaseStereoType), graph)
         self.assertEqual(set(graph.objects(stereotype, RDFS.label)),
                          {Literal("Enterprise", lang="en")})
-        self.assertEqual(set(graph.objects(stereotype, api.slug)),
+        self.assertEqual(set(graph.objects(stereotype, annotation.slug)),
                          {Literal("enterprise")})
         self.assertIn((stereotype, RDFS.isDefinedBy, URIRef(str(use_case))), graph)
         self.assertTrue(english(graph.objects(stereotype, ANNOTATION.markdownDescription)))

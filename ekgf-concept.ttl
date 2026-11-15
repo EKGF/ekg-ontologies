@@ -22,8 +22,31 @@
     "Data element concepts, called data elements for short, describe logical data elements with all their various forms of physical manifestations, as business and technical terms, and their sightings. The scope includes individual data elements and compound data constructs such as whole classes and shapes. ManifestationOccurrence records each sighting: the artifacts in which a manifestation was found and, within a statement, the positions in which it appears."@en .
 
 #################################################################
+#    Datatype properties
+#################################################################
+
+:taxonomyKind a owl:DatatypeProperty ;
+  rdfs:range xsd:string ;
+  rdfs:label "taxonomy kind"@en ;
+  rdfs:comment "What kind of taxonomy a SKOS concept scheme is, such as thesaurus."@en ;
+  rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> ;
+  annotation:markdownDescription """
+## Describing a taxonomy
+
+Use a string such as `thesaurus` to describe the kind of a SKOS concept scheme.
+This metadata concerns the scheme's organization; it does not identify a data
+element concept or classify an individual SKOS concept as a data element.
+
+The property retains its string range and has no domain inference or closed
+list of permitted kinds. Moving it into the Concept Ontology does not introduce
+a new classification model or change the types of resources carrying it.
+"""@en .
+
+#################################################################
 #    Object properties
 #################################################################
+
+
 
 :hasConcept
   rdf:type      owl:ObjectProperty ;

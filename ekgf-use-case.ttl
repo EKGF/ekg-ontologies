@@ -3,7 +3,6 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
-@prefix api: <https://ekgf.org/ontology/api#> .
 @prefix story: <https://ekgf.org/ontology/story#> .
 @prefix concept: <https://ekgf.org/ontology/concept#> .
 @prefix outcome: <https://ekgf.org/ontology/outcome#> .
@@ -20,7 +19,7 @@
         sh:prefix "ekg-use-case" ;
         sh:namespace "https://ekgf.org/ontology/use-case#"^^xsd:anyURI
     ] ;
-    owl:imports api: ,
+    owl:imports annotation: ,
                 outcome: ,
                 persona: ,
                 story: ;
@@ -153,61 +152,61 @@ use-case:hexColor rdf:type owl:DatatypeProperty ;
 
 use-case:UseCaseStereoTypeEnterprise rdf:type owl:NamedIndividual ,
         use-case:UseCaseStereoType ;
-    api:slug "enterprise" ;
+    annotation:slug "enterprise" ;
     rdfs:label "Enterprise"@en ;
     rdfs:comment "An enterprise-level use case at the root of a use-case tree. A root use case has no parent; a graph can describe several enterprise roots."@en ;
     use-case:hexColor "#6b7280" .
 
 use-case:UseCaseStereoTypeBusinessCapabilityArea rdf:type owl:NamedIndividual ,
         use-case:UseCaseStereoType ;
-    api:slug "business-capability-area" ;
+    annotation:slug "business-capability-area" ;
     rdfs:label "Business Capability Area"@en ;
     rdfs:comment "A grouping of related business capabilities."@en ;
     use-case:hexColor "#5b6d8a" .
 
 use-case:UseCaseStereoTypeBusinessCapability rdf:type owl:NamedIndividual ,
         use-case:UseCaseStereoType ;
-    api:slug "business-capability" ;
+    annotation:slug "business-capability" ;
     rdfs:label "Business Capability"@en ;
     rdfs:comment "A business capability in the enterprise capability map."@en ;
     use-case:hexColor "#365885" .
 
 use-case:UseCaseStereoTypeDataLandscape rdf:type owl:NamedIndividual ,
         use-case:UseCaseStereoType ;
-    api:slug "data-landscape" ;
+    annotation:slug "data-landscape" ;
     rdfs:label "Data Landscape"@en .
 
 use-case:UseCaseStereoTypeDataDomain rdf:type owl:NamedIndividual ,
         use-case:UseCaseStereoType ;
-    api:slug "data-domain" ;
+    annotation:slug "data-domain" ;
     rdfs:label "Data Domain"@en ;
     rdfs:comment "A top-level data domain in the enterprise data landscape. A data domain owns and manages concept sets and their concepts, and usually has no stories."@en ;
     use-case:hexColor "#0f766e" .
 
 use-case:UseCaseStereoTypeDataSubdomain rdf:type owl:NamedIndividual ,
         use-case:UseCaseStereoType ;
-    api:slug "data-subdomain" ;
+    annotation:slug "data-subdomain" ;
     rdfs:label "Data Subdomain"@en ;
     rdfs:comment "A subdomain that belongs to a parent data domain."@en ;
     use-case:hexColor "#2ea39a" .
 
 use-case:UseCaseStereoTypeUseCase rdf:type owl:NamedIndividual ,
         use-case:UseCaseStereoType ;
-    api:slug "use-case" ;
+    annotation:slug "use-case" ;
     rdfs:label "Use Case"@en ;
     rdfs:comment "A concrete use case delivered within a business or data context. The default stereotype of a new use case."@en ;
     use-case:hexColor "#5b5bd6" .
 
 use-case:UseCaseStereoTypeDataTransformation rdf:type owl:NamedIndividual ,
         use-case:UseCaseStereoType ;
-    api:slug "data-transformation" ;
+    annotation:slug "data-transformation" ;
     rdfs:label "Data Transformation"@en ;
     rdfs:comment "A use case that transforms data from one or more input datasets into one or more output datasets. Most of its stories are update stories."@en ;
     use-case:hexColor "#b7791f" .
 
 use-case:UseCaseStereoTypeApplication rdf:type owl:NamedIndividual ,
         use-case:UseCaseStereoType ;
-    api:slug "app" ;
+    annotation:slug "app" ;
     rdfs:label "Application"@en ;
     rdfs:comment "An application-level use case."@en ;
     use-case:hexColor "#2563eb" .
@@ -317,7 +316,7 @@ use-case:UseCaseStereoTypeEnterprise annotation:markdownDescription """
 
 The Enterprise stereotype identifies the enterprise scope at the root of a
 use-case tree. Its public name is `Enterprise`, its identifier is
-`UseCaseStereoTypeEnterprise`, and its API slug is `enterprise`.
+`UseCaseStereoTypeEnterprise`, and its resource slug is `enterprise`.
 
 Assign it to a use case through `hasStereoType`, for example:
 

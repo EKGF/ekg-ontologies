@@ -6,7 +6,7 @@ from rdflib import Graph, Literal, Namespace, RDF, RDFS
 from rdflib.namespace import OWL
 
 from test_governance_registry import (
-    API, ARTGOV, ERROR, EX, ORG, PTS, ROLE, reason, turtle,
+    ANNOTATION, ARTGOV, ERROR, EX, ORG, PTS, ROLE, reason, turtle,
 )
 
 
@@ -31,7 +31,7 @@ class OrganizationClassificationTests(unittest.TestCase):
         }
         for slug, categories in expected.items():
             with self.subTest(slug=slug):
-                authority = data.value(predicate=API.slug, object=Literal(slug), any=False)
+                authority = data.value(predicate=ANNOTATION.slug, object=Literal(slug), any=False)
                 self.assertIsNotNone(authority)
                 actual = set(data.objects(
                     authority, ROLE.isPlayedBy / ARTGOV.organizationCategory

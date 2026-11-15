@@ -12,7 +12,7 @@ from rdflib.namespace import OWL, XSD
 
 ROOT = Path(__file__).resolve().parents[1]
 ARTGOV = Namespace("https://ekgf.org/ontology/artifact-governance#")
-API = Namespace("https://ekgf.org/ontology/api#")
+ANNOTATION = Namespace("https://ekgf.org/ontology/annotation#")
 ORG = Namespace("https://www.omg.org/spec/Commons/Organizations/")
 PTS = Namespace("https://www.omg.org/spec/Commons/PartiesAndSituations/")
 ROLE = Namespace("https://www.omg.org/spec/Commons/RolesAndCompositions/")
@@ -118,7 +118,7 @@ class GovernanceRegistryTests(unittest.TestCase):
                 for base in self.authorities.objects(authority, ARTGOV.baseIri):
                     self.assertIn(urlsplit(str(base)).hostname, hosts)
         topquadrant = next(
-            self.authorities.subjects(API.slug, Literal("topquadrant"))
+            self.authorities.subjects(ANNOTATION.slug, Literal("topquadrant"))
         )
         self.assertGreaterEqual(
             len(set(self.authorities.objects(topquadrant, ARTGOV.authorityHost))), 2

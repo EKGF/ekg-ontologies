@@ -7,7 +7,7 @@
 @prefix cmns-org: <https://www.omg.org/spec/Commons/Organizations/> .
 @prefix cmns-pts: <https://www.omg.org/spec/Commons/PartiesAndSituations/> .
 @prefix cmns-rlcmp: <https://www.omg.org/spec/Commons/RolesAndCompositions/> .
-@prefix api: <https://ekgf.org/ontology/api#> .
+@prefix annotation: <https://ekgf.org/ontology/annotation#> .
 @prefix artgov: <https://ekgf.org/ontology/artifact-governance#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix ekg-artgov: <https://ekgf.org/ontology/artifact-governance#> .
@@ -26,7 +26,7 @@
                 cmns-org: ,
                 cmns-pts: ,
                 cmns-rlcmp: ,
-                api: .
+                annotation: .
 
 #################################################################
 #    Classes
@@ -237,78 +237,78 @@ artgov:OrganizationCategoryScheme rdf:type owl:NamedIndividual ,
 artgov:StandardsBodyCategory rdf:type owl:NamedIndividual ,
         artgov:OrganizationCategory ;
     cmns-dsg:isDefinedIn artgov:OrganizationCategoryScheme ;
-    api:slug "standards-body" ;
+    annotation:slug "standards-body" ;
     rdfs:label "Standards body"@en ;
     rdfs:comment "An organization whose purpose includes developing, maintaining and publishing standards through an established governance process."@en .
 
 artgov:ConsortiumCategory rdf:type owl:NamedIndividual ,
         artgov:OrganizationCategory ;
     cmns-dsg:isDefinedIn artgov:OrganizationCategoryScheme ;
-    api:slug "consortium" ;
+    annotation:slug "consortium" ;
     rdfs:label "Consortium"@en ;
     rdfs:comment "An organization through which independent organizations cooperate toward shared objectives."@en .
 
 artgov:ProjectCategory rdf:type owl:NamedIndividual ,
         artgov:OrganizationCategory ;
     cmns-dsg:isDefinedIn artgov:OrganizationCategoryScheme ;
-    api:slug "project" ;
+    annotation:slug "project" ;
     rdfs:label "Project"@en ;
     rdfs:comment "An organized group carrying out a defined initiative and producing its work products."@en .
 
 artgov:CommunityCategory rdf:type owl:NamedIndividual ,
         artgov:OrganizationCategory ;
     cmns-dsg:isDefinedIn artgov:OrganizationCategoryScheme ;
-    api:slug "community" ;
+    annotation:slug "community" ;
     rdfs:label "Community"@en ;
     rdfs:comment "An organized community whose participants collaborate around a shared topic or practice."@en .
 
 artgov:AuthorityOwnerRole rdf:type owl:NamedIndividual ,
         artgov:AuthorityPublishingRole ;
-    api:slug "owner" ;
+    annotation:slug "owner" ;
     rdfs:label "owner"@en ;
     rdfs:comment "The authority is the primary owning body of the published artifacts."@en .
 
 artgov:AuthorityCoOwnerRole rdf:type owl:NamedIndividual ,
         artgov:AuthorityPublishingRole ;
-    api:slug "co-owner" ;
+    annotation:slug "co-owner" ;
     rdfs:label "co-owner"@en ;
     rdfs:comment "The authority co-owns the published artifacts with one or more other authorities."@en .
 
 artgov:AuthorityPublisherRole rdf:type owl:NamedIndividual ,
         artgov:AuthorityPublishingRole ;
-    api:slug "publisher" ;
+    annotation:slug "publisher" ;
     rdfs:label "publisher"@en ;
     rdfs:comment "The authority publishes the artifacts or their specification site."@en .
 
 artgov:AuthorityMaintainerRole rdf:type owl:NamedIndividual ,
         artgov:AuthorityPublishingRole ;
-    api:slug "maintainer" ;
+    annotation:slug "maintainer" ;
     rdfs:label "maintainer"@en ;
     rdfs:comment "The authority maintains the artifacts between publication releases."@en .
 
 artgov:StandardsEditorRole rdf:type owl:NamedIndividual ,
         artgov:StandardsCommunityRole ;
-    api:slug "standards-editor" ;
+    annotation:slug "standards-editor" ;
     rdfs:label "standards editor"@en .
 
 artgov:StandardsReviewerRole rdf:type owl:NamedIndividual ,
         artgov:StandardsCommunityRole ;
-    api:slug "standards-reviewer" ;
+    annotation:slug "standards-reviewer" ;
     rdfs:label "standards reviewer"@en .
 
 artgov:WorkingGroupChairRole rdf:type owl:NamedIndividual ,
         artgov:StandardsCommunityRole ;
-    api:slug "working-group-chair" ;
+    annotation:slug "working-group-chair" ;
     rdfs:label "working-group chair"@en .
 
 artgov:StandardsPublisherRole rdf:type owl:NamedIndividual ,
         artgov:StandardsCommunityRole ;
-    api:slug "standards-publisher" ;
+    annotation:slug "standards-publisher" ;
     rdfs:label "standards publisher"@en .
 
 artgov:StandardsStaffRole rdf:type owl:NamedIndividual ,
         artgov:StandardsCommunityRole ;
-    api:slug "standards-staff" ;
+    annotation:slug "standards-staff" ;
     rdfs:label "standards staff"@en .
 
 

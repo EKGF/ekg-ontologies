@@ -23,6 +23,19 @@ External vocabulary declarations are excluded from local coverage: repeating
 of that term. Namespace ownership comes from the ontology's SHACL declarations,
 including the maturity model's distinct ontology IRI and namespace.
 
+## Resource metadata ownership
+
+The Platform API Ontology has been removed. `ekg-annotation:slug` now provides
+resource URL names, and `ekg-concept:taxonomyKind` describes the kind of a SKOS
+concept scheme. Both remain string-valued OWL datatype properties. Their move
+does not introduce domain inference, cardinality rules or global uniqueness.
+The Annotation and Concept ontologies carry Markdown explanations of these
+decisions. Registry slugs and ontology imports use the new namespace; the
+removed ontology's artifact reference is no longer a family member. The family
+now contains 23 ontologies. Existing identities of the remaining artifacts
+are retained.
+
+
 ## What the coverage test establishes
 
 `tests/test_documentation_coverage.py` checks English labels and definitions,

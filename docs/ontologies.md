@@ -126,6 +126,7 @@ the ontology IRI without `#`; its declared term namespace retains `#`.
   [concepts and manifestations](concepts.md) for the broader scope
   of `DataElementConcept` and its relationship to ISO/IEC 11179.
   Template-placeholder manifestations identify their documented source language.
+  `taxonomyKind` describes the kind of a SKOS concept scheme, such as a thesaurus.
   `occursWithin` records direct, acyclic containment between observed
   occurrences; see [occurrence containment](occurrence-containment.md).
   `foundIn` and `statementPosition` record where a sighting was found and
@@ -172,9 +173,7 @@ the ontology IRI without `#`; its declared term namespace retains `#`.
 ## General ontologies
 
 - [Annotation](../ekgf-annotation.ttl), `ekg-annotation`: a description
-  in Markdown, a subtitle and a summary.
-- [API](../ekgf-api.ttl), `ekg-api`: the slug by which a resource is
-  addressed in a URL.
+  in Markdown, a subtitle, a summary and resource URL slugs.
 - [Authorization](../ekgf-authorization.ttl), `ekg-authorization`:
   role-based access control for personas.
 - [Communication](../ekgf-communication.ttl), `ekg-communication`:
