@@ -371,8 +371,6 @@ dc:date rdf:type owl:AnnotationProperty .
 
 <https://ekgf.org/ontology/story-service#>
     annotation:markdownDescription """
-# Executing stories
-
 A Story Service is an application that executes stories through their
 implementations. The story describes business concept usage; an implementation
 binds that usage to technical manifestations such as API names or SPARQL
@@ -432,8 +430,6 @@ the generated text is parsed before it is sent for execution.
 """@en .
 
 :StoryService annotation:markdownDescription """
-## Execution and defaults
-
 A service application executes stories and applies their input-concept
 requirements. Under the agreed contract, it interprets absent
 `ekg-story:isMandatory` and `ekg-story:isServerProvided` flags as false on the

@@ -582,8 +582,6 @@ sparql-story:Virtuoso rdf:type
     rdfs:isDefinedBy <https://ekgf.org/ontology/story-impl-sparql#> .
 
 <https://ekgf.org/ontology/story-impl-sparql#> annotation:markdownDescription """
-# Source language, renderer, and generated SPARQL
-
 A direct SPARQL implementation supplies executable query/update source with
 `sparql` or `fileName`. A `StorySPARQLTemplateImplementation` instead uses
 `hasTemplate` to identify a `StatementTemplate` and `usesRenderer` to identify

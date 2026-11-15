@@ -17,8 +17,6 @@
     rdfs:label "SHACL Shape Metadata Ontology"@en ;
     rdfs:comment "Metadata and validation for grouping SHACL node and property shapes into shapesets, recording their purpose, and linking collections to concrete shapes graphs with separate identities."@en ;
     annotation:markdownDescription """
-# Shapesets and purpose
-
 A `ShapeSet` groups SHACL shape definitions. Its declared entry shapes can be
 node shapes or property shapes, named or anonymous. Their nested definitions
 are part of the set as well: follow `sh:property`, `sh:node`, `sh:not`,
@@ -376,8 +374,6 @@ shape:ValidationShapeSet a owl:NamedIndividual , shape:ShapeSet ;
 #################################################################
 
 shape:ShapeSet annotation:markdownDescription """
-## Collection and concrete graph
-
 A ShapeSet groups entry shapes and the nested definitions they reference.
 Its membership and purpose describe a collection independently of how those
 definitions are packaged for validation. `hasShapesGraph` identifies concrete
@@ -403,8 +399,6 @@ Any future inheritance policy requires a separate explicit decision.
 """@en .
 
 shape:hasShapesGraph annotation:markdownDescription """
-## Explicit validation input
-
 Links a ShapeSet to an IRI identifying a concrete shapes graph containing
 definitions for validation with that set. Its domain is ShapeSet and its range
 is the external `sh:ShapesGraph` role. The property is neither functional nor
@@ -441,8 +435,6 @@ for a complete example, validation, and graph selection.
 """@en .
 
 shape:ShapesGraphLinkShape annotation:markdownDescription """
-## What this validator establishes
-
 The subject of `hasShapesGraph` must identify a ShapeSet. Each object must be
 a ShapesGraph IRI and must not also be a ShapeSet. `ShapeSetShape` checks the
 collection's label, purpose, and entry definitions. Both validators are

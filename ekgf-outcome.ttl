@@ -417,8 +417,6 @@ dc:date a owl:AnnotationProperty .
 #################################################################
 
 <https://ekgf.org/ontology/outcome#> annotation:markdownDescription """
-## Outcomes and contributions
-
 An Outcome records a shared business result. An OutcomeRelationship records
 one use case's contribution to that result, with its own UUID URN identity,
 one `useCase`, one `targetOutcome`, and optional `contributionDescription`.
@@ -449,8 +447,6 @@ for a complete example, query, validation command and snapshot semantics.
 """@en .
 
 :OutcomeRelationship annotation:markdownDescription """
-## One identified contribution
-
 Each relationship connects exactly one UseCase to exactly one Outcome. Use a
 stable UUID URN such as `urn:uuid:fa48a552-6f45-4f01-872e-0146622295d6` for its
 identity; generate a fresh random UUIDv4 when creating a relationship and keep
@@ -471,8 +467,6 @@ create relationships for other descendants.
 """@en .
 
 :useCase annotation:markdownDescription """
-## Source use case
-
 Identifies the single use case whose contribution this OutcomeRelationship
 describes. `use-case:outcomeLink` is its inverse, declared in the Use Case
 Ontology. Load both ontology modules for their complete OWL relationships.
@@ -486,8 +480,6 @@ terms before applying OWL identity reasoning.
 """@en .
 
 :targetOutcome annotation:markdownDescription """
-## Shared outcome, separate contributions
-
 Identifies exactly one Outcome for this relationship. Many relationships can
 target that same Outcome, including contributions from different use cases.
 The outcome's definition, classification, lifecycle and outcome-level priority
@@ -501,8 +493,6 @@ terms before OWL functionality could equate those names.
 """@en .
 
 :contributionDescription annotation:markdownDescription """
-## How this use case contributes
-
 Optional text describing the source use case's contribution to the target
 outcome. Use plain strings or language-tagged literals. Multiple translations
 are supported. Every supplied value must contain a non-whitespace character;
@@ -515,8 +505,6 @@ assert that an outcome has been achieved, assign ownership or execute metrics.
 """@en .
 
 :OutcomeRelationshipShape annotation:markdownDescription """
-## Validate supplied contribution records
-
 Targets OutcomeRelationship instances and subclasses, subjects of `useCase`,
 `targetOutcome` and `contributionDescription`, and objects of
 `use-case:outcomeLink`. Predicate targets prevent incomplete records from
@@ -536,8 +524,6 @@ the contribution description is accurate.
 """@en .
 
 :ValidationShapeSet annotation:markdownDescription """
-## Outcome relationship validators
-
 Registers OutcomeRelationshipShape and the nested shapes reachable from it.
 The set has the Validation purpose and links to the Outcome Ontology module's
 ShapesGraph IRI through `ekg-shape:hasShapesGraph`. The set and graph have

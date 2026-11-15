@@ -22,8 +22,6 @@ annotation:slug a owl:DatatypeProperty ;
     rdfs:comment "The short, lowercase, hyphenated name by which a resource is addressed in a URL."@en ;
     rdfs:isDefinedBy annotation: ;
     annotation:markdownDescription """
-## Resource addressing
-
 A slug is a readable URL name, such as `enterprise` or `working-draft`.
 It does not replace the resource's stable IRI or registered UUID identity.
 Different contexts can reuse a slug: states in different lifecycles can both
@@ -62,8 +60,6 @@ annotation:summary rdf:type owl:AnnotationProperty ;
 <https://ekgf.org/ontology/annotation#markdownDescription>
     rdfs:isDefinedBy <https://ekgf.org/ontology/annotation#> ;
     annotation:markdownDescription """
-## Explanatory documentation
-
 Use this annotation on an ontology, class, property, or individual for
 explanations that benefit from Markdown: scope, examples, modeling decisions,
 ownership rules, and application behavior. Use an English language tag for the

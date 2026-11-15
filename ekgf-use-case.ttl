@@ -312,8 +312,6 @@ use-case:UseCaseStereoTypeApplication rdf:type owl:NamedIndividual ,
 #################################################################
 
 use-case:UseCaseStereoTypeEnterprise annotation:markdownDescription """
-## Enterprise use case
-
 The Enterprise stereotype identifies the enterprise scope at the root of a
 use-case tree. Its public name is `Enterprise`, its identifier is
 `UseCaseStereoTypeEnterprise`, and its resource slug is `enterprise`.
@@ -334,8 +332,6 @@ single-enterprise constraint or automatic parent assignment.
 
 <https://ekgf.org/ontology/use-case#>
     annotation:markdownDescription """
-# Use cases, stories, and concept vocabularies
-
 Use cases organize business needs in a tree. Stories belong to use cases,
 describe interactions, and use data element concepts to express their inputs,
 outputs, and dependencies.
@@ -365,8 +361,6 @@ the relationship model.
 """@en .
 
 use-case:outcomeLink annotation:markdownDescription """
-## Use case to an identified outcome relationship
-
 Links a UseCase to an OutcomeRelationship describing that use case's
 contribution. Its inverse is `ekg-outcome:useCase`; assert either direction.
 The range lets an OWL reasoner infer the relationship class, while the domain
@@ -380,8 +374,6 @@ Use-case parentage and reuse do not create these links automatically.
 """@en .
 
 use-case:hasOutcome annotation:markdownDescription """
-## Unqualified outcome summary
-
 The property chain `outcomeLink / ekg-outcome:targetOutcome` derives a direct
 UseCase-to-Outcome relationship under OWL reasoning. This summary is convenient
 for queries that only need the target outcomes. Query the OutcomeRelationship
@@ -398,8 +390,6 @@ relationship when recording a contribution.
 """@en .
 
 use-case:ownsConceptSet annotation:markdownDescription """
-## Vocabulary ownership and inheritance
-
 Under the [Use Case Tree Method](https://method.ekgf.org/concept/concept/concept-vocabulary/#ontology),
 each concept vocabulary is owned by exactly one use case; a use case can own
 several vocabularies. The vocabulary is represented here by
