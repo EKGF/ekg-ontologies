@@ -717,8 +717,6 @@ concept:GraphPatternPosition a owl:NamedIndividual ;
 
 <https://ekgf.org/ontology/story#>
     annotation:markdownDescription """
-# Stories and concept usage
-
 A story describes an interaction within a use case, including the persona
 playing it, the outcome it contributes to, and the concepts it uses. Describe
 these as **input concepts**, **output concepts**, and **dependent concepts**.
@@ -894,8 +892,6 @@ and [SHACL default-value semantics](https://www.w3.org/TR/shacl/#defaultValue).
 """@en .
 
 :StoryInput annotation:markdownDescription """
-## A story's input-concept usage
-
 This resource describes how one story uses a reusable concept as an input.
 The story owns this usage object; `ekg-concept:hasConcept` references the shared
 data element concept. Separate stories use separate usage objects even when
@@ -912,8 +908,6 @@ for validation and migration instructions.
 """@en .
 
 :StoryOutput annotation:markdownDescription """
-## A story's output-concept usage
-
 This resource describes how one story uses a reusable concept as an output.
 The story owns the usage object; `ekg-concept:hasConcept` references the shared
 data element concept. A concept can describe a compound output, including the
@@ -925,8 +919,6 @@ input usage if the same concept is also an input to this story.
 """@en .
 
 :StoryDependent annotation:markdownDescription """
-## A story's dependent-concept usage
-
 This usage records a concept used inside the story's implementation without
 exposing it as an input or output, such as a join or filter concept. It is a
 subclass of `StoryConceptUsage` and the range of `hasDependentConcept`.
@@ -935,8 +927,6 @@ Input flags apply only to input usages.
 """@en .
 
 :expectedUsageRole annotation:markdownDescription """
-## The usage a statement position leads an analysis to expect
-
 Maps a `concept:StatementPosition` to the Story usage role that a sighting in
 that position implies for the sighted concept:
 
@@ -958,8 +948,6 @@ declared usages.
 """@en .
 
 :UndeclaredConceptUsageShape annotation:markdownDescription """
-## Used, not declared
-
 Compares sightings in a story implementation with the concept usages that its
 story declares, and reports gaps as **warnings**: quality findings for review,
 not structural violations. A sighting is in scope when it is `foundIn` the
@@ -994,8 +982,6 @@ for an executable example.
 """@en .
 
 :StatementPositionUsageRoleShape annotation:markdownDescription """
-## Every compared position has one expected role
-
 Targets each object of `concept:statementPosition`. The position must identify
 exactly one of `StoryInput`, `StoryOutput` or `StoryDependent` through
 `expectedUsageRole`. This prevents a missing mapping from silently disabling
@@ -1004,8 +990,6 @@ supplied as the ontology graph.
 """@en .
 
 :StoryStereoType annotation:markdownDescription """
-## Primary purpose, independent of execution
-
 `hasStereoType` assigns zero or one primary-purpose classification to a story.
 The built-in individuals are `StoryStereoTypeQuery`, `StoryStereoTypeUpdate`,
 `StoryStereoTypeTransformationRule`, and `StoryStereoTypeValidationRule`.
@@ -1038,8 +1022,6 @@ contains examples, validation, and migration guidance.
 """@en .
 
 :StoryImplementation annotation:markdownDescription """
-## One owning story
-
 Each implementation belongs to exactly one story through `implementationOf`.
 The inverse `implementedBy` lets a story refer to zero or more implementations.
 An implementation can evolve independently of its story and coexist with other
@@ -1061,8 +1043,6 @@ migration from `hasImplementation` to the canonical inverse pair.
 """@en .
 
 :implementedBy annotation:markdownDescription """
-## Story to implementation
-
 Links a story to each of its implementations. Its inverse is
 `implementationOf`; asserting either direction lets an OWL reasoner derive
 the other. Several implementations can belong to the same story.
@@ -1073,8 +1053,6 @@ relationship records ownership of implementations. The retired
 """@en .
 
 :implementationOf annotation:markdownDescription """
-## Implementation to its single story
-
 Identifies the one story implemented by this resource. It is functional and
 the inverse of `implementedBy`. `StoryImplementationShape` counts owners
 from both directions, so duplicating an assertion in its inverse form still

@@ -622,8 +622,6 @@
 #################################################################
 
 :Value annotation:markdownDescription """
-## Captured content
-
 `Value` identifies an occurrence of source data. Its `literalValue` contains
 the source-supplied content as an RDF literal, retaining the available datatype
 or language. Text stays text when the source supplies no type; the capture step

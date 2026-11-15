@@ -31,8 +31,6 @@
   rdfs:comment "What kind of taxonomy a SKOS concept scheme is, such as thesaurus."@en ;
   rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> ;
   annotation:markdownDescription """
-## Describing a taxonomy
-
 Use a string such as `thesaurus` to describe the kind of a SKOS concept scheme.
 This metadata concerns the scheme's organization; it does not identify a data
 element concept or classify an individual SKOS concept as a data element.
@@ -807,8 +805,6 @@ Reuse across contexts is encouraged. A concept is not inherently scoped to a par
 
 <https://ekgf.org/ontology/concept#>
     annotation:markdownDescription """
-# Why a Concept Ontology?
-
 Every organization describes the same things in many ways. A form says
 "Customer ID", a spreadsheet has a `cust_no` column, an API takes
 `customerId`, a query uses `?customer`, and an ontology defines a Customer
@@ -929,8 +925,6 @@ used for individual data elements in their business languages and contexts.
 """@en .
 
 :DataElementConcept annotation:markdownDescription """
-## Meaning, manifestations and sightings
-
 A data element concept describes a logical data element in three layers:
 
 | Layer | Resource | Answers |
@@ -1018,8 +1012,6 @@ See the [Method's concept-vocabulary documentation](https://method.ekgf.org/conc
 """@en .
 
 :occursWithin annotation:markdownDescription """
-## Observed direct containment
-
 Links a ManifestationOccurrence to an occurrence directly containing it in the
 same observed source context. For example, a column occurrence can be contained
 in a worksheet occurrence. Following each endpoint's `occurrenceOf` and concept
@@ -1047,8 +1039,6 @@ for validation and queries.
 """@en .
 
 :ManifestationOccurrence annotation:markdownDescription """
-## An observed appearance
-
 An occurrence records where a manifestation was observed. `occurrenceOf`
 identifies the manifestation. `foundIn` identifies the artifacts containing the
 sighting, such as a dataset, file, statement template or story implementation.
@@ -1081,8 +1071,6 @@ the declared usages and reports gaps as warnings. See the
 """@en .
 
 :foundIn annotation:markdownDescription """
-## The artifacts containing a sighting
-
 Links an occurrence to each artifact in which it was sighted: a dataset, a
 dataset file, a statement template, a story implementation, a raw-data view,
 a code file or another identified source artifact. Assert the levels the
@@ -1102,8 +1090,6 @@ matching paths do not establish that two sightings share an artifact.
 """@en .
 
 :statementPosition annotation:markdownDescription """
-## How an appearance is used within a statement
-
 Classifies a position of an occurrence within the query or update statement,
 or the statement template rendering one, identified through `foundIn`:
 
@@ -1127,8 +1113,6 @@ analysis to expect.
 """@en .
 
 :StatementPosition annotation:markdownDescription """
-## An extensible classification of statement positions
-
 The four built-in positions are distinct named individuals. Applications can
 define more positions as IRIs with a label and a definition. A position
 compared with Story declarations must also identify the usage role it implies
@@ -1141,8 +1125,6 @@ an open modeling decision, so analyzers must not record those terms as
 """@en .
 
 :OccurrenceSightingShape annotation:markdownDescription """
-## Validate sighting artifacts and positions
-
 Targets subjects of `foundIn` and `statementPosition`, which must be
 ManifestationOccurrences and not concepts or manifestations. Artifact values
 must be resources other than occurrences, concepts, manifestations and
@@ -1156,8 +1138,6 @@ that the asserted artifacts and positions match the source.
 """@en .
 
 :StatementPositionShape annotation:markdownDescription """
-## Validate position definitions
-
 Targets declared positions and every object of `statementPosition`. A position
 must be an IRI with a nonempty label and a nonempty definition in `rdfs:comment`
 or `markdownDescription`, and must not also be a concept, manifestation or
@@ -1166,8 +1146,6 @@ built-in definitions.
 """@en .
 
 :OccurrenceContainmentShape annotation:markdownDescription """
-## Validate the observed containment graph
-
 Targets subjects and objects of `occursWithin`, including untyped endpoints.
 Endpoints must be IRI or blank-node ManifestationOccurrences and must not also
 be DataElementConcepts or ConceptManifestations. RDFS inference with the Concept
