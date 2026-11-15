@@ -178,8 +178,6 @@ the ontology IRI without `#`; its declared term namespace retains `#`.
   role-based access control for personas.
 - [Communication](../ekgf-communication.ttl), `ekg-communication`:
   recipients, audiences, consent and delivery.
-- [Dataset](../ekgf-dataset.ttl), `ekg-dataset`: datasets and the files
-  they include.
 - [File system](../ekgf-file-system.ttl), `ekg-file-system`: files,
   directories, versions and links.
 - [Raw](../ekgf-raw.ttl), `ekg-raw`: data captured from a source before

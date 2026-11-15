@@ -13,7 +13,7 @@ from rdflib import BNode, Graph, Literal, Namespace, OWL, RDF, RDFS, URIRef
 ROOT = Path(__file__).resolve().parents[1]
 CONCEPT = Namespace("https://ekgf.org/ontology/concept#")
 STORY = Namespace("https://ekgf.org/ontology/story#")
-DATASET = Namespace("https://ekgf.org/ontology/dataset#")
+DATASET = Namespace("http://www.w3.org/ns/dcat#")
 SH = Namespace("http://www.w3.org/ns/shacl#")
 META = Namespace("https://ekgf.org/ontology/shape#")
 ANNOTATION = Namespace("https://ekgf.org/ontology/annotation#")

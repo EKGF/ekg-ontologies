@@ -95,7 +95,7 @@ Save this as `sightings.ttl`:
 
 ```turtle
 @prefix concept: <https://ekgf.org/ontology/concept#> .
-@prefix dataset: <https://ekgf.org/ontology/dataset#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
 @prefix story: <https://ekgf.org/ontology/story#> .
 @prefix sparql: <https://ekgf.org/ontology/story-impl-sparql#> .
 @prefix ex: <https://example.test/> .
@@ -127,10 +127,10 @@ ex:dollarTemplateLanguage a concept:TemplateLanguage ;
     rdfs:seeAlso <https://docs.python.org/3/library/string.html#template-strings> .
 
 # The artifacts.
-ex:catalogExtract a dataset:Dataset ;
+ex:catalogExtract a dcat:Dataset ;
     rdfs:label "Product catalog extract"@en .
 
-ex:storyDefinitions a dataset:Dataset ;
+ex:storyDefinitions a dcat:Dataset ;
     rdfs:label "Story definitions"@en .
 
 ex:listProducts a story:Story ;
@@ -175,13 +175,13 @@ how it appears in each:
 
 ```sparql
 PREFIX concept: <https://ekgf.org/ontology/concept#>
-PREFIX dataset: <https://ekgf.org/ontology/dataset#>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
 PREFIX ex: <https://example.test/>
 
 SELECT DISTINCT ?dataset ?how ?position WHERE {
     ?sighting concept:occurrenceOf ?manifestation ;
         concept:foundIn ?dataset .
-    ?dataset a dataset:Dataset .
+    ?dataset a dcat:Dataset .
     ?manifestation (^concept:hasManifestation|concept:concept) ex:productCategory ;
         a ?how .
     OPTIONAL { ?sighting concept:statementPosition ?position }

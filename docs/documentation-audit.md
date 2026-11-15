@@ -399,8 +399,7 @@ mapping-property semantics, and source-key identities remain separate improvemen
 The following sources refer to local ontology terms without declaring the
 corresponding local import:
 
-- `ekgf-dataops.ttl`: dataset.
-- `ekgf-specification-by-example.ttl`: dataset and story.
+- `ekgf-specification-by-example.ttl`: story.
 - `ekgf-use-case.ttl`: concept.
 
 Cross-ontology references are legal RDF and do not automatically require imports.

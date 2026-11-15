@@ -30,7 +30,7 @@ sbe:conceptValue rdf:type owl:ObjectProperty ;
 sbe:dataset rdf:type owl:ObjectProperty ;
     owl:inverseOf sbe:isDependedOnInState ;
     rdfs:domain sbe:State ;
-    rdfs:range <https://ekgf.org/ontology/dataset#Dataset> .
+    rdfs:range <http://www.w3.org/ns/dcat#Dataset> .
 
 
 ###  https://ekgf.org/ontology/specification-by-example#given
@@ -82,7 +82,7 @@ sbe:given rdf:type owl:ObjectProperty ;
 sbe:hasDataset rdf:type owl:ObjectProperty ;
     owl:inverseOf sbe:isUsedInGraph ;
     rdfs:domain sbe:Graph ;
-    rdfs:range <https://ekgf.org/ontology/dataset#Dataset> ;
+    rdfs:range <http://www.w3.org/ns/dcat#Dataset> ;
     rdfs:comment
         """a State can have one or more Graphs where each Graph can have one
        or more Datasets"""@en ;
@@ -107,7 +107,7 @@ sbe:hasScenario rdf:type owl:ObjectProperty ;
 
 ###  https://ekgf.org/ontology/specification-by-example#isDependedOnInState
 sbe:isDependedOnInState rdf:type owl:ObjectProperty ;
-    rdfs:domain <https://ekgf.org/ontology/dataset#Dataset> ;
+    rdfs:domain <http://www.w3.org/ns/dcat#Dataset> ;
     rdfs:range sbe:State ;
     rdfs:comment "Usually inferred from the inverse `sbe:dataset`"@en ;
     rdfs:label "is depended on in state"@en .
@@ -130,7 +130,7 @@ sbe:isGraphInState rdf:type owl:ObjectProperty ;
 
 ###  https://ekgf.org/ontology/specification-by-example#isUsedInGraph
 sbe:isUsedInGraph rdf:type owl:ObjectProperty ;
-    rdfs:domain <https://ekgf.org/ontology/dataset#Dataset> ;
+    rdfs:domain <http://www.w3.org/ns/dcat#Dataset> ;
     rdfs:range sbe:Graph .
 
 
@@ -182,8 +182,8 @@ sbe:value rdf:type owl:DatatypeProperty ;
 #    Classes
 #################################################################
 
-###  https://ekgf.org/ontology/dataset#Dataset
-<https://ekgf.org/ontology/dataset#Dataset> rdf:type owl:Class .
+###  http://www.w3.org/ns/dcat#Dataset
+<http://www.w3.org/ns/dcat#Dataset> rdf:type owl:Class .
 
 
 ###  https://ekgf.org/ontology/specification-by-example#ConceptValue
