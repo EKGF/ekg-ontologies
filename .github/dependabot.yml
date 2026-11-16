@@ -6,3 +6,9 @@ updates:
     directory: /
     schedule:
       interval: daily
+    # Dependabot waits 3 days after a release by default. GraphArch is our own
+    # action and releases several times a day, so it is exempt from the wait.
+    cooldown:
+      default-days: 3
+      exclude:
+        - "EKGF/grapharch"
