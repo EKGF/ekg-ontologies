@@ -72,10 +72,15 @@ locations. They do not replace `forColumn` or establish column identity.
 @prefix ex: <https://example.test/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-ex:source raw:hasView ex:view .
-ex:view raw:hasColumn ex:textColumn, ex:numberColumn, ex:amountColumn,
+ex:source a raw:XlsxFile ; raw:hasView ex:view ;
+    raw:gitBlob "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391" ;
+    raw:gitCommit "7cb0e12ad31958cab0cac1994784b5ccd90c8d8b" ;
+    raw:gitPath "data/orders.xlsx" ; raw:gitModified false .
+ex:view raw:viewNumber 1 ;
+    raw:hasColumn ex:textColumn, ex:numberColumn, ex:amountColumn,
     ex:dateColumn, ex:translationColumn, ex:emptyColumn, ex:zeroColumn,
-    ex:falseColumn, ex:nullColumn .
+    ex:falseColumn, ex:nullColumn, ex:totalColumn .
+ex:totalColumn raw:formulaR1C1 "RC[-2]*RC[-1]" .
 ex:row raw:isRowInView ex:view .
 
 ex:text a raw:Value ; raw:valueOf ex:row ; raw:forColumn ex:textColumn ;
@@ -97,9 +102,12 @@ ex:zero a raw:Value ; raw:valueOf ex:row ; raw:forColumn ex:zeroColumn ;
 ex:false a raw:Value ; raw:valueOf ex:row ; raw:forColumn ex:falseColumn ;
     raw:literalValue false .
 ex:null a raw:NullValue ; raw:valueOf ex:row ; raw:forColumn ex:nullColumn .
+ex:total a raw:Value ; raw:valueOf ex:row ; raw:forColumn ex:totalColumn ;
+    raw:literalValue 20.0 ;
+    raw:formula "A2*B2" ; raw:formulaR1C1 "RC[-2]*RC[-1]" .
 ```
 
-The view contains nine physical columns. The single row has one occurrence for
+The view contains ten physical columns. The single row has one occurrence for
 each demonstrated field. Column types are inferred from `hasColumn` and
 `forColumn`; explicit column type assertions are unnecessary with inference.
 `tests/test_raw_values.py` parses and validates them and checks null/content
@@ -150,6 +158,34 @@ historical captures unless the application selects them for validation.
 Neither mechanism fabricates content, null classifications, original text,
 or physical source locations.
 
+## Capture metadata
+
+These terms describe where captured data came from and how a spreadsheet
+computed it. They are validated by `ViewNumberShape`, `GitOriginShape`,
+`FormulaShape` and `FormulaR1C1Shape` in `ValidationShapeSet`.
+
+- **Formats.** `CsvFile` and `TsvFile` are `File`s whose fields are always
+  captured as text. `XlsxFile` covers workbooks.
+- **View order.** `viewNumber` is the 1-based position of a view within its
+  source, such as the worksheet order. Names can repeat and change, so they do
+  not identify a view.
+- **Git origin.** `gitBlob` is the git object id of the captured bytes. It is
+  recorded for every file, whether or not the file is in a repository. A file in
+  a work tree also records `gitCommit` (HEAD), `gitPath` (work-tree relative,
+  using `/`) and `gitModified`. The optional `gitRepository` is the default
+  remote's URL. `gitModified false` means the capture can be reproduced from
+  history. Commit, path and modification state are recorded together.
+- **Formulas.** A formula cell is an ordinary `Value` whose `literalValue` is
+  the result the source cached. If there is no cached result, it is a
+  `NullValue`. `formula` keeps the A1 text verbatim, without the leading `=`.
+  `formulaR1C1` keeps the same formula with references made relative to the
+  cell. On a `Column`, `formulaR1C1` states that every formula in the column
+  has this one relative form. Such a column is a derivation rule, for example
+  `RC[-2]*RC[-1]`, which a later step can translate into a SPARQL or SHACL rule.
+
+The executable example below shows a formula occurrence, its column rule,
+the view number and the git origin of its source.
+
 ## Remaining model work
 
 Content and row/column location are validated. The following work is still open:
@@ -160,6 +196,8 @@ Content and row/column location are validated. The following work is still open:
 - Coordinate conventions and bounds.
 - Source-key structure and identity policy.
 - The semantics and property type of predicate mappings.
+- Translation of column formulas (`formulaR1C1`) into SPARQL or SHACL rules,
+  and cross-view formula references.
 
 Content and location validation do not establish that a whole capture dataset is
 structurally complete or faithful to its original source.
