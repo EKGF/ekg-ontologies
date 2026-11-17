@@ -147,7 +147,7 @@ the ontology IRI without `#`; its declared term namespace retains `#`.
 ## Artifact ontologies
 
 - [Artifact governance](../ekgf-artifact-governance.ttl), `ekg-artgov`:
-  who governs an ontology, shapeset, taxonomy or concept set, its
+  who governs an ontology, shapes graph, taxonomy or concept set, its
   optional family membership and its module within the family. See
   [governance](governance.md) and [families and modules](families.md).
 - [Artifact publication](../ekgf-artifact-publication.ttl), `ekg-artpub`:
@@ -157,16 +157,6 @@ the ontology IRI without `#`; its declared term namespace retains `#`.
 - [Artifact dependency](../ekgf-artifact-dependency.ttl), `ekg-artdep`:
   what an artifact depends on, the evidence for it and whether the
   dependency resolves.
-- [SHACL shape metadata](../ekgf-shape.ttl), `ekg-shape`: shapesets containing
-  node and property shapes, extensible purpose values, and validation of
-  membership and coverage. `hasShapesGraph` explicitly links collections to
-  concrete validation graphs with separate identities; see
-  [shape collections and validation graphs](shapes-graphs.md). Each ontology
-  containing shapes declares its own validation shapeset, including the metadata
-  ontology itself. Nested shape
-  definitions are included through their entry shapes. Generic `hasShape`
-  replaces the former node-only `hasNodeShape`; the ontology IRI and namespace
-  are retained.
 - [Lifecycle](../ekgf-lifecycle.ttl), `ekg-lifecycle`: lifecycles and
   the states their members occupy. See [lifecycles](lifecycles.md).
 

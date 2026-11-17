@@ -11,7 +11,6 @@
 @prefix story-svc: <https://ekgf.org/ontology/ekg-platform-story-service#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix ekg-story: <https://ekgf.org/ontology/story#> .
-@prefix ekg-shape: <https://ekgf.org/ontology/shape#> .
 @prefix annotation: <https://ekgf.org/ontology/annotation#> .
 
 <https://ekgf.org/ontology/story#> a owl:Ontology ;
@@ -19,7 +18,7 @@
       sh:prefix "ekg-story" ;
       sh:namespace "https://ekgf.org/ontology/story#"^^xsd:anyURI
   ] ;
-	owl:imports <https://ekgf.org/ontology/persona#> , <https://ekgf.org/ontology/concept#> , <https://ekgf.org/ontology/outcome#> , ekg-shape: ;
+	owl:imports <https://ekgf.org/ontology/persona#> , <https://ekgf.org/ontology/concept#> , <https://ekgf.org/ontology/outcome#> ;
 	rdfs:comment "Stories, their extensible primary-purpose stereotypes, story-owned input, output, and dependent concept usages, execution requirements, and implementation ownership."@en ;
 	rdfs:label "Story Ontology"@en .
 # 
@@ -879,8 +878,8 @@ than silently translating them. Replace previously loaded ontology graphs
 to remove old ranges, parameter classes, and the former global domain of
 `concept:hasConcept`.
 
-All named validation shapes belong to `ValidationShapeSet`; nested shapes
-are included through their entry definitions. Validate with the Story
+All named validation shapes belong to this ontology's shapes graph; nested
+shapes are included through their entry definitions. Validate with the Story
 Ontology as both shapes and ontology graph and enable RDFS inference, as
 in the validation command above. See the repository's
 [concept-usage guide](https://github.com/EKGF/ekg-ontologies/blob/main/docs/story-concept-usages.md)
@@ -1010,7 +1009,7 @@ custom stereotype IRIs to satisfy functionality; SHACL instead rejects multiple
 supplied terms. Validate the intended version context before identity reasoning.
 
 `StoryClassificationShape` checks assignments, and `StoryStereoTypeShape`
-checks definitions. Both belong to the Story `ValidationShapeSet`. Existing
+checks definitions. Both belong to the Story Ontology's shapes graph. Existing
 unclassified stories remain valid. When migrating application-defined
 classifications, map terms by confirmed meaning and replace the relationship
 and object IRIs explicitly. Do not infer purpose from labels, flags, or the
@@ -1060,23 +1059,7 @@ identifies one owner, while conflicting links are rejected.
 """@en .
 
 #################################################################
-#    Validation shapeset
+#    Shapes graph
 #################################################################
 
 <https://ekgf.org/ontology/story#> a sh:ShapesGraph .
-
-:ValidationShapeSet a owl:NamedIndividual , ekg-shape:ShapeSet ;
-    ekg-shape:hasShapesGraph <https://ekgf.org/ontology/story#> ;
-    rdfs:label "Story Validation Shapes"@en ;
-    rdfs:comment "Validates optional story stereotypes and their definitions, story-owned concept usages, input flags, single-story implementation ownership, and migration from retired vocabulary. Warns when sightings in an implementation's statements expect concept usages its story does not declare."@en ;
-    rdfs:isDefinedBy <https://ekgf.org/ontology/story#> ;
-    ekg-shape:shapePurpose ekg-shape:Validation ;
-    ekg-shape:hasShape :StoryClassificationShape ,
-                       :StoryStereoTypeShape ,
-                       :StoryConceptUsageShape ,
-                       :StoryInputShape ,
-                       :LegacyConceptUsageShape ,
-                       :StoryImplementationShape ,
-                       :LegacyImplementationShape ,
-                       :StatementPositionUsageRoleShape ,
-                       :UndeclaredConceptUsageShape .

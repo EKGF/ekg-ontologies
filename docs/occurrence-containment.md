@@ -153,9 +153,8 @@ explicitly. Validation rejects literal endpoints, concept or manifestation role
 conflicts, direct self-links and longer cycles. It permits roots, multiple
 parents and multiple children.
 
-The validator and its nested constraints are registered in the Concept
-`ValidationShapeSet`, bound to the module's concrete ShapesGraph through
-`shape:hasShapesGraph`.
+The validator and its nested constraints belong to the Concept Ontology's
+shapes graph, the ontology IRI typed `sh:ShapesGraph`.
 
 Validation checks the supplied RDF structure. It does not read files, prove
 same-source membership, compare provenance values for equality, establish

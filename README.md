@@ -55,8 +55,6 @@ The Data Product Ontology is maintained in the separate
   classifications, independent of implementation technology.
 - [Outcome relationships](docs/outcome-relationships.md): identified use-case
   contributions to shared outcomes, endpoint validation and summary inference.
-- [Shape collections and validation graphs](docs/shapes-graphs.md): explicit
-  graph inputs, separate collection and graph identities, and executable examples.
 - [Raw data capture](docs/raw-data.md): captured literals, original source text,
   explicit source nulls, physical source locations, validation and migration.
 - [Authorities and organizations](docs/governance.md): registered
@@ -127,10 +125,8 @@ template documents from native SPARQL, and RDF-aware value substitution.
 Raw-data checks cover literal content, source text, explicit nulls, physical
 columns, row/column view consistency, and rejection of incomplete or conflicting
 value occurrences and memberships.
-They also validate shapeset membership, purpose annotations, and coverage of
-all entry and nested shapes, including the shape-metadata validators themselves.
-Graph-link checks cover endpoint roles, separate identities, shared and multiple
-graph references, local module bindings, and actual validation using a named graph.
+Shapes-graph checks confirm that every ontology containing SHACL shapes is
+typed `sh:ShapesGraph` and that its shapes pass SHACL meta-validation.
 They run offline using the relevant Commons 1.3 axioms in a test
 fixture. Its `.ttl.txt` suffix keeps it out of RDF file discovery
 when consumers load this repository.

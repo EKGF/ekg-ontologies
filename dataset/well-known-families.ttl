@@ -6,7 +6,7 @@
 #
 # The well-known families.
 #
-# A family spans artifact types: the ontologies, shapesets and
+# A family spans artifact types: the ontologies, shapes graphs and
 # taxonomies of FIBO are members of the one FIBO family. An artifact
 # joins a family with artgov:inFamily on the artifact itself or on its
 # artgov:Reference.

@@ -16,7 +16,7 @@
   ] ;
   owl:imports <https://ekgf.org/ontology/lifecycle#> ;
   rdfs:label "Artifact Dependency Ontology"@en ;
-  rdfs:comment "Generic dependency vocabulary for Semantic Modelling artifacts such as OWL ontologies, SHACL shapesets, SKOS taxonomies, and concept sets."@en ;
+  rdfs:comment "Generic dependency vocabulary for Semantic Modelling artifacts such as OWL ontologies, SHACL shapes graphs, SKOS taxonomies, and concept sets."@en ;
   annotation:markdownDescription "Separates dependency facts, evidence, and workspace or branch resolution status for Semantic Modelling dependency management."@en .
 
 #################################################################
@@ -26,7 +26,7 @@
 :SemanticArtifact
   rdf:type owl:Class ;
   rdfs:label "Semantic artifact"@en ;
-  rdfs:comment "A Semantic Modelling artifact that can depend on another artifact, including OWL ontologies, SHACL shapesets, SKOS taxonomies, and concept sets."@en .
+  rdfs:comment "A Semantic Modelling artifact that can depend on another artifact, including OWL ontologies, SHACL shapes graphs, SKOS taxonomies, and concept sets."@en .
 
 :Dependency
   rdf:type owl:Class ;
@@ -300,7 +300,7 @@
 :ShapeGraphDependency
   rdf:type owl:NamedIndividual, :DependencyKind ;
   rdfs:label "Shape graph dependency"@en ;
-  rdfs:comment "A dependency on a SHACL shapes graph or shapeset used for validation or schema reuse."@en .
+  rdfs:comment "A dependency on a SHACL shapes graph used for validation or schema reuse."@en .
 
 :ValidationDependency
   rdf:type owl:NamedIndividual, :DependencyKind ;

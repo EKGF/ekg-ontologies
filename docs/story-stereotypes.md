@@ -89,7 +89,7 @@ subclasses and objects of `hasStereoType`. A bare, undocumented IRI fails even
 though the range can infer its class.
 
 Both shapes and their nested constraints belong to the Story
-`ValidationShapeSet`. `tests/test_story_stereotypes.py` validates the example
+Ontology's shapes graph. `tests/test_story_stereotypes.py` validates the example
 and checks extensibility, metadata, inference, optionality, cardinality,
 role separation, distinct story identities, and independence from implementation
 technology and mutation flags.

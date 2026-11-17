@@ -38,7 +38,7 @@ class ResourceMetadataTests(unittest.TestCase):
         graph = Graph()
         for path in [*ROOT.glob('ekgf-*.ttl'), *(ROOT / 'dataset').glob('*.ttl')]:
             graph.parse(path)
-        self.assertEqual(len(set(graph.subjects(ANNOTATION.slug, None))), 93)
+        self.assertEqual(len(set(graph.subjects(ANNOTATION.slug, None))), 92)
         for filename in ('ekgf-artifact-governance.ttl', 'ekgf-use-case.ttl'):
             ontology = Graph().parse(ROOT / filename)
             self.assertIn((None, OWL.imports, URIRef(str(ANNOTATION))), ontology)

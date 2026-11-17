@@ -7,7 +7,6 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix ekg-concept: <https://ekgf.org/ontology/concept#> .
 @prefix annotation: <https://ekgf.org/ontology/annotation#> .
-@prefix ekg-shape: <https://ekgf.org/ontology/shape#> .
 @base         <https://ekgf.org/ontology/concept#> .
 
 <https://ekgf.org/ontology/concept#>
@@ -16,7 +15,7 @@
       sh:prefix "ekg-concept" ;
       sh:namespace "https://ekgf.org/ontology/concept#"^^xsd:anyURI
   ] ;
-  owl:imports  rdf: , ekg-shape: ;
+  owl:imports  rdf: ;
   rdfs:label   "Concept Ontology"@en ;
   rdfs:comment
     "Data element concepts, called data elements for short, describe logical data elements with all their various forms of physical manifestations, as business and technical terms, and their sightings. The scope includes individual data elements and compound data constructs such as whole classes and shapes. ManifestationOccurrence records each sighting: the artifacts in which a manifestation was found and, within a statement, the positions in which it appears."@en .
@@ -789,16 +788,6 @@ Reuse across contexts is encouraged. A concept is not inherently scoped to a par
 
 <https://ekgf.org/ontology/concept#> a sh:ShapesGraph .
 
-:ValidationShapeSet a owl:NamedIndividual , ekg-shape:ShapeSet ;
-  ekg-shape:hasShapesGraph <https://ekgf.org/ontology/concept#> ;
-  rdfs:label "Concept Validation Shapes"@en ;
-  rdfs:comment "Validates occurrence containment, where occurrences were found and their statement positions, and template-placeholder metadata, including documented template-language profiles and rejection of retired template-placeholder classifications."@en ;
-  rdfs:isDefinedBy <https://ekgf.org/ontology/concept#> ;
-  ekg-shape:shapePurpose ekg-shape:Validation ;
-  ekg-shape:hasShape :TemplateParameterManifestationShape , :TemplateLanguageShape ,
-                     :LegacyTemplateManifestationShape , :OccurrenceContainmentShape ,
-                     :OccurrenceSightingShape , :StatementPositionShape .
-
 #################################################################
 #    Markdown explanations
 #################################################################
@@ -1155,7 +1144,7 @@ inference, supply those occurrence types explicitly.
 A SPARQL property-path constraint rejects self-links and longer containment
 cycles without adding transitive property semantics. Roots without a container,
 multiple children and multiple direct parents remain valid. This validator and
-its nested constraints belong to the Concept ValidationShapeSet.
+its nested constraints belong to the Concept Ontology's shapes graph.
 
 The shape validates supplied graph structure. It does not inspect source files,
 infer containment from coordinates, enforce source-provenance equality or check

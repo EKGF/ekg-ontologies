@@ -14,7 +14,6 @@ OUTCOME = Namespace("https://ekgf.org/ontology/outcome#")
 USE_CASE = Namespace("https://ekgf.org/ontology/use-case#")
 STORY = Namespace("https://ekgf.org/ontology/story#")
 SH = Namespace("http://www.w3.org/ns/shacl#")
-META = Namespace("https://ekgf.org/ontology/shape#")
 ANNOTATION = Namespace("https://ekgf.org/ontology/annotation#")
 EX = Namespace("https://example.test/")
 RELATIONSHIP = URIRef("urn:uuid:fa48a552-6f45-4f01-872e-0146622295d6")
@@ -251,10 +250,7 @@ class OutcomeRelationshipTests(unittest.TestCase):
         self.assert_valid(merged, False)
 
     def test_validators_are_registered_bound_and_pass_shacl_meta_validation(self):
-        self.assertIn((OUTCOME.ValidationShapeSet, META.hasShape,
-                       OUTCOME.OutcomeRelationshipShape), self.outcome)
-        self.assertIn((OUTCOME.ValidationShapeSet, META.hasShapesGraph,
-                       URIRef(str(OUTCOME))), self.outcome)
+        self.assertIn((OUTCOME.OutcomeRelationshipShape, RDF.type, SH.NodeShape), self.outcome)
         self.assertIn((URIRef(str(OUTCOME)), RDF.type, SH.ShapesGraph), self.outcome)
         self.assert_valid(self.fixture(), meta_shacl=True)
 
@@ -262,7 +258,7 @@ class OutcomeRelationshipTests(unittest.TestCase):
         for term in (URIRef(str(OUTCOME)), OUTCOME.OutcomeRelationship,
                      OUTCOME.useCase, OUTCOME.targetOutcome,
                      OUTCOME.contributionDescription, OUTCOME.OutcomeRelationshipShape,
-                     OUTCOME.ValidationShapeSet, USE_CASE.outcomeLink, USE_CASE.hasOutcome):
+                     USE_CASE.outcomeLink, USE_CASE.hasOutcome):
             with self.subTest(term=term):
                 self.assertTrue(any(
                     isinstance(value, Literal) and value.language == "en"

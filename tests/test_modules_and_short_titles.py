@@ -11,7 +11,6 @@ from rdflib.namespace import XSD
 ROOT = Path(__file__).resolve().parents[1]
 ARTGOV = Namespace("https://ekgf.org/ontology/artifact-governance#")
 ANNOTATION = Namespace("https://ekgf.org/ontology/annotation#")
-META = Namespace("https://ekgf.org/ontology/shape#")
 SH = Namespace("http://www.w3.org/ns/shacl#")
 EX = Namespace("https://example.test/")
 
@@ -120,9 +119,10 @@ class ModuleTests(unittest.TestCase):
         data.add((EX.accounting, ARTGOV.inModule, EX.fbc))
         self.assert_valid(data, inference="none")
 
-    def test_validators_are_registered(self):
-        shapes = set(self.ontology.objects(ARTGOV.ValidationShapeSet, META.hasShape))
-        self.assertLessEqual({ARTGOV.ModuleShape, ARTGOV.ModuleMembershipShape}, shapes)
+    def test_validators_are_in_the_ontology_shapes_graph(self):
+        for shape in (ARTGOV.ModuleShape, ARTGOV.ModuleMembershipShape):
+            self.assertIn((shape, RDF.type, SH.NodeShape), self.ontology)
+        self.assertIn((URIRef(str(ARTGOV)), RDF.type, SH.ShapesGraph), self.ontology)
 
 
 class ShortTitleTests(unittest.TestCase):
@@ -142,8 +142,8 @@ class ShortTitleTests(unittest.TestCase):
         self.assertTrue(list(self.ontology.objects(ANNOTATION.shortTitle, RDFS.comment)))
         self.assertTrue(list(self.ontology.objects(ANNOTATION.shortTitle,
                                                    ANNOTATION.markdownDescription)))
-        shapes = set(self.ontology.objects(ANNOTATION.ValidationShapeSet, META.hasShape))
-        self.assertIn(ANNOTATION.ShortTitleShape, shapes)
+        self.assertIn((ANNOTATION.ShortTitleShape, RDF.type, SH.NodeShape), self.ontology)
+        self.assertIn((URIRef(str(ANNOTATION)), RDF.type, SH.ShapesGraph), self.ontology)
 
     def test_one_short_title_per_language(self):
         data = Graph()

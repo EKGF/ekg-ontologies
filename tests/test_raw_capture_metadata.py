@@ -9,6 +9,7 @@ from rdflib import Graph, Literal, Namespace, OWL, RDF, RDFS, XSD
 
 ROOT = Path(__file__).resolve().parents[1]
 RAW = Namespace("https://ekgf.org/ontology/raw#")
+SH = Namespace("http://www.w3.org/ns/shacl#")
 EX = Namespace("https://example.test/")
 
 COMMIT = "7cb0e12ad31958cab0cac1994784b5ccd90c8d8b"
@@ -58,14 +59,10 @@ class RawCaptureMetadataTests(unittest.TestCase):
             with self.subTest(cls=cls):
                 self.assertIn((cls, RDFS.subClassOf, RAW.File), self.ontology)
 
-    def test_shapes_are_registered_for_validation(self):
-        shapes = set(self.ontology.objects(
-            RAW.ValidationShapeSet,
-            Namespace("https://ekgf.org/ontology/shape#").hasShape,
-        ))
+    def test_shapes_are_in_the_ontology_shapes_graph(self):
         for shape in (RAW.ViewNumberShape, RAW.GitOriginShape, RAW.FormulaShape, RAW.FormulaR1C1Shape):
             with self.subTest(shape=shape):
-                self.assertIn(shape, shapes)
+                self.assertIn((shape, RDF.type, SH.NodeShape), self.ontology)
 
     # -- view number --------------------------------------------------------
 

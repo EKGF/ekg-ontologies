@@ -103,8 +103,8 @@ direct-outcome meaning.
 `OutcomeRelationshipShape` checks supplied endpoint terms in both source
 directions, UUID URN syntax, endpoint classes and contribution text. Predicate
 targets cover incomplete records without explicit relationship types. The
-validator and its nested shapes belong to the Outcome `ValidationShapeSet`,
-which explicitly references the module's ShapesGraph. All new terms have
+validator and its nested shapes belong to the Outcome Ontology's shapes
+graph. All new terms have
 English Markdown explanations.
 
 `tests/test_outcome_relationships.py` covers inference, endpoint cardinality,
@@ -117,54 +117,6 @@ Parentage and reuse create no outcome relationships, inherited contribution
 metadata or ownership. Outcome priority remains on the shared Outcome.
 Confidence scales, contribution priority, explicit outcome ownership, and
 global complete-UseCase validation remain separate decisions.
-
-## SHACL shape metadata and shapesets
-
-The former Shape Ontology is now titled **SHACL Shape Metadata Ontology**.
-Its ontology IRI, namespace, preferred prefix, and registered artifact identity
-are retained. `ShapeSet` supports both node and property shapes through
-`hasShape` and `inShapeSet`. The node-only `hasNodeShape` predicate is
-retired and rejected by validation.
-
-The ontology includes validators for membership endpoints, labeled and typed
-purpose values, nonempty shapesets, and complete coverage of supplied shape
-definitions. Every shape must be a registered entry or reachable from one
-through SHACL shape-reference properties and logical lists. Membership can be
-asserted in either direction. Shapes can be reused across several sets;
-membership does not imply exclusive ownership.
-
-Each shape-bearing ontology declares a `ValidationShapeSet` and lists all its
-named entry shapes. The nested property shapes and logical branches are
-included through those definitions. The metadata ontology does this for its
-own validators as well. All sets use the defined `Validation` purpose
-individual; additional purpose individuals can be supplied.
-
-`tests/test_shape_metadata.py` validates the combined sources, independently
-checks entry and nested-shape coverage, and exercises invalid memberships and
-purpose annotations. The metadata validators also pass standard SHACL
-meta-validation. The [ontology's Markdown description](../ekgf-shape.ttl)
-documents the validation command and migration.
-
-## Shape collections and concrete validation graphs
-
-`hasShapesGraph` links a ShapeSet to a concrete ShapesGraph IRI. It supports
-multiple graph references and shared graphs without equating their identities.
-ShapeSet and ShapesGraph roles are disjoint; unlinked collections remain valid.
-The external graph role is referenced from the 25 October 2026 SHACL 1.2 Core
-Working Draft without claiming full runtime support for that specification.
-
-`ShapesGraphLinkShape` checks endpoint roles and separate identities.
-`ShapeSetShape` also checks collection metadata on graph-link subjects. The new
-validator belongs to the metadata ontology's own `ValidationShapeSet`. Every
-repository validation set now explicitly references its module's graph IRI,
-including the metadata validators themselves.
-
-`tests/test_shapes_graph_links.py` covers inference, optional and shared links,
-invalid endpoints, role conflicts, local module bindings, Markdown annotations,
-SHACL meta-validation, and actual data validation using the complete
-[graph-selection example](shapes-graphs.md). Metadata validation does not fetch
-or prove the contents of linked graphs; applications resolve and supply complete
-inputs explicitly.
 
 Use-case parentage and reuse imply no profile inheritance, graph selection,
 conformance, or positional warnings. Child use cases can choose stricter,
@@ -181,8 +133,8 @@ functional or inverse-functional constraint. Occurrences are disjoint from
 DataElementConcepts and ConceptManifestations.
 
 `OccurrenceContainmentShape` rejects literal endpoints, role conflicts and
-containment cycles. It belongs to the Concept `ValidationShapeSet` with its
-nested shapes. RDFS inference supplies endpoint types, and ancestor queries use
+containment cycles. It belongs to the Concept Ontology's shapes graph with
+its nested shapes. RDFS inference supplies endpoint types, and ancestor queries use
 `occursWithin+` without materializing indirect links as direct containment.
 
 `tests/test_occurrence_containment.py` covers inference, optional and multiple
@@ -267,7 +219,7 @@ valid; SHACL default annotations do not populate the graph.
 The [Story Ontology](../ekgf-story.ttl) declares these classes and predicates,
 OWL ownership and concept cardinalities, disjoint usage roles, and boolean
 input flags. SHACL enforces one owner, one concept, one role, and valid flags.
-Its validators belong to the Story `ValidationShapeSet`. The former global
+Its validators belong to the Story Ontology's shapes graph. The former global
 domain on `concept:hasConcept` is removed: story-specific constraints apply
 to usage objects without narrowing the general Concept property.
 
@@ -299,7 +251,7 @@ No default classification, execution technology, or mutation flag is inferred.
 keeps assignments off implementations and usages. `StoryStereoTypeShape`
 requires a stereotype IRI, label, and plain-text or Markdown definition,
 including for custom types and subclasses. Both shapes belong to the Story
-`ValidationShapeSet`. Story and StoryImplementation are now disjoint, matching
+Ontology's shapes graph. Story and StoryImplementation are now disjoint, matching
 their separate requirement and realization roles.
 
 `tests/test_story_stereotypes.py` covers inference, extensibility, cardinality,
@@ -327,7 +279,7 @@ The Concept Ontology declares `TemplateLanguage` and requires each
 `TemplateParameterManifestation` to identify a documented language and exact
 token. The shared language property has no global domain, so labeling a
 document does not classify it as a placeholder manifestation. These validators
-belong to each ontology's own `ValidationShapeSet`.
+belong to each ontology's own shapes graph.
 The Concept `LegacyTemplateManifestationShape` explicitly rejects the retired
 `LegraDollarManifestation` type, including instances that also carry the current
 type and language metadata. Removing a class declaration alone does not reject
@@ -351,7 +303,7 @@ metadata is not interpreted as null.
 
 `ValueContentShape` enforces the alternatives and cardinalities, covers
 subclasses and untyped subjects of occurrence metadata, and belongs to the
-Raw Data `ValidationShapeSet`. The [raw-data guide](raw-data.md) provides
+Raw Data Ontology's shapes graph. The [raw-data guide](raw-data.md) provides
 executable examples, migration instructions, and an explicit list of remaining
 work. `tests/test_raw_values.py` covers these behaviors and SHACL meta-validation.
 
@@ -369,7 +321,7 @@ these memberships, reject nonresource endpoints, and require a value's row
 and column to have the same containing view. Column ownership counts either
 direction, including mixed and repeated assertions, without requiring OWL
 inverse inference. These validators join `ValueContentShape` in the Raw Data
-`ValidationShapeSet`. `tests/test_raw_locations.py` checks inference,
+Ontology's shapes graph. `tests/test_raw_locations.py` checks inference,
 cardinalities, view mismatches, null locations, mapping ambiguity, reuse of a
 column across rows, blank nodes, subclass coverage, and the complete example.
 

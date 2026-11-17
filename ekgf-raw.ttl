@@ -8,7 +8,6 @@
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix ekg-raw: <https://ekgf.org/ontology/raw#> .
-@prefix ekg-shape: <https://ekgf.org/ontology/shape#> .
 @prefix annotation: <https://ekgf.org/ontology/annotation#> .
 @base <https://ekgf.org/ontology/raw#> .
 
@@ -18,7 +17,7 @@
         sh:prefix "ekg-raw" ;
         sh:namespace "https://ekgf.org/ontology/raw#"^^xsd:anyURI
     ] ;
-    owl:imports rdf: , ekg-shape: ;
+    owl:imports rdf: ;
     rdfs:comment
         "The Raw Data Ontology is used by a \"capture step\" in an EKG DataOps pipeline to capture any data from any data source as RDF triples without mapping it to higher level ontologies. It is assumed that subsequent steps in a given EKG DataOps pipeline will transform the raw data to match with target ontologies."@en ;
     rdfs:label "Raw Data Ontology"@en .
@@ -638,18 +637,6 @@
 
 <https://ekgf.org/ontology/raw#> a sh:ShapesGraph .
 
-:ValidationShapeSet a owl:NamedIndividual , ekg-shape:ShapeSet ;
-    ekg-shape:hasShapesGraph <https://ekgf.org/ontology/raw#> ;
-    rdfs:label "Raw Data Validation Shapes"@en ;
-    rdfs:comment "Validates captured content, explicit source nulls, optional source text, row and column membership, agreement on the containing view, view numbers, git origin metadata and spreadsheet formulas. View-to-source ownership and coordinate constraints require separate validation."@en ;
-    rdfs:isDefinedBy : ;
-    ekg-shape:shapePurpose ekg-shape:Validation ;
-    ekg-shape:hasShape :ValueContentShape , :ValueLocationShape ,
-                       :RowLocationShape , :ColumnLocationShape ,
-                       :ViewNumberShape , :GitOriginShape ,
-                       :FormulaShape , :FormulaR1C1Shape .
-
-
 #################################################################
 #    Documentation annotations
 #################################################################
@@ -793,7 +780,7 @@ No string, including `"NULL"`, becomes null without the source format or an
 explicit capture policy establishing that interpretation. An omitted source
 field is not automatically an explicit null occurrence.
 
-`ValueContentShape`, registered in `ValidationShapeSet`, checks this contract.
+`ValueContentShape`, in this ontology's shapes graph, checks this contract.
 OWL models the alternatives and cardinalities; it does not supply missing
 content or classify an incomplete occurrence as null.
 
@@ -809,7 +796,7 @@ Each occurrence also requires one `valueOf` row and one `forColumn` column.
 Rows identify their one view through `isRowInView`; columns identify theirs
 through `isColumnInView` or inverse `hasColumn`. The two views must match.
 `ValueLocationShape`, `RowLocationShape`, and `ColumnLocationShape` validate
-these relationships and belong to the same `ValidationShapeSet`.
+these relationships and belong to the same shapes graph.
 
 Recover column links from the source's physical structure or documented
 capture metadata. Do not join occurrences to columns by mapped predicate alone:

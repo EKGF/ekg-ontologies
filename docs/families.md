@@ -11,7 +11,7 @@ and their recognition prefixes live in the
 
 Families are optional. An authority can govern artifacts directly
 through `ekg-artgov:governedBy`, without any family. When used, a family
-spans artifact types: the ontologies, shapesets and taxonomies of
+spans artifact types: the ontologies, shapes graphs and taxonomies of
 FIBO are members of the one FIBO family.
 
 `ekg-artgov:inFamily` explicitly assigns membership on an artifact or

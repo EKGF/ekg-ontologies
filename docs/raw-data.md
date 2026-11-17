@@ -131,7 +131,7 @@ targets `Value` instances and subclasses, plus subjects using `literalValue`,
 metadata cannot bypass content or location checks. `ValueLocationShape`,
 `RowLocationShape`, and `ColumnLocationShape` check the physical location and
 the shared view. All four shapes and their nested constraints belong to the
-Raw Data `ValidationShapeSet`. Column membership is validated with SHACL paths
+Raw Data Ontology's shapes graph. Column membership is validated with SHACL paths
 in either direction; RDFS inference suffices without an OWL inverse closure.
 
 Existing value occurrences without content now fail validation. Add their
@@ -162,7 +162,7 @@ or physical source locations.
 
 These terms describe where captured data came from and how a spreadsheet
 computed it. They are validated by `ViewNumberShape`, `GitOriginShape`,
-`FormulaShape` and `FormulaR1C1Shape` in `ValidationShapeSet`.
+`FormulaShape` and `FormulaR1C1Shape` in the Raw Data Ontology's shapes graph.
 
 - **Formats.** `CsvFile` and `TsvFile` are `File`s whose fields are always
   captured as text. `XlsxFile` covers workbooks.

@@ -18,7 +18,7 @@
 # a new authority. Organizations have separate UUIDv4 identities in
 # well-known-organizations.ttl; cmns-rlcmp:isPlayedBy links a role to its player.
 #
-# Every authority that governs an ontology, a shapeset or a taxonomy is
+# Every authority that governs an ontology, a shapes graph or a taxonomy is
 # declared here and nowhere else.
 #
 

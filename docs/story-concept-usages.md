@@ -255,8 +255,7 @@ if not conforms:
     raise SystemExit(report)
 ```
 
-Each of the three modules registers its named validators in its own
-`ValidationShapeSet`. Template validation rejects missing or multiple
+Each of the three modules holds its validators in its own shapes graph. Template validation rejects missing or multiple
 documents, renderers, or languages, missing source, unsupported renderer/language
 combinations, and mixing template source with native SPARQL source.
 The Concept `LegacyTemplateManifestationShape` rejects the retired
@@ -266,8 +265,8 @@ also present.
 `StoryConceptUsageShape` checks one owner, one referenced concept, resource
 endpoints, and exactly one role. `StoryInputShape` checks input flags.
 `LegacyConceptUsageShape` rejects retired vocabulary. These shapes, along with
-the implementation ownership shapes, belong to the Story `ValidationShapeSet`.
-Nested shapes are included through their registered entry definitions.
+the implementation ownership shapes, belong to the Story Ontology's shapes
+graph.
 
 OWL expresses the ownership and concept cardinalities and can equate names
 to satisfy them. SHACL checks actual resource terms and rejects missing or

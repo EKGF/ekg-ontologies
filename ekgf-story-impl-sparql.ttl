@@ -10,7 +10,6 @@
 @prefix sparql-story: <https://ekgf.org/ontology/story-impl-sparql#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix ekg-story-impl-sparql: <https://ekgf.org/ontology/story-impl-sparql#> .
-@prefix ekg-shape: <https://ekgf.org/ontology/shape#> .
 @prefix annotation: <https://ekgf.org/ontology/annotation#> .
 @base <https://ekgf.org/ontology/story-impl-sparql#> .
 
@@ -21,8 +20,7 @@
   ] ;
     owl:imports
         concept:,
-        story:,
-        ekg-shape: ;
+        story: ;
     rdfs:comment
         """The SPARQL Story Implementation Ontology defines story implementations using executable SPARQL queries or updates, or explicitly declared template documents and renderers that generate SPARQL.
 
@@ -608,7 +606,7 @@ accepting unexpanded template text does not authorize executing it.
 `StatementTemplateShape`, `TemplateRendererShape`, and
 `StorySPARQLTemplateImplementationShape` validate these relationships. Load
 the local Concept and Story shapes as well when validating the full model.
-All entry shapes belong to this ontology's `ValidationShapeSet`.
+All entry shapes belong to this ontology's shapes graph.
 
 See the repository's
 [template processing guide](https://github.com/EKGF/ekg-ontologies/blob/main/docs/story-concept-usages.md#template-processing-contract)
@@ -616,13 +614,3 @@ for input serialization requirements and an executable metadata example.
 """@en .
 
 <https://ekgf.org/ontology/story-impl-sparql#> a sh:ShapesGraph .
-
-:ValidationShapeSet a owl:NamedIndividual , ekg-shape:ShapeSet ;
-    ekg-shape:hasShapesGraph <https://ekgf.org/ontology/story-impl-sparql#> ;
-    rdfs:label "SPARQL Story Implementation Validation Shapes"@en ;
-    rdfs:comment "Validates template documents, renderer language capabilities, and template-based SPARQL story implementations."@en ;
-    rdfs:isDefinedBy <https://ekgf.org/ontology/story-impl-sparql#> ;
-    ekg-shape:shapePurpose ekg-shape:Validation ;
-    ekg-shape:hasShape :StatementTemplateShape ,
-                       :TemplateRendererShape ,
-                       :StorySPARQLTemplateImplementationShape .

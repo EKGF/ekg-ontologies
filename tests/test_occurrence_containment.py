@@ -13,7 +13,6 @@ ROOT = Path(__file__).resolve().parents[1]
 CONCEPT = Namespace("https://ekgf.org/ontology/concept#")
 STORY = Namespace("https://ekgf.org/ontology/story#")
 SH = Namespace("http://www.w3.org/ns/shacl#")
-META = Namespace("https://ekgf.org/ontology/shape#")
 ANNOTATION = Namespace("https://ekgf.org/ontology/annotation#")
 EX = Namespace("https://example.test/")
 ERROR = URIRef("http://www.daml.org/2002/03/agents/agent-ont#error")
@@ -181,8 +180,8 @@ class OccurrenceContainmentTests(unittest.TestCase):
             self.assertEqual(list(graph.triples((None, predicate, None))), [])
 
     def test_validator_is_registered_and_meta_valid(self):
-        self.assertIn((CONCEPT.ValidationShapeSet, META.hasShape,
-                       CONCEPT.OccurrenceContainmentShape), self.ontology)
+        self.assertIn((CONCEPT.OccurrenceContainmentShape, RDF.type, SH.NodeShape), self.ontology)
+        self.assertIn((URIRef(str(CONCEPT)), RDF.type, SH.ShapesGraph), self.ontology)
         self.assert_valid(self.fixture(), meta_shacl=True)
 
     def test_containment_terms_have_markdown_explanations(self):

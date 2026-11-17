@@ -217,8 +217,8 @@ the same concept has input evidence. Add `--allow-warnings` to treat the
 warning as conforming while violations still fail.
 
 `OccurrenceSightingShape` and `StatementPositionShape` belong to the Concept
-`ValidationShapeSet`. `StatementPositionUsageRoleShape` and
-`UndeclaredConceptUsageShape` belong to the Story `ValidationShapeSet`. The
+Ontology's shapes graph. `StatementPositionUsageRoleShape` and
+`UndeclaredConceptUsageShape` belong to the Story Ontology's shapes graph. The
 first Story shape rejects a position without exactly one expected role, so a
 missing mapping fails instead of disabling the comparison.
 

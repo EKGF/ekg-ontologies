@@ -129,10 +129,8 @@ relationship types therefore cannot hide incomplete contribution records.
 It checks UUID URNs, both source directions, one target, IRI endpoints, endpoint
 classes, separation of relationship and endpoint roles, and supplied text.
 
-The validator and its nested shapes belong to the Outcome
-`ValidationShapeSet`, whose `shape:hasShapesGraph` points to the Outcome module's
-separate ShapesGraph IRI. See [shape collections and graphs](shapes-graphs.md)
-for graph selection and loading responsibilities.
+The validator and its nested shapes belong to the Outcome Ontology's shapes
+graph, the ontology IRI typed `sh:ShapesGraph`.
 
 OWL exact cardinality and functional endpoints express the model. They do not
 report a missing supplied assertion as a data error, and can equate different

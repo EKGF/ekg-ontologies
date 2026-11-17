@@ -10,7 +10,6 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix ekg-outcome: <https://ekgf.org/ontology/outcome#> .
 @prefix use-case: <https://ekgf.org/ontology/use-case#> .
-@prefix ekg-shape: <https://ekgf.org/ontology/shape#> .
 @prefix annotation: <https://ekgf.org/ontology/annotation#> .
 #
 #
@@ -105,7 +104,6 @@
       sh:prefix "ekg-outcome" ;
       sh:namespace "https://ekgf.org/ontology/outcome#"^^xsd:anyURI
   ] ;
-  owl:imports ekg-shape: ;
   rdfs:label "Outcome Ontology"@en ;
   rdfs:comment "Business results, goals, benefits and themes, their optional classifications and priorities, and independently identified use-case contribution relationships. Outcome lifecycles are described with the Lifecycle Ontology."@en .
 
@@ -404,14 +402,6 @@ dc:date a owl:AnnotationProperty .
   rdfs:comment "Validates UUID URN relationship identities, separation from endpoint roles, one use case counted in either direction, one outcome, and optional nonblank contribution text. Predicate targets also validate incomplete untyped relationship descriptions."@en ;
   rdfs:isDefinedBy <https://ekgf.org/ontology/outcome#> .
 
-:ValidationShapeSet a owl:NamedIndividual , ekg-shape:ShapeSet ;
-  ekg-shape:hasShapesGraph <https://ekgf.org/ontology/outcome#> ;
-  ekg-shape:hasShape :OutcomeRelationshipShape ;
-  ekg-shape:shapePurpose ekg-shape:Validation ;
-  rdfs:label "Outcome Relationship Validation Shapes"@en ;
-  rdfs:comment "The Outcome Ontology's relationship validators, including their nested endpoint and contribution-text constraints."@en ;
-  rdfs:isDefinedBy <https://ekgf.org/ontology/outcome#> .
-
 #################################################################
 #    Markdown explanations
 #################################################################
@@ -440,8 +430,8 @@ or ownership assignments. Outcome priority concerns the outcome itself. The
 Method does not define confidence or contribution-priority scales; these
 properties and an explicit outcome-ownership model remain separate decisions.
 
-All entry and nested validators belong to `ValidationShapeSet`, which links to
-this module's concrete shapes graph through `ekg-shape:hasShapesGraph`.
+All entry and nested validators belong to this ontology's shapes graph, the
+ontology IRI typed `sh:ShapesGraph`.
 See the [relationship guide](https://github.com/EKGF/ekg-ontologies/blob/main/docs/outcome-relationships.md)
 for a complete example, query, validation command and snapshot semantics.
 """@en .
@@ -521,16 +511,4 @@ endpoint-version IRIs count as different supplied terms in a merged graph.
 This shape validates relationship instances; it does not require every UseCase
 to have one, determine business ownership, infer inheritance or assess whether
 the contribution description is accurate.
-"""@en .
-
-:ValidationShapeSet annotation:markdownDescription """
-Registers OutcomeRelationshipShape and the nested shapes reachable from it.
-The set has the Validation purpose and links to the Outcome Ontology module's
-ShapesGraph IRI through `ekg-shape:hasShapesGraph`. The set and graph have
-separate identities.
-
-Load the module as the shapes graph for relationship validation. Load endpoint
-types in the data, or supply the Outcome and Use Case ontology graphs with
-RDFS inference. Set membership and the graph link do not fetch RDF sources,
-select a historical snapshot, run validation or assert conformance by themselves.
 """@en .

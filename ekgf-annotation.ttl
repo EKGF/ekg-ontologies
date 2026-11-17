@@ -5,7 +5,6 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix ekg-annotation: <https://ekgf.org/ontology/annotation#> .
-@prefix ekg-shape: <https://ekgf.org/ontology/shape#> .
 @base <https://ekgf.org/ontology/annotation#> .
 
 <https://ekgf.org/ontology/annotation#>
@@ -14,7 +13,6 @@
         sh:prefix "ekg-annotation" ;
         sh:namespace "https://ekgf.org/ontology/annotation#"^^xsd:anyURI
     ] ;
-    owl:imports ekg-shape: ;
     rdfs:label "Annotation Ontology"@en ;
     rdfs:comment "Descriptive resource metadata: Markdown descriptions, subtitles, summaries, short titles and URL slugs. Text annotations apply to classes, properties and individuals; slug is a datatype property for resource addressing."@en .
 
@@ -86,15 +84,6 @@ annotation:ShortTitleShape a sh:NodeShape ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/annotation#> .
 
 <https://ekgf.org/ontology/annotation#> a sh:ShapesGraph .
-
-annotation:ValidationShapeSet a owl:NamedIndividual , ekg-shape:ShapeSet ;
-    ekg-shape:hasShapesGraph <https://ekgf.org/ontology/annotation#> ;
-    ekg-shape:shapePurpose ekg-shape:Validation ;
-    ekg-shape:hasShape annotation:ShortTitleShape ;
-    rdfs:label "Annotation Validation Shapes"@en ;
-    rdfs:comment "Validates short titles."@en ;
-    rdfs:isDefinedBy <https://ekgf.org/ontology/annotation#> .
-
 
 #################################################################
 #    Documentation annotations

@@ -10,7 +10,6 @@
 @prefix annotation: <https://ekgf.org/ontology/annotation#> .
 @prefix artgov: <https://ekgf.org/ontology/artifact-governance#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
-@prefix ekg-shape: <https://ekgf.org/ontology/shape#> .
 @prefix ekg-artgov: <https://ekgf.org/ontology/artifact-governance#> .
 @base <https://ekgf.org/ontology/artifact-governance#> .
 
@@ -21,14 +20,13 @@
         sh:namespace "https://ekgf.org/ontology/artifact-governance#"^^xsd:anyURI
     ] ;
     rdfs:label "Artifact Governance Ontology"@en ;
-    rdfs:comment "Who governs a semantic artifact and which family it belongs to. One vocabulary for OWL ontologies, SHACL shapesets, SKOS taxonomies and concept sets. Replaces the Ontology Ontology (https://ekgf.org/ontology/ontology#)."@en ;
+    rdfs:comment "Who governs a semantic artifact and which family it belongs to. One vocabulary for OWL ontologies, SHACL shapes graphs, SKOS taxonomies and concept sets. Replaces the Ontology Ontology (https://ekgf.org/ontology/ontology#)."@en ;
     owl:imports cmns-cls: ,
                 cmns-dsg: ,
                 cmns-org: ,
                 cmns-pts: ,
                 cmns-rlcmp: ,
-                annotation: ,
-                ekg-shape: .
+                annotation:  .
 
 #################################################################
 #    Classes
@@ -41,7 +39,7 @@ artgov:Authority rdf:type owl:Class ;
 
 artgov:Family rdf:type owl:Class ;
     rdfs:label "Family"@en ;
-    rdfs:comment "An optional, enduring collection of related artifacts governed by one or more authorities, such as FIBO. A family spans artifact types: its ontologies, shapesets and taxonomies are members of the same family. Authorities can govern artifacts directly without organizing them into families. When used for publication, the family groups the artifacts across releases; each version and its approvals belong to a distinct standards release."@en .
+    rdfs:comment "An optional, enduring collection of related artifacts governed by one or more authorities, such as FIBO. A family spans artifact types: its ontologies, shapes graphs and taxonomies are members of the same family. Authorities can govern artifacts directly without organizing them into families. When used for publication, the family groups the artifacts across releases; each version and its approvals belong to a distinct standards release."@en .
 
 artgov:Reference rdf:type owl:Class ;
     rdfs:label "Reference"@en ;
@@ -381,14 +379,6 @@ artgov:ModuleMembershipShape a sh:NodeShape ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
 
 <https://ekgf.org/ontology/artifact-governance#> a sh:ShapesGraph .
-
-artgov:ValidationShapeSet a owl:NamedIndividual , ekg-shape:ShapeSet ;
-    ekg-shape:hasShapesGraph <https://ekgf.org/ontology/artifact-governance#> ;
-    ekg-shape:shapePurpose ekg-shape:Validation ;
-    ekg-shape:hasShape artgov:ModuleShape , artgov:ModuleMembershipShape ;
-    rdfs:label "Artifact Governance Validation Shapes"@en ;
-    rdfs:comment "Validates family modules and module membership."@en ;
-    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
 
 #################################################################
 #    Documentation annotations

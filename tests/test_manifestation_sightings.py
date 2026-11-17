@@ -15,7 +15,6 @@ CONCEPT = Namespace("https://ekgf.org/ontology/concept#")
 STORY = Namespace("https://ekgf.org/ontology/story#")
 DATASET = Namespace("http://www.w3.org/ns/dcat#")
 SH = Namespace("http://www.w3.org/ns/shacl#")
-META = Namespace("https://ekgf.org/ontology/shape#")
 ANNOTATION = Namespace("https://ekgf.org/ontology/annotation#")
 EX = Namespace("https://example.test/")
 ERROR = URIRef("http://www.daml.org/2002/03/agents/agent-ont#error")
@@ -166,9 +165,9 @@ class SightingSourceTests(unittest.TestCase):
                      CONCEPT.OccurrenceSightingShape, CONCEPT.StatementPositionShape):
             with self.subTest(term=term):
                 self.assertTrue(list(self.ontology.objects(term, ANNOTATION.markdownDescription)))
-        shapes = set(self.ontology.objects(CONCEPT.ValidationShapeSet, META.hasShape))
-        self.assertLessEqual({CONCEPT.OccurrenceSightingShape, CONCEPT.StatementPositionShape},
-                             shapes)
+        for shape in (CONCEPT.OccurrenceSightingShape, CONCEPT.StatementPositionShape):
+            self.assertIn((shape, RDF.type, SH.NodeShape), self.ontology)
+        self.assertIn((URIRef(str(CONCEPT)), RDF.type, SH.ShapesGraph), self.ontology)
 
     def test_data_element_concept_definition_covers_meaning_manifestations_and_sightings(self):
         definition, = self.ontology.objects(CONCEPT.DataElementConcept, RDFS.comment)
@@ -422,9 +421,9 @@ class UndeclaredConceptUsageTests(unittest.TestCase):
                 self.assertTrue(list(self.story.objects(term, ANNOTATION.markdownDescription)))
         self.assertEqual(set(self.story.objects(STORY.UndeclaredConceptUsageShape,
                                                 SH.severity)), {SH.Warning})
-        shapes = set(self.story.objects(STORY.ValidationShapeSet, META.hasShape))
-        self.assertLessEqual({STORY.UndeclaredConceptUsageShape,
-                              STORY.StatementPositionUsageRoleShape}, shapes)
+        for shape in (STORY.UndeclaredConceptUsageShape, STORY.StatementPositionUsageRoleShape):
+            self.assertIn((shape, RDF.type, SH.NodeShape), self.story)
+        self.assertIn((URIRef(str(STORY)), RDF.type, SH.ShapesGraph), self.story)
 
 
 class DocumentedSightingsTests(unittest.TestCase):
