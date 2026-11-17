@@ -10,6 +10,7 @@
 @prefix annotation: <https://ekgf.org/ontology/annotation#> .
 @prefix artgov: <https://ekgf.org/ontology/artifact-governance#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ekg-shape: <https://ekgf.org/ontology/shape#> .
 @prefix ekg-artgov: <https://ekgf.org/ontology/artifact-governance#> .
 @base <https://ekgf.org/ontology/artifact-governance#> .
 
@@ -26,7 +27,8 @@
                 cmns-org: ,
                 cmns-pts: ,
                 cmns-rlcmp: ,
-                annotation: .
+                annotation: ,
+                ekg-shape: .
 
 #################################################################
 #    Classes
@@ -44,6 +46,12 @@ artgov:Family rdf:type owl:Class ;
 artgov:Reference rdf:type owl:Class ;
     rdfs:label "Reference"@en ;
     rdfs:comment "Stands for one artifact. It gives the artifact a stable identity and slug even when the artifact itself is not loaded, or is known under several IRIs that differ only in a trailing hash or slash."@en .
+
+artgov:Module rdf:type owl:Class ;
+    owl:disjointWith artgov:Family , artgov:Reference , artgov:Authority ;
+    rdfs:label "Module"@en ;
+    rdfs:comment "A named group of artifacts within one family, such as a FIBO domain (FBC, SEC, FND) or a module nested inside one. A module belongs to exactly one family through inFamily. Artifacts, references and nested modules join it explicitly through inModule; IRI paths and file names do not create modules."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
 
 artgov:AuthorityPublishingRole rdf:type owl:Class ;
     rdfs:label "Authority publishing role"@en ;
@@ -73,6 +81,12 @@ artgov:inFamily rdf:type owl:ObjectProperty ;
     rdfs:range artgov:Family ;
     rdfs:label "In family"@en ;
     rdfs:comment "Explicitly assigns an artifact or a reference to a family. It has no domain because it applies to every artifact type. Collect the asserted memberships on the artifact, its references and their known IRI aliases before attempting recognition. These assignments take precedence over all prefix rules, and several explicit memberships are permitted. Recognition applies only when no membership is asserted; its result is derived metadata and must not silently be stored as an explicit inFamily assertion. Without an assertion or a matching rule, the artifact remains without a family."@en .
+
+artgov:inModule rdf:type owl:ObjectProperty ;
+    rdfs:range artgov:Module ;
+    rdfs:label "In module"@en ;
+    rdfs:comment "Assigns an artifact, a reference or a nested module to the module directly containing it. It has no domain because it applies to every artifact type. A member has at most one direct module. The property is not transitive; query inModule+ for all enclosing modules."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
 
 artgov:refersTo rdf:type owl:ObjectProperty ;
     rdfs:domain artgov:Reference ;
@@ -313,8 +327,108 @@ artgov:StandardsStaffRole rdf:type owl:NamedIndividual ,
 
 
 #################################################################
+#    Module validation
+#################################################################
+
+artgov:ModuleShape a sh:NodeShape ;
+    sh:targetClass artgov:Module ;
+    sh:targetObjectsOf artgov:inModule ;
+    sh:nodeKind sh:IRI ;
+    sh:not [ sh:or (
+        [ sh:class artgov:Family ]
+        [ sh:class artgov:Reference ]
+        [ sh:class artgov:Authority ]
+    ) ] ;
+    sh:property [
+        sh:path rdfs:label ; sh:minCount 1 ; sh:nodeKind sh:Literal ; sh:minLength 1 ;
+        sh:message "A module needs a nonempty label."@en
+    ] ;
+    sh:property [
+        sh:path artgov:inFamily ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ; sh:class artgov:Family ;
+        sh:message "A module belongs to exactly one family."@en
+    ] ;
+    sh:sparql [
+        sh:message "Module nesting must be acyclic; a module cannot contain itself directly or through other modules."@en ;
+        sh:select """
+            PREFIX artgov: <https://ekgf.org/ontology/artifact-governance#>
+            SELECT $this WHERE { $this artgov:inModule+ $this . }
+        """
+    ] ;
+    rdfs:label "Module Shape"@en ;
+    rdfs:comment "Validates modules: an IRI with a label and exactly one family, distinct from families, references and authorities, with acyclic nesting."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+artgov:ModuleMembershipShape a sh:NodeShape ;
+    sh:targetSubjectsOf artgov:inModule ;
+    sh:property [
+        sh:path artgov:inModule ; sh:maxCount 1 ; sh:nodeKind sh:IRI ; sh:class artgov:Module ;
+        sh:message "A member has at most one direct module, identified by a Module IRI."@en
+    ] ;
+    sh:sparql [
+        sh:message "A member that declares families must include its module's family {?family}."@en ;
+        sh:select """
+            PREFIX artgov: <https://ekgf.org/ontology/artifact-governance#>
+            SELECT $this ?family WHERE {
+                $this artgov:inModule/artgov:inFamily ?family ;
+                    artgov:inFamily ?declared .
+                FILTER NOT EXISTS { $this artgov:inFamily ?family }
+            }
+        """
+    ] ;
+    rdfs:label "Module Membership Shape"@en ;
+    rdfs:comment "Validates module membership: at most one direct module per member, and agreement with the module's family when the member declares families. A nested module is a member of its parent and always declares its family."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+<https://ekgf.org/ontology/artifact-governance#> a sh:ShapesGraph .
+
+artgov:ValidationShapeSet a owl:NamedIndividual , ekg-shape:ShapeSet ;
+    ekg-shape:hasShapesGraph <https://ekgf.org/ontology/artifact-governance#> ;
+    ekg-shape:shapePurpose ekg-shape:Validation ;
+    ekg-shape:hasShape artgov:ModuleShape , artgov:ModuleMembershipShape ;
+    rdfs:label "Artifact Governance Validation Shapes"@en ;
+    rdfs:comment "Validates family modules and module membership."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/artifact-governance#> .
+
+#################################################################
 #    Documentation annotations
 #################################################################
+
+artgov:Module annotation:markdownDescription """
+Large families organise their artifacts into modules: FIBO has domains such as
+FBC, SEC and FND, and some of those contain further modules. A module belongs
+to exactly one family through `inFamily`. Members join it explicitly through
+`inModule`: an ontology, a registry reference, or a nested module.
+
+Membership is stated, never derived. IRI path segments, file names and
+directories do not create modules, because module boundaries do not reliably
+follow them. A harvester that knows a family's conventions can generate the
+module statements, which validation then checks like any other data.
+
+A family without modules simply declares none. Whether a viewer shows the
+module level is a presentation choice of the viewer or publication profile.
+"""@en .
+
+artgov:inModule annotation:markdownDescription """
+Links a member to the one module directly containing it. Query `inModule+` for
+all enclosing modules; the property is not transitive. A member's family follows
+from its module, so `inFamily` on the member is optional. When a member does
+declare families, they must include its module's family.
+
+```turtle
+@prefix artgov: <https://ekgf.org/ontology/artifact-governance#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ex: <https://example.org/> .
+
+ex:fibo a artgov:Family .
+ex:fnd a artgov:Module ; rdfs:label "FND"@en ; artgov:inFamily ex:fibo .
+ex:utilities a artgov:Module ; rdfs:label "Utilities"@en ;
+    artgov:inFamily ex:fibo ; artgov:inModule ex:fnd .
+ex:annotationVocabulary artgov:inModule ex:utilities .
+```
+
+`ModuleShape` and `ModuleMembershipShape` validate this structure.
+"""@en .
 
 <https://ekgf.org/ontology/artifact-governance#>
     <http://purl.org/dc/terms/license> <https://creativecommons.org/publicdomain/zero/1.0/> .

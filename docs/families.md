@@ -19,6 +19,43 @@ its `ekg-artgov:Reference`. Collect these assertions, including those on
 known IRI aliases linked through references, before applying any
 recognition rules. Multiple explicit memberships are permitted.
 
+## Modules
+
+Large families organise their artifacts into modules: FIBO has domains such as
+FBC, SEC and FND, and some of those contain further modules.
+`ekg-artgov:Module` represents one module. It belongs to exactly one family
+through `ekg-artgov:inFamily`. An artifact, a reference or a nested module joins
+it through `ekg-artgov:inModule`, with at most one direct module per member.
+Query `inModule+` to find every enclosing module.
+
+```turtle
+@prefix artgov: <https://ekgf.org/ontology/artifact-governance#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ex: <https://example.org/> .
+
+ex:fibo a artgov:Family .
+ex:fnd a artgov:Module ; rdfs:label "FND"@en ; artgov:inFamily ex:fibo .
+ex:utilities a artgov:Module ; rdfs:label "Utilities"@en ;
+    artgov:inFamily ex:fibo ; artgov:inModule ex:fnd .
+ex:annotationVocabulary artgov:inModule ex:utilities .
+```
+
+Modules are stated, never derived from IRI path segments, file names or
+directories, because module boundaries do not reliably follow them. A harvester
+that knows a family's conventions can generate these statements. A family
+without modules declares none. Whether a viewer shows the module level is a
+presentation choice.
+
+`ModuleShape` and `ModuleMembershipShape` check that each module has a label and
+exactly one family, that nesting is acyclic, that a member has at most one
+direct module, and that a member declaring families includes its module's
+family.
+
+Inside a family, an ontology's name often repeats the family name, as in
+"Commons Identifiers Ontology". `ekg-annotation:shortTitle` gives the shorter
+name a viewer can show under the family heading, such as "Identifiers
+Ontology", with at most one short title per language.
+
 ## Recognition
 
 For artifacts without explicit membership, these optional recognition

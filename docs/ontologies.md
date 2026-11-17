@@ -147,9 +147,9 @@ the ontology IRI without `#`; its declared term namespace retains `#`.
 ## Artifact ontologies
 
 - [Artifact governance](../ekgf-artifact-governance.ttl), `ekg-artgov`:
-  who governs an ontology, shapeset, taxonomy or concept set, and its
-  optional family membership. See [governance](governance.md) and
-  [family recognition](families.md).
+  who governs an ontology, shapeset, taxonomy or concept set, its
+  optional family membership and its module within the family. See
+  [governance](governance.md) and [families and modules](families.md).
 - [Artifact publication](../ekgf-artifact-publication.ttl), `ekg-artpub`:
   publication by family or individual artifact references, with
   profiles, targets, runs, releases and approvals. See
@@ -173,7 +173,7 @@ the ontology IRI without `#`; its declared term namespace retains `#`.
 ## General ontologies
 
 - [Annotation](../ekgf-annotation.ttl), `ekg-annotation`: a description
-  in Markdown, a subtitle, a summary and resource URL slugs.
+  in Markdown, a subtitle, a summary, a short title and resource URL slugs.
 - [Authorization](../ekgf-authorization.ttl), `ekg-authorization`:
   role-based access control for personas.
 - [Communication](../ekgf-communication.ttl), `ekg-communication`:

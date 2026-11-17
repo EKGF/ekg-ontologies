@@ -5,6 +5,7 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix ekg-annotation: <https://ekgf.org/ontology/annotation#> .
+@prefix ekg-shape: <https://ekgf.org/ontology/shape#> .
 @base <https://ekgf.org/ontology/annotation#> .
 
 <https://ekgf.org/ontology/annotation#>
@@ -13,8 +14,9 @@
         sh:prefix "ekg-annotation" ;
         sh:namespace "https://ekgf.org/ontology/annotation#"^^xsd:anyURI
     ] ;
+    owl:imports ekg-shape: ;
     rdfs:label "Annotation Ontology"@en ;
-    rdfs:comment "Descriptive resource metadata: Markdown descriptions, subtitles, summaries and URL slugs. Text annotations apply to classes, properties and individuals; slug is a datatype property for resource addressing."@en .
+    rdfs:comment "Descriptive resource metadata: Markdown descriptions, subtitles, summaries, short titles and URL slugs. Text annotations apply to classes, properties and individuals; slug is a datatype property for resource addressing."@en .
 
 annotation:slug a owl:DatatypeProperty ;
     rdfs:range xsd:string ;
@@ -48,6 +50,50 @@ annotation:subtitle rdf:type owl:AnnotationProperty ;
 annotation:summary rdf:type owl:AnnotationProperty ;
     rdfs:label "summary"@en ;
     rdfs:comment "A short summary of the resource, in plain text."@en .
+
+annotation:shortTitle rdf:type owl:AnnotationProperty ;
+    rdfs:label "short title"@en ;
+    rdfs:comment "A shorter name for the resource, for places where the surrounding context already supplies the rest, such as an ontology listed under its family heading. One value per language."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/annotation#> ;
+    annotation:markdownDescription """
+A short title is a real, authored name, not the result of trimming a title. For
+example, "Commons Identifiers Ontology" can have the short title "Identifiers
+Ontology" for use under the Commons family heading. A viewer chooses the short
+title where the context makes the full title redundant, and the full label
+elsewhere.
+
+Each value carries a language tag, with at most one short title per language,
+so translations work like any other label. Resources without a short title use
+their normal label. A tool that knows a naming convention can generate short
+titles, and `ShortTitleShape` validates them like any other data.
+"""@en .
+
+#################################################################
+#    Validation
+#################################################################
+
+annotation:ShortTitleShape a sh:NodeShape ;
+    sh:targetSubjectsOf annotation:shortTitle ;
+    sh:property [
+        sh:path annotation:shortTitle ;
+        sh:datatype rdf:langString ;
+        sh:minLength 1 ;
+        sh:uniqueLang true ;
+        sh:message "A short title is a nonempty language-tagged string, with at most one per language."@en
+    ] ;
+    rdfs:label "Short Title Shape"@en ;
+    rdfs:comment "Requires each short title to be a nonempty language-tagged literal, with at most one per language."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/annotation#> .
+
+<https://ekgf.org/ontology/annotation#> a sh:ShapesGraph .
+
+annotation:ValidationShapeSet a owl:NamedIndividual , ekg-shape:ShapeSet ;
+    ekg-shape:hasShapesGraph <https://ekgf.org/ontology/annotation#> ;
+    ekg-shape:shapePurpose ekg-shape:Validation ;
+    ekg-shape:hasShape annotation:ShortTitleShape ;
+    rdfs:label "Annotation Validation Shapes"@en ;
+    rdfs:comment "Validates short titles."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/annotation#> .
 
 
 #################################################################
