@@ -186,6 +186,29 @@ computed it. They are validated by `ViewNumberShape`, `GitOriginShape`,
 The executable example below shows a formula occurrence, its column rule,
 the view number and the git origin of its source.
 
+## Column profile
+
+A capture step may profile each column. It writes exact measures on the
+`Column`, computed over the column's value occurrences; header cells are not
+occurrences. `ColumnProfileShape` validates the profile.
+
+- **Counts.** `count` is the number of non-null occurrences, and `nullCount`
+  the number of `NullValue`s. `unique` is the number of distinct literal terms.
+  `top` is the most frequent literal and `freq` how often it occurs. A measure
+  that was not computed, for example because a column exceeded a capture-time
+  limit, is absent rather than zero.
+- **Datatype evidence.** `inferredDatatype` names a datatype that the column's
+  values conform to, and `conformingCount` says how many do. The values
+  themselves keep their source literals, so a column of mostly ISO dates is
+  stated as `inferredDatatype xsd:date` with, for example, `conformingCount 98`
+  of `count 100`. A later step can cast with known confidence and inspect the
+  exceptions. The candidate datatypes and the required share are capture policy.
+- **Statistics.** These cover the occurrences that conform to the inferred
+  datatype. `min` and `max` are literals of that datatype. `mean`, `std`
+  (sample standard deviation) and the `25pct`, `50pct` and `75pct` percentiles
+  (linear interpolation, Hyndman and Fan type 7) are `xsd:double` values and
+  apply only to numeric datatypes.
+
 ## Remaining model work
 
 Content and row/column location are validated. The following work is still open:
