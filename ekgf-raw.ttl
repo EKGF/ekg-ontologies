@@ -156,13 +156,12 @@
 
 ###  https://ekgf.org/ontology/raw#count
 :count
-    rdf:type owl:DatatypeProperty ;
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
     rdfs:domain :Column ;
-    <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
-    rdfs:comment "Count non-NA cells for each column or row."@en ;
-    rdfs:label "Count"@en ;
-    rdfs:seeAlso
-        "https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.count.html#pandas.DataFrame.count"@en .
+    rdfs:range xsd:integer ;
+    rdfs:label "Value count"@en ;
+    rdfs:comment "The number of captured value occurrences for this column (raw:forColumn) that are not NullValue. Header cells are not occurrences and are not counted."@en ;
+    rdfs:isDefinedBy : .
 
 
 ###  https://ekgf.org/ontology/raw#fileName
@@ -178,11 +177,12 @@
 
 ###  https://ekgf.org/ontology/raw#freq
 :freq
-    rdf:type owl:DatatypeProperty ;
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
     rdfs:domain :Column ;
-    <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
-    rdfs:label "The most common value’s frequency"@en ;
-    rdfs:seeAlso "https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.describe.html"@en .
+    rdfs:range xsd:integer ;
+    rdfs:label "Most frequent value count"@en ;
+    rdfs:comment "The number of counted occurrences whose literalValue is the column's top value."@en ;
+    rdfs:isDefinedBy : .
 
 
 ###  https://ekgf.org/ontology/raw#legacyId
@@ -217,64 +217,62 @@
 
 ###  https://ekgf.org/ontology/raw#max
 :max
-    rdf:type owl:DatatypeProperty ;
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
     rdfs:domain :Column ;
-    <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
-    rdfs:comment "The maximum of the values for the given axis."@en ;
+    rdfs:range rdfs:Literal ;
     rdfs:label "Maximum"@en ;
-    rdfs:seeAlso
-        "https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.max.html#pandas.DataFrame.max"@en .
+    rdfs:comment "The greatest value, in the value space of the inferred datatype, among occurrences conforming to it, written as a literal of that datatype."@en ;
+    rdfs:isDefinedBy : .
 
 
 ###  https://ekgf.org/ontology/raw#mean
 :mean
-    rdf:type owl:DatatypeProperty ;
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
     rdfs:domain :Column ;
-    <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
-    rdfs:comment "The mean of the values for the given axis."@en ;
+    rdfs:range xsd:double ;
     rdfs:label "Mean"@en ;
-    rdfs:seeAlso
-        "https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.mean.html#pandas.DataFrame.mean"@en .
+    rdfs:comment "The arithmetic mean of the numeric values of occurrences conforming to a numeric inferred datatype."@en ;
+    rdfs:isDefinedBy : .
 
 
 ###  https://ekgf.org/ontology/raw#min
 :min
-    rdf:type owl:DatatypeProperty ;
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
     rdfs:domain :Column ;
-    <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
-    rdfs:comment "The minimum of the values for the requested axis."@en ;
+    rdfs:range rdfs:Literal ;
     rdfs:label "Minimum"@en ;
-    rdfs:seeAlso
-        "https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.min.html#pandas.DataFrame.min"@en .
+    rdfs:comment "The least value, in the value space of the inferred datatype, among occurrences conforming to it, written as a literal of that datatype."@en ;
+    rdfs:isDefinedBy : .
 
 
 ###  https://ekgf.org/ontology/raw#std
 :std
-    rdf:type owl:DatatypeProperty ;
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
     rdfs:domain :Column ;
-    <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
-    rdfs:comment "The sample standard deviation over given axis."@en ;
+    rdfs:range xsd:double ;
     rdfs:label "Standard deviation"@en ;
-    rdfs:seeAlso
-        "https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.std.html#pandas.DataFrame.std"@en .
+    rdfs:comment "The sample standard deviation (divisor n - 1) of the numeric values of occurrences conforming to a numeric inferred datatype."@en ;
+    rdfs:isDefinedBy : .
 
 
 ###  https://ekgf.org/ontology/raw#top
 :top
-    rdf:type owl:DatatypeProperty ;
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
     rdfs:domain :Column ;
-    <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
-    rdfs:label "Most common value"@en ;
-    rdfs:seeAlso "https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.describe.html"@en .
+    rdfs:range rdfs:Literal ;
+    rdfs:label "Most frequent value"@en ;
+    rdfs:comment "A literalValue occurring most often among the counted occurrences. When several occur equally often, the one whose N-Triples form sorts first by code point."@en ;
+    rdfs:isDefinedBy : .
 
 
 ###  https://ekgf.org/ontology/raw#unique
 :unique
-    rdf:type owl:DatatypeProperty ;
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
     rdfs:domain :Column ;
-    <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
-    rdfs:label "Number of unique values"@en ;
-    rdfs:seeAlso "https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.describe.html"@en .
+    rdfs:range xsd:integer ;
+    rdfs:label "Distinct value count"@en ;
+    rdfs:comment "The number of distinct RDF terms among the literalValue of the counted occurrences; literals with different datatypes or language tags are distinct. Absence means the measure was not computed, not that there are no values."@en ;
+    rdfs:isDefinedBy : .
 
 
 ###  https://ekgf.org/ontology/raw#viewRowNumber
@@ -289,23 +287,32 @@
 
 ###  https://ekgf.org/ontology/raw#25pct
 :25pct
-    rdf:type owl:DatatypeProperty ;
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
     rdfs:domain :Column ;
-    <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> .
+    rdfs:range xsd:double ;
+    rdfs:label "25th percentile"@en ;
+    rdfs:comment "The 25th percentile of the numeric values of occurrences conforming to a numeric inferred datatype, interpolating linearly between the closest ranks (Hyndman and Fan type 7)."@en ;
+    rdfs:isDefinedBy : .
 
 
 ###  https://ekgf.org/ontology/raw#50pct
 :50pct
-    rdf:type owl:DatatypeProperty ;
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
     rdfs:domain :Column ;
-    <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> .
+    rdfs:range xsd:double ;
+    rdfs:label "Median"@en ;
+    rdfs:comment "The 50th percentile (median) of the numeric values of occurrences conforming to a numeric inferred datatype, interpolating linearly between the closest ranks (Hyndman and Fan type 7)."@en ;
+    rdfs:isDefinedBy : .
 
 
 ###  https://ekgf.org/ontology/raw#75pct
 :75pct
-    rdf:type owl:DatatypeProperty ;
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
     rdfs:domain :Column ;
-    <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> .
+    rdfs:range xsd:double ;
+    rdfs:label "75th percentile"@en ;
+    rdfs:comment "The 75th percentile of the numeric values of occurrences conforming to a numeric inferred datatype, interpolating linearly between the closest ranks (Hyndman and Fan type 7)."@en ;
+    rdfs:isDefinedBy : .
 
 
 #################################################################
@@ -481,6 +488,34 @@
     rdfs:isDefinedBy : .
 
 #################################################################
+#    Column profile
+#################################################################
+
+:nullCount
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain :Column ;
+    rdfs:range xsd:integer ;
+    rdfs:label "Null count"@en ;
+    rdfs:comment "The number of captured value occurrences for this column that are NullValue."@en ;
+    rdfs:isDefinedBy : .
+
+:inferredDatatype
+    a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:domain :Column ;
+    rdfs:range rdfs:Datatype ;
+    rdfs:label "Inferred datatype"@en ;
+    rdfs:comment "A datatype to which conformingCount of the column's counted occurrences conform: their literalValue has this datatype, or its lexical form is valid for it. Which datatypes are considered and what share of conforming occurrences is required are capture policy; conformingCount records the evidence. Captured values keep their source literals."@en ;
+    rdfs:isDefinedBy : .
+
+:conformingCount
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain :Column ;
+    rdfs:range xsd:integer ;
+    rdfs:label "Conforming value count"@en ;
+    rdfs:comment "The number of counted occurrences of this column conforming to its inferred datatype. Together with count it gives the share of the column that a later step can cast to that datatype, and identifies how many occurrences need attention."@en ;
+    rdfs:isDefinedBy : .
+
+#################################################################
 #    Raw data validation
 #################################################################
 
@@ -635,6 +670,81 @@
     rdfs:comment "Validates relative R1C1 formulas on value occurrences and the single shared derivation rule of a column."@en ;
     rdfs:isDefinedBy : .
 
+:ColumnProfileShape a sh:NodeShape ;
+    sh:targetSubjectsOf :count , :nullCount , :unique , :top , :freq ,
+        :inferredDatatype , :conformingCount , :min , :max , :mean , :std ,
+        :25pct , :50pct , :75pct ;
+    sh:class :Column ;
+    sh:property [ sh:path :count ; sh:maxCount 1 ; sh:datatype xsd:integer ; sh:minInclusive 0 ] ;
+    sh:property [ sh:path :nullCount ; sh:maxCount 1 ; sh:datatype xsd:integer ; sh:minInclusive 0 ] ;
+    sh:property [ sh:path :unique ; sh:maxCount 1 ; sh:datatype xsd:integer ; sh:minInclusive 0 ] ;
+    sh:property [ sh:path :freq ; sh:maxCount 1 ; sh:datatype xsd:integer ; sh:minInclusive 0 ] ;
+    sh:property [ sh:path :conformingCount ; sh:maxCount 1 ; sh:datatype xsd:integer ; sh:minInclusive 0 ] ;
+    sh:property [ sh:path :mean ; sh:maxCount 1 ; sh:datatype xsd:double ] ;
+    sh:property [ sh:path :std ; sh:maxCount 1 ; sh:datatype xsd:double ] ;
+    sh:property [ sh:path :25pct ; sh:maxCount 1 ; sh:datatype xsd:double ] ;
+    sh:property [ sh:path :50pct ; sh:maxCount 1 ; sh:datatype xsd:double ] ;
+    sh:property [ sh:path :75pct ; sh:maxCount 1 ; sh:datatype xsd:double ] ;
+    sh:property [ sh:path :top ; sh:maxCount 1 ; sh:nodeKind sh:Literal ] ;
+    sh:property [ sh:path :min ; sh:maxCount 1 ; sh:nodeKind sh:Literal ] ;
+    sh:property [ sh:path :max ; sh:maxCount 1 ; sh:nodeKind sh:Literal ] ;
+    sh:property [ sh:path :inferredDatatype ; sh:maxCount 1 ; sh:nodeKind sh:IRI ] ;
+    sh:sparql [
+        sh:message "unique, freq and conformingCount cannot exceed count."@en ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://ekgf.org/ontology/raw#count> ?count .
+                $this <https://ekgf.org/ontology/raw#unique>|<https://ekgf.org/ontology/raw#freq>|<https://ekgf.org/ontology/raw#conformingCount> ?part .
+                FILTER (?part > ?count)
+            }
+        """
+    ] , [
+        sh:message "inferredDatatype and conformingCount are stated together."@en ;
+        sh:select """
+            SELECT $this WHERE {
+                { $this <https://ekgf.org/ontology/raw#inferredDatatype> ?t FILTER NOT EXISTS { $this <https://ekgf.org/ontology/raw#conformingCount> ?c } }
+                UNION
+                { $this <https://ekgf.org/ontology/raw#conformingCount> ?c FILTER NOT EXISTS { $this <https://ekgf.org/ontology/raw#inferredDatatype> ?t } }
+            }
+        """
+    ] , [
+        sh:message "top and freq are stated together."@en ;
+        sh:select """
+            SELECT $this WHERE {
+                { $this <https://ekgf.org/ontology/raw#top> ?t FILTER NOT EXISTS { $this <https://ekgf.org/ontology/raw#freq> ?f } }
+                UNION
+                { $this <https://ekgf.org/ontology/raw#freq> ?f FILTER NOT EXISTS { $this <https://ekgf.org/ontology/raw#top> ?t } }
+            }
+        """
+    ] , [
+        sh:message "min, max, mean, std and percentiles describe conforming values and require an inferredDatatype."@en ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://ekgf.org/ontology/raw#min>|<https://ekgf.org/ontology/raw#max>|<https://ekgf.org/ontology/raw#mean>|<https://ekgf.org/ontology/raw#std>|<https://ekgf.org/ontology/raw#25pct>|<https://ekgf.org/ontology/raw#50pct>|<https://ekgf.org/ontology/raw#75pct> ?stat .
+                FILTER NOT EXISTS { $this <https://ekgf.org/ontology/raw#inferredDatatype> ?t }
+            }
+        """
+    ] , [
+        sh:message "min, 25pct, 50pct, 75pct and max must be in non-decreasing order."@en ;
+        sh:select """
+            SELECT $this WHERE {
+                { $this <https://ekgf.org/ontology/raw#min> ?a ; <https://ekgf.org/ontology/raw#25pct> ?b }
+                UNION
+                { $this <https://ekgf.org/ontology/raw#25pct> ?a ; <https://ekgf.org/ontology/raw#50pct> ?b }
+                UNION
+                { $this <https://ekgf.org/ontology/raw#50pct> ?a ; <https://ekgf.org/ontology/raw#75pct> ?b }
+                UNION
+                { $this <https://ekgf.org/ontology/raw#75pct> ?a ; <https://ekgf.org/ontology/raw#max> ?b }
+                UNION
+                { $this <https://ekgf.org/ontology/raw#min> ?a ; <https://ekgf.org/ontology/raw#max> ?b }
+                FILTER (?b < ?a)
+            }
+        """
+    ] ;
+    rdfs:label "Column Profile Shape"@en ;
+    rdfs:comment "Validates a column profile: single-valued measures with precise datatypes, counts bounded by the value count, an inferred datatype together with its evidence, statistics only with an inferred datatype, and ordered extremes and percentiles."@en ;
+    rdfs:isDefinedBy : .
+
 <https://ekgf.org/ontology/raw#> a sh:ShapesGraph .
 
 #################################################################
@@ -644,20 +754,8 @@
 <https://ekgf.org/ontology/raw#>
     <http://purl.org/dc/terms/license> <https://creativecommons.org/publicdomain/zero/1.0/> .
 
-<https://ekgf.org/ontology/raw#25pct>
-    rdfs:label "25th percentile"@en ;
-    rdfs:comment "Records the 25th-percentile summary value for a captured column."@en ;
-    rdfs:isDefinedBy <https://ekgf.org/ontology/raw#> .
 
-<https://ekgf.org/ontology/raw#50pct>
-    rdfs:label "50th percentile"@en ;
-    rdfs:comment "Records the 50th-percentile summary value, or median, for a captured column."@en ;
-    rdfs:isDefinedBy <https://ekgf.org/ontology/raw#> .
 
-<https://ekgf.org/ontology/raw#75pct>
-    rdfs:label "75th percentile"@en ;
-    rdfs:comment "Records the 75th-percentile summary value for a captured column."@en ;
-    rdfs:isDefinedBy <https://ekgf.org/ontology/raw#> .
 
 <https://ekgf.org/ontology/raw#Column>
     rdfs:label "Column"@en ;
@@ -690,8 +788,6 @@
 <https://ekgf.org/ontology/raw#columnNumber>
     rdfs:isDefinedBy <https://ekgf.org/ontology/raw#> .
 
-<https://ekgf.org/ontology/raw#count>
-    rdfs:isDefinedBy <https://ekgf.org/ontology/raw#> .
 
 <https://ekgf.org/ontology/raw#fileName>
     rdfs:isDefinedBy <https://ekgf.org/ontology/raw#> .
@@ -699,9 +795,6 @@
 <https://ekgf.org/ontology/raw#forPredicate>
     rdfs:isDefinedBy <https://ekgf.org/ontology/raw#> .
 
-<https://ekgf.org/ontology/raw#freq>
-    rdfs:comment "Records the occurrence count of the most frequently occurring value in a captured column."@en ;
-    rdfs:isDefinedBy <https://ekgf.org/ontology/raw#> .
 
 <https://ekgf.org/ontology/raw#hasView>
     rdfs:label "Has View"@en ;
@@ -725,29 +818,15 @@
 <https://ekgf.org/ontology/raw#localName>
     rdfs:isDefinedBy <https://ekgf.org/ontology/raw#> .
 
-<https://ekgf.org/ontology/raw#max>
-    rdfs:isDefinedBy <https://ekgf.org/ontology/raw#> .
 
-<https://ekgf.org/ontology/raw#mean>
-    rdfs:isDefinedBy <https://ekgf.org/ontology/raw#> .
 
-<https://ekgf.org/ontology/raw#min>
-    rdfs:isDefinedBy <https://ekgf.org/ontology/raw#> .
 
 <https://ekgf.org/ontology/raw#predicate>
     rdfs:label "Predicate"@en ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/raw#> .
 
-<https://ekgf.org/ontology/raw#std>
-    rdfs:isDefinedBy <https://ekgf.org/ontology/raw#> .
 
-<https://ekgf.org/ontology/raw#top>
-    rdfs:comment "Records the most frequently occurring value observed in a captured column."@en ;
-    rdfs:isDefinedBy <https://ekgf.org/ontology/raw#> .
 
-<https://ekgf.org/ontology/raw#unique>
-    rdfs:comment "Records the number of distinct values observed in a captured column."@en ;
-    rdfs:isDefinedBy <https://ekgf.org/ontology/raw#> .
 
 <https://ekgf.org/ontology/raw#valueOf>
     rdfs:isDefinedBy <https://ekgf.org/ontology/raw#> .
