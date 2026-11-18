@@ -14,7 +14,7 @@
         sh:namespace "https://ekgf.org/ontology/annotation#"^^xsd:anyURI
     ] ;
     rdfs:label "Annotation Ontology"@en ;
-    rdfs:comment "Descriptive resource metadata: Markdown descriptions, subtitles, summaries, short titles and URL slugs. Text annotations apply to classes, properties and individuals; slug is a datatype property for resource addressing."@en .
+    rdfs:comment "Descriptive resource metadata: Markdown descriptions, subtitles, summaries, short titles, URL slugs, colors and sort keys. Text annotations apply to classes, properties and individuals; slug is a datatype property for resource addressing."@en .
 
 annotation:slug a owl:DatatypeProperty ;
     rdfs:range xsd:string ;
@@ -48,6 +48,26 @@ annotation:subtitle rdf:type owl:AnnotationProperty ;
 annotation:summary rdf:type owl:AnnotationProperty ;
     rdfs:label "summary"@en ;
     rdfs:comment "A short summary of the resource, in plain text."@en .
+
+annotation:hexColor rdf:type owl:AnnotationProperty ;
+    rdfs:label "Hexadecimal RGB color"@en ;
+    rdfs:comment "An RGB color code in hex"@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/annotation#> .
+
+annotation:sortKey rdf:type owl:AnnotationProperty ;
+    rdfs:label "Sort key"@en ;
+    rdfs:comment """Attach a sortable string to any given subject IRI that can be used as a sort-key in UI code or report generators to sort a given set of objects (individuals).
+
+For instance two objects <john> and <doe> could have the following
+sortKeys:
+
+<john> annotation:sortKey \"0001john\" .
+<doe> annotation:sortKey \"0001doe\" .
+
+Resulting in them being sorted in the order <doe>, <john>.
+
+This is a primitive but often practical way to get things sorted in the right order."""@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/annotation#> .
 
 annotation:shortTitle rdf:type owl:AnnotationProperty ;
     rdfs:label "short title"@en ;

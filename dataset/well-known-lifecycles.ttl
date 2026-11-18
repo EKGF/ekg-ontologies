@@ -2,7 +2,6 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix annotation: <https://ekgf.org/ontology/annotation#> .
-@prefix ux: <https://ekgf.org/ontology/user-experience#> .
 @prefix lifecycle: <https://ekgf.org/ontology/lifecycle#> .
 @prefix continuous-improvement: <https://ekgf.org/lifecycle/continuous-improvement#> .
 @prefix achievement: <https://ekgf.org/lifecycle/achievement#> .
@@ -38,28 +37,28 @@ continuous-improvement:Plan rdf:type owl:NamedIndividual ,
     annotation:slug "plan" ;
     rdfs:label "Plan"@en ;
     lifecycle:inLifecycle <https://ekgf.org/lifecycle/continuous-improvement> ;
-    ux:hexColor "#3b82f6" .
+    annotation:hexColor "#3b82f6" .
 
 continuous-improvement:Build rdf:type owl:NamedIndividual ,
         lifecycle:Phase ;
     annotation:slug "build" ;
     rdfs:label "Build"@en ;
     lifecycle:inLifecycle <https://ekgf.org/lifecycle/continuous-improvement> ;
-    ux:hexColor "#d97706" .
+    annotation:hexColor "#d97706" .
 
 continuous-improvement:Run rdf:type owl:NamedIndividual ,
         lifecycle:Phase ;
     annotation:slug "run" ;
     rdfs:label "Run"@en ;
     lifecycle:inLifecycle <https://ekgf.org/lifecycle/continuous-improvement> ;
-    ux:hexColor "#16a34a" .
+    annotation:hexColor "#16a34a" .
 
 continuous-improvement:Evolve rdf:type owl:NamedIndividual ,
         lifecycle:Phase ;
     annotation:slug "evolve" ;
     rdfs:label "Evolve"@en ;
     lifecycle:inLifecycle <https://ekgf.org/lifecycle/continuous-improvement> ;
-    ux:hexColor "#9333ea" .
+    annotation:hexColor "#9333ea" .
 
 continuous-improvement:Identified rdf:type owl:NamedIndividual ,
         lifecycle:State ;

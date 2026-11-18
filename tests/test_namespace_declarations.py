@@ -44,7 +44,6 @@ class NamespaceDeclarationTests(unittest.TestCase):
                     "ekgf-artifact-publication": "ekg-artpub",
                     "ekgf-maturity-model": "ekg-mm",
                     "ekgf-specification-by-example": "ekg-sbe",
-                    "ekgf-user-experience": "ekg-ux",
                 }.get(path.stem, "ekg-" + path.stem.removeprefix("ekgf-"))
                 self.assertEqual(str(prefixes[0]), expected_prefix)
                 namespace = graph.value(declaration, SH.namespace)

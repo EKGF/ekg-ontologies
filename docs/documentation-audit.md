@@ -12,8 +12,7 @@ model evolves.
 
 That pass added 135 labels, 288 definitions, 665 defining-ontology links, and 24
 ontology license links. It corrected the unused Outcome Dublin Core namespace
-binding and the User Experience prototype default prefix/base, with regression
-checks. It corrects capability class labels that contained the
+binding, with regression checks. It corrects capability class labels that contained the
 names of example individuals and replaces an internal story-service question
 with a description of the declared relationship. Existing terse descriptions
 are clarified where the intended scope is supported by the surrounding model.

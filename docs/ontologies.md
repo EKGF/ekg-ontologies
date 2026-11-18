@@ -163,7 +163,8 @@ the ontology IRI without `#`; its declared term namespace retains `#`.
 ## General ontologies
 
 - [Annotation](../ekgf-annotation.ttl), `ekg-annotation`: a description
-  in Markdown, a subtitle, a summary, a short title and resource URL slugs.
+  in Markdown, a subtitle, a summary, a short title, resource URL slugs,
+  a hexadecimal color and a sort key.
 - [Authorization](../ekgf-authorization.ttl), `ekg-authorization`:
   role-based access control for personas.
 - [Communication](../ekgf-communication.ttl), `ekg-communication`:
@@ -176,8 +177,6 @@ the ontology IRI without `#`; its declared term namespace retains `#`.
   identify a value's row and physical column within the same view. See
   [raw data capture](raw-data.md) for examples, migration, and remaining
   structural modeling work.
-- [User experience](../ekgf-user-experience.ttl), `ekg-ux`: hints for
-  user interfaces, such as colors and sort keys.
 
 ## Data products
 
