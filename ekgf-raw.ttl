@@ -423,6 +423,13 @@
     rdfs:comment "A raw-data file source in tab-separated values format. Every field is captured as text; the capture step does not infer datatypes."@en ;
     rdfs:isDefinedBy : .
 
+:ParquetFile
+    a owl:Class ;
+    rdfs:subClassOf :File ;
+    rdfs:label "Parquet file"@en ;
+    rdfs:comment "A raw-data file source in the Apache Parquet columnar format. One file is one view whose columns are the schema's top-level fields; values keep the literal datatypes that the file's physical and logical types define."@en ;
+    rdfs:isDefinedBy : .
+
 :viewNumber
     a owl:DatatypeProperty , owl:FunctionalProperty ;
     rdfs:domain :View ;

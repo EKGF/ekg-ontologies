@@ -165,7 +165,9 @@ computed it. They are validated by `ViewNumberShape`, `GitOriginShape`,
 `FormulaShape` and `FormulaR1C1Shape` in the Raw Data Ontology's shapes graph.
 
 - **Formats.** `CsvFile` and `TsvFile` are `File`s whose fields are always
-  captured as text. `XlsxFile` covers workbooks.
+  captured as text. `XlsxFile` covers workbooks. A `ParquetFile` is one view
+  whose columns are the schema's top-level fields. Its values keep the
+  datatypes that Parquet's types define.
 - **View order.** `viewNumber` is the 1-based position of a view within its
   source, such as the worksheet order. Names can repeat and change, so they do
   not identify a view.

@@ -19,6 +19,7 @@ SHA256_COMMIT = "a" * 64
 TERMS = {
     RAW.CsvFile: OWL.Class,
     RAW.TsvFile: OWL.Class,
+    RAW.ParquetFile: OWL.Class,
     RAW.viewNumber: OWL.DatatypeProperty,
     RAW.gitRepository: OWL.DatatypeProperty,
     RAW.gitCommit: OWL.DatatypeProperty,
@@ -55,7 +56,7 @@ class RawCaptureMetadataTests(unittest.TestCase):
                 self.assertTrue(list(self.ontology.objects(term, RDFS.comment)))
 
     def test_file_formats_are_files(self):
-        for cls in (RAW.CsvFile, RAW.TsvFile):
+        for cls in (RAW.CsvFile, RAW.TsvFile, RAW.ParquetFile):
             with self.subTest(cls=cls):
                 self.assertIn((cls, RDFS.subClassOf, RAW.File), self.ontology)
 
