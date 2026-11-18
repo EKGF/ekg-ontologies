@@ -162,5 +162,18 @@ class ShortTitleTests(unittest.TestCase):
                 self.assert_valid(data, False)
 
 
+
+class SortKeyTests(unittest.TestCase):
+    def test_sort_key_is_a_string_hint_that_falls_back_to_the_label(self):
+        ontology = Graph().parse(ROOT / "ekgf-annotation.ttl")
+        self.assertIn((ANNOTATION.sortKey, RDF.type, OWL.DatatypeProperty), ontology)
+        self.assertIn((ANNOTATION.sortKey, RDFS.range, XSD.string), ontology)
+        self.assertFalse(list(ontology.objects(ANNOTATION.sortKey, RDFS.domain)))
+        definition, = ontology.objects(ANNOTATION.sortKey, RDFS.comment)
+        for phrase in ("in place of its label", "sorts by its label", "a hint, not a rank"):
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase, str(definition))
+        self.assertTrue(list(ontology.objects(ANNOTATION.sortKey, ANNOTATION.markdownDescription)))
+
 if __name__ == "__main__":
     unittest.main()

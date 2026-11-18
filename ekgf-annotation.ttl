@@ -14,7 +14,7 @@
         sh:namespace "https://ekgf.org/ontology/annotation#"^^xsd:anyURI
     ] ;
     rdfs:label "Annotation Ontology"@en ;
-    rdfs:comment "Descriptive resource metadata: Markdown descriptions, subtitles, summaries, short titles, URL slugs, colors and sort keys. Text annotations apply to classes, properties and individuals; slug is a datatype property for resource addressing."@en .
+    rdfs:comment "Descriptive resource metadata: Markdown descriptions, subtitles, summaries, short titles, URL slugs, colors and sort keys. Text annotations apply to classes, properties and individuals; slug and sortKey are datatype properties for resource addressing and ordering."@en .
 
 annotation:slug a owl:DatatypeProperty ;
     rdfs:range xsd:string ;
@@ -54,20 +54,36 @@ annotation:hexColor rdf:type owl:AnnotationProperty ;
     rdfs:comment "An RGB color code in hex"@en ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/annotation#> .
 
-annotation:sortKey rdf:type owl:AnnotationProperty ;
+annotation:sortKey rdf:type owl:DatatypeProperty ;
+    rdfs:range xsd:string ;
     rdfs:label "Sort key"@en ;
-    rdfs:comment """Attach a sortable string to any given subject IRI that can be used as a sort-key in UI code or report generators to sort a given set of objects (individuals).
+    rdfs:comment "What a resource sorts by among its siblings, in place of its label. A resource without one sorts by its label, and siblings sharing a key are in the order of their labels. A key is a hint, not a rank."@en ;
+    rdfs:isDefinedBy <https://ekgf.org/ontology/annotation#> ;
+    annotation:markdownDescription """
+A sort key places a resource among its siblings wherever a user interface or
+report lists them: use cases in a tree, concepts in a vocabulary, tabs on a
+page. Sorting compares the key where a resource has one and its label where it
+does not, so keys compete with the labels themselves.
 
-For instance two objects <john> and <doe> could have the following
-sortKeys:
+A key is a hint, not a rank. Siblings often come from datasets and sources that
+know nothing of each other, so they cannot share a numbering. Each source picks
+an arbitrary string that lands its resource roughly in the right place: "aaa"
+near the start, "zzz" near the end. Two resources with the same key sit side by
+side and sort by their labels instead of colliding.
 
-<john> annotation:sortKey \"0001john\" .
-<doe> annotation:sortKey \"0001doe\" .
+```turtle
+@prefix annotation: <https://ekgf.org/ontology/annotation#> .
+@prefix ex: <https://example.org/> .
 
-Resulting in them being sorted in the order <doe>, <john>.
+ex:overview annotation:sortKey "aaa" .
+ex:shapes annotation:sortKey "zzz1" .
+ex:provenance annotation:sortKey "zzz2" .
+```
 
-This is a primitive but often practical way to get things sorted in the right order."""@en ;
-    rdfs:isDefinedBy <https://ekgf.org/ontology/annotation#> .
+The property has no domain, so any resource can carry one. Its placement in
+this ontology does not make it an OWL annotation property; like `slug`, it is a
+datatype property with string values.
+"""@en .
 
 annotation:shortTitle rdf:type owl:AnnotationProperty ;
     rdfs:label "short title"@en ;
