@@ -504,6 +504,285 @@
     rdfs:isDefinedBy : .
 
 #################################################################
+#    S3 objects
+#################################################################
+
+:S3Object
+    a owl:Class ;
+    rdfs:subClassOf :Source ;
+    rdfs:label "S3 object"@en ;
+    rdfs:comment "A source read from an object in Amazon S3 or an S3-compatible store. It is independent of the format classes: a CSV object is both a CsvFile and an S3Object. The s3 properties record the object as the store reported it at capture time."@en ;
+    rdfs:isDefinedBy : .
+
+:S3Entry
+    a owl:Class ;
+    rdfs:label "S3 entry"@en ;
+    rdfs:comment "A key-value pair stored with an S3 object, as an object tag or as user-defined metadata."@en ;
+    rdfs:isDefinedBy : .
+
+:S3Tag
+    a owl:Class ;
+    rdfs:subClassOf :S3Entry ;
+    rdfs:label "S3 tag"@en ;
+    rdfs:comment "An object tag of an S3 object."@en ;
+    rdfs:isDefinedBy : .
+
+:S3UserMetadataEntry
+    a owl:Class ;
+    rdfs:subClassOf :S3Entry ;
+    rdfs:label "S3 user metadata entry"@en ;
+    rdfs:comment "A user-defined metadata entry of an S3 object (an x-amz-meta- header), with the prefix removed from its key."@en ;
+    rdfs:isDefinedBy : .
+
+:s3Bucket
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain :S3Object ;
+    rdfs:range xsd:string ;
+    rdfs:label "S3 bucket"@en ;
+    rdfs:comment "The name of the bucket holding the object."@en ;
+    rdfs:isDefinedBy : .
+
+:s3Key
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain :S3Object ;
+    rdfs:range xsd:string ;
+    rdfs:label "S3 key"@en ;
+    rdfs:comment "The key of the object within its bucket, verbatim."@en ;
+    rdfs:isDefinedBy : .
+
+:s3Region
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain :S3Object ;
+    rdfs:range xsd:string ;
+    rdfs:label "S3 region"@en ;
+    rdfs:comment "The region of the bucket, such as eu-west-1, when known."@en ;
+    rdfs:isDefinedBy : .
+
+:s3Endpoint
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain :S3Object ;
+    rdfs:range xsd:string ;
+    rdfs:label "S3 endpoint"@en ;
+    rdfs:comment "The endpoint URL of an S3-compatible store other than Amazon S3. Absent for Amazon S3 itself."@en ;
+    rdfs:isDefinedBy : .
+
+:s3VersionId
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain :S3Object ;
+    rdfs:range xsd:string ;
+    rdfs:label "S3 version id"@en ;
+    rdfs:comment "The version id of the captured object version, when the bucket is versioned."@en ;
+    rdfs:isDefinedBy : .
+
+:s3ETag
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain :S3Object ;
+    rdfs:range xsd:string ;
+    rdfs:label "S3 ETag"@en ;
+    rdfs:comment "The entity tag S3 reports for the object, without its surrounding quotes. For single-part uploads without SSE-KMS it is the MD5 of the content; for multipart uploads it ends in -N, the part count. It identifies the object version, not the content."@en ;
+    rdfs:isDefinedBy : .
+
+:s3ContentType
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain :S3Object ;
+    rdfs:range xsd:string ;
+    rdfs:label "S3 content type"@en ;
+    rdfs:comment "The Content-Type stored with the object, verbatim. It may differ from the media type the capture step determined."@en ;
+    rdfs:isDefinedBy : .
+
+:s3ContentEncoding
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain :S3Object ;
+    rdfs:range xsd:string ;
+    rdfs:label "S3 content encoding"@en ;
+    rdfs:comment "The Content-Encoding stored with the object, verbatim."@en ;
+    rdfs:isDefinedBy : .
+
+:s3ContentLanguage
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain :S3Object ;
+    rdfs:range xsd:string ;
+    rdfs:label "S3 content language"@en ;
+    rdfs:comment "The Content-Language stored with the object, verbatim."@en ;
+    rdfs:isDefinedBy : .
+
+:s3ContentDisposition
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain :S3Object ;
+    rdfs:range xsd:string ;
+    rdfs:label "S3 content disposition"@en ;
+    rdfs:comment "The Content-Disposition stored with the object, verbatim."@en ;
+    rdfs:isDefinedBy : .
+
+:s3CacheControl
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain :S3Object ;
+    rdfs:range xsd:string ;
+    rdfs:label "S3 cache control"@en ;
+    rdfs:comment "The Cache-Control stored with the object, verbatim."@en ;
+    rdfs:isDefinedBy : .
+
+:s3StorageClass
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain :S3Object ;
+    rdfs:range xsd:string ;
+    rdfs:label "S3 storage class"@en ;
+    rdfs:comment "The storage class of the object, such as STANDARD or GLACIER_IR."@en ;
+    rdfs:isDefinedBy : .
+
+:s3ServerSideEncryption
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain :S3Object ;
+    rdfs:range xsd:string ;
+    rdfs:label "S3 server-side encryption"@en ;
+    rdfs:comment "The server-side encryption algorithm S3 reports, such as AES256 or aws:kms."@en ;
+    rdfs:isDefinedBy : .
+
+:s3KmsKeyId
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain :S3Object ;
+    rdfs:range xsd:string ;
+    rdfs:label "S3 KMS key id"@en ;
+    rdfs:comment "The identifier of the KMS key that encrypts the object, when SSE-KMS is used."@en ;
+    rdfs:isDefinedBy : .
+
+:s3BucketKeyEnabled
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain :S3Object ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "S3 bucket key enabled"@en ;
+    rdfs:comment "Whether the object uses an S3 Bucket Key for SSE-KMS."@en ;
+    rdfs:isDefinedBy : .
+
+:s3ChecksumType
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain :S3Object ;
+    rdfs:range xsd:string ;
+    rdfs:label "S3 checksum type"@en ;
+    rdfs:comment "The type of the object's additional checksums: FULL_OBJECT, a checksum of the whole content, or COMPOSITE, a checksum of the part checksums of a multipart upload."@en ;
+    rdfs:isDefinedBy : .
+
+:s3ChecksumCrc32
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain :S3Object ;
+    rdfs:range xsd:string ;
+    rdfs:label "S3 CRC32 checksum"@en ;
+    rdfs:comment "The CRC32 checksum S3 stores for the object, base64-encoded as S3 returns it."@en ;
+    rdfs:isDefinedBy : .
+
+:s3ChecksumCrc32c
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain :S3Object ;
+    rdfs:range xsd:string ;
+    rdfs:label "S3 CRC32C checksum"@en ;
+    rdfs:comment "The CRC32C checksum S3 stores for the object, base64-encoded as S3 returns it."@en ;
+    rdfs:isDefinedBy : .
+
+:s3ChecksumCrc64Nvme
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain :S3Object ;
+    rdfs:range xsd:string ;
+    rdfs:label "S3 CRC64NVME checksum"@en ;
+    rdfs:comment "The CRC64NVME checksum S3 stores for the object, base64-encoded as S3 returns it."@en ;
+    rdfs:isDefinedBy : .
+
+:s3ChecksumSha1
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain :S3Object ;
+    rdfs:range xsd:string ;
+    rdfs:label "S3 SHA-1 checksum"@en ;
+    rdfs:comment "The SHA-1 checksum S3 stores for the object, base64-encoded as S3 returns it."@en ;
+    rdfs:isDefinedBy : .
+
+:s3ChecksumSha256
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain :S3Object ;
+    rdfs:range xsd:string ;
+    rdfs:label "S3 SHA-256 checksum"@en ;
+    rdfs:comment "The SHA-256 checksum S3 stores for the object, base64-encoded as S3 returns it. With s3ChecksumType FULL_OBJECT it is the SHA-256 of the content."@en ;
+    rdfs:isDefinedBy : .
+
+:s3PartsCount
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain :S3Object ;
+    rdfs:range xsd:integer ;
+    rdfs:label "S3 parts count"@en ;
+    rdfs:comment "The number of parts of a multipart-uploaded object."@en ;
+    rdfs:isDefinedBy : .
+
+:s3ObjectLockMode
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain :S3Object ;
+    rdfs:range xsd:string ;
+    rdfs:label "S3 Object Lock mode"@en ;
+    rdfs:comment "The Object Lock retention mode of the object version: GOVERNANCE or COMPLIANCE."@en ;
+    rdfs:isDefinedBy : .
+
+:s3ObjectLockRetainUntil
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain :S3Object ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "S3 Object Lock retain until"@en ;
+    rdfs:comment "The date and time until which the object version is retained under Object Lock."@en ;
+    rdfs:isDefinedBy : .
+
+:s3ObjectLockLegalHold
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain :S3Object ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "S3 Object Lock legal hold"@en ;
+    rdfs:comment "Whether a legal hold is placed on the object version."@en ;
+    rdfs:isDefinedBy : .
+
+:s3ReplicationStatus
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain :S3Object ;
+    rdfs:range xsd:string ;
+    rdfs:label "S3 replication status"@en ;
+    rdfs:comment "The replication status S3 reports for the object, such as COMPLETED or REPLICA."@en ;
+    rdfs:isDefinedBy : .
+
+:s3Expiration
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain :S3Object ;
+    rdfs:range xsd:string ;
+    rdfs:label "S3 expiration"@en ;
+    rdfs:comment "The expiration S3 reports from a lifecycle rule, verbatim as the x-amz-expiration header."@en ;
+    rdfs:isDefinedBy : .
+
+:s3Tag
+    a owl:ObjectProperty ;
+    rdfs:domain :S3Object ;
+    rdfs:range :S3Tag ;
+    rdfs:label "S3 tag"@en ;
+    rdfs:comment "Links an S3 object to one of its object tags."@en ;
+    rdfs:isDefinedBy : .
+
+:s3UserMetadata
+    a owl:ObjectProperty ;
+    rdfs:domain :S3Object ;
+    rdfs:range :S3UserMetadataEntry ;
+    rdfs:label "S3 user metadata"@en ;
+    rdfs:comment "Links an S3 object to one of its user-defined metadata entries."@en ;
+    rdfs:isDefinedBy : .
+
+:s3EntryKey
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain :S3Entry ;
+    rdfs:range xsd:string ;
+    rdfs:label "S3 entry key"@en ;
+    rdfs:comment "The key of an S3 tag or user metadata entry, verbatim."@en ;
+    rdfs:isDefinedBy : .
+
+:s3EntryValue
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain :S3Entry ;
+    rdfs:range xsd:string ;
+    rdfs:label "S3 entry value"@en ;
+    rdfs:comment "The value of an S3 tag or user metadata entry, verbatim. An empty value is a value."@en ;
+    rdfs:isDefinedBy : .
+
+#################################################################
 #    Raw data validation
 #################################################################
 
@@ -731,6 +1010,50 @@
     ] ;
     rdfs:label "Column Profile Shape"@en ;
     rdfs:comment "Validates a column profile: single-valued measures with precise datatypes, counts bounded by the value count, an inferred datatype together with its evidence, statistics only with an inferred datatype, and ordered extremes and percentiles."@en ;
+    rdfs:isDefinedBy : .
+
+:S3ObjectShape a sh:NodeShape ;
+    sh:targetClass :S3Object ;
+    sh:property [ sh:path :s3Bucket ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ; ] ;
+    sh:property [ sh:path :s3Key ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ; ] ;
+    sh:property [ sh:path :s3Region ; sh:maxCount 1 ; sh:datatype xsd:string ; ] ;
+    sh:property [ sh:path :s3Endpoint ; sh:maxCount 1 ; sh:datatype xsd:string ; ] ;
+    sh:property [ sh:path :s3VersionId ; sh:maxCount 1 ; sh:datatype xsd:string ; ] ;
+    sh:property [ sh:path :s3ETag ; sh:maxCount 1 ; sh:datatype xsd:string ; sh:pattern "^[^\"]+$" ; ] ;
+    sh:property [ sh:path :s3ContentType ; sh:maxCount 1 ; sh:datatype xsd:string ; ] ;
+    sh:property [ sh:path :s3ContentEncoding ; sh:maxCount 1 ; sh:datatype xsd:string ; ] ;
+    sh:property [ sh:path :s3ContentLanguage ; sh:maxCount 1 ; sh:datatype xsd:string ; ] ;
+    sh:property [ sh:path :s3ContentDisposition ; sh:maxCount 1 ; sh:datatype xsd:string ; ] ;
+    sh:property [ sh:path :s3CacheControl ; sh:maxCount 1 ; sh:datatype xsd:string ; ] ;
+    sh:property [ sh:path :s3StorageClass ; sh:maxCount 1 ; sh:datatype xsd:string ; ] ;
+    sh:property [ sh:path :s3ServerSideEncryption ; sh:maxCount 1 ; sh:datatype xsd:string ; ] ;
+    sh:property [ sh:path :s3KmsKeyId ; sh:maxCount 1 ; sh:datatype xsd:string ; ] ;
+    sh:property [ sh:path :s3BucketKeyEnabled ; sh:maxCount 1 ; sh:datatype xsd:boolean ; ] ;
+    sh:property [ sh:path :s3ChecksumType ; sh:maxCount 1 ; sh:datatype xsd:string ; sh:in ( "FULL_OBJECT" "COMPOSITE" ) ; ] ;
+    sh:property [ sh:path :s3ChecksumCrc32 ; sh:maxCount 1 ; sh:datatype xsd:string ; ] ;
+    sh:property [ sh:path :s3ChecksumCrc32c ; sh:maxCount 1 ; sh:datatype xsd:string ; ] ;
+    sh:property [ sh:path :s3ChecksumCrc64Nvme ; sh:maxCount 1 ; sh:datatype xsd:string ; ] ;
+    sh:property [ sh:path :s3ChecksumSha1 ; sh:maxCount 1 ; sh:datatype xsd:string ; ] ;
+    sh:property [ sh:path :s3ChecksumSha256 ; sh:maxCount 1 ; sh:datatype xsd:string ; ] ;
+    sh:property [ sh:path :s3PartsCount ; sh:maxCount 1 ; sh:datatype xsd:integer ; sh:minInclusive 1 ; ] ;
+    sh:property [ sh:path :s3ObjectLockMode ; sh:maxCount 1 ; sh:datatype xsd:string ; sh:in ( "GOVERNANCE" "COMPLIANCE" ) ; ] ;
+    sh:property [ sh:path :s3ObjectLockRetainUntil ; sh:maxCount 1 ; sh:datatype xsd:dateTime ; ] ;
+    sh:property [ sh:path :s3ObjectLockLegalHold ; sh:maxCount 1 ; sh:datatype xsd:boolean ; ] ;
+    sh:property [ sh:path :s3ReplicationStatus ; sh:maxCount 1 ; sh:datatype xsd:string ; ] ;
+    sh:property [ sh:path :s3Expiration ; sh:maxCount 1 ; sh:datatype xsd:string ; ] ;
+    sh:property [ sh:path :s3Tag ; sh:class :S3Tag ; sh:nodeKind sh:BlankNodeOrIRI ] ;
+    sh:property [ sh:path :s3UserMetadata ; sh:class :S3UserMetadataEntry ; sh:nodeKind sh:BlankNodeOrIRI ] ;
+    rdfs:label "S3 Object Shape"@en ;
+    rdfs:comment "Validates an S3 object source: exactly one bucket and key, single-valued typed metadata, an ETag without quotes, enumerated checksum types and Object Lock modes, and tags and user metadata as entries."@en ;
+    rdfs:isDefinedBy : .
+
+:S3EntryShape a sh:NodeShape ;
+    sh:targetClass :S3Entry ;
+    sh:targetObjectsOf :s3Tag , :s3UserMetadata ;
+    sh:property [ sh:path :s3EntryKey ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ;
+    sh:property [ sh:path :s3EntryValue ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ] ;
+    rdfs:label "S3 Entry Shape"@en ;
+    rdfs:comment "Validates an S3 tag or user metadata entry: exactly one key and one value, both strings."@en ;
     rdfs:isDefinedBy : .
 
 <https://ekgf.org/ontology/raw#> a sh:ShapesGraph .
