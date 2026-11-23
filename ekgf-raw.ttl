@@ -64,7 +64,6 @@
 :forPredicate
     rdf:type owl:ObjectProperty ;
     rdfs:domain :Value ;
-    <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
     <http://purl.org/dc/elements/1.1/date> "2020-06-13T09:14:28Z"^^xsd:dateTime ;
     rdfs:comment "The predicate for which the given value was encountered"@en ;
     rdfs:label "For Predicate"@en .
@@ -77,7 +76,6 @@
     rdf:type owl:InverseFunctionalProperty ;
     rdfs:domain :Source ;
     rdfs:range :View ;
-    <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
     <http://purl.org/dc/elements/1.1/date> "2020-06-13T09:28:29Z"^^xsd:dateTime ;
     rdfs:comment "One Source can have multiple Views"@en .
 
@@ -87,7 +85,6 @@
     rdf:type owl:ObjectProperty, owl:FunctionalProperty ;
     rdfs:domain :Row ;
     rdfs:range :View ;
-    <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
     <http://purl.org/dc/elements/1.1/date> "2020-06-13T09:36:41Z"^^xsd:dateTime ;
     rdfs:comment "The current row occurs in the given view."@en .
 
@@ -97,7 +94,6 @@
     rdf:type owl:ObjectProperty, owl:FunctionalProperty ;
     rdfs:domain :View ;
     rdfs:range :Source ;
-    <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
     <http://purl.org/dc/elements/1.1/date> "2020-06-13T09:30:00Z"^^xsd:dateTime ;
     rdfs:comment "This View occurs in the given Source"@en .
 
@@ -107,7 +103,6 @@
     rdf:type owl:AnnotationProperty ;
     rdfs:domain :Column ;
     rdfs:range rdf:Property ;
-    <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
     <http://purl.org/dc/elements/1.1/date> "2020-06-13T09:33:37Z"^^xsd:dateTime ;
     rdfs:comment "The property that this Column is mapped to. A column is mapped to one property. It is an annotation property because its values are properties, which are not individuals."@en .
 
@@ -117,7 +112,6 @@
     rdf:type owl:ObjectProperty , owl:FunctionalProperty ;
     rdfs:domain :Value ;
     rdfs:range :Row ;
-    <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
     <http://purl.org/dc/elements/1.1/date> "2020-06-13T09:17:59Z"^^xsd:dateTime ;
     rdfs:comment "Identifies the one source row at which a value occurrence was captured. The row and the occurrence's forColumn must belong to the same view."@en ;
     rdfs:label "Value of"@en .
@@ -148,7 +142,6 @@
     rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
     rdfs:domain :Column ;
     rdfs:range xsd:integer ;
-    <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
     <http://purl.org/dc/elements/1.1/date> "2020-06-13T09:31:29Z"^^xsd:dateTime ;
     rdfs:comment "1-based column index"@en ;
     rdfs:label "Column number"@en .
@@ -169,7 +162,6 @@
     rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
     rdfs:domain :File ;
     rdfs:range xsd:string ;
-    <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
     <http://purl.org/dc/elements/1.1/date> "2020-06-13T09:26:52Z"^^xsd:dateTime ;
     rdfs:comment "The name of the file as it was passed to the capture step"@en ;
     rdfs:label "File name"@en .
@@ -190,7 +182,6 @@
     rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
     rdfs:domain :Row ;
     rdfs:range xsd:string ;
-    <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
     <http://purl.org/dc/elements/1.1/date> "2020-06-13T09:38:33Z"^^xsd:dateTime ;
     rdfs:comment "The values in the key-column in the given view will always be mapped to raw:legacyId"@en ;
     rdfs:label "Legacy ID"@en .
@@ -199,7 +190,6 @@
 ###  https://ekgf.org/ontology/raw#legacyIdInIri
 :legacyIdInIri
     rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
-    <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
     <http://purl.org/dc/elements/1.1/date> "2020-06-13T09:40:31Z"^^xsd:dateTime ;
     rdfs:comment "The value of legacyId translated to an IRI-compliant lower kebab-case value"@en .
 
@@ -209,7 +199,6 @@
     rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
     rdfs:domain :Column ;
     rdfs:range xsd:string ;
-    <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
     <http://purl.org/dc/elements/1.1/date> "2020-06-13T09:32:26Z"^^xsd:dateTime ;
     rdfs:comment "The local name of the property that this Column is mapped to"@en ;
     rdfs:label "Local name"@en .
@@ -280,7 +269,6 @@
     rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
     rdfs:domain :Row ;
     rdfs:range xsd:integer ;
-    <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
     <http://purl.org/dc/elements/1.1/date> "2020-06-13T09:41:42Z"^^xsd:dateTime ;
     rdfs:comment "The 0-based sequence number of the Row in the given View as it was encountered in the Source"@en .
 
@@ -325,7 +313,6 @@
     rdfs:subClassOf [
         a owl:Restriction ; owl:onProperty :isColumnInView ; owl:minCardinality 1
     ] ;
-    <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
     <http://purl.org/dc/elements/1.1/date> "2020-06-13T09:09:19Z"^^xsd:dateTime ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/raw#> .
 
@@ -334,7 +321,6 @@
 :File
     rdf:type owl:Class ;
     rdfs:subClassOf :Source ;
-    <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
     <http://purl.org/dc/elements/1.1/date> "2020-06-13T09:26:36Z"^^xsd:dateTime ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/raw#> .
 
@@ -345,7 +331,6 @@
     rdfs:subClassOf [
         a owl:Restriction ; owl:onProperty :isRowInView ; owl:minCardinality 1
     ] ;
-    <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
     <http://purl.org/dc/elements/1.1/date> "2020-06-13T09:09:08Z"^^xsd:dateTime ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/raw#> .
 
@@ -353,7 +338,6 @@
 ###  https://ekgf.org/ontology/raw#Source
 :Source
     rdf:type owl:Class ;
-    <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
     <http://purl.org/dc/elements/1.1/date> "2020-06-13T09:26:09Z"^^xsd:dateTime ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/raw#> .
 
@@ -372,7 +356,6 @@
     ] , [
         a owl:Restriction ; owl:onProperty :forColumn ; owl:minCardinality 1
     ] ;
-    <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
     <http://purl.org/dc/elements/1.1/date> "2020-06-13T09:14:07Z"^^xsd:dateTime ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/raw#> .
 
@@ -389,7 +372,6 @@
 ###  https://ekgf.org/ontology/raw#View
 :View
     rdf:type owl:Class ;
-    <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
     <http://purl.org/dc/elements/1.1/date> "2020-06-13T09:25:24Z"^^xsd:dateTime ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/raw#> .
 
@@ -398,7 +380,6 @@
 :XlsxFile
     rdf:type owl:Class ;
     rdfs:subClassOf :File ;
-    <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
     <http://purl.org/dc/elements/1.1/date> "2020-06-13T09:26:15Z"^^xsd:dateTime ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/raw#> .
 
@@ -759,7 +740,9 @@
 #################################################################
 
 <https://ekgf.org/ontology/raw#>
-    <http://purl.org/dc/terms/license> <https://creativecommons.org/publicdomain/zero/1.0/> .
+    <http://purl.org/dc/terms/license> <https://creativecommons.org/publicdomain/zero/1.0/> ;
+    <http://purl.org/dc/terms/creator> <http://orcid.org/0000-0003-2309-5068> ;
+    <http://purl.org/dc/terms/rightsHolder> <urn:uuid:4cdd2ad4-9f4b-4923-b5b5-b48fc94cccfb> , <urn:uuid:c2c98445-9dac-4515-bd06-ce6c5bdace11> .
 
 
 

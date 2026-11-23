@@ -47,7 +47,6 @@ persona: rdf:type owl:Ontology ;
                          owl:IrreflexiveProperty ;
                 rdfs:domain :Persona ;
                 rdfs:range :Persona ;
-                <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
                 <http://purl.org/dc/elements/1.1/date> "2020-06-20T14:34:46Z"^^xsd:dateTime .
 
 
@@ -60,7 +59,6 @@ persona: rdf:type owl:Ontology ;
               owl:FunctionalProperty ;
      rdfs:domain :Persona ;
      rdfs:range xsd:string ;
-     <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
      <http://purl.org/dc/elements/1.1/date> "2020-05-01T15:41:28Z"^^xsd:dateTime .
 
 
@@ -76,7 +74,6 @@ persona: rdf:type owl:Ontology ;
 
 ###  https://ekgf.org/ontology/persona#Persona
 :Persona rdf:type owl:Class ;
-         <http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
          <http://purl.org/dc/elements/1.1/date> "2020-04-01T18:10:23Z"^^xsd:dateTime ;
          rdfs:isDefinedBy <https://ekgf.org/ontology/persona#> .
 
@@ -89,7 +86,9 @@ persona: rdf:type owl:Ontology ;
 #################################################################
 
 <https://ekgf.org/ontology/persona#>
-    <http://purl.org/dc/terms/license> <https://creativecommons.org/publicdomain/zero/1.0/> .
+    <http://purl.org/dc/terms/license> <https://creativecommons.org/publicdomain/zero/1.0/> ;
+    <http://purl.org/dc/terms/creator> <http://orcid.org/0000-0003-2309-5068> ;
+    <http://purl.org/dc/terms/rightsHolder> <urn:uuid:4cdd2ad4-9f4b-4923-b5b5-b48fc94cccfb> , <urn:uuid:c2c98445-9dac-4515-bd06-ce6c5bdace11> .
 
 <https://ekgf.org/ontology/persona#Accountability>
     rdfs:label "Accountability"@en ;

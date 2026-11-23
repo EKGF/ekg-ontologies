@@ -41,7 +41,7 @@
     cmns-rlcmp:isPlayedBy <urn:uuid:ee14e632-d8c2-43c1-95d8-72491ce7a846> ;
     annotation:slug "ekgf" ;
     artgov:communityOrganization <urn:uuid:ee14e632-d8c2-43c1-95d8-72491ce7a846> ;
-    artgov:legalOwner <urn:uuid:ec3f703d-55a9-4bea-a818-e71705f8dd2e> ;
+    artgov:legalOwner <urn:uuid:c2c98445-9dac-4515-bd06-ce6c5bdace11> ;
     rdfs:label "OMG - Enterprise Knowledge Graph Forum"@en ;
     artgov:authorityAcronym "EKGF" ;
     artgov:authorityHost "ekgf.org" ;

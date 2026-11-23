@@ -69,7 +69,6 @@
 	owl:inverseOf :implementedBy ;
 	rdfs:domain :StoryImplementation ;
 	rdfs:range :Story ;
-	<http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
 	<http://purl.org/dc/elements/1.1/date> "2026-02-23T00:00:00Z"^^xsd:dateTime ;
 	rdfs:label "implementation of"@en .
 # 
@@ -79,7 +78,6 @@
 	rdfs:subPropertyOf :hasConceptUsage ;
 	rdfs:domain :Story ;
 	rdfs:range :StoryInput ;
-	<http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
 	<http://purl.org/dc/elements/1.1/date> "2026-02-23T00:00:00Z"^^xsd:dateTime ;
 	rdfs:comment "Links a story to its input-concept usage. The usage references a shared data element concept through concept:hasConcept and carries the story's input requirements."@en ;
 	rdfs:label "has input concept"@en .
@@ -90,7 +88,6 @@
 	rdfs:subPropertyOf :hasConceptUsage ;
 	rdfs:domain :Story ;
 	rdfs:range :StoryOutput ;
-	<http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
 	<http://purl.org/dc/elements/1.1/date> "2026-02-23T00:00:00Z"^^xsd:dateTime ;
 	rdfs:comment "Links a story to an output-concept usage referencing the shared data element concept produced by the story."@en ;
 	rdfs:label "has output concept"@en .
@@ -101,7 +98,6 @@
 	rdfs:subPropertyOf :hasConceptUsage ;
 	rdfs:domain :Story ;
 	rdfs:range :StoryDependent ;
-	<http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
 	<http://purl.org/dc/elements/1.1/date> "2026-02-23T00:00:00Z"^^xsd:dateTime ;
 	rdfs:comment "Links a story to a dependent-concept usage referencing a shared data element concept used internally rather than exposed as an input or output."@en ;
 	rdfs:label "has dependent concept"@en .
@@ -111,7 +107,6 @@
 :playedBy a owl:ObjectProperty , owl:FunctionalProperty ;
 	rdfs:domain :Story ;
 	rdfs:range persona:Persona ;
-	<http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
 	<http://purl.org/dc/elements/1.1/date> "2020-04-01T18:12:45Z"^^xsd:dateTime .
 # 
 # 
@@ -129,7 +124,6 @@
 	rdfs:domain :Story ;
 	rdfs:range xsd:boolean ;
 	owl:propertyDisjointWith :isSingular ;
-	<http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
 	<http://purl.org/dc/elements/1.1/date> "2020-05-06T09:38:46Z"^^xsd:dateTime ;
 	rdfs:comment "Do not use, use isSingular"@en .
 # 
@@ -138,7 +132,6 @@
 :isSingular a owl:DatatypeProperty , owl:FunctionalProperty ;
 	rdfs:domain :Story ;
 	rdfs:range xsd:boolean ;
-	<http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
 	<http://purl.org/dc/elements/1.1/date> "2020-05-06T09:37:47Z"^^xsd:dateTime ;
 	rdfs:comment "Means that the user story results in a singular Thing as its output"@en .
 # 
@@ -147,7 +140,6 @@
 :isUpdate a owl:DatatypeProperty , owl:FunctionalProperty ;
 	rdfs:domain :Story ;
 	rdfs:range xsd:boolean ;
-	<http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
 	<http://purl.org/dc/elements/1.1/date> "2020-05-06T09:37:47Z"^^xsd:dateTime ;
 	rdfs:comment "Means that the user story mutates the database by insert or delete statements"@en .
 # 
@@ -172,7 +164,6 @@
 :implementationType a owl:DatatypeProperty , owl:FunctionalProperty ;
 	rdfs:domain :StoryImplementation ;
 	rdfs:range xsd:token ;
-	<http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
 	<http://purl.org/dc/elements/1.1/date> "2026-02-23T00:00:00Z"^^xsd:dateTime ;
 	rdfs:comment "Coarse implementation type. Supported values: NamedStatement, ApiProxy, Workflow, AgentJob, Pipeline, UiAction."@en .
 # 
@@ -229,7 +220,6 @@ persona:Persona a owl:Class .
 :StoryInput a owl:Class ;
     rdfs:subClassOf :StoryConceptUsage ;
     owl:disjointWith :StoryOutput , :StoryDependent ;
-	<http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
 	<http://purl.org/dc/elements/1.1/date> "2020-04-01T17:24:36Z"^^xsd:dateTime ;
 	rdfs:comment "A story-owned input-concept usage referencing one reusable data element concept. Requiredness and server provision belong to this usage."@en .
 # 
@@ -238,7 +228,6 @@ persona:Persona a owl:Class .
 :StoryOutput a owl:Class ;
     rdfs:subClassOf :StoryConceptUsage ;
     owl:disjointWith :StoryDependent ;
-	<http://purl.org/dc/elements/1.1/creator> <http://orcid.org/0000-0003-2309-5068> ;
 	<http://purl.org/dc/elements/1.1/date> "2020-04-07T20:40:12Z"^^xsd:dateTime ;
 	rdfs:comment "A story-owned output-concept usage referencing one reusable data element concept produced by the story, including compound output meanings."@en .
 
@@ -628,7 +617,9 @@ concept:GraphPatternPosition a owl:NamedIndividual ;
 #################################################################
 
 <https://ekgf.org/ontology/story#>
-    <http://purl.org/dc/terms/license> <https://creativecommons.org/publicdomain/zero/1.0/> .
+    <http://purl.org/dc/terms/license> <https://creativecommons.org/publicdomain/zero/1.0/> ;
+    <http://purl.org/dc/terms/creator> <http://orcid.org/0000-0003-2309-5068> ;
+    <http://purl.org/dc/terms/rightsHolder> <urn:uuid:4cdd2ad4-9f4b-4923-b5b5-b48fc94cccfb> , <urn:uuid:c2c98445-9dac-4515-bd06-ce6c5bdace11> .
 
 <https://ekgf.org/ontology/story#AgentJobImplementation>
     rdfs:comment "A story implementation expressed as a job performed by an agent."@en ;

@@ -45,7 +45,6 @@ dc:date rdf:type owl:AnnotationProperty .
     rdf:type owl:InverseFunctionalProperty ;
     rdfs:domain :Statement ;
     rdfs:range :Parameter ;
-    dc:creator <http://orcid.org/0000-0003-2309-5068> ;
     dc:date "2020-04-01T18:16:18Z"^^xsd:dateTime .
 
 
@@ -69,7 +68,6 @@ dc:date rdf:type owl:AnnotationProperty .
         owl:FunctionalProperty ;
     rdfs:domain :Parameter ;
     rdfs:range :Statement ;
-    dc:creator <http://orcid.org/0000-0003-2309-5068> ;
     dc:date "2020-04-01T17:32:57Z"^^xsd:dateTime .
 
 
@@ -77,7 +75,6 @@ dc:date rdf:type owl:AnnotationProperty .
 :providedBy rdf:type owl:ObjectProperty ;
     rdfs:domain story:Story ;
     rdfs:range :StoryService ;
-    dc:creator <http://orcid.org/0000-0003-2309-5068> ;
     dc:date "2020-04-08T00:10:29Z"^^xsd:dateTime ;
     rdfs:comment
         "The execution of any given story can be done by (supplied by) a given (logical) instance of the story Service."@en ;
@@ -96,7 +93,6 @@ dc:date rdf:type owl:AnnotationProperty .
         owl:FunctionalProperty ;
     rdfs:domain :Parameter ;
     rdfs:range :StoryService ;
-    dc:creator <http://orcid.org/0000-0003-2309-5068> ;
     dc:date "2020-04-01T17:25:50Z"^^xsd:dateTime ;
     rdfs:comment "Identifies the story-service instance expected to generate a parameter. The property is functional; its intended distinction from other parameter-to-service relationships requires modeling review."@en .
 
@@ -109,7 +105,6 @@ dc:date rdf:type owl:AnnotationProperty .
 :isServiceParameter rdf:type owl:DatatypeProperty ;
     rdfs:domain :Parameter ;
     rdfs:range xsd:boolean ;
-    dc:creator <http://orcid.org/0000-0003-2309-5068> ;
     dc:date "2020-04-08T00:06:23Z"^^xsd:dateTime .
 
 
@@ -117,7 +112,6 @@ dc:date rdf:type owl:AnnotationProperty .
 :parameterDirection rdf:type owl:DatatypeProperty ;
     rdfs:domain :Parameter ;
     rdfs:range xsd:string ;
-    dc:creator <http://orcid.org/0000-0003-2309-5068> ;
     dc:date "2020-04-08T00:03:25Z"^^xsd:dateTime .
 
 
@@ -127,7 +121,6 @@ dc:date rdf:type owl:AnnotationProperty .
         owl:FunctionalProperty ;
     rdfs:domain :Parameter ;
     rdfs:range xsd:string ;
-    dc:creator <http://orcid.org/0000-0003-2309-5068> ;
     dc:date "2020-04-01T18:19:13Z"^^xsd:dateTime .
 
 
@@ -136,7 +129,6 @@ dc:date rdf:type owl:AnnotationProperty .
         owl:DatatypeProperty,
         owl:FunctionalProperty ;
     rdfs:domain :Parameter ;
-    dc:creator <http://orcid.org/0000-0003-2309-5068> ;
     dc:date "2020-04-01T18:21:12Z"^^xsd:dateTime .
 
 
@@ -146,7 +138,6 @@ dc:date rdf:type owl:AnnotationProperty .
         owl:FunctionalProperty ;
     rdfs:domain :Parameter ;
     rdfs:range xsd:string ;
-    dc:creator <http://orcid.org/0000-0003-2309-5068> ;
     dc:date "2020-04-01T18:20:08Z"^^xsd:dateTime .
 
 
@@ -154,7 +145,6 @@ dc:date rdf:type owl:AnnotationProperty .
 :resultKey rdf:type owl:DatatypeProperty ;
     rdfs:domain :Parameter ;
     rdfs:range xsd:string ;
-    dc:creator <http://orcid.org/0000-0003-2309-5068> ;
     dc:date "2020-04-07T20:46:55Z"^^xsd:dateTime .
 
 
@@ -162,7 +152,6 @@ dc:date rdf:type owl:AnnotationProperty .
 :resultType rdf:type owl:DatatypeProperty ;
     rdfs:domain :Result ;
     rdfs:range xsd:string ;
-    dc:creator <http://orcid.org/0000-0003-2309-5068> ;
     dc:date "2020-04-07T20:51:59Z"^^xsd:dateTime .
 
 
@@ -172,7 +161,6 @@ dc:date rdf:type owl:AnnotationProperty .
         owl:FunctionalProperty ;
     rdfs:domain story:Story ;
     rdfs:range xsd:string ;
-    dc:creator <http://orcid.org/0000-0003-2309-5068> ;
     dc:date "2020-04-07T20:50:13Z"^^xsd:dateTime .
 
 
@@ -180,7 +168,6 @@ dc:date rdf:type owl:AnnotationProperty .
 :sparqlStatementFileName rdf:type owl:DatatypeProperty ;
     rdfs:domain story:Story ;
     rdfs:range xsd:string ;
-    dc:creator <http://orcid.org/0000-0003-2309-5068> ;
     dc:date "2020-04-07T20:51:10Z"^^xsd:dateTime .
 
 
@@ -204,7 +191,6 @@ dc:date rdf:type owl:AnnotationProperty .
 ###  https://ekgf.org/ontology/story-service#SHACLStatement
 :SHACLStatement rdf:type owl:Class ;
     rdfs:subClassOf :Statement ;
-    dc:creator <http://orcid.org/0000-0003-2309-5068> ;
     dc:date "2020-04-01T18:14:13Z"^^xsd:dateTime ;
     rdfs:label "SHACL Statement"@en ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/story-service#> .
@@ -213,7 +199,6 @@ dc:date rdf:type owl:AnnotationProperty .
 ###  https://ekgf.org/ontology/story-service#SPARQLParameter
 :SPARQLParameter rdf:type owl:Class ;
     rdfs:subClassOf :Parameter ;
-    dc:creator <http://orcid.org/0000-0003-2309-5068> ;
     dc:date "2020-04-01T17:25:05Z"^^xsd:dateTime ;
     rdfs:label "SPARQL Parameter"@en ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/story-service#> .
@@ -222,7 +207,6 @@ dc:date rdf:type owl:AnnotationProperty .
 ###  https://ekgf.org/ontology/story-service#SPARQLResults
 :SPARQLResults rdf:type owl:Class ;
     rdfs:subClassOf :Result ;
-    dc:creator <http://orcid.org/0000-0003-2309-5068> ;
     dc:date "2020-04-07T20:40:18Z"^^xsd:dateTime ;
     rdfs:label "SPARQL Results"@en ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/story-service#> .
@@ -231,7 +215,6 @@ dc:date rdf:type owl:AnnotationProperty .
 ###  https://ekgf.org/ontology/story-service#SPARQLStatement
 :SPARQLStatement rdf:type owl:Class ;
     rdfs:subClassOf :Statement ;
-    dc:creator <http://orcid.org/0000-0003-2309-5068> ;
     dc:date "2020-04-01T17:24:10Z"^^xsd:dateTime ;
     rdfs:label "SPARQL Statement"@en ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/story-service#> .
@@ -240,14 +223,12 @@ dc:date rdf:type owl:AnnotationProperty .
 ###  https://ekgf.org/ontology/story-service#Statement
 :Statement rdf:type owl:Class ;
     owl:disjointWith :StoryService ;
-    dc:creator <http://orcid.org/0000-0003-2309-5068> ;
     dc:date "2020-04-01T17:24:43Z"^^xsd:dateTime ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/story-service#> .
 
 
 ###  https://ekgf.org/ontology/story-service#StoryService
 :StoryService rdf:type owl:Class ;
-    dc:creator <http://orcid.org/0000-0003-2309-5068> ;
     dc:date "2020-04-01T17:28:32Z"^^xsd:dateTime ;
     rdfs:label "Story Service"@en ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/story-service#> .
@@ -264,7 +245,9 @@ dc:date rdf:type owl:AnnotationProperty .
 #################################################################
 
 <https://ekgf.org/ontology/story-service#>
-    <http://purl.org/dc/terms/license> <https://creativecommons.org/publicdomain/zero/1.0/> .
+    <http://purl.org/dc/terms/license> <https://creativecommons.org/publicdomain/zero/1.0/> ;
+    <http://purl.org/dc/terms/creator> <http://orcid.org/0000-0003-2309-5068> ;
+    <http://purl.org/dc/terms/rightsHolder> <urn:uuid:4cdd2ad4-9f4b-4923-b5b5-b48fc94cccfb> , <urn:uuid:c2c98445-9dac-4515-bd06-ce6c5bdace11> .
 
 <https://ekgf.org/ontology/story-service#Parameter>
     rdfs:label "Parameter"@en ;

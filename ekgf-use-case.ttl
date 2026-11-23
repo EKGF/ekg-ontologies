@@ -33,13 +33,11 @@
 use-case:UseCase rdf:type owl:Class ;
     rdfs:label "Use Case"@en ;
     rdfs:isDefinedBy <https://ekgf.org/ontology/use-case#> ;
-    dc:creator <http://orcid.org/0000-0003-2309-5068> ;
     dc:date "2020-04-08T00:00:01Z"^^xsd:dateTime .
 
 use-case:UseCaseStereoType rdf:type owl:Class ;
     rdfs:label "Use Case Stereotype"@en ;
-    rdfs:comment "The kind of node a use case is in the use case tree."@en ;
-    dc:creator <http://orcid.org/0000-0003-2309-5068> .
+    rdfs:comment "The kind of node a use case is in the use case tree."@en .
 
 #################################################################
 #    Object Properties
@@ -57,7 +55,6 @@ use-case:isPartOf rdf:type owl:ObjectProperty ,
     rdfs:range use-case:UseCase ;
     rdfs:label "is part of"@en ;
     rdfs:comment "The parent of the use case in the use case tree. A use case without a parent is a root."@en ;
-    dc:creator <http://orcid.org/0000-0003-2309-5068> ;
     dc:date "2020-06-20T12:36:22Z"^^xsd:dateTime .
 
 use-case:isUsedIn rdf:type owl:ObjectProperty ,
@@ -88,7 +85,6 @@ use-case:involvesPersona rdf:type owl:ObjectProperty ;
     rdfs:range persona:Persona ;
     rdfs:label "Involves persona"@en ;
     rdfs:comment "The given persona is involved in the current use case"@en ;
-    dc:creator <http://orcid.org/0000-0003-2309-5068> ;
     dc:date "2020-06-20T14:13:55Z"^^xsd:dateTime .
 
 use-case:isInvolvedInUseCase rdf:type owl:ObjectProperty ;
@@ -96,14 +92,12 @@ use-case:isInvolvedInUseCase rdf:type owl:ObjectProperty ;
     rdfs:range use-case:UseCase ;
     rdfs:label "Is involved in"@en ;
     rdfs:comment "This persona is involved in the given use case"@en ;
-    dc:creator <http://orcid.org/0000-0003-2309-5068> ;
     dc:date "2020-04-08T00:01:05Z"^^xsd:dateTime .
 
 use-case:usesConcept rdf:type owl:ObjectProperty ;
     rdfs:domain use-case:UseCase ;
     rdfs:range concept:DataElementConcept ;
     rdfs:label "Uses concept"@en ;
-    dc:creator <http://orcid.org/0000-0003-2309-5068> ;
     dc:date "2020-06-20T12:40:26Z"^^xsd:dateTime .
 
 use-case:isUsedInUseCase rdf:type owl:ObjectProperty ;
@@ -112,7 +106,6 @@ use-case:isUsedInUseCase rdf:type owl:ObjectProperty ;
     rdfs:range use-case:UseCase ;
     rdfs:label "Is used in use case"@en ;
     rdfs:comment "The current data element concept is used in the given UseCase"@en ;
-    dc:creator <http://orcid.org/0000-0003-2309-5068> ;
     dc:date "2020-06-20T12:40:56Z"^^xsd:dateTime .
 
 use-case:ownsConceptSet rdf:type owl:ObjectProperty ;
@@ -124,7 +117,6 @@ use-case:usedIn rdf:type owl:ObjectProperty ;
     rdfs:range use-case:UseCase ;
     rdfs:label "Used in"@en ;
     rdfs:comment "The use case that a story or an outcome belongs to. It has no domain because both stories and outcomes carry it."@en ;
-    dc:creator <http://orcid.org/0000-0003-2309-5068> ;
     dc:date "2020-04-08T00:02:11Z"^^xsd:dateTime .
 
 use-case:hasColor rdf:type owl:ObjectProperty ;
@@ -228,7 +220,9 @@ use-case:UseCaseStereoTypeApplication rdf:type owl:NamedIndividual ,
 #################################################################
 
 <https://ekgf.org/ontology/use-case#>
-    <http://purl.org/dc/terms/license> <https://creativecommons.org/publicdomain/zero/1.0/> .
+    <http://purl.org/dc/terms/license> <https://creativecommons.org/publicdomain/zero/1.0/> ;
+    <http://purl.org/dc/terms/creator> <http://orcid.org/0000-0003-2309-5068> ;
+    <http://purl.org/dc/terms/rightsHolder> <urn:uuid:4cdd2ad4-9f4b-4923-b5b5-b48fc94cccfb> , <urn:uuid:c2c98445-9dac-4515-bd06-ce6c5bdace11> .
 
 <https://ekgf.org/ontology/use-case#UseCase>
     rdfs:comment "A description of a business interaction or need, organized in a use-case tree and connected to its stories, outcomes, and concepts."@en .

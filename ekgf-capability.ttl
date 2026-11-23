@@ -72,11 +72,9 @@
   rdfs:isDefinedBy <https://ekgf.org/ontology/capability#> .
 
 :Data_Sharing_and_Marketplace a owl:NamedIndividual, :Capability ;
-  <http://purl.org/dc/elements/1.1/creator> "Jacobus Geluk" ;
   <http://purl.org/dc/elements/1.1/date> "2023-08-28T12:55:43Z"^^xsd:dateTime .
 
 :Designing_and_Managing_Data_Products a owl:NamedIndividual, :SubCapability ;
-  <http://purl.org/dc/elements/1.1/creator> "Jacobus Geluk" ;
   <http://purl.org/dc/elements/1.1/date> "2023-08-28T12:56:51Z"^^xsd:dateTime .
 
 
@@ -86,7 +84,9 @@
 
 <https://ekgf.org/ontology/capability#>
     rdfs:comment "A vocabulary for capabilities and capability domains, with example capabilities for sharing data and managing data products. The current vocabulary does not define the relationships assigning capabilities to domains."@en ;
-    <http://purl.org/dc/terms/license> <https://creativecommons.org/publicdomain/zero/1.0/> .
+    <http://purl.org/dc/terms/license> <https://creativecommons.org/publicdomain/zero/1.0/> ;
+    <http://purl.org/dc/terms/creator> <http://orcid.org/0000-0003-2309-5068> ;
+    <http://purl.org/dc/terms/rightsHolder> <urn:uuid:4cdd2ad4-9f4b-4923-b5b5-b48fc94cccfb> , <urn:uuid:c2c98445-9dac-4515-bd06-ce6c5bdace11> .
 
 <https://ekgf.org/ontology/capability#Capability>
     rdfs:comment "An ability represented in the capability model, such as the ability to share data or manage data products."@en .

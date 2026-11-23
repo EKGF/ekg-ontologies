@@ -157,4 +157,11 @@ Run the checks in [Validation](#validation) locally before submitting changes.
 
 ## License
 
-See [LICENSE](LICENSE).
+The ontologies and registry datasets are dedicated to the public domain under
+[CC0 1.0 Universal](LICENSE). Each ontology header records this with
+`dct:license`, and records its rights holders with `dct:rightsHolder`:
+agnos.ai UK Ltd, whose work is donated to the Enterprise Knowledge Graph Forum,
+and EDM Association. The forum is a managed community of the Object Management
+Group, which is part of EDM Association (legal entity EDMCouncil Inc., doing
+business as Enterprise Data Management Association). Authorship is recorded
+once per ontology with `dct:creator`, not on individual terms.

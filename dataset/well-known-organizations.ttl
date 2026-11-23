@@ -28,18 +28,25 @@
     rdfs:seeAlso <https://www.omg.org/communities/enterprise-knowledge-graph-forum.htm> .
 
 <urn:uuid:ec3f703d-55a9-4bea-a818-e71705f8dd2e>
-    rdf:type cmns-org:Organization , cmns-org:LegalEntity ;
+    rdf:type cmns-org:Organization , cmns-org:OrganizationalSubUnit ;
     rdfs:label "Object Management Group"@en ;
+    rdfs:comment "An organizational sub-unit of EDM Association since EDM Association acquired the assets of the Object Management Group on 1 October 2025."@en ;
     artgov:organizationCategory artgov:StandardsBodyCategory , artgov:ConsortiumCategory ;
+    cmns-org:isSubUnitOf <urn:uuid:c2c98445-9dac-4515-bd06-ce6c5bdace11> ;
     cmns-org:hasWebsite "https://www.omg.org/"^^xsd:anyURI ;
-    rdfs:seeAlso <https://www.omg.org/about/> .
+    rdfs:seeAlso <https://www.omg.org/about/> , <https://www.omg.org/legal/> .
 
 <urn:uuid:c2c98445-9dac-4515-bd06-ce6c5bdace11>
-    rdf:type cmns-org:Organization ;
+    rdf:type cmns-org:Organization , cmns-org:LegalEntity ;
     rdfs:label "EDM Association"@en ;
+    rdfs:comment "The legal entity EDMCouncil Inc., doing business as Enterprise Data Management Association (EDMA). It acquired the assets of the Object Management Group on 1 October 2025."@en ;
     artgov:historicalName "Enterprise Data Management Council"@en , "EDM Council"@en ;
     cmns-org:hasWebsite "https://edmcouncil.org/"^^xsd:anyURI ;
     rdfs:seeAlso <https://edmcouncil.org/> .
+
+<urn:uuid:4cdd2ad4-9f4b-4923-b5b5-b48fc94cccfb>
+    rdf:type cmns-org:Organization , cmns-org:LegalEntity ;
+    rdfs:label "agnos.ai UK Ltd"@en .
 
 <urn:uuid:a3b0eb31-433a-4cda-8b20-7f47bfd424d1>
     rdf:type cmns-org:Organization ;

@@ -40,6 +40,12 @@ roles, and a role can be recorded before its player is identified.
 the community; `ekg-artgov:legalOwner` identifies the legal owner or
 administrator. Neither relationship substitutes for `isPlayedBy`.
 
+For example, the EKGF authority is played by the Enterprise Knowledge Graph
+Forum, an organizational sub-unit of the Object Management Group. The Object
+Management Group is in turn a sub-unit of EDM Association, which acquired its
+assets on 1 October 2025. EDM Association is therefore the authority's legal
+owner.
+
 An authority may have multiple `ekg-artgov:authorityHost` and
 `ekg-artgov:baseIri` values. Organizations may have multiple
 `cmns-org:hasWebsite` values. These are editable metadata, not keys.
