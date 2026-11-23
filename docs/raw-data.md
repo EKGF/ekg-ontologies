@@ -211,6 +211,35 @@ occurrences. `ColumnProfileShape` validates the profile.
   (linear interpolation, Hyndman and Fan type 7) are `xsd:double` values and
   apply only to numeric datatypes.
 
+## S3 objects
+
+A source read from Amazon S3, or from an S3-compatible store, is also an
+`S3Object`, alongside its format class. The capture step records the object
+as the store reported it when it was read:
+
+- **Location:** `s3Bucket`, `s3Key`, and optionally `s3Region`, `s3Endpoint`
+  (for stores other than Amazon S3) and `s3VersionId`.
+- **Object metadata:** `s3ETag` (without its quotes), `s3ContentType`,
+  `s3ContentEncoding`, `s3ContentLanguage`, `s3ContentDisposition`,
+  `s3CacheControl`, `s3StorageClass`, `s3PartsCount`, `s3ReplicationStatus`
+  and `s3Expiration`, each verbatim.
+- **Checksums:** `s3ChecksumType` and the CRC32, CRC32C, CRC64NVME, SHA-1 and
+  SHA-256 checksums S3 stores, base64-encoded as S3 returns them. These are
+  separate from the SHA-256 the capture step computes over the content.
+- **Encryption and retention:** `s3ServerSideEncryption`, `s3KmsKeyId`,
+  `s3BucketKeyEnabled`, `s3ObjectLockMode`, `s3ObjectLockRetainUntil` and
+  `s3ObjectLockLegalHold`.
+- **Tags and user metadata:** key-value entries, linked with `s3Tag` and
+  `s3UserMetadata`, each with `s3EntryKey` and `s3EntryValue`.
+
+`S3ObjectShape` and `S3EntryShape` validate these.
+
+The S3 properties, like the git origin properties, describe one place where
+the content was found, but they are stated on the content-addressed source.
+The same bytes stored under two keys and captured in separate runs therefore
+give one source with conflicting location metadata. Whether locations should
+become resources of their own is an open modelling question.
+
 ## Remaining model work
 
 Content and row/column location are validated. The following work is still open:
@@ -221,6 +250,8 @@ Content and row/column location are validated. The following work is still open:
 - Coordinate conventions and bounds.
 - Source-key structure and identity policy.
 - The semantics and property type of predicate mappings.
+- Separating where content was found (file paths, git origins, S3 objects)
+  from the content itself.
 - Translation of column formulas (`formulaR1C1`) into SPARQL or SHACL rules,
   and cross-view formula references.
 
