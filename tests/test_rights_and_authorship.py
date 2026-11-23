@@ -11,6 +11,8 @@ DCT = Namespace("http://purl.org/dc/terms/")
 DC = Namespace("http://purl.org/dc/elements/1.1/")
 ARTGOV = Namespace("https://ekgf.org/ontology/artifact-governance#")
 CMNS_ORG = Namespace("https://www.omg.org/spec/Commons/Organizations/")
+MIT = URIRef("https://opensource.org/licenses/MIT")
+CMNS_AV = Namespace("https://www.omg.org/spec/Commons/AnnotationVocabulary/")
 AUTHOR = URIRef("http://orcid.org/0000-0003-2309-5068")
 EDM_ASSOCIATION = URIRef("urn:uuid:c2c98445-9dac-4515-bd06-ce6c5bdace11")
 OMG = URIRef("urn:uuid:ec3f703d-55a9-4bea-a818-e71705f8dd2e")
@@ -24,7 +26,7 @@ class RightsAndAuthorshipTests(unittest.TestCase):
         for name in ("well-known-organizations.ttl", "well-known-authorities.ttl"):
             cls.registry.parse(ROOT / "dataset" / name)
         cls.agnos, = [s for s, label in cls.registry.subject_objects(URIRef("http://www.w3.org/2000/01/rdf-schema#label"))
-                      if str(label) == "agnos.ai UK Ltd"]
+                      if str(label) == "agnos.ai U.K. Ltd"]
 
     def test_every_ontology_header_names_its_creator_and_rights_holders(self):
         for path in sorted(ROOT.glob("ekgf-*.ttl")):
@@ -34,6 +36,10 @@ class RightsAndAuthorshipTests(unittest.TestCase):
                 self.assertEqual(set(graph.objects(ontology, DCT.creator)), {AUTHOR})
                 self.assertEqual(set(graph.objects(ontology, DCT.rightsHolder)),
                                  {self.agnos, EDM_ASSOCIATION})
+                self.assertEqual(set(graph.objects(ontology, DCT.license)), {MIT})
+                self.assertEqual({str(v) for v in graph.objects(ontology, CMNS_AV.copyright)},
+                                 {"Copyright (c) 2020-2026 agnos.ai U.K. Ltd",
+                                  "Copyright (c) 2025-2026 EDM Association"})
 
     def test_terms_carry_no_individual_author_stamps(self):
         for path in sorted(ROOT.glob("ekgf-*.ttl")):

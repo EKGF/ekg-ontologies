@@ -7,7 +7,7 @@ At that point, all 704 locally defined, named, explicitly typed resources had an
 English label, a definition, and `rdfs:isDefinedBy` pointing to their source
 ontology. These included classes, properties, named individuals, datatypes, and
 named SHACL shapes. Each ontology header also received a name, a description,
-and the repository's CC0 license link. Coverage checks continue to apply as the
+and the repository's license link. Coverage checks continue to apply as the
 model evolves.
 
 That pass added 135 labels, 288 definitions, 665 defining-ontology links, and 24

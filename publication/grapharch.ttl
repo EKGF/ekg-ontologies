@@ -78,7 +78,7 @@ doc:specification a ga:Target ;
     ga:thisVersion <https://ekgf.github.io/ekg-ontologies/spec/main/> ;
     ga:latestVersion <https://ekgf.github.io/ekg-ontologies/spec/main/> ;
     ga:editorDraft <https://github.com/EKGF/ekg-ontologies> ;
-    ga:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
+    ga:license <https://opensource.org/licenses/MIT> ;
     ga:metadataRow doc:thisVersionRow, doc:latestVersionRow, doc:editorDraftRow,
         doc:licenseRow, doc:downloadsRow .
 
@@ -86,7 +86,7 @@ doc:thisVersionRow dct:title "This version" ; ga:field "thisVersion" ; ga:order 
 doc:latestVersionRow dct:title "Latest version" ; ga:field "latestVersion" ; ga:order 2 .
 doc:editorDraftRow dct:title "Source" ; ga:field "editorDraft" ; ga:order 3 .
 doc:licenseRow dct:title "License" ; ga:field "custom" ; ga:order 4 ;
-    ga:body "<a href='https://creativecommons.org/publicdomain/zero/1.0/'>CC0 1.0</a>" .
+    ga:body "<a href='https://opensource.org/licenses/MIT'>MIT</a>" .
 doc:downloadsRow dct:title "Downloads" ; ga:field "custom" ; ga:order 5 ;
     ga:body "<a href='urn:ekgf-ontologies:documentation:pdf'>Family reference PDF</a> · <a href='documentation.nq'>Documentation graph</a> · <a href='urn:ekgf-ontologies:documentation:website'>EKGF Ontologies home</a>" .
 
@@ -105,7 +105,7 @@ doc:pdf a ga:Target ;
     ga:thisVersion <https://ekgf.github.io/ekg-ontologies/pdf/ekgf-spec-ekg-ontologies.pdf> ;
     ga:latestVersion <https://ekgf.github.io/ekg-ontologies/pdf/ekgf-spec-ekg-ontologies.pdf> ;
     ga:editorDraft <https://github.com/EKGF/ekg-ontologies> ;
-    ga:license <https://creativecommons.org/publicdomain/zero/1.0/> .
+    ga:license <https://opensource.org/licenses/MIT> .
 
 <urn:uuid:6c1408aa-039c-42f9-8dee-9c3f0009d61a>
     ga:slug "ekgf" ;

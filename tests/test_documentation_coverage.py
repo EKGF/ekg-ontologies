@@ -65,7 +65,7 @@ class DocumentationCoverageTests(unittest.TestCase):
                 self.assertTrue(english(graph.objects(ontology, RDFS.label)))
                 self.assertTrue(english_definitions(graph, ontology))
                 self.assertEqual(list(graph.objects(ontology, DCT.license)),
-                                 [URIRef("https://creativecommons.org/publicdomain/zero/1.0/")])
+                                 [URIRef("https://opensource.org/licenses/MIT")])
 
     def test_capability_class_labels_describe_classes_not_example_instances(self):
         graph = Graph().parse(ROOT / "ekgf-capability.ttl", format="turtle")

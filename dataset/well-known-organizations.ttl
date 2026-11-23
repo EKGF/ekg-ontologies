@@ -46,7 +46,7 @@
 
 <urn:uuid:4cdd2ad4-9f4b-4923-b5b5-b48fc94cccfb>
     rdf:type cmns-org:Organization , cmns-org:LegalEntity ;
-    rdfs:label "agnos.ai UK Ltd"@en .
+    rdfs:label "agnos.ai U.K. Ltd"@en .
 
 <urn:uuid:a3b0eb31-433a-4cda-8b20-7f47bfd424d1>
     rdf:type cmns-org:Organization ;
