@@ -27,6 +27,8 @@ class RightsAndAuthorshipTests(unittest.TestCase):
             cls.registry.parse(ROOT / "dataset" / name)
         cls.agnos, = [s for s, label in cls.registry.subject_objects(URIRef("http://www.w3.org/2000/01/rdf-schema#label"))
                       if str(label) == "agnos.ai U.K. Ltd"]
+        cls.dataroad, = [s for s, label in cls.registry.subject_objects(URIRef("http://www.w3.org/2000/01/rdf-schema#label"))
+                         if str(label) == "DataRoad Inc"]
 
     def test_every_ontology_header_names_its_creator_and_rights_holders(self):
         for path in sorted(ROOT.glob("ekgf-*.ttl")):
@@ -35,11 +37,13 @@ class RightsAndAuthorshipTests(unittest.TestCase):
             with self.subTest(path=path.name):
                 self.assertEqual(set(graph.objects(ontology, DCT.creator)), {AUTHOR})
                 self.assertEqual(set(graph.objects(ontology, DCT.rightsHolder)),
-                                 {self.agnos, EDM_ASSOCIATION})
+                                 {self.agnos, EDM_ASSOCIATION, self.dataroad})
                 self.assertEqual(set(graph.objects(ontology, DCT.license)), {MIT})
                 self.assertEqual({str(v) for v in graph.objects(ontology, CMNS_AV.copyright)},
                                  {"Copyright (c) 2020-2026 agnos.ai U.K. Ltd",
-                                  "Copyright (c) 2025-2026 EDM Association"})
+                                  "Copyright (c) 2025-2026 EDM Association",
+                                  "Copyright (c) 2024-2026 DataRoad Inc, Delaware USA, "
+                                  "operating under the name Legra"})
 
     def test_terms_carry_no_individual_author_stamps(self):
         for path in sorted(ROOT.glob("ekgf-*.ttl")):

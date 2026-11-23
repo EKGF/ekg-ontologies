@@ -307,9 +307,10 @@
     rdfs:label "Maturity Model Ontology"@en ;
     rdfs:comment "A vocabulary for organizing maturity models into pillars, capability areas, capabilities, and levels, with an example EKGF model containing four pillars and five numbered levels."@en ;
     <http://purl.org/dc/terms/license> <https://opensource.org/licenses/MIT> ;
-    <https://www.omg.org/spec/Commons/AnnotationVocabulary/copyright> "Copyright (c) 2020-2026 agnos.ai U.K. Ltd" , "Copyright (c) 2025-2026 EDM Association" ;
+    <https://www.omg.org/spec/Commons/AnnotationVocabulary/copyright> "Copyright (c) 2020-2026 agnos.ai U.K. Ltd" , "Copyright (c) 2025-2026 EDM Association" ,
+        "Copyright (c) 2024-2026 DataRoad Inc, Delaware USA, operating under the name Legra" ;
     <http://purl.org/dc/terms/creator> <http://orcid.org/0000-0003-2309-5068> ;
-    <http://purl.org/dc/terms/rightsHolder> <urn:uuid:4cdd2ad4-9f4b-4923-b5b5-b48fc94cccfb> , <urn:uuid:c2c98445-9dac-4515-bd06-ce6c5bdace11> .
+    <http://purl.org/dc/terms/rightsHolder> <urn:uuid:4cdd2ad4-9f4b-4923-b5b5-b48fc94cccfb> , <urn:uuid:c2c98445-9dac-4515-bd06-ce6c5bdace11> , <urn:uuid:6387b30f-8473-4fe0-b8d5-6f4257c1e25f> .
 
 <https://ekgf.org/ontology/ekgf-maturity-model#BusinessPillar>
     rdfs:comment "The business dimension of the example EKGF maturity model."@en ;

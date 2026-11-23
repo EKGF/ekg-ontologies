@@ -46,7 +46,13 @@
 
 <urn:uuid:4cdd2ad4-9f4b-4923-b5b5-b48fc94cccfb>
     rdf:type cmns-org:Organization , cmns-org:LegalEntity ;
-    rdfs:label "agnos.ai U.K. Ltd"@en .
+    rdfs:label "agnos.ai U.K. Ltd"@en ;
+    rdfs:comment "Sold all its intellectual property to DataRoad Inc in 2024."@en .
+
+<urn:uuid:6387b30f-8473-4fe0-b8d5-6f4257c1e25f>
+    rdf:type cmns-org:Organization , cmns-org:LegalEntity ;
+    rdfs:label "DataRoad Inc"@en ;
+    rdfs:comment "A Delaware, USA corporation operating under the name Legra. It acquired the intellectual property of agnos.ai U.K. Ltd in 2024."@en .
 
 <urn:uuid:a3b0eb31-433a-4cda-8b20-7f47bfd424d1>
     rdf:type cmns-org:Organization ;

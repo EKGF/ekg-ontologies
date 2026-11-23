@@ -161,11 +161,13 @@ The ontologies and registry datasets are licensed under the [MIT License](LICENS
 following the OMG Commons ontologies:
 
 - Copyright (c) 2020-2026 agnos.ai U.K. Ltd
+- Copyright (c) 2024-2026 DataRoad Inc, Delaware USA, operating under the name Legra
 - Copyright (c) 2025-2026 EDM Association
 
 Each ontology header records the license with `dct:license`, the copyright
 notices with `cmns-av:copyright`, and the rights holders with `dct:rightsHolder`.
-agnos.ai U.K. Ltd's work is donated to the Enterprise Knowledge Graph Forum, a
+agnos.ai U.K. Ltd sold all its intellectual property to DataRoad Inc in 2024. This work
+is donated to the Enterprise Knowledge Graph Forum, a
 managed community of the Object Management Group, which is part of EDM
 Association (legal entity EDMCouncil Inc., doing business as Enterprise Data
 Management Association). Authorship is recorded once per ontology with
