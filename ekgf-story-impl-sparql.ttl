@@ -343,7 +343,7 @@ sparql-story:Virtuoso rdf:type
 
 <https://ekgf.org/ontology/story-impl-sparql#>
     <http://purl.org/dc/terms/license> <https://opensource.org/licenses/MIT> ;
-    <https://www.omg.org/spec/Commons/AnnotationVocabulary/copyright> "Copyright (c) 2020-2026 agnos.ai U.K. Ltd" , "Copyright (c) 2025-2026 EDM Association" ,
+    <https://www.omg.org/spec/Commons/AnnotationVocabulary/copyright> "Copyright (c) 2020-2024 agnos.ai U.K. Ltd" , "Copyright (c) 2025-2026 EDM Association" ,
         "Copyright (c) 2024-2026 DataRoad Inc, Delaware USA, operating under the name Legra" ;
     <http://purl.org/dc/terms/creator> <http://orcid.org/0000-0003-2309-5068> ;
     <http://purl.org/dc/terms/rightsHolder> <urn:uuid:4cdd2ad4-9f4b-4923-b5b5-b48fc94cccfb> , <urn:uuid:c2c98445-9dac-4515-bd06-ce6c5bdace11> , <urn:uuid:6387b30f-8473-4fe0-b8d5-6f4257c1e25f> .

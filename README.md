@@ -160,7 +160,7 @@ Run the checks in [Validation](#validation) locally before submitting changes.
 The ontologies and registry datasets are licensed under the [MIT License](LICENSE),
 following the OMG Commons ontologies:
 
-- Copyright (c) 2020-2026 agnos.ai U.K. Ltd
+- Copyright (c) 2020-2024 agnos.ai U.K. Ltd
 - Copyright (c) 2024-2026 DataRoad Inc, Delaware USA, operating under the name Legra
 - Copyright (c) 2025-2026 EDM Association
 
