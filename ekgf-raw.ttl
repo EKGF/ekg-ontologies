@@ -451,6 +451,13 @@
     rdfs:comment "The git blob object id, as lowercase hexadecimal, of the captured bytes. It is computed from the content alone, so it is present whether or not the file is in a repository, and equals the id git would assign to the same bytes."@en ;
     rdfs:isDefinedBy : .
 
+:checksumByteCount
+    a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:range xsd:nonNegativeInteger ;
+    rdfs:label "Checksum byte count"@en ;
+    rdfs:comment "Limits a checksum (an spdx:Checksum) to the first N bytes of its file. A file cannot contain the checksum of its own final bytes, so a capture step that embeds a checksum in its output records it over the bytes that precede the checksum and states their number here. Without this property a checksum covers the whole file."@en ;
+    rdfs:isDefinedBy : .
+
 :gitModified
     a owl:DatatypeProperty , owl:FunctionalProperty ;
     rdfs:domain :File ;
@@ -878,6 +885,23 @@
     ] ;
     rdfs:label "View Number Shape"@en ;
     rdfs:comment "Validates the 1-based position of a view within its source."@en ;
+    rdfs:isDefinedBy : .
+
+:ChecksumByteCountShape a sh:NodeShape ;
+    sh:targetSubjectsOf :checksumByteCount ;
+    sh:property [
+        sh:path :checksumByteCount ; sh:maxCount 1 ;
+        sh:datatype xsd:nonNegativeInteger ;
+        sh:message "A checksum covers one byte count, an xsd:nonNegativeInteger."@en
+    ] , [
+        sh:path <http://spdx.org/rdf/terms#checksumValue> ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:message "A checksum with a byte count has exactly one spdx:checksumValue."@en
+    ] , [
+        sh:path <http://spdx.org/rdf/terms#algorithm> ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:message "A checksum with a byte count has exactly one spdx:algorithm."@en
+    ] ;
+    rdfs:label "Checksum Byte Count Shape"@en ;
+    rdfs:comment "Validates a checksum limited to the leading bytes of its file: one byte count, with the value and algorithm needed to verify it."@en ;
     rdfs:isDefinedBy : .
 
 :GitOriginShape a sh:NodeShape ;
