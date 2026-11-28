@@ -18,7 +18,7 @@ jobs:
         run: python3 -B -m unittest discover -s tests -p test_grapharch_build.py
       - name: Install the GraphArch release of the pinned action
         id: grapharch
-        uses: EKGF/grapharch@615760949a54246d2cb29b1b164478fa3ed0ccdf # v0.2.26
+        uses: EKGF/grapharch@ccba494699bd91efb7edcd7a44ec616a0b949743 # v0.2.31
         with:
           mode: install
       - name: Build and package the EKGF ontology family website
