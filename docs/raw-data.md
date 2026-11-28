@@ -177,6 +177,12 @@ computed it. They are validated by `ViewNumberShape`, `GitOriginShape`,
   using `/`) and `gitModified`. The optional `gitRepository` is the default
   remote's URL. `gitModified false` means the capture can be reproduced from
   history. Commit, path and modification state are recorded together.
+- **Embedded checksums.** A file cannot contain the checksum of its own final
+  bytes. A capture step that embeds a checksum in its output therefore computes
+  it over the bytes before the checksum and records their number with
+  `checksumByteCount` on the `spdx:Checksum`. Verifying it means hashing the
+  first `checksumByteCount` bytes, for example `head -c N file | sha256sum`.
+  A checksum without `checksumByteCount` covers the whole file.
 - **Formulas.** A formula cell is an ordinary `Value` whose `literalValue` is
   the result the source cached. If there is no cached result, it is a
   `NullValue`. `formula` keeps the A1 text verbatim, without the leading `=`.
